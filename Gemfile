@@ -6,7 +6,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'taps'
+# gem 'taps'
 # gem 'devise'
 # gem "paperclip", "~> 2.3"
 # gem 'geokit-rails3'
