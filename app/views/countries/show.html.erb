@@ -1,0 +1,16 @@
+<% title "Country" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @country.name %>
+</p>
+<p>
+  <strong>Desc:</strong>
+  <%= @country.desc %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_country_path(@country) %> |
+  <%= link_to "Destroy", @country, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", countries_path %>
+</p>

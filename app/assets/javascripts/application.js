@@ -13,3 +13,71 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+
+var snapshotMap;
+/*------------------------------------------------------- map data array */
+var snapshotMapData = new Array();
+/*------------------------------------------------------- mapMarkerCluster object */
+var mapMarkerCluster;
+/*------------------------------------------------------- map styling object */
+var snapshotMapStyles = [
+	{
+		featureType: 'water',
+		stylers: [
+			{ hue: '#77bbdd' },
+			{ saturation: -27 },
+			{ lightness: 12 },
+			{ visibility: 'on' }
+		]
+	}
+];
+/*------------------------------------------------------- map variables */
+var mapReady = false;
+var zoomLevel = 5;
+/*------------------------------------------------------- create map */
+function createMap() {
+	// Use snapshot map style
+	var snapshotMapType = new google.maps.StyledMapType(
+			snapshotMapStyles,
+			{ name: 'Snapshot' }
+	);
+	// map options
+	var mapOptions = {
+		center: new google.maps.LatLng(51.508129,0),
+		mapTypeControl: false,
+		mapTypeControlOptions: {
+			mapTypeIds: [google.maps.MapTypeId, 'snapshotMapStyles']
+		},
+		minZoom: 1,
+		streetViewControl: false,
+		panControl: false,
+		zoom: zoomLevel,
+		zoomControlOptions: {
+			position: google.maps.ControlPosition.LEFT_BOTTOM
+		}
+	};
+	// create map
+	snapshotMap = new google.maps.Map(
+			document.getElementById('map_canvas'),
+			mapOptions
+	);
+	snapshotMap.mapTypes.set('snapshotMapStyles', snapshotMapType);
+	snapshotMap.setMapTypeId('snapshotMapStyles');
+	// show markers onload
+	setTimeout(
+			function() {
+				google.maps.event.addDomListener(
+						window,
+						'load',
+						// live
+						showMapMarkers('get_markers.php')
+						// local
+//						showMapMarkers('get_markers.json')
+				);
+			},
+			986
+	);
+	// allow interaction
+	mapReady = true;
+}

@@ -6,6 +6,11 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+gem 'taps'
+# gem 'devise'
+# gem "paperclip", "~> 2.3"
+# gem 'geokit-rails3'
+# gem "aws-s3"
 
 
 # Gems used only for assets and not required
@@ -20,6 +25,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 group :test, :development do
+  gem "nifty-generators"	
   gem "rspec-rails", "~> 2.0"
 end
 
@@ -39,3 +45,5 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem "mocha", :group => :test

@@ -1,0 +1,19 @@
+<% title "Sectors" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Desc</th>
+  </tr>
+  <% for sector in @sectors %>
+    <tr>
+      <td><%= sector.name %></td>
+      <td><%= sector.desc %></td>
+      <td><%= link_to "Show", sector %></td>
+      <td><%= link_to "Edit", edit_sector_path(sector) %></td>
+      <td><%= link_to "Destroy", sector, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Sector", new_sector_path %></p>
