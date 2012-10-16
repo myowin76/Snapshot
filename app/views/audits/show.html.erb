@@ -2,24 +2,26 @@
 
 <p>
   <b>Store:</b>
-  <%= @audit.store %>
+  <%= @audit.store.name %>
 </p>
 
 <p>
   <b>Environment type:</b>
-  <%= @audit.environment_type %>
+  <%= @audit.environment_type.name %>
 </p>
 
 <p>
   <b>Channel:</b>
-  <%= @audit.channel %>
+  <%= @audit.channel.name %>
 </p>
 
 <p>
   <b>Retailer:</b>
-  <%= @audit.retailer %>
+  <%= @audit.retailer.name %>
 </p>
-
+<% @audit.photos.each do |photo| %>
+ <%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %>
+<% end %>  
 
 <%= link_to 'Edit', edit_audit_path(@audit) %> |
 <%= link_to 'Back', audits_path %>
