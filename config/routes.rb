@@ -1,4 +1,6 @@
 Snapshot::Application.routes.draw do
+  resources :stores
+
   get "pages/home"
 
   get "pages/contact"
