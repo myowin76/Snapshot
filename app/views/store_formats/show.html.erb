@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @store_format.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @store_format.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_store_format_path(@store_format) %> |
+<%= link_to 'Back', store_formats_path %>

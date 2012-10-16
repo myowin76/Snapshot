@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @media_location.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @media_location.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_media_location_path(@media_location) %> |
+<%= link_to 'Back', media_locations_path %>

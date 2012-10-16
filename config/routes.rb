@@ -1,4 +1,24 @@
 Snapshot::Application.routes.draw do
+  get "pages/home"
+
+  get "pages/contact"
+
+  resources :media_types
+
+  resources :media_vehicles
+
+  resources :media_locations
+
+  resources :categories
+
+  resources :brands
+
+  resources :channels
+
+  resources :store_formats
+
+  resources :retailers
+
   resources :sectors
 
   resources :countries
@@ -52,8 +72,8 @@ Snapshot::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
+  #  root :to => 'welcome#index'
+  root :to => 'pages#home'
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.

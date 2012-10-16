@@ -1,0 +1,2 @@
+module MediaVehiclesHelper
+end
