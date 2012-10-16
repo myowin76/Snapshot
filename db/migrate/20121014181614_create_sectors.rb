@@ -12,7 +12,6 @@ class CreateSectors < ActiveRecord::Migration
     Sector.create(:name => 'Department and Multicagtegory', :desc => '')
     Sector.create(:name => 'DIY, Furniture, Homeware', :desc => '')
     Sector.create(:name => 'Electricals, Mobile Telecoms', :desc => '')
-    Sector.create(:name => 'Electricals, Mobile Telecoms', :desc => '')
     Sector.create(:name => 'Estate agents', :desc => '')
     Sector.create(:name => 'Financial Services', :desc => '')
     Sector.create(:name => 'Grocery', :desc => '')

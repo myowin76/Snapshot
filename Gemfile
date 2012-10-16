@@ -7,6 +7,7 @@ gem 'rails', '3.2.8'
 
 gem 'mysql2'
 gem 'simple_form'
+gem 'thin'
 gem "pg", :group => :production
 # gem 'taps'
 # gem 'devise'
