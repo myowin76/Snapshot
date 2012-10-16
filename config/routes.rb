@@ -1,4 +1,10 @@
 Snapshot::Application.routes.draw do
+  resources :photos
+
+  resources :audits
+
+  resources :environment_types
+
   resources :stores
 
   get "pages/home"

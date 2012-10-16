@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @environment_type.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @environment_type.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_environment_type_path(@environment_type) %> |
+<%= link_to 'Back', environment_types_path %>

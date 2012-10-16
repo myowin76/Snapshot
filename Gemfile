@@ -8,10 +8,13 @@ gem 'rails', '3.2.8'
 gem 'mysql2'
 gem 'simple_form'
 gem 'thin'
+gem 'jquery-rails'
 gem "pg", :group => :production
+gem "paperclip", "~> 3.1"
+
 # gem 'taps'
 # gem 'devise'
-# gem "paperclip", "~> 2.3"
+# gem "paperclip", "~> 3.1"
 # gem 'geokit-rails3'
 # gem "aws-s3"
 
@@ -32,7 +35,7 @@ group :test, :development do
   gem "rspec-rails", "~> 2.0"
 end
 
-gem 'jquery-rails'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

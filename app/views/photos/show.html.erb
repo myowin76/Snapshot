@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Brand:</b>
+  <%= @photo.brand %>
+</p>
+
+<p>
+  <b>Audit:</b>
+  <%= @photo.audit %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @photo.category %>
+</p>
+
+<p>
+  <b>Media location:</b>
+  <%= @photo.media_location %>
+</p>
+
+<p>
+  <b>Media vehicle:</b>
+  <%= @photo.media_vehicle %>
+</p>
+
+<p>
+  <b>Media type:</b>
+  <%= @photo.media_type %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @photo.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_photo_path(@photo) %> |
+<%= link_to 'Back', photos_path %>

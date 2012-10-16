@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Store:</b>
+  <%= @audit.store %>
+</p>
+
+<p>
+  <b>Environment type:</b>
+  <%= @audit.environment_type %>
+</p>
+
+<p>
+  <b>Channel:</b>
+  <%= @audit.channel %>
+</p>
+
+<p>
+  <b>Retailer:</b>
+  <%= @audit.retailer %>
+</p>
+
+
+<%= link_to 'Edit', edit_audit_path(@audit) %> |
+<%= link_to 'Back', audits_path %>

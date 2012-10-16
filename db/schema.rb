@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121016114322) do
+ActiveRecord::Schema.define(:version => 20121016150721) do
+
+  create_table "audits", :force => true do |t|
+    t.integer  "store_id"
+    t.integer  "environment_type_id"
+    t.integer  "channel_id"
+    t.integer  "retailer_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "audits", ["channel_id"], :name => "index_audits_on_channel_id"
+  add_index "audits", ["environment_type_id"], :name => "index_audits_on_environment_type_id"
+  add_index "audits", ["retailer_id"], :name => "index_audits_on_retailer_id"
+  add_index "audits", ["store_id"], :name => "index_audits_on_store_id"
 
   create_table "brands", :force => true do |t|
     t.string   "name"
@@ -42,6 +56,13 @@ ActiveRecord::Schema.define(:version => 20121016114322) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "environment_types", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "media_locations", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -62,6 +83,29 @@ ActiveRecord::Schema.define(:version => 20121016114322) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "brand_id"
+    t.integer  "audit_id"
+    t.integer  "category_id"
+    t.integer  "media_location_id"
+    t.integer  "media_vehicle_id"
+    t.integer  "media_type_id"
+    t.text     "description"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
+  add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"
+  add_index "photos", ["brand_id"], :name => "index_photos_on_brand_id"
+  add_index "photos", ["category_id"], :name => "index_photos_on_category_id"
+  add_index "photos", ["media_location_id"], :name => "index_photos_on_media_location_id"
+  add_index "photos", ["media_type_id"], :name => "index_photos_on_media_type_id"
+  add_index "photos", ["media_vehicle_id"], :name => "index_photos_on_media_vehicle_id"
 
   create_table "retailers", :force => true do |t|
     t.string   "name"

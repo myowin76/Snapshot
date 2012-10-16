@@ -1,0 +1,35 @@
+<h1>Listing photos</h1>
+
+<table>
+  <tr>
+    <th>Brand</th>
+    <th>Audit</th>
+    <th>Category</th>
+    <th>Media location</th>
+    <th>Media vehicle</th>
+    <th>Media type</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @photos.each do |photo| %>
+  <tr>
+    <td><%= photo.brand.name %></td>
+    <td><%= photo.audit.id %></td>
+    <td><%= photo.category.name %></td>
+    <td><%= photo.media_location.name %></td>
+    <td><%= photo.media_vehicle.name %></td>
+    <td><%= photo.media_type.name %></td>
+    <td><%= photo.description %></td>
+    <td><%= link_to 'Show', photo %></td>
+    <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
+    <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Photo', new_photo_path %>
