@@ -1,3 +1,9 @@
+<% javascript 'jquery.gmap.min' %>
+<% content_for :head do %>
+  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAM41OPHNEzeRe7qzntS2dZxRhUbQCvgHcewKkuhV-KkriOp2HwhReuvtd5emO1MhE-giChvNKkDVHIA&sensor=true"
+          type="text/javascript"></script>
+<% end %>          
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -22,12 +28,12 @@
 
 <p>
   <b>Store format:</b>
-  <%= @store.store_format %>
+  <%= @store.store_format.name %>
 </p>
 
 <p>
   <b>Retailer:</b>
-  <%= @store.retailer %>
+  <%= @store.retailer.name %>
 </p>
 
 <p>

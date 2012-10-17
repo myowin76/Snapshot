@@ -9,15 +9,18 @@ gem 'mysql2'
 gem 'simple_form'
 gem 'thin'
 gem 'jquery-rails'
-gem "pg", :group => :production
 gem "paperclip", "~> 3.1"
-
-# gem 'taps'
-# gem 'devise'
+gem 'taps'
+gem 'geokit-rails3'
+gem 'devise'
+gem 'will_paginate', '~> 3.0.0'
 # gem "paperclip", "~> 3.1"
 # gem 'geokit-rails3'
 # gem "aws-s3"
 
+group :production do
+	gem "pg"
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -30,12 +33,15 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-group :test, :development do
+group :development do
   gem "nifty-generators"	
-  gem "rspec-rails", "~> 2.0"
+	# gem 'debugger'
 end
 
-
+group :test do
+  gem "rspec-rails", "~> 2.0"	
+	gem "mocha"
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -50,6 +56,4 @@ end
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
 
-gem "mocha", :group => :test

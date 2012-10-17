@@ -25,7 +25,7 @@ class AuditsController < ApplicationController
   # GET /audits/new.json
   def new
     @audit = Audit.new
-    @audit.photos.build
+    5.times {@audit.photos.build}
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @audit }
@@ -35,7 +35,7 @@ class AuditsController < ApplicationController
   # GET /audits/1/edit
   def edit
     @audit = Audit.find(params[:id])
-    @audit.photos.build
+    5.times{@audit.photos.build}
   end
 
   # POST /audits
