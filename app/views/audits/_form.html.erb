@@ -3,8 +3,8 @@
 
   <div class="form-inputs">
     <%= f.association :retailer,:include_blank => false %>
-    <%#= f.association :store, :include_blank => false, :input_html => { :id => 'dd_store_id' } %>
-    <%= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
+    <%= f.association :store, :include_blank => false, :input_html => { :id => 'dd_store_id' } %>
+    <%#= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
         :include_blank => false %>
     <%= f.association :channel, :include_blank => false %>
     <%= f.association :environment_type, :include_blank => false %>
@@ -24,6 +24,11 @@
       <% unless photo_fields.object.new_record? %>
         <div class="thumb">
           <%= link_to image_tag(photo_fields.object.photo.url(:thumbs)), photo_fields.object.photo.url(:original) %>
+          <%= photo_fields.association :brand, :include_blank => false %>
+          <%= photo_fields.association :category, :include_blank => false %>
+          <%= photo_fields.association :media_location, :include_blank => false %>
+          <%= photo_fields.association :media_vehicle, :include_blank => false %>
+          <%= photo_fields.association :media_type, :include_blank => false %>
           <%= photo_fields.check_box :_destroy %>     
         </div>  
       <% end %>

@@ -22,12 +22,12 @@ class Store < ActiveRecord::Base
     end
 
     def self.search(search)
-    if search
-      find(:all, :conditions => ['postcode LIKE ?', "%#{search}%"])
-    else
-      find(:all)
+      if search
+        find(:all, :conditions => ['postcode LIKE ?', "%#{search}%"])
+      else
+        find(:all)
+      end
     end
-  end
 
 
 

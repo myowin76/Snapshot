@@ -34,6 +34,13 @@ class Photo < ActiveRecord::Base
   		Photo.find(photos, :conditions => {:hotel_id => hotel}).each(&:destroy)
   	end
 
+    def self.search(postcode)
+      if postcode
+        find(:all, :conditions => ['postcode LIKE ?', "%#{search}%"])
+      else
+        find(:all)
+      end
+    end
 
 
 

@@ -15,7 +15,12 @@
 //= require dataTables/jquery.dataTables
 //= require_tree .
 
+$(document).ready(function() {
+   
 
+
+   
+ });
 
 
 // Snapshot Map
@@ -86,3 +91,11 @@ function createMap() {
 	// allow interaction
 	mapReady = true;
 }
+
+
+
+
+
+
+
+

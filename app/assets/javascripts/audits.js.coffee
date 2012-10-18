@@ -1,3 +1,4 @@
+###
 jQuery ->
   
   stores = $('#audit_store_id').html()
@@ -16,3 +17,4 @@ jQuery ->
     else
       $('#audit_store_id').empty()
       $('#audit_store_id').html("<option>Empty</option>")
+###

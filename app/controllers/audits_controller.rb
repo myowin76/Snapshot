@@ -21,14 +21,6 @@ class AuditsController < ApplicationController
     end
   end
 
-  def dynamic_stores
-    @stores = Store.find_all_by_retailer_id(params[:id])
-    respond_to do |format|
-      format.html # new.html.erb
-      format.js
-      format.json { render json: @audit }
-    end
-  end
   # GET /audits/new
   # GET /audits/new.json
   def new
@@ -54,7 +46,11 @@ class AuditsController < ApplicationController
 
     respond_to do |format|
       if @audit.save
-        format.html { redirect_to @audit, notice: 'Audit was successfully created.' }
+        if @audit.photos.blank?
+          format.html { redirect_to photos_path, notice: 'Audit was successfully created.' }
+        else
+          format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
+        end
         format.json { render json: @audit, status: :created, location: @audit }
       else
         format.html { render action: "new" }

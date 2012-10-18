@@ -1,38 +1,80 @@
+<% content_for :head do %>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    
+<% end %>          
+
 <h1>Listing photos</h1>
 
-<table>
-  <tr>
-    <th>Brand</th>
-    <th>Audit</th>
-    <th>Category</th>
-    <th>Media location</th>
-    <th>Media vehicle</th>
-    <th>Media type</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @photos.each do |photo| %>
-  <tr>
-    <td><%= photo.brand.name %></td>
-    <td><%= photo.audit.id %></td>
-    <td><%= photo.category.name %></td>
-    <td><%= photo.media_location.name %></td>
-    <td><%= photo.media_vehicle.name %></td>
-    <td><%= photo.media_type.name %></td>
-    <td><%= photo.description %></td>
-    <td>
-<%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %>
-    </td>
-    <td><%= link_to 'Show', photo %></td>
-    <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
-    <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table>
+    <thead>
+
+    </thead>
+    <tbody>
+    <% @photos.each do |photo| %>
+        <tr style="border-bottom: 1px solid #777; display:block;">
+            <td>
+                <%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %><br />
+            </td>
+            <td>  
+                Brand: <%= photo.brand.name %><br />
+                Date:  <%= photo.created_at %><br />
+                Audit: <%= photo.audit.id %><br />
+                Category: <%= photo.category.name %><br />
+            </td>
+            <td>
+                Media location: <%= photo.media_location.name %><br />
+                Media vehicle: <%= photo.media_vehicle.name %><br />
+                Media type: <%= photo.media_type.name %><br />
+                <strong>Store: <%= photo.audit.store.name %><br /></strong>
+                <strong>Longitude: <%= photo.audit.store.longitude %><br /></strong>
+                <strong>Latitude: <%= photo.audit.store.latitude %><br /></strong>
+            </td>
+            <td>
+                <strong>Store: <%= photo.audit.store.store_format.name %><br /></strong>
+                <strong>Retailer: <%= photo.audit.retailer.name %><br /></strong>
+                <strong>Sector: <%= photo.audit.store.retailer.sector.name %><br /></strong>
+                <strong>At Store: <%= photo.audit.environment_type.name %><br /></strong>
+                Description: <%= photo.description %><br />
+            </td>
+            <td>    
+                <%#= link_to 'Show', photo %>
+                <%#= link_to 'Edit', edit_photo_path(photo) %>
+                <%#= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %><br />
+            </td>    
+        </tr>
+
+      <script>
+        $(function(){
+            
+          var map;
+          var store = new google.maps.LatLng(<%= photo.audit.store.latitude %>, <%= photo.audit.store.longitude %>);
+          function initialize() {
+            var mapOptions = {
+              zoom: 15,
+              center: store,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+              map = new google.maps.Map(document.getElementById('map_canvas'),
+                mapOptions);
+              var marker = new google.maps.Marker({
+                  position: store,
+                  map: map,
+                  title: 'Hello World!'
+              });
+          }
+
+          google.maps.event.addDomListener(window, 'load', initialize);
+
+        });
+      </script>
+
+    <% end %>
+    </tbody>
 </table>
 
-<br />
 
-<%= link_to 'New Photo', new_photo_path %>
+
+
+<div id="map_canvas" style="width: 800px; height: 550px"></div> 
+<%#= link_to 'New Photo', new_photo_path %>
