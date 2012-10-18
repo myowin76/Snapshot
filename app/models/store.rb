@@ -1,4 +1,4 @@
-include Geokit::Geocoders
+# include Geokit::Geocoders
 class Store < ActiveRecord::Base
   attr_accessible :address, :address2, :description, :latitude, :longitude, :name, 
   	:postcode, :retailer_id, :store_format_id
@@ -7,14 +7,20 @@ class Store < ActiveRecord::Base
   belongs_to :retailer
   has_many :audits
 
-  # GEOKITS
-  acts_as_mappable :default_units => :miles,
-		:default_formula => :sphere,
-		:distance_field_name => :distance,
-		:lat_column_name => :latitude,
-		:lng_column_name => :longitude
 
-		before_save :generate_longitude_latitude    
+  #gmap4rails
+  acts_as_gmappable
+
+
+
+  # GEOKITS
+  #acts_as_mappable :default_units => :miles,
+	#	:default_formula => :sphere,
+#		:distance_field_name => :distance,
+	#	:lat_column_name => :latitude,
+	#	:lng_column_name => :longitude
+
+	#	before_save :generate_longitude_latitude    
     # before_save :generate_longitude_latitude_from_address
 
     def full_address

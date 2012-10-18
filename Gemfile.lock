@@ -55,6 +55,7 @@ GEM
     geokit-rails3 (0.1.5)
       geokit (~> 1.5)
       rails (~> 3.0)
+    gmaps4rails (1.5.5)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -171,7 +172,11 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   geokit-rails3
+<<<<<<< HEAD
   jquery-datatables-rails
+=======
+  gmaps4rails
+>>>>>>> map
   jquery-rails
   jquery-ui-rails
   mocha
