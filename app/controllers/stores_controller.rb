@@ -2,7 +2,8 @@ class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
   def index
-    @stores = Store.all
+    #@stores = Store.all
+    @stores = Store.search(params[:search])
 
     respond_to do |format|
       format.html # index.html.erb

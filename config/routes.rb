@@ -33,7 +33,6 @@ Snapshot::Application.routes.draw do
 
   resources :countries
 
-  post "dynamic_stores/:id" => "audits#dynamic_stores"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

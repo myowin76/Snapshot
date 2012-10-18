@@ -5,6 +5,7 @@ class Store < ActiveRecord::Base
 
   belongs_to :store_format
   belongs_to :retailer
+  has_many :audits
 
   # GEOKITS
   acts_as_mappable :default_units => :miles,
@@ -19,6 +20,15 @@ class Store < ActiveRecord::Base
     def full_address
       [address, address2].join(' ')
     end
+
+    def self.search(search)
+    if search
+      find(:all, :conditions => ['postcode LIKE ?', "%#{search}%"])
+    else
+      find(:all)
+    end
+  end
+
 
 
     private

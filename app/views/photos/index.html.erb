@@ -23,6 +23,9 @@
     <td><%= photo.media_vehicle.name %></td>
     <td><%= photo.media_type.name %></td>
     <td><%= photo.description %></td>
+    <td>
+<%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %>
+    </td>
     <td><%= link_to 'Show', photo %></td>
     <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>

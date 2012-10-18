@@ -73,6 +73,17 @@
   <b>Description:</b>
   <%= @store.description %>
 </p>
+<p>
+  <b>Audits By Date:</b>
+</p>
+<p>
+  <% @store.audits.each do |audit| %>
+    <br /><%= audit.created_at %><br />
+    <% audit.photos.each do |photo| %>
+      <%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %>
+    <% end %>  
+  <% end %>
+</p>
 
 
 <%= link_to 'Edit', edit_store_path(@store) %> |
