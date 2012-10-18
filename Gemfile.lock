@@ -172,11 +172,8 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   geokit-rails3
-<<<<<<< HEAD
-  jquery-datatables-rails
-=======
   gmaps4rails
->>>>>>> map
+  jquery-datatables-rails
   jquery-rails
   jquery-ui-rails
   mocha

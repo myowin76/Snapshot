@@ -4,6 +4,7 @@ class StoresController < ApplicationController
   def index
     #@stores = Store.all
     @stores = Store.search(params[:search])
+    @json = Store.all.to_gmaps4rails
 
     respond_to do |format|
       format.html # index.html.erb

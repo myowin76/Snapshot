@@ -3,6 +3,7 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     @photos = Photo.all
+    @json = Store.all.to_gmaps4rails
 
     respond_to do |format|
       format.html # index.html.erb

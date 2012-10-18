@@ -44,37 +44,10 @@
             </td>    
         </tr>
 
-      <script>
-        $(function(){
-            
-          var map;
-          var store = new google.maps.LatLng(<%= photo.audit.store.latitude %>, <%= photo.audit.store.longitude %>);
-          function initialize() {
-            var mapOptions = {
-              zoom: 15,
-              center: store,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-              map = new google.maps.Map(document.getElementById('map_canvas'),
-                mapOptions);
-              var marker = new google.maps.Marker({
-                  position: store,
-                  map: map,
-                  title: 'Hello World!'
-              });
-          }
-
-          google.maps.event.addDomListener(window, 'load', initialize);
-
-        });
-      </script>
-
     <% end %>
     </tbody>
 </table>
 
 
-
-
-<div id="map_canvas" style="width: 800px; height: 550px"></div> 
+<%= gmaps4rails(@json) %>
 <%#= link_to 'New Photo', new_photo_path %>
