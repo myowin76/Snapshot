@@ -1,8 +1,17 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 
+<%= form_tag sectors_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+
+
 <h1>Audits(Users)</h1>
-<%= link_to "Add New Audit", new_audit_path %><br />
+<%= link_to "Audits", audits_path %><br />
 
 
 <h1>Manage Stores(Admin)</h1>

@@ -1,7 +1,30 @@
-<% javascript 'jquery.gmap.min' %>
+<%# javascript 'jquery.gmap.min' %>
 <% content_for :head do %>
-  <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAM41OPHNEzeRe7qzntS2dZxRhUbQCvgHcewKkuhV-KkriOp2HwhReuvtd5emO1MhE-giChvNKkDVHIA&sensor=true"
-          type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+      $(function(){
+          
+        var map;
+        var store = new google.maps.LatLng(<%= @store.latitude %>, <%= @store.longitude %>);
+        function initialize() {
+          var mapOptions = {
+            zoom: 15,
+            center: store,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+            map = new google.maps.Map(document.getElementById('map_canvas'),
+              mapOptions);
+            var marker = new google.maps.Marker({
+                position: store,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+      });
+    </script>
 <% end %>          
 
 <p id="notice"><%= notice %></p>
@@ -54,3 +77,6 @@
 
 <%= link_to 'Edit', edit_store_path(@store) %> |
 <%= link_to 'Back', stores_path %>
+
+
+<div id="map_canvas" style="width: 565px; height: 350px"></div> 

@@ -1,0 +1,9 @@
+$(document).ready(function(){
+alert("it works");
+	$("#dd_store_id").html("<options value=''>Select</options>");
+	$("#dd_store_id").empty();
+	<% for store in @stores %>
+		$("#dd_store_id").append($("<options></options").attr("value",<%= store.id %>).text('<%= store.address %>'));
+	<% end %>
+
+});

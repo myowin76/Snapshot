@@ -1,6 +1,48 @@
+<% content_for :head do %>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+      $(function(){
+          
+        var map;
+        function initialize() {
+          var mapOptions = {
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+            map = new google.maps.Map(document.getElementById('map_canvas'),
+              mapOptions);
+            
+
+            var points =  [
+              <% @stores.each do |store| %>
+                {
+                  latitude: <%= store.latitude %>
+                  longitude: <%= store.longitude %>
+                }
+            
+              <% end %>       
+            ];
+            for (var i=0; i< points.length; i++) {
+              var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(points[i].latitude , points[i].longitude );
+                map: map,
+                title: 'Hello World!'
+              });
+            }
+             
+            
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+      });
+    </script>
+<% end %>          
+
 <h1>Listing stores</h1>
 <%= link_to 'New Store', new_store_path %>
-<table>
+<table id="tbl-stores">
+  <thead>
   <tr>
     <th>Name</th>
     <th>Address</th>
@@ -16,7 +58,8 @@
     <th></th>
     <th></th>
   </tr>
-
+</thead>
+<tbody>
 <% @stores.each do |store| %>
   <tr>
     <td><%= store.name %></td>
@@ -34,8 +77,13 @@
     <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <br />
+
+
+
+<div id="map_canvas" style="width: 565px; height: 350px"></div> 
 
 

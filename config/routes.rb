@@ -1,4 +1,6 @@
 Snapshot::Application.routes.draw do
+  devise_for :users
+
   resources :photos
 
   resources :audits
@@ -30,6 +32,8 @@ Snapshot::Application.routes.draw do
   resources :sectors
 
   resources :countries
+
+  post "dynamic_stores/:id" => "audits#dynamic_stores"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

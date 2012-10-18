@@ -3,7 +3,9 @@
 
   <div class="form-inputs">
     <%= f.association :retailer,:include_blank => false %>
-    <%= f.association :store, :include_blank => false %>
+    <%#= f.association :store, :include_blank => false, :input_html => { :id => 'dd_store_id' } %>
+    <%= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
+        :include_blank => false %>
     <%= f.association :channel, :include_blank => false %>
     <%= f.association :environment_type, :include_blank => false %>
     

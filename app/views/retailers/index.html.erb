@@ -1,6 +1,7 @@
 <h1>Listing retailers</h1>
 
-<table>
+<table id="retailers">
+  <thead>
   <tr>
     <th>Name</th>
     <th>Sector</th>
@@ -9,17 +10,20 @@
     <th></th>
     <th></th>
   </tr>
+</thead>
+<tbody>
+  <% @retailers.each do |retailer| %>
+    <tr>
+      <td><%= retailer.name %></td>
+      <td><%= retailer.sector.name %></td>
+      <td><%= retailer.description %></td>
+      <td><%= link_to 'Show', retailer %></td>
+      <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
+      <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</tbody>
 
-<% @retailers.each do |retailer| %>
-  <tr>
-    <td><%= retailer.name %></td>
-    <td><%= retailer.sector.name %></td>
-    <td><%= retailer.description %></td>
-    <td><%= link_to 'Show', retailer %></td>
-    <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
-    <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
 </table>
 
 <br />

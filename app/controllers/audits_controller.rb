@@ -21,10 +21,19 @@ class AuditsController < ApplicationController
     end
   end
 
+  def dynamic_stores
+    @stores = Store.find_all_by_retailer_id(params[:id])
+    respond_to do |format|
+      format.html # new.html.erb
+      format.js
+      format.json { render json: @audit }
+    end
+  end
   # GET /audits/new
   # GET /audits/new.json
   def new
     @audit = Audit.new
+    # @stores = Store.find_all_by_retailer_id(params[:id])
     5.times {@audit.photos.build}
     respond_to do |format|
       format.html # new.html.erb

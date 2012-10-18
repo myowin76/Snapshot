@@ -1,6 +1,8 @@
 class SectorsController < ApplicationController
   def index
     @sectors = Sector.all
+
+    #@sectors = Sector.search(params[:search]) if params[:search]
   end
 
   def show

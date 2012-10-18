@@ -12,8 +12,31 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require dataTables/jquery.dataTables
 //= require_tree .
 
+
+
+// jquery Dropdowns
+
+$(document).ready(function(){
+
+	//Retailer dropdown change
+	$('#dd_audit_id').change(function(){
+		
+		var data = $('#dd_audit_id').val();
+		$.ajax({
+			type: "POST",
+			url: "http://" + location.host + "/dynamic_stores/" + data,
+			data: data
+		})
+		
+		
+	})
+});
+
+
+// Snapshot Map
 
 var snapshotMap;
 /*------------------------------------------------------- map data array */
