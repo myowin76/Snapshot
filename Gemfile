@@ -14,6 +14,7 @@ gem 'taps'
 gem 'geokit-rails3'
 gem 'devise'
 gem 'will_paginate', '~> 3.0.0'
+gem 'gmaps4rails'
 # gem "paperclip", "~> 3.1"
 # gem 'geokit-rails3'
 # gem "aws-s3"
