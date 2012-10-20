@@ -14,11 +14,11 @@ class Photo < ActiveRecord::Base
 
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
-    :url  => "/audits/:id/:style/:basename.:extension",
-  	:path => ":rails_root/public/audits/:id/:styles/:basename.:extension"
-    #:storage => :s3,
-    #:s3_credentials => "#{RAILS_ROOT}/config/amazon_s3.yml",
-    #:bucket => "snapshotworldwide"
+    #:url  => "/audits/:id/:style/:basename.:extension",
+  	#:path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
+    :storage => :s3,
+    :s3_credentials => "#{Rails.root}/config/amazon_s3.yml",
+    :bucket => "SnapshotWorldWide"
 		
     validates_attachment_presence :photo
   	validates_attachment_content_type :photo, 
@@ -32,7 +32,7 @@ class Photo < ActiveRecord::Base
      #end
      #end  
 
-       acts_as_gmappable
+       acts_as_gmappable :process_geocoding => false
   	def self.destroy_pics(hotel, photos)
   		Photo.find(photos, :conditions => {:hotel_id => hotel}).each(&:destroy)
   	end

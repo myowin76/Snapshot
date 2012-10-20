@@ -20,7 +20,7 @@
   <%= @audit.retailer.name %>
 </p>
 <% @audit.photos.each do |photo| %>
- <%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %>
+ <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
 <% end %>  
 
 <%= link_to 'Edit', edit_audit_path(@audit) %> |

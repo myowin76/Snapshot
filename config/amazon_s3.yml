@@ -1,0 +1,9 @@
+development:
+  access_key_id: AKIAJEHW45WSS6H2CYRA
+  secret_access_key: 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
+test:
+  access_key_id: abc...
+  secret_access_key: abc...
+production:
+  access_key_id: AKIAJEHW45WSS6H2CYRA
+  secret_access_key: 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

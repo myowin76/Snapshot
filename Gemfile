@@ -17,6 +17,7 @@ gem 'devise'
 gem 'will_paginate', '~> 3.0.0'
 gem 'ransack'
 gem 'gmaps4rails'
+gem 'aws-sdk'
 # gem "aws-s3"
 
 group :production do
