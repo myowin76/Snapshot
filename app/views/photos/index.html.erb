@@ -5,7 +5,65 @@
 
 <h1>Listing photos</h1>
 
+<aside>
 
+    <h3>Search by</h3>  
+    <%= search_form_for @search do |f| %>
+      <p>
+        <%= f.label "Postcode" %>
+        <%= f.text_field :media_location_id_cont %>
+      </p>
+      <p>  
+        <h3>Channels</h3>
+        <% for channel in @channels %>
+          <%= check_box_tag "channel[]", channel.id %>
+          <%= channel.name %><br />
+        <% end %>
+      </p>
+      <p>  
+        <h3>Channels</h3>
+        <% for channel in @channels %>
+          <%= check_box_tag "channel[]", channel.id %>
+          <%= channel.name %><br />
+        <% end %>
+      </p>
+      <p>
+        <h3>Categories</h3>  
+        <% for category in @categories %>
+          <%= check_box_tag "category[]", category.id %>
+          <%= category.name %><br />
+        <% end %>
+      </p>
+      <p>  
+        <%= f.submit "Search", :name => nil %>
+      </p>
+    <% end %>
+
+
+    <h3>Audits(Users)</h3>
+    <%= link_to "Audits", audits_path %><br />
+
+
+    <h3>Manage Stores(Admin)</h3>
+    <%= link_to "Manage Stores", stores_path %><br />
+
+    <h3>Manage Setting(Admin)</h3>
+    <%= link_to "Manage Categories", categories_path %><br />
+    <%= link_to "Manage Retailers", retailers_path %><br />
+    <%= link_to "Manage Sectors", sectors_path %><br />
+    <%= link_to "Manage channels", channels_path %><br />
+    <%= link_to "Manage countries", countries_path %><br />
+    <%= link_to "Manage Store Formats", store_formats_path %><br />
+    <%= link_to "Manage Media Types", media_types_path %><br />
+    <%= link_to "Manage Media Locations", media_locations_path %><br />
+    <%= link_to "Manage Media Vehicles", media_vehicles_path %><br />
+    <%= link_to "Manage Promotion Calendars", promotion_calendars_path %><br />
+    <%= link_to "Manage Promotion Types", promotion_types_path %><br />
+
+
+</aside>
+<div class="main">
+    <%= gmaps4rails(@json) %>
 <table>
     <thead>
 
@@ -13,6 +71,9 @@
     <tbody>
     <% @photos.each do |photo| %>
         <tr style="border-bottom: 1px solid #777; display:block;">
+            <td>
+              <%= check_box_tag photo.id %>
+            </td>
             <td>
                 <%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %><br />
             </td>
@@ -49,5 +110,6 @@
 </table>
 
 
-<%= gmaps4rails(@json) %>
+
 <%#= link_to 'New Photo', new_photo_path %>
+</div>

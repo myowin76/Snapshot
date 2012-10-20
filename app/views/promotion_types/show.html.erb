@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @promotion_type.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @promotion_type.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_promotion_type_path(@promotion_type) %> |
+<%= link_to 'Back', promotion_types_path %>

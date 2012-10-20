@@ -3,6 +3,10 @@ class PagesController < ApplicationController
 
   	@channels = Channel.all
   	@categories = Category.all
+
+  	@search = Photo.search(params[:q])
+  	@photos = @search.result
+
   	
   end
 

@@ -11,13 +11,12 @@ gem 'thin'
 gem 'jquery-rails'
 gem "paperclip", "~> 3.1"
 gem 'taps'
-gem 'geokit-rails3'
+gem 'geocoder'
+#gem 'geokit-rails3'
 gem 'devise'
 gem 'will_paginate', '~> 3.0.0'
-
+gem 'ransack'
 gem 'gmaps4rails'
-# gem "paperclip", "~> 3.1"
-# gem 'geokit-rails3'
 # gem "aws-s3"
 
 group :production do
@@ -40,6 +39,8 @@ group :assets do
 end
 group :development do
   gem "nifty-generators"	
+
+  # To use debugger
 	# gem 'debugger'
 end
 
@@ -59,6 +60,4 @@ end
 
 # Deploy with Capistrano
 # gem 'capistrano'
-
-# To use debugger
 

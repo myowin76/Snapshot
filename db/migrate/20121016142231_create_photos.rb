@@ -7,6 +7,8 @@ class CreatePhotos < ActiveRecord::Migration
       t.references :media_location
       t.references :media_vehicle
       t.references :media_type
+      t.references :promotion_type
+      t.references :promotion_calendar
       t.text :description
 
       t.timestamps
@@ -17,5 +19,7 @@ class CreatePhotos < ActiveRecord::Migration
     add_index :photos, :media_location_id
     add_index :photos, :media_vehicle_id
     add_index :photos, :media_type_id
+    add_index :photos, :promotion_type_id
+    add_index :photos, :promotion_calendar_id
   end
 end

@@ -29,6 +29,8 @@
           <%= photo_fields.association :media_location, :include_blank => false %>
           <%= photo_fields.association :media_vehicle, :include_blank => false %>
           <%= photo_fields.association :media_type, :include_blank => false %>
+          <%= photo_fields.association :promotion_type, :include_blank => false %>
+          <%= photo_fields.association :promotion_calendar, :include_blank => false %>
           <%= photo_fields.check_box :_destroy %>     
         </div>  
       <% end %>

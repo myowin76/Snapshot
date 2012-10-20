@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017111041) do
+ActiveRecord::Schema.define(:version => 20121019090549) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -91,9 +91,11 @@ ActiveRecord::Schema.define(:version => 20121017111041) do
     t.integer  "media_location_id"
     t.integer  "media_vehicle_id"
     t.integer  "media_type_id"
+    t.integer  "promotion_type_id"
+    t.integer  "promotion_calendar_id"
     t.text     "description"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
@@ -106,6 +108,22 @@ ActiveRecord::Schema.define(:version => 20121017111041) do
   add_index "photos", ["media_location_id"], :name => "index_photos_on_media_location_id"
   add_index "photos", ["media_type_id"], :name => "index_photos_on_media_type_id"
   add_index "photos", ["media_vehicle_id"], :name => "index_photos_on_media_vehicle_id"
+  add_index "photos", ["promotion_calendar_id"], :name => "index_photos_on_promotion_calendar_id"
+  add_index "photos", ["promotion_type_id"], :name => "index_photos_on_promotion_type_id"
+
+  create_table "promotion_calendars", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "promotion_types", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "retailers", :force => true do |t|
     t.string   "name"

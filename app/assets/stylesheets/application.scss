@@ -37,6 +37,19 @@ a {
   padding: 20px 40px;
   border: solid 1px black;
   margin-top: 20px;
+  overflow: hidden;
+
+  aside{
+    width: 25%;
+    float: left;
+    background-color: #f1f1f1;
+    padding: 12px;
+  }
+  .main{
+    width: 70%;
+    float: right;
+  }
+
 }
 
 #flash_notice, #flash_alert {

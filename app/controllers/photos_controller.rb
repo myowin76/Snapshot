@@ -2,7 +2,14 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
+    #@photos = Photo.all
+    @channels = Channel.all
+    @categories = Category.all
+
+    # ransack syntax
+    @search = Photo.search(params[:q])
+    @photos = @search.result(:distinct => true)
+    # need to filter by search
     @json = Store.all.to_gmaps4rails
 
     respond_to do |format|
