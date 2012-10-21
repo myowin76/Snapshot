@@ -5,10 +5,10 @@ class PhotosController < ApplicationController
     #@photos = Photo.all
     @channels = Channel.all
     @categories = Category.all
-
+    #@stores = Store.search(params[:search])
     # ransack syntax
-    @search = Photo.search(params[:q])
-    @photos = @search.result(:distinct => true)
+    #@search = Photo.search(params[:q])
+    @photos = Photo.search(params[:search])
     # need to filter by search
     @json = Store.all.to_gmaps4rails
 

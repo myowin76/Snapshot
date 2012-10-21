@@ -8,10 +8,10 @@
 <aside>
 
     <h3>Search by</h3>  
-    <%= search_form_for @search do |f| %>
+    <%= form_tag photos_path :method => 'get' do %>
       <p>
-        <%= f.label "Postcode" %>
-        <%= f.text_field :media_location_id_cont %>
+        <%= label_tag "Postcode" %>
+        <%= text_field_tag :media_location_id_cont %>
       </p>
       <p>  
         <h3>Channels</h3>
@@ -35,7 +35,7 @@
         <% end %>
       </p>
       <p>  
-        <%= f.submit "Search", :name => nil %>
+        <%= submit_tag "Search", :name => nil %>
       </p>
     <% end %>
 
