@@ -80,7 +80,7 @@
   <% @store.audits.each do |audit| %>
     <br /><%= audit.created_at %><br />
     <% audit.photos.each do |photo| %>
-      <%= link_to image_tag(photo.photo.url(:thumbs)), photo.photo.url(:originals)  %>
+      <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
     <% end %>  
   <% end %>
 </p>
