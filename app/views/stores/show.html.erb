@@ -1,30 +1,6 @@
 <%# javascript 'jquery.gmap.min' %>
 <% content_for :head do %>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script>
-      $(function(){
-          
-        var map;
-        var store = new google.maps.LatLng(<%= @store.latitude %>, <%= @store.longitude %>);
-        function initialize() {
-          var mapOptions = {
-            zoom: 15,
-            center: store,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-            map = new google.maps.Map(document.getElementById('map_canvas'),
-              mapOptions);
-            var marker = new google.maps.Marker({
-                position: store,
-                map: map,
-                title: 'Hello World!'
-            });
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-
-      });
-    </script>
+    
 <% end %>          
 
 <p id="notice"><%= notice %></p>
@@ -59,35 +35,18 @@
   <%= @store.retailer.name %>
 </p>
 
-<p>
-  <b>Longitude:</b>
-  <%= @store.longitude %>
-</p>
 
-<p>
-  <b>Latitude:</b>
-  <%= @store.latitude %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @store.description %>
-</p>
-<p>
-  <b>Audits By Date:</b>
-</p>
-<p>
-  <% @store.audits.each do |audit| %>
-    <br /><%= audit.created_at %><br />
-    <% audit.photos.each do |photo| %>
-      <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
-    <% end %>  
-  <% end %>
-</p>
-
+  <% @photo_category.each do |category, photos| %>  
+    <% category = Category.find_by_id(category) %>
+    <br /><h3><%= category.name %></h3>
+    <% for photo in photos %>
+      
+        <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
+        
+      
+    <% end %>    
+  <% end %>  
 
 <%= link_to 'Edit', edit_store_path(@store) %> |
 <%= link_to 'Back', stores_path %>
 
-
-<div id="map_canvas" style="width: 565px; height: 350px"></div> 

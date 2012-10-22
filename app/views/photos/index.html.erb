@@ -1,7 +1,3 @@
-<% content_for :head do %>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    
-<% end %>          
 
 <h1>Listing photos</h1>
 
@@ -14,10 +10,10 @@
         <%= text_field_tag :media_location_id_cont %>
       </p>
       <p>  
-        <h3>Channels</h3>
-        <% for channel in @channels %>
-          <%= check_box_tag "channel[]", channel.id %>
-          <%= channel.name %><br />
+        <h3>Sectors</h3>
+        <% for sector in @sectors %>
+          <%= check_box_tag "sector[]", sector.id %>
+          <%= sector.name %><br />
         <% end %>
       </p>
       <p>  
@@ -89,8 +85,8 @@
             <td>
                 <strong>Media type:</strong> <%= photo.media_type.name %><br />
                 <strong>Store: </strong><%= photo.audit.store.name %><br />
-                <strong>Longitude:</strong> <%= photo.audit.store.longitude %><br />
-                <strong>Latitude:</strong> <%= photo.audit.store.latitude %><br />
+                <!--strong>Longitude:</strong> <%= photo.audit.store.longitude %><br /-->
+                <!--strong>Latitude:</strong> <%= photo.audit.store.latitude %><br /-->
                 <strong>Store Format:</strong> <%= photo.audit.store.store_format.name %><br />
                 <strong>Retailer: <%= photo.audit.retailer.name %><br />
             </td>

@@ -5,6 +5,7 @@ class PhotosController < ApplicationController
     #@photos = Photo.all
     @channels = Channel.all
     @categories = Category.all
+    @sectors = Sector.all
     #@stores = Store.search(params[:search])
     # ransack syntax
     #@search = Photo.search(params[:q])
@@ -19,9 +20,9 @@ class PhotosController < ApplicationController
                         #:width   => 32,
                         #:height  => 32
                        })
-        marker.title   "i'm the title"
-        marker.sidebar "i'm the sidebar"
-        #marker.json({ :id => user.id, :foo => "bar" })
+        marker.title   store.name
+        # marker.sidebar "i'm the sidebar"
+        # marker.json({ :id => user.id, :foo => "bar" })
     end    
 
 

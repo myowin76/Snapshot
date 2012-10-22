@@ -1,23 +1,79 @@
-<% content_for :head do %>
-    
-    
-<% end %>          
+<aside>
 
+    <h3>Search by</h3>  
+    <%= form_tag photos_path :method => 'get' do %>
+      <p>
+        <%= label_tag "Postcode" %>
+        <%= text_field_tag :media_location_id_cont %>
+      </p>
+      <p>  
+        <h3>Sectors</h3>
+        <% for sector in @sectors %>
+          <%= check_box_tag "sector[]", sector.id %>
+          <%= sector.name %><br />
+        <% end %>
+      </p>
+      <p>  
+        <h3>Channels</h3>
+        <% for channel in @channels %>
+          <%= check_box_tag "channel[]", channel.id %>
+          <%= channel.name %><br />
+        <% end %>
+      </p>
+      <p>
+        <h3>Categories</h3>  
+        <% for category in @categories %>
+          <%= check_box_tag "category[]", category.id %>
+          <%= category.name %><br />
+        <% end %>
+      </p>
+      <p>  
+        <%= submit_tag "Search", :name => nil %>
+      </p>
+    <% end %>
+
+
+    <h3>Audits(Users)</h3>
+    <%= link_to "Audits", audits_path %><br />
+
+
+    <h3>Manage Stores(Admin)</h3>
+    <%= link_to "Manage Stores", stores_path %><br />
+
+    <h3>Manage Setting(Admin)</h3>
+    <%= link_to "Manage Categories", categories_path %><br />
+    <%= link_to "Manage Retailers", retailers_path %><br />
+    <%= link_to "Manage Sectors", sectors_path %><br />
+    <%= link_to "Manage Brands", brands_path %><br />
+    <%= link_to "Manage channels", channels_path %><br />
+    <%= link_to "Manage countries", countries_path %><br />
+    <%= link_to "Manage Store Formats", store_formats_path %><br />
+    <%= link_to "Manage Media Types", media_types_path %><br />
+    <%= link_to "Manage Media Locations", media_locations_path %><br />
+    <%= link_to "Manage Media Vehicles", media_vehicles_path %><br />
+    <%= link_to "Manage Promotion Calendars", promotion_calendars_path %><br />
+    <%= link_to "Manage Promotion Types", promotion_types_path %><br />
+
+
+</aside>
+<div class="main">
+    <%= gmaps4rails(@json) %>
 <h1>Listing stores</h1>
 <%= link_to 'New Store', new_store_path %>
 <table id="tbl-stores">
   <thead>
   <tr>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Address2</th>
+    <th>Name
+        Address
+    </th>
+    
+    
     <th>Postcode</th>
     <th>Store format</th>
     <th>Retailer</th>
-    <!--th>Longitude</th>
-    <th>Latitude</th-->
+    
     <th>sector</th>
-    <th>Description</th>
+    <!--th>Description</th-->
     <th></th>
     <th></th>
     <th></th>
@@ -26,16 +82,20 @@
 <tbody>
 <% @stores.each do |store| %>
   <tr>
-    <td><%= store.name %></td>
-    <td><%= store.address %></td>
-    <td><%= store.address2 %></td>
-    <td><%= store.postcode %></td>
+    <td>
+        <strong><%= store.name %></strong><br />
+        <%= store.full_address %>
+        <%= store.postcode %>
+    </td>
+    
+    
+    
     <td><%= store.store_format.name %></td>
     <td><%= store.retailer.name %></td>
     <td><%= store.retailer.sector.name %></td>
     <td><%= store.longitude %></td>
-    <!--td><%= store.latitude %></td-->
-    <!--td><%= store.description %></td-->
+    <!--td><%#= store.latitude %></td-->
+    <!--td><%#= store.description %></td-->
     <td><%= link_to 'Show', store %></td>
     <td><%= link_to 'Edit', edit_store_path(store) %></td>
     <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -44,8 +104,5 @@
 </tbody>
 </table>
 
-<br />
-<%= gmaps4rails(@json) %>
-
-
+</div>
 

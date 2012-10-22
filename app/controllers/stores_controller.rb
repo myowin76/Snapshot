@@ -4,7 +4,22 @@ class StoresController < ApplicationController
   def index
     #@stores = Store.all
     @stores = Store.search(params[:search])
-    @json = Store.all.to_gmaps4rails
+    @sectors = Sector.all
+    @channels = Channel.all
+    @categories = Category.all
+
+    # google map view configuration
+    @json = Store.all.to_gmaps4rails do |store, marker|
+        marker.infowindow render_to_string(:partial => "/stores/info_window", :locals => { :store => store })
+        marker.picture({
+                        #:picture => "http://www.blankdots.com/img/github-32x32.png",
+                        #:width   => 32,
+                        #:height  => 32
+                       })
+        marker.title   store.name
+        # marker.sidebar "i'm the sidebar"
+        # marker.json({ :id => user.id, :foo => "bar" })
+    end  
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,6 +31,11 @@ class StoresController < ApplicationController
   # GET /stores/1.json
   def show
     @store = Store.find(params[:id])
+    @audits = @store.audits.find_all
+    @audits.each do |audit|
+      @photos = audit.photos.find(:all, :order => 'category_id, id')
+      @photo_category = @photos.group_by { |c| c.category.id }
+    end
 
     respond_to do |format|
       format.html # show.html.erb
