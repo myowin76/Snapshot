@@ -28,6 +28,8 @@ end
 # in production environments by default.
 group :assets do
   # gem 'jquery-fileupload-rails'
+  # gem 'twitter-bootstrap-rails'
+  # gem 'bootstrap-sass'
   gem 'jquery-datatables-rails'
   gem 'jquery-ui-rails'
   gem 'sass-rails',   '~> 3.2.3'

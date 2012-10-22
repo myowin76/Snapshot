@@ -33,13 +33,9 @@ class Photo < ActiveRecord::Base
      #end  
 
     acts_as_gmappable :process_geocoding => false
-  	def gmaps4rails_infowindow
-      "<img src=\"#{self.photo_file_name}\"> #{self.photo_file_name}"
-    end
-    def gmaps4rails_title
-      "<h3>title</h3>"
-    end
 
+  	
+    
 
     def self.destroy_pics(hotel, photos)
   		Photo.find(photos, :conditions => {:hotel_id => hotel}).each(&:destroy)

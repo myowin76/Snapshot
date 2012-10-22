@@ -18,7 +18,7 @@ class StoresController < ApplicationController
                        })
         marker.title   store.name
         # marker.sidebar "i'm the sidebar"
-        # marker.json({ :id => user.id, :foo => "bar" })
+       marker.json({ :id => store.id, :name => store.name, :address => store.full_address })
     end  
 
     respond_to do |format|
