@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019090549) do
+ActiveRecord::Schema.define(:version => 20121022211513) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20121019090549) do
     t.integer  "media_type_id"
     t.integer  "promotion_type_id"
     t.integer  "promotion_calendar_id"
+    t.integer  "theme_id"
     t.text     "description"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
@@ -110,6 +111,7 @@ ActiveRecord::Schema.define(:version => 20121019090549) do
   add_index "photos", ["media_vehicle_id"], :name => "index_photos_on_media_vehicle_id"
   add_index "photos", ["promotion_calendar_id"], :name => "index_photos_on_promotion_calendar_id"
   add_index "photos", ["promotion_type_id"], :name => "index_photos_on_promotion_type_id"
+  add_index "photos", ["theme_id"], :name => "index_photos_on_theme_id"
 
   create_table "promotion_calendars", :force => true do |t|
     t.string   "name"
@@ -161,6 +163,13 @@ ActiveRecord::Schema.define(:version => 20121019090549) do
     t.text     "description"
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
+  end
+
+  create_table "themes", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
