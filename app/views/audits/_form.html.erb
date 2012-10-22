@@ -31,6 +31,7 @@
           <%= photo_fields.association :media_type, :include_blank => false %>
           <%= photo_fields.association :promotion_type, :include_blank => false %>
           <%= photo_fields.association :promotion_calendar, :include_blank => false %>
+          <%= photo_fields.association :theme, :include_blank => false %>
           <%= photo_fields.check_box :_destroy %>     
         </div>  
       <% end %>
