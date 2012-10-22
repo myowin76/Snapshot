@@ -51,6 +51,7 @@
     <%= link_to "Manage Categories", categories_path %><br />
     <%= link_to "Manage Retailers", retailers_path %><br />
     <%= link_to "Manage Sectors", sectors_path %><br />
+    <%= link_to "Manage Brands", brands_path %><br />
     <%= link_to "Manage channels", channels_path %><br />
     <%= link_to "Manage countries", countries_path %><br />
     <%= link_to "Manage Store Formats", store_formats_path %><br />
@@ -70,7 +71,7 @@
     </thead>
     <tbody>
     <% @photos.each do |photo| %>
-        <tr style="border-bottom: 1px solid #777; display:block;">
+        <tr style="border-bottom: 1px solid #ddd; display:block;">
             <td>
               <%= check_box_tag photo.id %>
             </td>
@@ -82,21 +83,27 @@
                 Date:  <%= photo.created_at %><br />
                 Audit: <%= photo.audit.id %><br />
                 Category: <%= photo.category.name %><br />
-            </td>
-            <td>
                 Media location: <%= photo.media_location.name %><br />
                 Media vehicle: <%= photo.media_vehicle.name %><br />
-                Media type: <%= photo.media_type.name %><br />
-                <strong>Store: <%= photo.audit.store.name %><br /></strong>
-                <strong>Longitude: <%= photo.audit.store.longitude %><br /></strong>
-                <strong>Latitude: <%= photo.audit.store.latitude %><br /></strong>
             </td>
             <td>
-                <strong>Store: <%= photo.audit.store.store_format.name %><br /></strong>
-                <strong>Retailer: <%= photo.audit.retailer.name %><br /></strong>
-                <strong>Sector: <%= photo.audit.store.retailer.sector.name %><br /></strong>
-                <strong>At Store: <%= photo.audit.environment_type.name %><br /></strong>
-                Description: <%= photo.description %><br />
+                <strong>Media type:</strong> <%= photo.media_type.name %><br />
+                <strong>Store: </strong><%= photo.audit.store.name %><br />
+                <strong>Longitude:</strong> <%= photo.audit.store.longitude %><br />
+                <strong>Latitude:</strong> <%= photo.audit.store.latitude %><br />
+                <strong>Store Format:</strong> <%= photo.audit.store.store_format.name %><br />
+                <strong>Retailer: <%= photo.audit.retailer.name %><br />
+            </td>
+            <td>
+                <% unless photo.promotion_calendar_id.nil? %>
+                  <strong>Promotion Calendar:</strong> <%= photo.promotion_calendar.name %><br />
+                <% end %>
+                <% unless photo.promotion_type_id.nil? %>
+                  <strong>Promotion Type:</strong> <%= photo.promotion_type.name %><br />
+                <% end %>
+                <strong>Sector:</strong> <%= photo.audit.store.retailer.sector.name %><br />
+                <strong>At Store:</strong> <%= photo.audit.environment_type.name %><br />
+                <strong>Description:</strong> <%= photo.description %><br />
             </td>
             <td>    
                 <%#= link_to 'Show', photo %>
