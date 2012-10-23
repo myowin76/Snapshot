@@ -17,7 +17,7 @@ gem 'will_paginate', '~> 3.0.0'
 gem 'ransack'
 gem 'gmaps4rails'
 gem 'aws-sdk'
-gem 'twitter-bootstrap-rails'
+gem "twitter-bootstrap-rails", "~> 2.0rc0"
 gem 'jquery-datatables-rails'
   gem 'jquery-ui-rails'
 # gem "aws-s3"

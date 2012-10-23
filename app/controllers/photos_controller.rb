@@ -21,6 +21,7 @@ class PhotosController < ApplicationController
     # need to filter by search
     @json = Store.all.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
+        zoom 10
         marker.picture({
                         #:picture => "http://www.blankdots.com/img/github-32x32.png",
                         #:width   => 32,
