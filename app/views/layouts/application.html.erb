@@ -27,9 +27,7 @@
               <li>
                 <%= link_to "Basket", edit_user_registration_path %>
               </li>
-              <li>
-                <%= link_to "Sign out", destroy_user_session_path %>
-              </li>
+              
               <li>
                 <%= link_to "Admin", admin_path %>
               </li>
@@ -45,6 +43,18 @@
               </li>
             
             <% end %>
+        </ul>
+        <ul class="nav pull-right">
+          <% if user_signed_in? %>
+            <li>
+              <a href="#">
+                Logged in as: <%= current_user.email  %> 
+              </a>
+            </li>
+            <li>
+                <%= link_to "Sign out", destroy_user_session_path %>
+              </li>
+          <% end %>
         </ul>
       </div>
     </div>
