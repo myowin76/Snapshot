@@ -18,6 +18,8 @@ gem 'ransack'
 gem 'gmaps4rails'
 gem 'aws-sdk'
 gem 'twitter-bootstrap-rails'
+gem 'jquery-datatables-rails'
+  gem 'jquery-ui-rails'
 # gem "aws-s3"
 
 group :production do
@@ -30,8 +32,7 @@ group :assets do
   # gem 'jquery-fileupload-rails'
   # gem 'twitter-bootstrap-rails'
   # gem 'bootstrap-sass'
-  gem 'jquery-datatables-rails'
-  gem 'jquery-ui-rails'
+  
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   #gem 'bootstrap-sass'
