@@ -9,32 +9,56 @@
     <%= yield(:head) %>
   </head>
   <body>
-    <div id="container">
-      <header>
-          <%= link_to "Home", root_path %>  
-        <% if user_signed_in? %>
-            Logged in as: <%= current_user.email  %> 
-            |
-            <%= link_to "Profile", edit_user_registration_path %>
-            |
-            <%= link_to "Basket", edit_user_registration_path %>
-            |
-            <%= link_to "Sign out", destroy_user_session_path %>
-            |
-            <%= link_to "Admin", admin_path %>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      
+      <%= link_to "Snapshot", root_path, :class =>'brand' %>  
+      <div class="nav-collapse">
+        <ul class="nav">
+          <% if user_signed_in? %>
+              <li>
+                <%= link_to "Profile", edit_user_registration_path %>
+              </li>
+              <li>
+                <%= link_to "Basket", edit_user_registration_path %>
+              </li>
+              <li>
+                <%= link_to "Sign out", destroy_user_session_path %>
+              </li>
+              <li>
+                <%= link_to "Admin", admin_path %>
+              </li>
+              <!--li>
+                Logged in as: <%#= current_user.email  %> 
+              </li-->
             <% else %>
-              <%= link_to 'Sign in', new_user_session_path%>
-            |
-            <%= link_to 'Register', new_user_registration_path%>
+              <li>
+                <%= link_to 'Sign in', new_user_session_path %>
+              </li>
+              <li>
+                <%= link_to 'Register', new_user_registration_path%>
+              </li>
             
             <% end %>
-      </header>
+        </ul>
+      </div>
+    </div>
+  </div>    
+    <div id="container">
       <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+          <%= content_tag :div, msg %>
+        </div>
       <% end %>
+      
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
-
+    
     </div>
     <%= yield :scripts %>
   </body>
