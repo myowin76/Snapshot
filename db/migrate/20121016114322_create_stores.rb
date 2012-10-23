@@ -7,6 +7,7 @@ class CreateStores < ActiveRecord::Migration
       t.string :postcode
       t.references :store_format
       t.references :retailer
+      t.references :country
       t.decimal :longitude, :precision => 15, :scale => 10
       t.decimal :latitude, :precision => 15, :scale => 10
       t.text :description
