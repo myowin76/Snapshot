@@ -1,12 +1,12 @@
 <h1>Listing photos</h1>
 
 <aside>
-<h3><%= @test %></h3>
-<% if request.post? %>
-    <% params[:search].each do |param| %>
-      <%= params[:search][:category] %>
-    <% end %>
-<% end %>
+
+    <%# if request.post? %>
+        <%# params[:search].each do |param| %>
+          <%#= params[:search][:category] %>
+        <%# end %>
+    <%# end %>
 
     <h3>Search by</h3>  
 
@@ -47,7 +47,7 @@
 
 </aside>
 <div class="main">
-    <%#= gmaps4rails(@json) %>
+    <%= gmaps4rails(@json) %>
 <table>
     <thead>
 
