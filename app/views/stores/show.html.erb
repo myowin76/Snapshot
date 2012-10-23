@@ -35,16 +35,17 @@
   <%= @store.retailer.name %>
 </p>
 
-
-  <% @photo_category.each do |category, photos| %>  
-    <% category = Category.find_by_id(category) %>
-    <br /><h3><%= category.name %></h3>
-    <% for photo in photos %>
-      
-        <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
+  <% unless @photo_category.nil? %>
+    <% @photo_category.each do |category, photos| %>  
+      <% category = Category.find_by_id(category) %>
+      <br /><h3><%= category.name %></h3>
+      <% for photo in photos %>
         
-      
-    <% end %>    
+          <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
+          
+        
+      <% end %> 
+    <% end %>     
   <% end %>  
 
 <%= link_to 'Edit', edit_store_path(@store) %> |

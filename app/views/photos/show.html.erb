@@ -2,39 +2,60 @@
 
 <p>
   <b>Brand:</b>
-  <%= @photo.brand %>
+  <%= @photo.brand.name %>
 </p>
 
 <p>
   <b>Audit:</b>
-  <%= @photo.audit %>
+  <%= @photo.audit.id %>
 </p>
-
+<p>
+  <b>Store:</b>
+  <%= @photo.audit.store.name %>
+</p>
+ 
 <p>
   <b>Category:</b>
-  <%= @photo.category %>
+  <%= @photo.category.name %>
 </p>
 
 <p>
+  <b>Store Format</b>
+  <%= @photo.audit.store.store_format.name %>
+</p>
+<p>
+  <b>Retailer:</b>
+  <%= @photo.audit.retailer.name %>
+</p>
+<p>
   <b>Media location:</b>
-  <%= @photo.media_location %>
+  <%= @photo.media_location.name %>
 </p>
 
 <p>
   <b>Media vehicle:</b>
-  <%= @photo.media_vehicle %>
+  <%= @photo.media_vehicle.name %>
 </p>
 
 <p>
   <b>Media type:</b>
-  <%= @photo.media_type %>
+  <%= @photo.media_type.name %>
+</p>
+
+<p>
+  <b>Sector:</b>
+  <%= @photo.audit.store.retailer.sector.name %>
+</p>
+
+<p>
+  <b>Environment type:</b>
+  <%= @photo.audit.environment_type.name %>
 </p>
 
 <p>
   <b>Description:</b>
   <%= @photo.description %>
 </p>
-
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
 <%= link_to 'Back', photos_path %>

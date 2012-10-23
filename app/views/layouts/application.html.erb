@@ -17,12 +17,16 @@
             |
             <%= link_to "Profile", edit_user_registration_path %>
             |
+            <%= link_to "Basket", edit_user_registration_path %>
+            |
             <%= link_to "Sign out", destroy_user_session_path %>
-            
+            |
+            <%= link_to "Admin", admin_path %>
             <% else %>
               <%= link_to 'Sign in', new_user_session_path%>
             |
             <%= link_to 'Register', new_user_registration_path%>
+            
             <% end %>
       </header>
       <% flash.each do |name, msg| %>
@@ -30,7 +34,9 @@
       <% end %>
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
+
     </div>
     <%= yield :scripts %>
   </body>
+<%= debug(params) if Rails.env.development? %>
 </html>

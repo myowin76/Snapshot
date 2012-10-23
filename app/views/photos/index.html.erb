@@ -1,32 +1,38 @@
-
 <h1>Listing photos</h1>
 
 <aside>
+<h3><%= @test %></h3>
+<% if request.post? %>
+    <% params[:search].each do |param| %>
+      <%= params[:search][:category] %>
+    <% end %>
+<% end %>
 
     <h3>Search by</h3>  
+
     <%= form_tag root_path :method => 'get' do %>
       <p>
         <%= label_tag "Postcode" %>
-        <%= text_field_tag :media_location_id_cont %>
+        <%= text_field_tag "search[postcode]" %>
       </p>
       <p>  
         <h3>Sectors</h3>
         <% for sector in @sectors %>
-          <%= check_box_tag "sector[]", sector.id %>
+          <%= check_box_tag "search[sector][]", sector.id %>
           <%= sector.name %><br />
         <% end %>
       </p>
       <p>  
         <h3>Channels</h3>
         <% for channel in @channels %>
-          <%= check_box_tag "channel[]", channel.id %>
+          <%= check_box_tag "search[channel][]", channel.id %>
           <%= channel.name %><br />
         <% end %>
       </p>
       <p>
         <h3>Categories</h3>  
         <% for category in @categories %>
-          <%= check_box_tag "category[]", category.id %>
+          <%= check_box_tag "search[category][]", category.id %>
           <%= category.name %><br />
         <% end %>
       </p>
@@ -35,79 +41,58 @@
       </p>
     <% end %>
 
-
-    <h3>Audits(Users)</h3>
-    <%= link_to "Audits", audits_path %><br />
-
-
-    <h3>Manage Stores(Admin)</h3>
-    <%= link_to "Manage Stores", stores_path %><br />
-
-    <h3>Manage Setting(Admin)</h3>
-    <%= link_to "Manage Categories", categories_path %><br />
-    <%= link_to "Manage Retailers", retailers_path %><br />
-    <%= link_to "Manage Sectors", sectors_path %><br />
-    <%= link_to "Manage Brands", brands_path %><br />
-    <%= link_to "Manage channels", channels_path %><br />
-    <%= link_to "Manage countries", countries_path %><br />
-    <%= link_to "Manage Store Formats", store_formats_path %><br />
-    <%= link_to "Manage Media Types", media_types_path %><br />
-    <%= link_to "Manage Media Locations", media_locations_path %><br />
-    <%= link_to "Manage Media Vehicles", media_vehicles_path %><br />
-    <%= link_to "Manage Promotion Calendars", promotion_calendars_path %><br />
-    <%= link_to "Manage Promotion Types", promotion_types_path %><br />
+    
+    
 
 
 </aside>
 <div class="main">
-    <%= gmaps4rails(@json) %>
+    <%#= gmaps4rails(@json) %>
 <table>
     <thead>
 
     </thead>
     <tbody>
-    <% @photos.each do |photo| %>
-        <tr style="border-bottom: 1px solid #ddd; display:block;">
-            <td>
-              <%= check_box_tag photo.id %>
-            </td>
-            <td>
-                <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %><br />
-            </td>
-            <td>  
-                Brand: <%= photo.brand.name %><br />
-                Date:  <%= photo.created_at.strftime('%d/%m/%Y') %><br />
-                Audit: <%= photo.audit.id %><br />
-                Category: <%= photo.category.name %><br />
-                Media location: <%= photo.media_location.name %><br />
-                Media vehicle: <%= photo.media_vehicle.name %><br />
-            </td>
-            <td>
-                <strong>Media type:</strong> <%= photo.media_type.name %><br />
-                <strong>Store: </strong><%= photo.audit.store.name %><br />
-                <!--strong>Longitude:</strong> <%= photo.audit.store.longitude %><br /-->
-                <!--strong>Latitude:</strong> <%= photo.audit.store.latitude %><br /-->
-                <strong>Store Format:</strong> <%= photo.audit.store.store_format.name %><br />
-                <strong>Retailer: <%= photo.audit.retailer.name %><br />
-            </td>
-            <td>
-                <% unless photo.promotion_calendar_id.nil? %>
-                  <strong>Promotion Calendar:</strong> <%= photo.promotion_calendar.name %><br />
-                <% end %>
-                <% unless photo.promotion_type_id.nil? %>
-                  <strong>Promotion Type:</strong> <%= photo.promotion_type.name %><br />
-                <% end %>
-                <strong>Sector:</strong> <%= photo.audit.store.retailer.sector.name %><br />
-                <strong>At Store:</strong> <%= photo.audit.environment_type.name %><br />
-                <strong>Description:</strong> <%= photo.description %><br />
-            </td>
-            <td>    
-                <%#= link_to 'Show', photo %>
-                <%#= link_to 'Edit', edit_photo_path(photo) %>
-                <%#= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %><br />
-            </td>    
-        </tr>
-
+    <% unless @photos.nil? %>    
+      <% @photos.each do |photo| %>
+          <tr style="border-bottom: 1px solid #ddd; display:block;">
+              <td>
+                <%= check_box_tag photo.id %>
+              </td>
+              <td>
+                  <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %><br />
+              </td>
+              <td>  
+                  Brand: <%= photo.brand.name %><br />
+                  Date:  <%= photo.created_at.strftime('%d/%m/%Y') %><br />
+                  Audit: <%= photo.audit.id %><br />
+                  Category: <%= photo.category.name %><br />
+              </td>
+              <td>
+                  <strong>Media type:</strong> <%= photo.media_type.name %><br />
+                  <strong>Store: </strong><%= photo.audit.store.name %><br />
+                  <!--strong>Longitude:</strong> <%= photo.audit.store.longitude %><br /-->
+                  <!--strong>Latitude:</strong> <%= photo.audit.store.latitude %><br /-->
+                  
+              </td>
+              <td>
+                  <% unless photo.promotion_calendar_id.nil? %>
+                    <strong>Promotion Calendar:</strong> <%= photo.promotion_calendar.name %><br />
+                  <% end %>
+                  <% unless photo.promotion_type_id.nil? %>
+                    <strong>Promotion Type:</strong> <%= photo.promotion_type.name %><br />
+                  <% end %>
+                  
+                  <strong><%= link_to "Details", photo %></strong
+              </td>
+              <td>    
+                  <%#= link_to 'Show', photo %>
+                  <%#= link_to 'Edit', edit_photo_path(photo) %>
+                  <%#= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %><br />
+              </td>    
+          </tr>
+      <% end %>
+        
     <% end %>
     </tbody>
 </table>

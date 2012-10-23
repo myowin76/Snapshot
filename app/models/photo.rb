@@ -8,9 +8,10 @@ class Photo < ActiveRecord::Base
   belongs_to :media_type
   belongs_to :promotion_type
   belongs_to :promotion_calendar
+  belongs_to :theme
 
   attr_accessible :description, :audit_id, :brand_id, :category_id, :media_location_id, 
-  		:media_vehicle_id, :media_type_id, :promotion_calendar_id, :promotion_type_id, :photo
+  		:media_vehicle_id, :media_type_id, :promotion_calendar_id, :promotion_type_id, :theme_id, :photo
 
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
@@ -37,19 +38,25 @@ class Photo < ActiveRecord::Base
   	
     
 
-    def self.destroy_pics(hotel, photos)
-  		Photo.find(photos, :conditions => {:hotel_id => hotel}).each(&:destroy)
-  	end
+    #def self.destroy_pics(store, photos)
+  	#	Photo.find(photos, :conditions => {:hotel_id => hotel}).each(&:destroy)
+  	#end
 
     def self.search(search)
       if search
-        find(:all, :conditions => ['postcode LIKE ?', "%#{search}%"])
+        #find_photos
+        find(:all, :conditions => ['category_id IN (?)', "search[category]"])
+
+        
       else
         find(:all)
       end
     end
 
-    
+    private #------------------------------
+    def find_photos
+      
+    end
 
 
 

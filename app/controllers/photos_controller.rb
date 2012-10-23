@@ -3,6 +3,12 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     #@photos = Photo.all
+    if request.post?      
+      
+
+    else
+      Photo.find(:all)
+    end
     @channels = Channel.all
     @categories = Category.all
     @sectors = Sector.all

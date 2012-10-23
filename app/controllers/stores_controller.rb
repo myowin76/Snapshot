@@ -3,6 +3,13 @@ class StoresController < ApplicationController
   # GET /stores.json
   def index
     #@stores = Store.all
+    if params[:search].nil?
+      @test = "i dont have param, go to home"
+      
+    else
+      @test = "i have param"
+    end
+
     @stores = Store.search(params[:search])
     @sectors = Sector.all
     @channels = Channel.all

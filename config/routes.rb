@@ -16,8 +16,8 @@ Snapshot::Application.routes.draw do
   resources :stores
 
   get "pages/home"
-
   get "pages/contact"
+  get "pages/admin"
 
   resources :media_types
 
@@ -39,7 +39,7 @@ Snapshot::Application.routes.draw do
 
   resources :countries
 
-
+  match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
