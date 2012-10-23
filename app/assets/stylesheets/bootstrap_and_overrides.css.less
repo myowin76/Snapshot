@@ -8,13 +8,13 @@
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
-@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
-@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf");
-@fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
+//@fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
+//@fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
+//@fontAwesomeTtfPath: asset-path("fontawesome-webfont.ttf");
+//@fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
 
 // Font Awesome
-@import "fontawesome";
+//@import "fontawesome";
 
 // Your custom LESS stylesheets goes here
 //
@@ -26,3 +26,29 @@
 //
 // Example:
 // @linkColor: #ff0000;
+
+body{
+	background-color: #4B7399;
+}
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner{
+	background: none;
+	background-color: #4B7399;
+	box-shadow: none;
+	border: none;
+	padding-left: 40px;
+}
+
+.navbar .brand{
+	color: white;
+	text-shadow: none;
+
+}
+.navbar .nav li a{
+	color: white;
+	text-shadow: none;
+
+}
+.navbar .nav li a:hover{
+	color: white; 
+	text-decoration: underline;
+}
