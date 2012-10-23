@@ -17,9 +17,7 @@ gem 'will_paginate', '~> 3.0.0'
 gem 'ransack'
 gem 'gmaps4rails'
 gem 'aws-sdk'
-gem "twitter-bootstrap-rails", "~> 2.0rc0"
 gem 'jquery-datatables-rails'
-  gem 'jquery-ui-rails'
 # gem "aws-s3"
 
 group :production do
@@ -35,6 +33,9 @@ group :assets do
   
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem "twitter-bootstrap-rails", "~> 2.0rc0"
+  
+  gem 'jquery-ui-rails'
   #gem 'bootstrap-sass'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
