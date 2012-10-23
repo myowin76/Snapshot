@@ -7,7 +7,7 @@ class PhotosController < ApplicationController
       
 
     else
-      Photo.find(:all)
+      #Photo.find(:all)
     end
     @channels = Channel.all
     @categories = Category.all

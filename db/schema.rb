@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022230738) do
+ActiveRecord::Schema.define(:version => 20121022211513) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -136,13 +136,6 @@ ActiveRecord::Schema.define(:version => 20121022230738) do
   end
 
   add_index "retailers", ["sector_id"], :name => "index_retailers_on_sector_id"
-
-  create_table "searches", :force => true do |t|
-    t.string   "postcode"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "sectors", :force => true do |t|
     t.string   "name"
