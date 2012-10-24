@@ -1,16 +1,17 @@
 #include Geokit::Geocoders
 class Store < ActiveRecord::Base
   attr_accessible :address, :address2, :description, :latitude, :longitude, :name, 
-  	:postcode, :retailer_id, :store_format_id
+  	:postcode, :retailer_id, :store_format_id, :country_id
 
   belongs_to :store_format
   belongs_to :retailer
+  belongs_to :country
   has_many :audits
   geocoded_by :postcode
   after_validation :geocode
   
 
-  # GEOKITS
+  # GEOCODERS
   acts_as_gmappable :process_geocoding => false
   #acts_as_mappable :default_units => :miles,
 	#	:default_formula => :sphere,

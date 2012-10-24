@@ -9,6 +9,10 @@
         <%= label_tag "Postcode" %>
         <%= text_field_tag "search[postcode]" %>
       </p>
+      <p>
+        <%= label_tag "Country" %>
+        <%= collection_select(:search, :country_id, Country.find(:all), :id, :name) %>
+      </p>
       <p>  
         <h3>Sectors</h3>
         <% for sector in @sectors %>
@@ -30,68 +34,82 @@
           <%= category.name %><br />
         <% end %>
       </p>
+      <p>
+        <h3>Dates</h3>
+        <fieldset>
+          <%= label_tag "From" %><br />
+          <%= text_field_tag "search[fromDate]" %>
+        </fieldset>
+        <fieldset>
+          <%= label_tag "To" %><br />
+        <%= text_field_tag "search[toDate]" %>
+        </fieldset>
+        
+      </p>
       <p>  
-        <%= submit_tag "Search", :name => nil %>
+        <%= submit_tag "Search", :name => nil, :class=> 'btn btn-success' %>
+        <a href="#" class='btn'>Clear</a>
       </p>
     <% end %>
 
-    
-    
-
-
 </aside>
 <div class="main">
-    <%= gmaps4rails(@json) %>
-<table>
-    <thead>
+    <%#= gmaps4rails(@json) %>
+    
+<h4><%= @stores.count %> Stores found</h4>
+<table id="photo-list">
+  <thead>
 
-    </thead>
+    <tr>
+      <th></th>
+      <th>Photo</th>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Store</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+    
     <tbody>
     <% unless @photos.nil? %>    
       <% @photos.each do |photo| %>
-          <tr style="border-bottom: 1px solid #ddd; display:block;">
+          <tr>
               <td>
                 <%= check_box_tag photo.id %>
               </td>
               <td>
-                  <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %><br />
+                  <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
               </td>
               <td>  
-                  Brand: <%= photo.brand.name %><br />
-                  Date:  <%= photo.created_at.strftime('%d/%m/%Y') %><br />
-                  Audit: <%= photo.audit.id %><br />
-                  Category: <%= photo.category.name %><br />
-              </td>
-              <td>
-                  <strong>Media type:</strong> <%= photo.media_type.name %><br />
-                  <strong>Store: </strong><%= photo.audit.store.name %><br />
-                  <!--strong>Longitude:</strong> <%= photo.audit.store.longitude %><br /-->
-                  <!--strong>Latitude:</strong> <%= photo.audit.store.latitude %><br /-->
-                  
-              </td>
-              <td>
-                  <% unless photo.promotion_calendar_id.nil? %>
-                    <strong>Promotion Calendar:</strong> <%= photo.promotion_calendar.name %><br />
-                  <% end %>
-                  <% unless photo.promotion_type_id.nil? %>
-                    <strong>Promotion Type:</strong> <%= photo.promotion_type.name %><br />
-                  <% end %>
-                  
-                  <strong><%= link_to "Details", photo %></strong
+                  <%= photo.created_at.strftime('%d/%m/%Y') %>
               </td>
               <td>    
+                  <%= photo.category.name %>
+              </td>
+              <td>
+                  <%= photo.audit.store.name %>
+              </td>
+              <td>
+                  <%# unless photo.promotion_calendar_id.nil? %>
+                    <!--strong>Promotion Calendar:</strong> <%#= photo.promotion_calendar.name %><br />
+                  <% #end %>
+                  <% #unless photo.promotion_type_id.nil? %>
+                    <strong>Promotion Type:</strong> <%#= photo.promotion_type.name %><br />
+                  <% #end %>
+                -->
+                  
+                  <%= link_to "Details", photo %>
+              </td>
+                  
                   <%#= link_to 'Show', photo %>
                   <%#= link_to 'Edit', edit_photo_path(photo) %>
-                  <%#= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %><br />
-              </td>    
+                  <%#= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+              
           </tr>
       <% end %>
         
     <% end %>
     </tbody>
 </table>
-
-
-
 <%#= link_to 'New Photo', new_photo_path %>
 </div>

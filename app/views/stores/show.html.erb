@@ -5,23 +5,14 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @store.name %>
-</p>
+<h3><%= @store.name %></h3>
+  
+
 
 <p>
-  <b>Address:</b>
-  <%= @store.address %>
-</p>
-
-<p>
-  <b>Address2:</b>
+  <b>Address:</b><br />
+  <%= @store.address %><br />
   <%= @store.address2 %>
-</p>
-
-<p>
-  <b>Postcode:</b>
   <%= @store.postcode %>
 </p>
 
@@ -38,16 +29,15 @@
   <% unless @photo_category.nil? %>
     <% @photo_category.each do |category, photos| %>  
       <% category = Category.find_by_id(category) %>
-      <br /><h3><%= category.name %></h3>
+      <br /><h4><%= category.name %></h4>
       <% for photo in photos %>
         
           <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
           
-        
       <% end %> 
     <% end %>     
   <% end %>  
 
-<%#= link_to 'Edit', edit_store_path(@store) %> |
+<%#= link_to 'Edit', edit_store_path(@store) %>
 <%#= link_to 'Back', stores_path %>
 

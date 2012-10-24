@@ -1,4 +1,6 @@
 Snapshot::Application.routes.draw do
+  resources :locations
+
   resources :themes
 
   resources :promotion_calendars

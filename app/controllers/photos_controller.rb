@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     #@photos = Photo.all
-
+    @stores = Store.all
     @channels = Channel.all
     @categories = Category.all
     @sectors = Sector.all

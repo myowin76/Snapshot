@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(:version => 20121022211513) do
     t.string   "postcode"
     t.integer  "store_format_id"
     t.integer  "retailer_id"
+    t.integer  "country_id"
     t.decimal  "longitude",       :precision => 15, :scale => 10
     t.decimal  "latitude",        :precision => 15, :scale => 10
     t.text     "description"
