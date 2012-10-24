@@ -9,31 +9,59 @@
         <%= label_tag "Postcode" %>
         <%= text_field_tag "search[postcode]" %>
       </p>
+      
       <p>
         <%= label_tag "Country" %>
         <%= collection_select(:search, :country_id, Country.find(:all), :id, :name) %>
       </p>
-      <p>  
-        <h3>Sectors</h3>
-        <% for sector in @sectors %>
-          <%= check_box_tag "search[sector][]", sector.id %>
-          <%= sector.name %><br />
-        <% end %>
-      </p>
-      <p>  
-        <h3>Channels</h3>
-        <% for channel in @channels %>
-          <%= check_box_tag "search[channel][]", channel.id %>
-          <%= channel.name %><br />
-        <% end %>
-      </p>
-      <p>
-        <h3>Categories</h3>  
-        <% for category in @categories %>
-          <%= check_box_tag "search[category][]", category.id %>
-          <%= category.name %><br />
-        <% end %>
-      </p>
+      <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#sectors">
+              Sector
+            </a>
+          </div>
+          <div id="sectors" class="accordion-body collapse in">
+            <div class="accordion-inner">
+              <% for sector in @sectors %>
+                <%= check_box_tag "search[sector][]", sector.id %>
+                <%= sector.name %><br />
+              <% end %>  
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#channels">
+              Channels
+            </a>
+          </div>
+          <div id="channels" class="accordion-body collapse">
+            <div class="accordion-inner">
+              <% for channel in @channels %>
+                <%= check_box_tag "search[channel][]", channel.id %>
+                <%= channel.name %><br />
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#categories">
+              Categories
+            </a>
+          </div>
+          <div id="categories" class="accordion-body collapse">
+            <div class="accordion-inner">
+              <% for category in @categories %>
+                <%= check_box_tag "search[category][]", category.id %>
+                <%= category.name %><br />
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <p>
         <h3>Dates</h3>
         <fieldset>

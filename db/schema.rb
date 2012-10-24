@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20121024143402) do
     t.integer  "environment_type_id"
     t.integer  "channel_id"
     t.integer  "retailer_id"
+    t.integer  "user_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20121024143402) do
   add_index "audits", ["environment_type_id"], :name => "index_audits_on_environment_type_id"
   add_index "audits", ["retailer_id"], :name => "index_audits_on_retailer_id"
   add_index "audits", ["store_id"], :name => "index_audits_on_store_id"
+  add_index "audits", ["user_id"], :name => "index_audits_on_user_id"
 
   create_table "brands", :force => true do |t|
     t.string   "name"

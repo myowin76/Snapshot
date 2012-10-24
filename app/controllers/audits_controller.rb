@@ -46,6 +46,9 @@ class AuditsController < ApplicationController
 
     respond_to do |format|
       if @audit.save
+        # save user
+        @audit.update_attribute(:user_id, current_user.id)
+         
         if @audit.photos.blank?
           format.html { redirect_to photos_path, notice: 'Audit was successfully created.' }
         else
