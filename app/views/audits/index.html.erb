@@ -9,6 +9,7 @@
     <th>Channel</th>
     <th>Environment type</th>
     <th>photos(count)</th>
+    <th>uploaded by</th>
     <th></th>
     <th></th>
   </tr>
@@ -20,6 +21,7 @@
     <td><%= audit.channel.name %></td>
     <td><%= audit.environment_type.name %></td>
     <td><%= audit.photos.count %></td>
+    <td><%= audit.user.email %></td>
     
     <td><%= link_to 'Show', audit %></td>
     <td><%= link_to 'Edit', edit_audit_path(audit) %></td>

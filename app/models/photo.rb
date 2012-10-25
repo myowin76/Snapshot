@@ -44,8 +44,9 @@ class Photo < ActiveRecord::Base
 
     def self.search(search)
       if search
-        #find_photos
-        find(:all, :conditions => ['category_id IN (?)', "search[category]"])
+        #find_by_postcode()
+        
+        find(:all, :conditions => ['category_id IN (?)', "category[]"])
 
         
       else
@@ -54,7 +55,7 @@ class Photo < ActiveRecord::Base
     end
 
     private #------------------------------
-    def find_photos
+    def find_by_postcode
       
     end
 

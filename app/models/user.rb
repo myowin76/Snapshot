@@ -12,5 +12,26 @@ class User < ActiveRecord::Base
   has_many :searches
   has_many :audits
 
+  # check user is admin/subscriber or uploader (user types)
+
+private
+  # check users' subscriptions
+  def self.subscribed_countries
+    # return User.subscription.countries array
+  end
+
+  def self.subscribed_categories
+    # return User.subscription.categories array
+  end
+
+  def self.is_all_subscriber?
+    # check user subscription type is all 
+    # return true
+  end
+
+  def self.is_brand_owner?
+    # check user type is brand owner
+    # return true
+  end
   
 end

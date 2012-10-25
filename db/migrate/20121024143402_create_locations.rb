@@ -7,6 +7,7 @@ class CreateLocations < ActiveRecord::Migration
 
       t.timestamps
     end
+    Location.create(:name=> 'Ayelsbury', :country_id => '1')
     add_index :locations, :country_id
   end
 end

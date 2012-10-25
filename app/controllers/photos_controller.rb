@@ -2,11 +2,26 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    #@photos = Photo.all
+    
+    # NEED TO CHECK FIRST, SUBSCRIPTIONS TABLE  WHAT USER SUBSCRIBE
+
     @stores = Store.all
     @channels = Channel.all
+    if params[:category]
+
+    
+    else
+      #@photos = Photo.all
+    end
+
+
+    # TO CHECK ONLY COUNTRIES USER SUBSCRIBE
+    # @countries = current_user.subscribed_countries
     @countries = Country.all
+
+
     @locations = Location.all
+    @retailers = Retailer.all
     @categories = Category.all
     @sectors = Sector.all
     @promo_calendar = PromotionCalendar.all
@@ -33,7 +48,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       format.html  # index.html.erb
-      # format.json { render json: @photos }
+      format.json { render json: @photos }
       format.js
     end
   end

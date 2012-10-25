@@ -51,6 +51,13 @@
               <a href="#">
                 Logged in as: <%= current_user.email  %> 
               </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                <li><a tabindex="-1" href="#">Action</a></li>
+                <li><a tabindex="-1" href="#">Another action</a></li>
+                <li><a tabindex="-1" href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="#">Separated link</a></li>
+              </ul>
             </li>
             <li>
                 <%= link_to "Sign out", destroy_user_session_path %>
@@ -77,12 +84,15 @@
     </div>
         
     <div class="row">
-      <div class="span8">
-        &copy; 2012 <a href="#">Snapshot World Wide</a>, all rights reserved.
-      </div>
-      <div id="builtby" class="span4">
-        <a href="http://skyron.co.uk">Powered by Skyron.</a>        
-      </div> 
+      <footer class="container-fluid">
+        <div class="span8">
+          &copy; 2012 <a href="#">Snapshot World Wide</a>, all rights reserved.
+        </div>
+        <div id="builtby" class="span4">
+          <a href="http://skyron.co.uk">Powered by Skyron.</a>        
+        </div>   
+      </footer>
+      
     </div>
 
     <%= yield :scripts %>

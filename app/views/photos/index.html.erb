@@ -19,6 +19,8 @@
       <p>
         <%= label_tag "Country" %>
         <%= collection_select(:search, :country_id, Country.find(:all), :id, :name, { :prompt => 'All' }) %>
+        <%#= collection_select(:country, :id, Country.find(:all), :id, :name,
+          {:prompt => 'All'}) %>
       </p>
 
       <p>
@@ -27,7 +29,6 @@
         <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
               { :prompt => 'All' }) %>
       </p>
-
 
       <!-- * * * * * * *
         NEED TO CHECK USERS SUBSCRIPTION WHICH CATEGORY IS ALLOWD
@@ -64,6 +65,7 @@
             </div>
           </div>
         </div>
+        
         <div class="accordion-group">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#categories">
@@ -73,7 +75,7 @@
           <div id="categories" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for category in @categories %>
-                <%= check_box_tag "search[categories]", category.id %>
+                <%= check_box_tag "category[]", category.id%>
                 <%= category.name %><br />
               <% end %>
             </div>
@@ -85,7 +87,7 @@
               Promotion Calendar
             </a>
           </div>
-          <div id="promo_cal" class="accordion-body collapse in">
+          <div id="promo_cal" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for promo_cal in @promo_calendar %>
                 <%= check_box_tag "search[promo_cal]", promo_cal.id %>
@@ -120,9 +122,9 @@
     <%= gmaps4rails(@json) %>
     
 <h4><%= pluralize(@stores.count, 'store') %> found</h4>
-<table id="photo-list">
-  <thead>
 
+<table id="photo-list22" class="table table-striped">
+  <thead>
     <tr>
       <th></th>
       <th>Photo</th>
