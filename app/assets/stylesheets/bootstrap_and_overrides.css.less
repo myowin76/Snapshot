@@ -49,7 +49,15 @@ body{
 .navbar .nav li a{
 	color: white;
 	text-shadow: none;
-
+}
+.navbar .nav .dropdown-menu li a {
+	color: #333;
+}
+.navbar .nav .dropdown-menu li a:hover {
+	
+}
+.navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+	color: white;
 }
 .navbar .nav li a:hover{
 	color: white; 
@@ -62,6 +70,19 @@ body{
 	line-height: 30px;
 }
 
+.nav .dropdown-toggle .caret {
+	border-top-color: #fff;
+	border-bottom-color: #fff;
+}
+.nav .dropdown-toggle:hover .caret {
+	border-top-color: #fff;
+	border-bottom-color: #fff;
+}
+.pull-right > li > .dropdown-menu, .navbar .nav > li > .dropdown-menu.pull-right {
+	left: auto;
+	right: 10px;
+	top: 40px;
+}
 @media (max-width: 767px){
   body{
     padding: 0;

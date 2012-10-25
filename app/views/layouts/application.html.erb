@@ -21,10 +21,6 @@
       <div class="nav-collapse">
         <ul class="nav">
           <% if user_signed_in? %>
-              
-              <li>
-                <%= link_to "Profile", edit_user_registration_path %>
-              </li>
               <li>
                 <%= link_to "Basket", edit_user_registration_path %>
               </li>
@@ -32,9 +28,6 @@
               <li>
                 <%= link_to "Admin", admin_path %>
               </li>
-              <!--li>
-                Logged in as: <%#= current_user.email  %> 
-              </li-->
             <% else %>
               <li>
                 <%= link_to 'Sign in', new_user_session_path %>
@@ -48,19 +41,23 @@
         <ul class="nav pull-right">
           <% if user_signed_in? %>
             <li>
-              <a href="#">
-                Logged in as: <%= current_user.email  %> 
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Logged in as: <%= current_user.email  %> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                <li><a tabindex="-1" href="#">Action</a></li>
-                <li><a tabindex="-1" href="#">Another action</a></li>
+                <li>
+                  <%= link_to "Account", edit_user_registration_path, :tabindex=>"-1" %>
+                </li>
+                <li><a tabindex="-1" href="#">Settings</a></li>
                 <li><a tabindex="-1" href="#">Something else here</a></li>
                 <li class="divider"></li>
-                <li><a tabindex="-1" href="#">Separated link</a></li>
+                <li>
+                  <%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
+                </li>
               </ul>
             </li>
             <li>
-                <%= link_to "Sign out", destroy_user_session_path %>
+                
               </li>
           <% end %>
         </ul>
