@@ -114,3 +114,14 @@ footer{
 #builtby{
   text-align: right;
 }
+
+.table.dataTable thead th{
+  border-bottom: none;
+}
+
+@media (max-width: 767px){
+
+  .container-fluid{
+    margin-top: 0;
+  }
+}
