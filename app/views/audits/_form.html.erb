@@ -1,3 +1,4 @@
+
 <%= simple_form_for @audit, :html => { :multipart => true } do |f| %>
   <%= f.error_notification %>
 
@@ -29,13 +30,14 @@
           <%= photo_fields.association :media_location, :include_blank => false %>
           <%= photo_fields.association :media_vehicle, :include_blank => false %>
           <%= photo_fields.association :media_type, :include_blank => false %>
-          <%= photo_fields.association :promotion_type, :include_blank => false %>
-          <%= photo_fields.association :promotion_calendar, :include_blank => false %>
+          <%= photo_fields.association :promotion_type, {:include_blank => "None"} %>
+          <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
           <%= photo_fields.association :theme, :include_blank => false %>
           <%= photo_fields.check_box :_destroy %>   
         </div>  
       <% end %>
     <% end %>
+    
   </div>
 
   <div class="form-actions">

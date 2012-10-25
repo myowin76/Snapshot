@@ -2,42 +2,43 @@
 <% content_for :head do %>
     
 <% end %>          
+<div class="span8">
+  <p id="notice"><%= notice %></p>
 
-<p id="notice"><%= notice %></p>
-
-<h3><%= @store.name %></h3>
-  
+  <h3><%= @store.name %></h3>
+    
 
 
-<p>
-  <b>Address:</b><br />
-  <%= @store.address %><br />
-  <%= @store.address2 %>
-  <%= @store.postcode %>
-</p>
+  <p>
+    <b>Address:</b><br />
+    <%= @store.address %><br />
+    <%= @store.address2 %>
+    <%= @store.postcode %>
+  </p>
 
-<p>
-  <b>Store format:</b>
-  <%= @store.store_format.name %>
-</p>
+  <p>
+    <b>Store format:</b>
+    <%= @store.store_format.name %>
+  </p>
 
-<p>
-  <b>Retailer:</b>
-  <%= @store.retailer.name %>
-</p>
+  <p>
+    <b>Retailer:</b>
+    <%= @store.retailer.name %>
+  </p>
 
-  <% unless @photo_category.nil? %>
-    <% @photo_category.each do |category, photos| %>  
-      <% category = Category.find_by_id(category) %>
-      <br /><h4><%= category.name %></h4>
-      <% for photo in photos %>
-        
-          <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
+    <% unless @photo_category.nil? %>
+      <% @photo_category.each do |category, photos| %>  
+        <% category = Category.find_by_id(category) %>
+        <br /><h4><%= category.name %></h4>
+        <% for photo in photos %>
           
-      <% end %> 
-    <% end %>     
-  <% end %>  
+            <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
+            
+        <% end %> 
+      <% end %>     
+    <% end %>  
 
-<%#= link_to 'Edit', edit_store_path(@store) %>
-<%#= link_to 'Back', stores_path %>
+  <%#= link_to 'Edit', edit_store_path(@store) %>
+  <%#= link_to 'Back', stores_path %>
 
+</div>

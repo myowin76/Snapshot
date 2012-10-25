@@ -1,62 +1,69 @@
-<p id="notice"><%= notice %></p>
-<%= link_to image_tag(@photo.photo.url(:large)), @photo.photo.url(:originals)  %><br />
-<p>
-  <b>Brand:</b>
-  <%= @photo.brand.name %>
-</p>
+<div class="span6">
+  <p id="notice"><%= notice %></p>
+  <%= link_to image_tag(@photo.photo.url(:large)), @photo.photo.url(:originals)  %><br />
+</div>
 
-<p>
-  <b>Audit:</b>
-  <%= @photo.created_at %>
-</p>
-<p>
-  <b>Store:</b>
-  <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %>
-  <%=  %>
-</p>
- 
-<p>
-  <b>Category:</b>
-  <%= @photo.category.name %>
-</p>
+<div class="span6">
+  <p>
+    <b>Brand:</b>
+    <%= @photo.brand.name %>
+  </p>
 
-<p>
-  <b>Store Format</b>
-  <%= @photo.audit.store.store_format.name %>
-</p>
-<p>
-  <b>Retailer:</b>
-  <%= @photo.audit.retailer.name %>
-</p>
-<p>
-  <b>Media location:</b>
-  <%= @photo.media_location.name %>
-</p>
+  <p>
+    <b>Audit:</b>
+    <%= @photo.created_at %>
+  </p>
+  <p>
+    <b>Store:</b>
+    <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %>
+    <%=  %>
+  </p>
+   
+  <p>
+    <b>Category:</b>
+    <%= @photo.category.name %>
+  </p>
 
-<p>
-  <b>Media vehicle:</b>
-  <%= @photo.media_vehicle.name %>
-</p>
+  <p>
+    <b>Store Format</b>
+    <%= @photo.audit.store.store_format.name %>
+  </p>
+  <p>
+    <b>Retailer:</b>
+    <%= @photo.audit.retailer.name %>
+  </p>
 
-<p>
-  <b>Media type:</b>
-  <%= @photo.media_type.name %>
-</p>
+    <%# unless @photo.promotion_calendar_id.nil? %>
+      <p>
+        <b>Media location:</b>
+        <%= @photo.media_location.name %>
+      </p>
+    <%# end %>
+  <p>
+    <b>Media vehicle:</b>
+    <%= @photo.media_vehicle.name %>
+  </p>
 
-<p>
-  <b>Sector:</b>
-  <%= @photo.audit.store.retailer.sector.name %>
-</p>
+  <p>
+    <b>Media type:</b>
+    <%= @photo.media_type.name %>
+  </p>
 
-<p>
-  <b>Environment type:</b>
-  <%= @photo.audit.environment_type.name %>
-</p>
+  <p>
+    <b>Sector:</b>
+    <%= @photo.audit.store.retailer.sector.name %>
+  </p>
 
-<p>
-  <b>Description:</b>
-  <%= @photo.description %>
-</p>
+  <p>
+    <b>Environment type:</b>
+    <%= @photo.audit.environment_type.name %>
+  </p>
 
-<%#= link_to 'Edit', edit_photo_path(@photo) %>
-<%#= link_to 'Back', photos_path %>
+  <p>
+    <b>Description:</b>
+    <%= @photo.description %>
+  </p>
+
+  <%#= link_to 'Edit', edit_photo_path(@photo) %>
+  <%#= link_to 'Back', photos_path %>
+</div>

@@ -1,8 +1,11 @@
+<div class="span12">
 <h1>Listing photos</h1>
+</div>
 
-<aside>
 
-    <h3>Search by</h3>  
+<div class="span4">
+  <aside>
+    <h3>Filter by</h3>  
 
     <%= form_tag root_path :method => 'get' do %>
       <p>
@@ -10,21 +13,37 @@
         <%= text_field_tag "search[postcode]" %>
       </p>
       
+      <!-- 
+        NEED TO CHECK USER PERMISSION THAT WHICH COUNTRY USER ALLOW TO SEARCH
+      -->
       <p>
         <%= label_tag "Country" %>
-        <%= collection_select(:search, :country_id, Country.find(:all), :id, :name) %>
+        <%= collection_select(:search, :country_id, Country.find(:all), :id, :name, { :prompt => 'All' }) %>
       </p>
+
+      <p>
+        <%= label_tag "Location" %>
+        <%#= collection_select(:search, :location_id, Location.find(:all), :id, :name, { :prompt => 'All' }) %>
+        <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
+              { :prompt => 'All' }) %>
+      </p>
+
+
+      <!-- * * * * * * *
+        NEED TO CHECK USERS SUBSCRIPTION WHICH CATEGORY IS ALLOWD
+      -->
+
       <div class="accordion" id="accordion2">
         <div class="accordion-group">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#sectors">
-              Sector
+              Sectors
             </a>
           </div>
           <div id="sectors" class="accordion-body collapse in">
             <div class="accordion-inner">
               <% for sector in @sectors %>
-                <%= check_box_tag "search[sector][]", sector.id %>
+                <%= check_box_tag "search[sectors]", sector.id %>
                 <%= sector.name %><br />
               <% end %>  
             </div>
@@ -39,7 +58,7 @@
           <div id="channels" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for channel in @channels %>
-                <%= check_box_tag "search[channel][]", channel.id %>
+                <%= check_box_tag "search[channels]", channel.id %>
                 <%= channel.name %><br />
               <% end %>
             </div>
@@ -54,9 +73,24 @@
           <div id="categories" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for category in @categories %>
-                <%= check_box_tag "search[category][]", category.id %>
+                <%= check_box_tag "search[categories]", category.id %>
                 <%= category.name %><br />
               <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_cal">
+              Promotion Calendar
+            </a>
+          </div>
+          <div id="promo_cal" class="accordion-body collapse in">
+            <div class="accordion-inner">
+              <% for promo_cal in @promo_calendar %>
+                <%= check_box_tag "search[promo_cal]", promo_cal.id %>
+                <%= promo_cal.name %><br />
+              <% end %>  
             </div>
           </div>
         </div>
@@ -65,11 +99,11 @@
       <p>
         <h3>Dates</h3>
         <fieldset>
-          <%= label_tag "From" %><br />
+          <%= label_tag "From" %>
           <%= text_field_tag "search[fromDate]" %>
         </fieldset>
         <fieldset>
-          <%= label_tag "To" %><br />
+          <%= label_tag "To" %>
         <%= text_field_tag "search[toDate]" %>
         </fieldset>
         
@@ -80,11 +114,12 @@
       </p>
     <% end %>
 
-</aside>
-<div class="main">
+  </aside>
+</div><!-- span3 -->
+<div class="span8">
     <%= gmaps4rails(@json) %>
     
-<h4><%= @stores.count %> Stores found</h4>
+<h4><%= pluralize(@stores.count, 'store') %> found</h4>
 <table id="photo-list">
   <thead>
 
@@ -138,6 +173,7 @@
         
     <% end %>
     </tbody>
-</table>
-<%#= link_to 'New Photo', new_photo_path %>
+  </table>
+  <%#= link_to 'New Photo', new_photo_path %>
+
 </div>

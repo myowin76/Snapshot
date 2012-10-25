@@ -33,25 +33,20 @@ a {
   overflow: hidden;
 }
 
-#container {
+.container-fluid{
+  margin: 35px auto 0;
+  background: white;
   padding: 20px 40px;
   overflow: hidden;
-  background: white;
   box-shadow: 1px 1px 8px #333;
-  margin: 0px auto;
-  margin-top: 30px;
+  margin-top: 35px;
   
 
   aside{
-    width: 25%;
-    float: left;
     background-color: #f1f1f1;
     padding: 12px;
   }
-  .main{
-    width: 70%;
-    float: right;
-  }
+ 
 
 }
 

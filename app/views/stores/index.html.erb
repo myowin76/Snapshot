@@ -1,3 +1,4 @@
+<!--div class=></div>
 <aside>
     <h3>Search by</h3>  
     <%= form_tag root_path :method => 'get' do %>
@@ -32,10 +33,10 @@
     <% end %>
 
 
-</aside>
-<div class="main">
+</aside-->
+<div class="span8">
     <%#= gmaps4rails(@json) %>
-    <%= gmaps("markers" => {"data" => @json},
+    <%#= gmaps("markers" => {"data" => @json},
      "map_options" => { "auto_zoom" => false, "zoom" => 15, "center_on_user" => true }) %> 
 <h1>Listing stores</h1>
 <%= link_to 'New Store', new_store_path %>

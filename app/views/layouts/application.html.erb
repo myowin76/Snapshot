@@ -60,17 +60,31 @@
       </div>
     </div>
   </div>    
-    <div id="container">
-      <% flash.each do |name, msg| %>
-        <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-          <%= content_tag :div, msg %>
-        </div>
-      <% end %>
-      
-      <%= content_tag :h1, yield(:title) if show_title? %>
-      <%= yield %>
-    
+    <div class="row">
+      <div class="container-fluid">
+        
+
+        <% flash.each do |name, msg| %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <%= content_tag :div, msg %>
+          </div>
+        <% end %>
+        
+        <%= content_tag :h1, yield(:title) if show_title? %>
+        <%= yield %>
+        
+      </div>
     </div>
+        
+    <div class="row">
+      <div class="span8">
+        &copy; 2012 <a href="#">Snapshot World Wide</a>, all rights reserved.
+      </div>
+      <div id="builtby" class="span4">
+        <a href="http://skyron.co.uk">Powered by Skyron.</a>        
+      </div> 
+    </div>
+
     <%= yield :scripts %>
   </body>
 <%= debug(params) if Rails.env.development? %>

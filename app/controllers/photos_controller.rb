@@ -5,8 +5,11 @@ class PhotosController < ApplicationController
     #@photos = Photo.all
     @stores = Store.all
     @channels = Channel.all
+    @countries = Country.all
+    @locations = Location.all
     @categories = Category.all
     @sectors = Sector.all
+    @promo_calendar = PromotionCalendar.all
     #@stores = Store.search(params[:search])
     # ransack syntax
     #@search = Photo.search(params[:q])
@@ -29,8 +32,9 @@ class PhotosController < ApplicationController
 
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @photos }
+      format.html  # index.html.erb
+      # format.json { render json: @photos }
+      format.js
     end
   end
 
