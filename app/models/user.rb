@@ -13,15 +13,18 @@ class User < ActiveRecord::Base
   has_many :audits
 
   # check user is admin/subscriber or uploader (user types)
-
+  
 private
   # check users' subscriptions
-  def self.subscribed_countries
+  def self.subscribed_countries(id)
     # return User.subscription.countries array
+    # return false if Self.sub_countries.nil?
+    true
   end
 
   def self.subscribed_categories
     # return User.subscription.categories array
+    false
   end
 
   def self.is_all_subscriber?

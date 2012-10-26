@@ -29,7 +29,7 @@
         <br /><h4><%= category.name %></h4>
         <% for photo in photos %>
           
-            <%= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
+            <%= link_to image_tag(photo.photo.url(:thumb)), photos  %>
             
         <% end %> 
       <% end %>     

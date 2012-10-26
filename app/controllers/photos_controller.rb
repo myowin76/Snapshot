@@ -3,10 +3,46 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     
-    # NEED TO CHECK FIRST, SUBSCRIPTIONS TABLE  WHAT USER SUBSCRIBE
+    # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
+    
+    if user_is_country_subscriber?
+      # TO CHECK ONLY COUNTRY/IES USER SUBSCRIBED
+      @countries = Country.find(current_user.sub_country.split(","))
+      @locations = Location.find_all_by_country_id(@countries)
+      # if not post request with params(first load), find all photos OR with limit amount
+      # find all categories in the country
+      
+      # FIND ONLY STORES IN THE COUNTRY, BY LOCATION/COUNTRY
+      # @stores_in_country = Store.find(:all).map(&:id)
+      # @stores_in_country = Store.find_all_by_location_id(@locations)
+      @stores_in_country = Store.find_all_by_country_id(@countries)
+      
+      #@retailers_in_country = Retailer.find_all_by_id(@store_in_country, :select => 'DISTINCT id', :order => 'name')
+      @retailers_in_country = Retailer.all
+      @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
+      
+      @categories = Category.all
+      @photos = Photo.find_all_by_audit_id(@audits_in_country)          
 
+    elsif user_is_category_subscriber?
+      @countries = Country.all
+      @categories = Category.find(current_user.sub_cats.split(","))
+      
+      @photos = Photo.find_all_by_category_id(@categories)          
+
+      
+    elsif user_is_country_and_category_subscriber?
+
+    
+    else 
+      # SOMETHING ELSE
+      # @subscribed_country = "none"
+    end
+      
+    @sectors = Sector.all
     @stores = Store.all
     @channels = Channel.all
+    @environment_types = EnvironmentType.all
     if params[:category]
 
     
@@ -14,21 +50,19 @@ class PhotosController < ApplicationController
       #@photos = Photo.all
     end
 
-
-    # TO CHECK ONLY COUNTRIES USER SUBSCRIBE
-    # @countries = current_user.subscribed_countries
-    @countries = Country.all
-
+    #@photos = Photo.search(params[:search])    
+    
+    #@countries = Country.all
 
     @locations = Location.all
     @retailers = Retailer.all
-    @categories = Category.all
+    
     @sectors = Sector.all
     @promo_calendar = PromotionCalendar.all
     #@stores = Store.search(params[:search])
     # ransack syntax
     #@search = Photo.search(params[:q])
-    @photos = Photo.search(params[:search])
+    
     
 
     # need to filter by search

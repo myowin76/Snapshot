@@ -10,6 +10,9 @@ class Store < ActiveRecord::Base
   geocoded_by :postcode
   after_validation :geocode
   
+  
+
+
 
   # GEOCODERS
   acts_as_gmappable :process_geocoding => false
