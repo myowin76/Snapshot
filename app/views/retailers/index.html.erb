@@ -1,31 +1,35 @@
-<h1>Listing retailers</h1>
-
-<table id="retailers" class="table table-striped" >
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Sector</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-<tbody>
-  <% @retailers.each do |retailer| %>
+<div class="span8">
+  <div class="page-header">
+    <h1>Listing retailers</h1>
+  </div>
+  
+  <table id="retailers" class="table table-striped" >
+    <thead>
     <tr>
-      <td><%= retailer.name %></td>
-      <td><%= retailer.sector.name %></td>
-      <td><%= retailer.description %></td>
-      <td><%= link_to 'Show', retailer %></td>
-      <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
-      <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <th>Name</th>
+      <th>Sector</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
-  <% end %>
-</tbody>
+  </thead>
+  <tbody>
+    <% @retailers.each do |retailer| %>
+      <tr>
+        <td><%= retailer.name %></td>
+        <td><%= retailer.sector.name %></td>
+        <td><%= retailer.description %></td>
+        <td><%= link_to 'Show', retailer %></td>
+        <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
+        <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 
-</table>
+  </table>
 
-<br />
+  <br />
 
-<%= link_to 'New Retailer', new_retailer_path %>
+  <%= link_to 'New Retailer', new_retailer_path, :class => "btn btn-primary" %>
+</div>

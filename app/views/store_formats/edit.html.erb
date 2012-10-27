@@ -1,6 +1,6 @@
-<h1>Editing store_format</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @store_format %> |
-<%= link_to 'Back', store_formats_path %>
+<%- model_class = StoreFormat -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
+                                   :default => "Edit #{model_class.model_name.human}") %></h1>
+</div>
+<%= render :partial => 'form' %>

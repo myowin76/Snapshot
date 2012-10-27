@@ -1,15 +1,23 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = MediaVehicle -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @media_vehicle.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @media_vehicle.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @media_vehicle.description %></dd>
+</dl>
 
-<p>
-  <b>Description:</b>
-  <%= @media_vehicle.description %>
-</p>
-
-
-<%= link_to 'Edit', edit_media_vehicle_path(@media_vehicle) %> |
-<%= link_to 'Back', media_vehicles_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              media_vehicles_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_media_vehicle_path(@media_vehicle), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              media_vehicle_path(@media_vehicle),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
