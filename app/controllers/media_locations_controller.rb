@@ -1,6 +1,7 @@
 class MediaLocationsController < ApplicationController
   # GET /media_locations
   # GET /media_locations.json
+  layout "admin"
   def index
     @media_locations = MediaLocation.all
 

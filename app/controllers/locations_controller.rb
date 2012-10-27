@@ -1,6 +1,7 @@
 class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
+  layout "admin"
   def index
     @locations = Location.all
 

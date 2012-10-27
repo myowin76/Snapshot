@@ -59,6 +59,10 @@
       <td><%= @photo.promotion_type.name if @photo.promotion_type %></td>
     </tr>
     <tr>
+      <td>Country</td>
+      <td><%= @photo.audit.store.country.name %></td>
+    </tr>
+    <tr>
       <td>Description</td>
       <td><%= @photo.description %></td>
     </tr>

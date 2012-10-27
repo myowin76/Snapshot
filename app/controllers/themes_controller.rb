@@ -1,6 +1,7 @@
 class ThemesController < ApplicationController
   # GET /themes
   # GET /themes.json
+  layout "admin"
   def index
     @themes = Theme.all
 

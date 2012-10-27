@@ -1,6 +1,7 @@
 class MediaVehiclesController < ApplicationController
   # GET /media_vehicles
   # GET /media_vehicles.json
+  layout "admin"
   def index
     @media_vehicles = MediaVehicle.all
 

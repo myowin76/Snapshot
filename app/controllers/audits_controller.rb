@@ -1,7 +1,10 @@
 class AuditsController < ApplicationController
   # GET /audits
   # GET /audits.json
+  layout "admin"
+
   def index
+
     @audits = Audit.all
 
     respond_to do |format|
@@ -25,6 +28,7 @@ class AuditsController < ApplicationController
   # GET /audits/new.json
   def new
     @audit = Audit.new
+    
     # @stores = Store.find_all_by_retailer_id(params[:id])
     5.times {@audit.photos.build}
     respond_to do |format|
@@ -35,6 +39,7 @@ class AuditsController < ApplicationController
 
   # GET /audits/1/edit
   def edit
+    
     @audit = Audit.find(params[:id])
     5.times{@audit.photos.build}
   end

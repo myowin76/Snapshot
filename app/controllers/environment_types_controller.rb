@@ -1,6 +1,7 @@
 class EnvironmentTypesController < ApplicationController
   # GET /environment_types
   # GET /environment_types.json
+  layout "admin"
   def index
     @environment_types = EnvironmentType.all
 

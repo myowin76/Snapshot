@@ -1,6 +1,7 @@
 class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
+  
   def index
     #@stores = Store.all
     unless params[:search].nil?

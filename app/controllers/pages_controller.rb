@@ -1,11 +1,6 @@
 class PagesController < ApplicationController
+  layout "admin"  
   def home
-
-  	@channels = Channel.all
-  	@categories = Category.all
-
-  	@search = Photo.search(params[:q])
-  	@photos = @search.result
 
   	
   end

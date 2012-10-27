@@ -1,10 +1,18 @@
+jQuery.fn.submitOnCheck = ->
+  @find('input[type=checkbox]').click ->
+    $('form').submit()
+  this
+
+
 jQuery ->
+  $('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
+  $('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})
+
+  $('form').submitOnCheck()
 	$('#photo-list22').dataTable
   "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   "sPaginationType": "bootstrap"
 
-	$('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
-	$('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})
 
 jQuery ->
   $('#search_location_id').parent().hide()
@@ -21,3 +29,5 @@ jQuery ->
       $('#search_location_id').empty()
       $('#search_location_id').parent().hide()
       
+
+    

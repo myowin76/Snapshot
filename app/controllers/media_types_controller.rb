@@ -1,6 +1,7 @@
 class MediaTypesController < ApplicationController
   # GET /media_types
   # GET /media_types.json
+  layout "admin"
   def index
     @media_types = MediaType.all
 

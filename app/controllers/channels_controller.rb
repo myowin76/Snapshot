@@ -1,6 +1,7 @@
 class ChannelsController < ApplicationController
   # GET /channels
   # GET /channels.json
+  layout "admin"
   def index
     @channels = Channel.all
 

@@ -1,6 +1,7 @@
 class PromotionTypesController < ApplicationController
   # GET /promotion_types
   # GET /promotion_types.json
+  layout "admin"
   def index
     @promotion_types = PromotionType.all
 

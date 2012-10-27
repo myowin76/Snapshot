@@ -5,7 +5,15 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)                                                                                                                      
       root_path                                                                                         
   end                                                                                                                                                     
+  def store_location
+    session[:return_to] = request.fullpath
+  end
 
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
+    session[:return_to] = nil
+  end
+  # need to review below
   # need to fix doesn't work
   def subscribed_country
     return current_user.sub_country

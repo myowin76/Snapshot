@@ -1,4 +1,5 @@
 class CountriesController < ApplicationController
+  layout "admin"
   def index
     @countries = Country.all
   end

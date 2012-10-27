@@ -1,4 +1,5 @@
 class SectorsController < ApplicationController
+  layout "admin"
   def index
   
       #@sectors = Sector.all

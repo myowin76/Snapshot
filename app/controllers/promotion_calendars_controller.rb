@@ -1,6 +1,7 @@
 class PromotionCalendarsController < ApplicationController
   # GET /promotion_calendars
   # GET /promotion_calendars.json
+  layout "admin"
   def index
     @promotion_calendars = PromotionCalendar.all
 

@@ -4,17 +4,21 @@ class PhotosController < ApplicationController
   def index
     
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
-    
-    if user_is_country_subscriber?
+    if user_is_country_and_category_subscriber?
+      @retailers_in_country = Retailer.all
+      @countries = Country.find(current_user.sub_country.split(","))
+      @stores_in_country = Store.find_all_by_country_id(@countries)
+      @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
+      @categories = Category.find(current_user.sub_cats.split(","))
+      @photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                
+
+      # MAP
+
+    elsif user_is_country_subscriber?
       # TO CHECK ONLY COUNTRY/IES USER SUBSCRIBED
       @countries = Country.find(current_user.sub_country.split(","))
       @locations = Location.find_all_by_country_id(@countries)
       # if not post request with params(first load), find all photos OR with limit amount
-      # find all categories in the country
-      
-      # FIND ONLY STORES IN THE COUNTRY, BY LOCATION/COUNTRY
-      # @stores_in_country = Store.find(:all).map(&:id)
-      # @stores_in_country = Store.find_all_by_location_id(@locations)
       @stores_in_country = Store.find_all_by_country_id(@countries)
       
       #@retailers_in_country = Retailer.find_all_by_id(@store_in_country, :select => 'DISTINCT id', :order => 'name')
@@ -22,25 +26,49 @@ class PhotosController < ApplicationController
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       
       @categories = Category.all
-      @photos = Photo.find_all_by_audit_id(@audits_in_country)          
+      @photos = Photo.find_all_by_audit_id(@audits_in_country)  
+
+      # MAP
+      @json = @stores_in_country.to_gmaps4rails do |store, marker|
+            marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
+            marker.picture({
+                            #:picture => "http://www.blankdots.com/img/github-32x32.png",
+                            #:width   => 32,
+                            #:height  => 32
+                           })
+            marker.title   store.name
+            # marker.sidebar "i'm the sidebar"
+            # marker.json({ :id => user.id, :foo => "bar" })
+      end    
+
 
     elsif user_is_category_subscriber?
       @countries = Country.all
+      @stores_in_country = Store.find_all_by_country_id(@countries)
       @categories = Category.find(current_user.sub_cats.split(","))
-      
       @photos = Photo.find_all_by_category_id(@categories)          
+      #@audits = Audit.find_all_by_store_id(@stores_in_country)
+      @retailers = Retailer.all
+      # MAP
+      @json = @stores_in_country.to_gmaps4rails do |store, marker|
+            marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
+            marker.picture({
+                            #:picture => "http://www.blankdots.com/img/github-32x32.png",
+                            #:width   => 32,
+                            #:height  => 32
+                           })
+            marker.title   store.name
+            # marker.sidebar "i'm the sidebar"
+            # marker.json({ :id => user.id, :foo => "bar" })
+      end    
 
-      
-    elsif user_is_country_and_category_subscriber?
-
-    
     else 
       # SOMETHING ELSE
       # @subscribed_country = "none"
     end
       
     @sectors = Sector.all
-    @stores = Store.all
+    #@stores = Store.all
     @channels = Channel.all
     @environment_types = EnvironmentType.all
     if params[:category]
@@ -66,7 +94,7 @@ class PhotosController < ApplicationController
     
 
     # need to filter by search
-    @json = Store.all.to_gmaps4rails do |store, marker|
+    @json = @stores_in_country.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({
                         #:picture => "http://www.blankdots.com/img/github-32x32.png",
@@ -82,7 +110,10 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       format.html  # index.html.erb
-      format.json { render json: @photos }
+      format.json { 
+        #render json: @photos 
+        
+      }
       format.js
     end
   end
@@ -142,6 +173,7 @@ class PhotosController < ApplicationController
       else
         format.html { render action: "edit" }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
