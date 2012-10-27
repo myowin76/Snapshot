@@ -1,9 +1,9 @@
-<div class="span12">
+
 <h1>Listing audits</h1>
 
-<table>
-  <tr>
-    
+<table class="table table-striped">
+  <thead>
+  <tr>    
     <th>Retailer</th>
     <th>Store</th>
     <th>Channel</th>
@@ -12,7 +12,9 @@
     <th>uploaded by</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
+  </thead>
 
 <% @audits.each do |audit| %>
   <tr>
@@ -36,5 +38,3 @@
 <br />
 
 <%= link_to 'New Audit', new_audit_path %>
-
-</div>

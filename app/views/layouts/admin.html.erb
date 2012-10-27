@@ -71,19 +71,32 @@
         <div class="span3"> 
           <h3>Audits(Uploader Users)</h3>
           <ul class="nav nav-tabs nav-stacked">
-            <li><%= link_to "Upload images", new_audit_path %></li>
-            <li><%= link_to "Audit List", audits_path %></li>
+            <li>
+              <%= link_to new_audit_path do %>
+              Upload images <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
+            <li>
+              <%= link_to audits_path do %>
+              Audit List
+              <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
           </ul>
 
           <h3>Manage Stores</h3>
           <ul class="nav nav-tabs nav-stacked">
-            <li><%= link_to "Manage Stores", stores_path %></li>
+            <li>
+              <%= link_to stores_path do %>
+              Manage Stores <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
           </ul>
         
           <h3>Manage Setting</h3>
           <ul class="nav nav-tabs nav-stacked">
             <li>
-              <%= link_to categories_path, 'data-toggle' => "tab" do %>
+              <%= link_to categories_path do %>
                 Manage Categories <i class="icon-chevron-right"></i>
               <% end  %>
             </li>
@@ -93,19 +106,64 @@
               <% end %>
             </li>
             <li>
-              <%= link_to "Manage Sectors", sectors_path %>
+              <%= link_to sectors_path do %>
+              Manage Sectors <i class="icon-chevron-right"></i>
+              <% end  %>
             </li>
             <li>
-              <%= link_to "Manage Brands", brands_path %>
+              <%= link_to brands_path do %>
+              Manage Brands
+              <i class="icon-chevron-right"></i>
+              <% end  %>
             </li>
-            <li><%= link_to "Manage channels", channels_path %></li>
-            <li><%= link_to "Manage countries", countries_path %></li>
-            <li><%= link_to "Manage Store Formats", store_formats_path %></li>
-            <li><%= link_to "Manage Media Types", media_types_path %></li>
-            <li><%= link_to "Manage Media Locations", media_locations_path %></li>
-            <li><%= link_to "Manage Media Vehicles", media_vehicles_path %></li>
-            <li><%= link_to "Manage Promotion Calendars", promotion_calendars_path %></li>
-            <li><%= link_to "Manage Promotion Types", promotion_types_path %></li>
+            <li>
+              <%= link_to channels_path do%>
+                Manage channels
+                <i class="icon-chevron-right"></i>
+              <% end  %>  
+            </li>
+            <li>
+              <%= link_to countries_path do %>
+                Manage countries  
+                <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
+            <li>
+              <%= link_to store_formats_path do %>
+                Manage Store Formats
+                <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
+            <li>
+              <%= link_to media_types_path do %>
+                Manage Media Types
+                <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
+            <li>
+              <%= link_to media_locations_path do %>
+                Manage Media Locations
+                <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
+            <li>
+              <%= link_to media_vehicles_path do %>
+                Manage Media Vehicles
+                <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
+            <li>
+              <%= link_to promotion_calendars_path do %>
+                Manage Promotion Calendars
+                <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
+            <li>
+              <%= link_to promotion_types_path do %>
+                Manage Promotion Types
+                <i class="icon-chevron-right"></i>
+              <% end  %>
+            </li>
           </ul>
         </div>
         <div class="span9">
@@ -115,11 +173,6 @@
               <%= content_tag :div, msg %>
             </div>
           <% end %>
-            
-
-
-
-
           <%= content_tag :h1, yield(:title) if show_title? %>
           <%= yield %>
         </div>

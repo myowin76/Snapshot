@@ -28,7 +28,7 @@ class PhotosController < ApplicationController
       @categories = Category.all
       @photos = Photo.find_all_by_audit_id(@audits_in_country)  
 
-      # MAP
+      # MAP 
       @json = @stores_in_country.to_gmaps4rails do |store, marker|
             marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
             marker.picture({
@@ -47,7 +47,7 @@ class PhotosController < ApplicationController
       @stores_in_country = Store.find_all_by_country_id(@countries)
       @categories = Category.find(current_user.sub_cats.split(","))
       @photos = Photo.find_all_by_category_id(@categories)          
-      #@audits = Audit.find_all_by_store_id(@stores_in_country)
+      #@audits = Audit.find_all_by_id(@stores_in_country)
       @retailers = Retailer.all
       # MAP
       @json = @stores_in_country.to_gmaps4rails do |store, marker|

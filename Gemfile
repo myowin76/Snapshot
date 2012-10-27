@@ -51,7 +51,7 @@ end
 
 group :test do
   gem "rspec-rails", "~> 2.0"	
-	gem "mocha"
+	#gem "mocha"
 end
 
 # To use ActiveModel has_secure_password
