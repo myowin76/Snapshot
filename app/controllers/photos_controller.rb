@@ -5,29 +5,35 @@ class PhotosController < ApplicationController
     
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
-      @retailers= Retailer.all
       
       @countries = Subscription.countries_by(current_user)
       # @locations = Location.find_all_by_country_id(@countries)
       @stores_in_country = Store.find_all_by_country_id(@countries)
+      @retailers= Retailer.all
+      
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       @categories = Subscription.categories_by(current_user)
-      
+      # find retailers in the country and only stores exist in retailers
+      # @retailers = Retail.find_all_by_retailer_id(@stores_in_country)
       @photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
       
       if params[:search].nil?
         # search from current_user's scope  
-        @photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
+        @photos = Photo.find(:all, 
+          :conditions => ["audit_id in (?) AND category_id in (?)", 
+            @audits_in_country, @categories])                    
 
       else 
-         
+         # CREATE NEW SEARCH SESSION ? T0 MAINTAIN THE STATE AND CAN SAVE IN DB
         # @store_in_country  NEED TO FILTER BY RETAILERS/SECTOR/STORE FORMAT
         
         #@photos = Photo.search(params[:search])    
-        @photos = Photo.find(:all, :conditions => ['created_at between (?)and (?)', 
-          Date.parse(params[:search][:fromDate]), Date.parse(params[:search][:toDate])])    
-      
-       
+        # need to check subscribed categories in condition
+        @photos = Photo.find(:all, 
+            :conditions => ['created_at >= (?) AND created_at <= (?) AND category_id IN (?) 
+                    AND params[search][country_id] IN (?)', 
+                  Date.parse(params[:search][:fromDate]), Date.parse(params[:search][:toDate]), @categories,
+                  @countries])    
       end
 
 
@@ -72,8 +78,9 @@ class PhotosController < ApplicationController
     #@photos = Photo.search(params[:search])    
     
     @locations = Location.find_all_by_country_id(@countries)
-    @retailers = Retailer.all
+    #@retailers = Retailer.all
     @promo_calendar = PromotionCalendar.all
+    @promo_type = PromotionCalendar.all
     #@stores = Store.search(params[:search])
     # ransack syntax
     #@search = Photo.search(params[:q])

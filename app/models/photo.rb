@@ -27,20 +27,9 @@ class Photo < ActiveRecord::Base
       :content_type => ['image/jpeg', 'image/pjpeg', 
   								   'image/jpg', 'image/png']
 
-     #def photo_attributes=(photo_attributes)
-   	 #photo_attributes.each do |attributes|
-     #photos.build(attributes)
-     #end
-     #end  
 
     acts_as_gmappable :process_geocoding => false
 
-  	
-    
-
-    #def self.destroy_pics(store, photos)
-  	#	Photo.find(photos, :conditions => {:hotel_id => hotel}).each(&:destroy)
-  	#end
     def find_photos
       find(:all, :conditions => conditions)
     end
@@ -62,30 +51,30 @@ class Photo < ActiveRecord::Base
     private #------------------------------
     
     def date_filter_conditions
-      #['created_at between (?)and (?)', 
-      #    Date.parse(params[:search][:fromDate]), Date.parse(params[:search][:toDate])]
+      ['created_at between (?)and (?)', 
+          Date.parse(params[:search][:fromDate]), Date.parse(params[:search][:toDate])]
     end
+    
     def promotion_cal_conditions
       ["promotion_calendar_id = ?", promo_cal] unless promo_cal.blank?
     end
+    
     def promotion_type_conditions
       ["promotion_type_id = ?", promo_type] unless promo_type.blank?
     end
+    
     def media_vehicle_conditions
       #["media_vehicle_id = ?", promo_type] unless promo_type.blank?
     end
+    
     def media_location_conditions
       #["media_location_id = ?", media_loc] unless media_loc.blank?
     end
+    
     def media_type_conditions
       #["media_type_id = ?", promo_type] unless promo_type.blank?
     end
-    def postcode_conditions
-      
-    end
-    def location_conditions
-      
-    end
+    
     def conditions
       [conditions_clauses.join(' AND '), *conditions_options]
     end

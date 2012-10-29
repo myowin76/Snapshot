@@ -125,7 +125,6 @@
         </div>
       </div>
 
-    
       <h3>Dates</h3>
       <fieldset>
         <%= label_tag "From" %>
@@ -139,6 +138,7 @@
       <fieldset>  
         <%= submit_tag "Search", :name => nil, :class=> 'btn btn-success' %>
         <a href="#" class='btn'>Clear</a>
+        <a href="#" class='btn btn-danger'>Save Search</a>
       </fieldset>
     <% end %>
 
@@ -146,6 +146,10 @@
 </div><!-- span3 -->
 <div class="span8">
     <%#= gmaps4rails(@json) %>
+    <%#= gmaps("markers" => {"data" => @json},
+     "map_options" => { 
+     "auto_zoom" => false, "zoom" => 15, "center_on_user" => true
+     "auto_adjust"=>false, "do_clustering"=>true }) %> 
     
 <h4><%= pluralize(@stores_in_country.count, 'store') %> found</h4>
 <h4><%= pluralize(@photos.count, 'photo') %> found</h4>
