@@ -1,4 +1,7 @@
 jQuery ->
+  $('.created_at').datepicker({dateFormat: 'dd/mm/yy'})
+
+jQuery ->
   $('#audit_store_id').parent().hide()
   store = $('#audit_store_id').html()
   $('#audit_retailer_id').change ->

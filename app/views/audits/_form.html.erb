@@ -39,6 +39,7 @@
           <div class="span6">  
             <%= photo_fields.association :brand, :include_blank => false %>
             <%= photo_fields.association :category, :include_blank => false %>
+            <%= photo_fields.text_field :created_at, :include_blank => false, :class=>"created_at"%>
             <%= photo_fields.association :media_location, :include_blank => false %>
             <%= photo_fields.association :media_vehicle, :include_blank => false %>
             <%= photo_fields.association :media_type, :include_blank => false %>

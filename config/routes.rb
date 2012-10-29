@@ -1,4 +1,6 @@
 Snapshot::Application.routes.draw do
+  resources :subscriptions
+
   resources :locations
 
   resources :themes

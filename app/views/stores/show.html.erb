@@ -9,8 +9,10 @@
   <p>
     <b>Address:</b><br />
     <%= @store.address %><br />
-    <%= @store.address2 %>
-    <%= @store.postcode %>
+    <%= @store.address2 %><br />
+    <%= @store.postcode %><br />
+    <%# = @store.location.name %>
+    <%= @store.country.name %>
   </p>
 
   <p>

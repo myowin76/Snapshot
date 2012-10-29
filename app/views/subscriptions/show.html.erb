@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Sub cats:</b>
+  <%= @subscription.sub_cats %>
+</p>
+
+<p>
+  <b>Sub country:</b>
+  <%= @subscription.sub_country %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
+<%= link_to 'Back', subscriptions_path %>

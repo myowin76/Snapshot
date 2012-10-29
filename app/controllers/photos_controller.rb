@@ -5,42 +5,45 @@ class PhotosController < ApplicationController
     
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
-      @retailers_in_country = Retailer.all
-      @countries = Country.find(current_user.sub_country.split(","))
+      @retailers= Retailer.all
+      
+      @countries = Subscription.countries_by(current_user)
+      # @locations = Location.find_all_by_country_id(@countries)
       @stores_in_country = Store.find_all_by_country_id(@countries)
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
-      @categories = Category.find(current_user.sub_cats.split(","))
-      @photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                
+      @categories = Subscription.categories_by(current_user)
+      
+      @photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
+      
+      if params[:search].nil?
+        # search from current_user's scope  
+        @photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
 
-      # MAP
+      else 
+         
+        # @store_in_country  NEED TO FILTER BY RETAILERS/SECTOR/STORE FORMAT
+        
+        #@photos = Photo.search(params[:search])    
+        @photos = Photo.find(:all, :conditions => ['created_at between (?)and (?)', 
+          Date.parse(params[:search][:fromDate]), Date.parse(params[:search][:toDate])])    
+      
+       
+      end
+
 
     elsif user_is_country_subscriber?
       # TO CHECK ONLY COUNTRY/IES USER SUBSCRIBED
-      @countries = Country.find(current_user.sub_country.split(","))
+      @countries = Subscription.countries_by(current_user)
       @locations = Location.find_all_by_country_id(@countries)
       # if not post request with params(first load), find all photos OR with limit amount
       @stores_in_country = Store.find_all_by_country_id(@countries)
       
       #@retailers_in_country = Retailer.find_all_by_id(@store_in_country, :select => 'DISTINCT id', :order => 'name')
-      @retailers_in_country = Retailer.all
+      @retailers = Retailer.all
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       
       @categories = Category.all
       @photos = Photo.find_all_by_audit_id(@audits_in_country)  
-
-      # MAP 
-      @json = @stores_in_country.to_gmaps4rails do |store, marker|
-            marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
-            marker.picture({
-                            #:picture => "http://www.blankdots.com/img/github-32x32.png",
-                            #:width   => 32,
-                            #:height  => 32
-                           })
-            marker.title   store.name
-            # marker.sidebar "i'm the sidebar"
-            # marker.json({ :id => user.id, :foo => "bar" })
-      end    
-
 
     elsif user_is_category_subscriber?
       @countries = Country.all
@@ -49,19 +52,7 @@ class PhotosController < ApplicationController
       @photos = Photo.find_all_by_category_id(@categories)          
       #@audits = Audit.find_all_by_id(@stores_in_country)
       @retailers = Retailer.all
-      # MAP
-      @json = @stores_in_country.to_gmaps4rails do |store, marker|
-            marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
-            marker.picture({
-                            #:picture => "http://www.blankdots.com/img/github-32x32.png",
-                            #:width   => 32,
-                            #:height  => 32
-                           })
-            marker.title   store.name
-            # marker.sidebar "i'm the sidebar"
-            # marker.json({ :id => user.id, :foo => "bar" })
-      end    
-
+      
     else 
       # SOMETHING ELSE
       # @subscribed_country = "none"
@@ -80,12 +71,8 @@ class PhotosController < ApplicationController
 
     #@photos = Photo.search(params[:search])    
     
-    #@countries = Country.all
-
-    @locations = Location.all
+    @locations = Location.find_all_by_country_id(@countries)
     @retailers = Retailer.all
-    
-    @sectors = Sector.all
     @promo_calendar = PromotionCalendar.all
     #@stores = Store.search(params[:search])
     # ransack syntax
@@ -94,17 +81,18 @@ class PhotosController < ApplicationController
     
 
     # need to filter by search
-    @json = @stores_in_country.to_gmaps4rails do |store, marker|
-        marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
-        marker.picture({
-                        #:picture => "http://www.blankdots.com/img/github-32x32.png",
-                        #:width   => 32,
-                        #:height  => 32
-                       })
-        marker.title   store.name
-        # marker.sidebar "i'm the sidebar"
-        # marker.json({ :id => user.id, :foo => "bar" })
-    end    
+    # MAP
+      @json = @stores_in_country.to_gmaps4rails do |store, marker|
+            marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
+            marker.picture({
+                            #:picture => "http://www.blankdots.com/img/github-32x32.png",
+                            #:width   => 32,
+                            #:height  => 32
+                           })
+            marker.title   store.name
+            # marker.sidebar "i'm the sidebar"
+            # marker.json({ :id => user.id, :foo => "bar" })
+      end    
 
 
 

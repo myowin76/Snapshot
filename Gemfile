@@ -18,7 +18,7 @@ gem 'ransack'
 gem 'gmaps4rails'
 gem 'aws-sdk'
 gem 'jquery-datatables-rails'
-# gem "aws-s3"
+gem 'db_populate'
 
 group :production do
 	gem "pg"

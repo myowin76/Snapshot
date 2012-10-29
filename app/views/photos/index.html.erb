@@ -1,34 +1,32 @@
-<div class="span12">
-<h1>Listing photos</h1>
-</div>
-
-
 <div class="span4">
   <aside>
     <h4>Filter by</h4>  
+    <%= @test %>
+    <%#= params[:search][:fromDate] unless params.nil? %><br />
     
-    <%= form_tag root_path, remote: true do %>
-      <p>
+    <%= form_tag root_path do %>
+      <fieldset>
         <%= label_tag "Postcode" %>
-        <%= text_field_tag "search[postcode]" %>
-      </p>
+        <%= text_field_tag 'search[postcode]' %>
+        <%#= hidden_field_tag params[:search] %>
+      </fieldset>
       
       <!-- 
         NEED TO CHECK USER PERMISSION THAT WHICH COUNTRY USER ALLOW TO SEARCH
       -->
-      <p>
+      <fieldset>
         <%= label_tag "Country" %>
         <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
-        <%#= collection_select(:country, :id, Country.find(:all), :id, :name,
-          {:prompt => 'All'}) %>
-      </p>
+        <%#= select_tag("country[id]", options_from_collection_for_select(@countries, "id", "name", params[:id].to_i ), { :prompt => 'All' }) %>
+        
+      </fieldset>
 
-      <p>
+      <fieldset>
         <%= label_tag "Location" %>
         <%#= collection_select(:search, :location_id, Location.find(:all), :id, :name, { :prompt => 'All' }) %>
         <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
               { :prompt => 'All' }) %>
-      </p>
+      </fieldset>
 
       <!-- * * * * * * *
         NEED TO CHECK USERS SUBSCRIPTION WHICH CATEGORY IS ALLOWD
@@ -44,7 +42,7 @@
           <div id="categories" class="accordion-body collapse in">
             <div class="accordion-inner">
               <% for category in @categories %>
-                <%= check_box_tag "category[]", category.id %>
+                <%= check_box_tag "search[category][id]", category.id %>
                 <%= category.name %><br />
               <% end %>
             </div>
@@ -58,8 +56,8 @@
           </div>
           <div id="retailer" class="accordion-body collapse">
             <div class="accordion-inner">
-              <% for retailer in @retailers_in_country %>
-                <%= check_box_tag "search[retailers]", retailer.id %>
+              <% for retailer in @retailers %>
+                <%= check_box_tag "retailer[]", retailer.id %>
                 <%= retailer.name %><br />
               <% end %>
             </div>
@@ -74,7 +72,7 @@
           <div id="sectors" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for sector in @sectors %>
-                <%= check_box_tag "search[sectors]", sector.id %>
+                <%= check_box_tag "sector[]", sector.id %>
                 <%= sector.name %><br />
               <% end %>  
             </div>
@@ -89,7 +87,7 @@
           <div id="channels" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for channel in @channels %>
-                <%= check_box_tag "search[channels]", channel.id %>
+                <%= check_box_tag "channel[]", channel.id %>
                 <%= channel.name %><br />
               <% end %>
             </div>
@@ -104,7 +102,7 @@
           <div id="envtype" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for env_type in @environment_types %>
-                <%= check_box_tag "search[env_type]", env_type.id %>
+                <%= check_box_tag "env_type[]", env_type.id %>
                 <%= env_type.name %><br />
               <% end %>
             </div>
@@ -119,7 +117,7 @@
           <div id="promo_cal" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for promo_cal in @promo_calendar %>
-                <%= check_box_tag "search[promo_cal]", promo_cal.id %>
+                <%= check_box_tag "promo_cal[]", promo_cal.id %>
                 <%= promo_cal.name %><br />
               <% end %>  
             </div>
@@ -127,22 +125,21 @@
         </div>
       </div>
 
-      <p>
-        <h3>Dates</h3>
-        <fieldset>
-          <%= label_tag "From" %>
-          <%= text_field_tag "search[fromDate]" %>
-        </fieldset>
-        <fieldset>
-          <%= label_tag "To" %>
-        <%= text_field_tag "search[toDate]" %>
-        </fieldset>
-        
-      </p>
-      <p>  
+    
+      <h3>Dates</h3>
+      <fieldset>
+        <%= label_tag "From" %>
+        <%= text_field_tag "search[fromDate]" %>
+      </fieldset>
+      <fieldset>
+        <%= label_tag "To" %>
+      <%= text_field_tag "search[toDate]" %>
+      </fieldset>
+      
+      <fieldset>  
         <%= submit_tag "Search", :name => nil, :class=> 'btn btn-success' %>
         <a href="#" class='btn'>Clear</a>
-      </p>
+      </fieldset>
     <% end %>
 
   </aside>
@@ -151,8 +148,9 @@
     <%#= gmaps4rails(@json) %>
     
 <h4><%= pluralize(@stores_in_country.count, 'store') %> found</h4>
+<h4><%= pluralize(@photos.count, 'photo') %> found</h4>
 
-<table id="photo-list22" class="table table-striped">
+<table id="photo-list" class="table table-striped">
   <thead>
     <tr>
       <th></th>
@@ -164,48 +162,45 @@
     </tr>
   </thead>
     
-    <tbody>
-    <% unless @photos.nil? %>    
-      <% @photos.each do |photo| %>
-          <tr>
-              <td>
-                <%= check_box_tag photo.id %>
-              </td>
-              <td>
-                  <%#= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
-                  <%= link_to image_tag(photo.photo.url(:thumb)), photo  %>
-              </td>
-              <td>  
-                  <%= photo.created_at.strftime('%d/%m/%Y') %>
-              </td>
-              <td>    
-                  <%= photo.category.name %>
-              </td>
-              <td>
-                  <%= photo.audit.store.name %>
-              </td>
-              <td>
-                  <%# unless photo.promotion_calendar_id.nil? %>
-                    <!--strong>Promotion Calendar:</strong> <%#= photo.promotion_calendar.name %><br />
-                  <% #end %>
-                  <% #unless photo.promotion_type_id.nil? %>
-                    <strong>Promotion Type:</strong> <%#= photo.promotion_type.name %><br />
-                  <% #end %>
-                -->
-                  
-                  <%= link_to "Details", photo %>
-              </td>
-                  
-                  <%#= link_to 'Show', photo %>
-                  <%#= link_to 'Edit', edit_photo_path(photo) %>
-                  <%#= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <tbody>
+  <% unless @photos.nil? %>    
+    <% @photos.each do |photo| %>
+      <tr>
+          <td>
+            <%= check_box_tag photo.id %>
+          </td>
+          <td>
+              <%#= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
+              <%= link_to image_tag(photo.photo.url(:thumb)), photo  %>
+          </td>
+          <td>  
+              <%= photo.created_at.strftime('%d/%m/%Y') %>
+          </td>
+          <td>    
+              <%= photo.category.name %>
+          </td>
+          <td>
+              <%= photo.audit.store.name %>
+          </td>
+          <td>
+              <%# unless photo.promotion_calendar_id.nil? %>
+                <!--strong>Promotion Calendar:</strong> <%#= photo.promotion_calendar.name %><br />
+              <% #end %>
+              <% #unless photo.promotion_type_id.nil? %>
+                <strong>Promotion Type:</strong> <%#= photo.promotion_type.name %><br />
+              <% #end %>
+            -->
+              <%= link_to "Details", photo %>
+          </td>
               
-          </tr>
-      <% end %>
-        
+              <%#= link_to 'Show', photo %>
+              <%#= link_to 'Edit', edit_photo_path(photo) %>
+              <%#= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </tr>
     <% end %>
-    </tbody>
-  </table>
+  <% end %>
+  </tbody>
+</table>
   <%#= link_to 'New Photo', new_photo_path %>
 
 </div>
