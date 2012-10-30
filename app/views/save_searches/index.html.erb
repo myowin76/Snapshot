@@ -1,11 +1,11 @@
 <h1>Listing save_searches</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Name</th>
-    <th>Params</th>
+    <!--th>Params</th>
     <th>User</th>
-    <th></th>
+    <th></th-->
     <th></th>
     <th></th>
   </tr>
@@ -13,9 +13,9 @@
 <% @save_searches.each do |save_search| %>
   <tr>
     <td><%= save_search.name %></td>
-    <td><%= save_search.params %></td>
-    <td><%= save_search.user %></td>
-    <td><%= link_to 'Show', save_search %></td>
+    <!--td><%#= save_search.params %></td>
+    <td><%#= save_search.user %></td>
+    <td><%#= link_to 'Show', save_search %></td-->
     <td><%= link_to 'Edit', edit_save_search_path(save_search) %></td>
     <td><%= link_to 'Destroy', save_search, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

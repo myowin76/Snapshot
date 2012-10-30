@@ -2,8 +2,6 @@
   <aside>
     <%= @search_param %>
     <h4>Filter by</h4>  
-    <%= @test %>
-    <%#= params[:search][:fromDate] unless params.nil? %><br />
     
     <%= form_tag root_path do %>
       <fieldset>
@@ -12,18 +10,13 @@
         <%#= hidden_field_tag params[:search] %>
       </fieldset>
       
-      <!-- 
-        NEED TO CHECK USER PERMISSION THAT WHICH COUNTRY USER ALLOW TO SEARCH
-      -->
       <fieldset>
         <%= label_tag "Country" %>
         <% if params[:search] && params[:search][:country_id] && params[:search][:country_id].include?(@countries.to_s) %>
           <%#= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }, {:selected_value => @countries.first.id.to_s}) %>
         <% else %>
           <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
-        <% end %>
-        <%#= select_tag("country[id]", options_from_collection_for_select(@countries, "id", "name", params[:id].to_i ), { :prompt => 'All' }) %>
-        
+        <% end %>        
       </fieldset>
 
       <fieldset>
@@ -32,10 +25,6 @@
         <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
               { :prompt => 'All' }) %>
       </fieldset>
-
-      <!-- * * * * * * *
-        NEED TO CHECK USERS SUBSCRIPTION WHICH CATEGORY IS ALLOWD
-      -->
 
       <div class="accordion" id="accordion2">
         <div class="accordion-group">
@@ -134,7 +123,11 @@
           <div id="promo_cal" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for promo_cal in @promo_calendar %>
-                <%= check_box_tag "search[promo_cal][]", promo_cal.id %>
+                <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_cal.id.to_s) %>
+                  <%= check_box_tag "search[promo_cal][]", promo_cal.id, :check => "checked"  %>
+                <% else %>  
+                  <%= check_box_tag "search[promo_cal][]", promo_cal.id %>
+                <% end %>  
                 <%= promo_cal.name %><br />
               <% end %>  
             </div>
@@ -186,13 +179,14 @@
   </aside>
 </div><!-- span3 -->
 <div class="span8">
-    <%= gmaps4rails(@json) %>
+  <h4><%= pluralize(@stores_in_country.count, 'store') %> found</h4>
+  <%#= gmaps4rails(@json) %>
     <%#= gmaps("markers" => {"data" => @json},
      "map_options" => { 
      "auto_zoom" => false, "zoom" => 15, "center_on_user" => true
      "auto_adjust"=>false, "do_clustering"=>true }) %> 
     
-<h4><%= pluralize(@stores_in_country.count, 'store') %> found</h4>
+
 <h4><%= pluralize(@photos.count, 'photo') %> found</h4>
 
 <table id="photo-list" class="table table-striped">

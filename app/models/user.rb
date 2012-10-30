@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   #has_many :saved_searches
   has_many :audits
-  has_many :subscriptions
+  has_one :subscription
   has_many :save_searches
 
   # check user is admin/subscriber or uploader (user types)

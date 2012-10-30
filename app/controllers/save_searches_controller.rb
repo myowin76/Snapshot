@@ -2,8 +2,8 @@ class SaveSearchesController < ApplicationController
   # GET /save_searches
   # GET /save_searches.json
   def index
-    @save_searches = SaveSearch.all
-
+    #@save_searches = SaveSearch.all
+    @save_searches = current_user.save_searches.all
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @save_searches }

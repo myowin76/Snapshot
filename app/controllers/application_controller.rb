@@ -48,12 +48,12 @@ class ApplicationController < ActionController::Base
   end
 
   def user_is_country_subscriber?
-    return false if current_user.nil? || current_user.sub_country.blank?  || current_user.sub_country.nil?
+    return false if current_user.nil? || current_user.subscription.sub_country.blank?  || current_user.subscription.sub_country.nil?
     # return false if current_user.nil? || current_user.subscriptons.sub_country.blank?  || current_user.subscriptions.sub_country.nil?
     true
   end
   def user_is_category_subscriber?
-    return false if current_user.nil? || current_user.sub_cats.blank?  || current_user.sub_cats.nil?
+    return false if current_user.nil? || current_user.subscription.sub_cats.blank?  || current_user.subscription.sub_cats.nil?
     # return false if current_user.nil? || current_user.subscriptions.sub_cats.blank?  || current_user.subscriptions.sub_cats.nil?
     true
   end

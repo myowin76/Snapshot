@@ -6,5 +6,8 @@ module ApplicationHelper
 	def stylesheet(*files)
 		content_for(:head) { stylesheet_link_tag(*files) }
 	end
+	def title
+		
+	end
 
 end

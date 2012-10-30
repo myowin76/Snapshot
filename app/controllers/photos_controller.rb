@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    
+    @title = "Snapshot Web Portal"    
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
       
@@ -13,6 +13,7 @@ class PhotosController < ApplicationController
       
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       @categories = Subscription.categories_by(current_user)
+
       # find retailers in the country and only stores exist in retailers
       # @retailers = Retail.find_all_by_retailer_id(@stores_in_country)
       #@photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
@@ -47,7 +48,14 @@ class PhotosController < ApplicationController
         else
           @search_country = @countries
         end
-          
+        unless params[:search][:promo_cal].blank?
+          @promotion_cal = params[:search][:promo_cal]
+        else
+          @promotion_cal = PromotionCalendar.all
+        end
+
+        
+        # save searches  
         @search_param = params[:search]
 
         # need to check subscribed categories in condition
@@ -58,8 +66,9 @@ class PhotosController < ApplicationController
         #          @from_date, @to_date, params[:search][:category], @audits_in_country)    
 
         @photos = Photo.joins(:audit)
-              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND audits.store_id IN (?)', 
-                  @from_date, @to_date, @search_category, @search_country )    
+              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
+                    AND audits.store_id IN (?) AND promotion_calendar_id IN (?)', 
+                  @from_date, @to_date, @search_category, @search_country, @promotion_cal )    
 
         #@stores_in_country = Store.find_all_by_audit_id(@search_audits)
         #to do find stores where filtered photo exists      
