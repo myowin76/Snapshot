@@ -42,7 +42,11 @@
           <div id="categories" class="accordion-body collapse in">
             <div class="accordion-inner">
               <% for category in @categories %>
-                <%= check_box_tag "search[category][id]", category.id %>
+                <% if params[:search] && params[:search][:category] && params[:search][:category].include?(category.id.to_s) %>
+                  <%= check_box_tag "search[category][]", category.id, :check => "checked" %>
+                <% else %>
+                  <%= check_box_tag "search[category][]", category.id %>
+                <% end %>
                 <%= category.name %><br />
               <% end %>
             </div>
@@ -57,7 +61,7 @@
           <div id="retailer" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for retailer in @retailers %>
-                <%= check_box_tag "retailer[]", retailer.id %>
+                <%= check_box_tag "search[retailer][]", retailer.id %>
                 <%= retailer.name %><br />
               <% end %>
             </div>
@@ -72,7 +76,7 @@
           <div id="sectors" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for sector in @sectors %>
-                <%= check_box_tag "sector[]", sector.id %>
+                <%= check_box_tag "search[sector][]", sector.id %>
                 <%= sector.name %><br />
               <% end %>  
             </div>
@@ -87,7 +91,7 @@
           <div id="channels" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for channel in @channels %>
-                <%= check_box_tag "channel[]", channel.id %>
+                <%= check_box_tag "search[channel][]", channel.id %>
                 <%= channel.name %><br />
               <% end %>
             </div>
@@ -102,7 +106,7 @@
           <div id="envtype" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for env_type in @environment_types %>
-                <%= check_box_tag "env_type[]", env_type.id %>
+                <%= check_box_tag "search[env_type][]", env_type.id %>
                 <%= env_type.name %><br />
               <% end %>
             </div>
@@ -117,7 +121,7 @@
           <div id="promo_cal" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for promo_cal in @promo_calendar %>
-                <%= check_box_tag "promo_cal[]", promo_cal.id %>
+                <%= check_box_tag "search[promo_cal][]", promo_cal.id %>
                 <%= promo_cal.name %><br />
               <% end %>  
             </div>

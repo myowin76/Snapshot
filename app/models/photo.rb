@@ -48,19 +48,27 @@ class Photo < ActiveRecord::Base
     #  end
     #end
 
+    def self.search options
+      
+        # need to check subscribed categories in condition
+        Photo.find(:all, :conditions => conditions)    
+      
+
+    end
+
     private #------------------------------
     
     def date_filter_conditions
-      ['created_at between (?)and (?)', 
-          Date.parse(params[:search][:fromDate]), Date.parse(params[:search][:toDate])]
+      ['photos.created_at >= (?) AND photos.created_at <= (?)', 
+          Date.parse(options[:fromDate]), Date.parse(options[:toDate])]
     end
     
     def promotion_cal_conditions
-      ["promotion_calendar_id = ?", promo_cal] unless promo_cal.blank?
+      #["promotion_calendar_id = ?", promo_cal] unless promo_cal.blank?
     end
     
     def promotion_type_conditions
-      ["promotion_type_id = ?", promo_type] unless promo_type.blank?
+      #["promotion_type_id = ?", promo_type] unless promo_type.blank?
     end
     
     def media_vehicle_conditions

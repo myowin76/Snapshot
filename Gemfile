@@ -46,7 +46,7 @@ group :development do
   gem "nifty-generators"	
 
   # To use debugger
-	# gem 'debugger'
+	gem 'debugger'
 end
 
 group :test do

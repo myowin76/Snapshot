@@ -6,6 +6,7 @@ class PhotosController < ApplicationController
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
       
+#debugger
       @countries = Subscription.countries_by(current_user)
       # @locations = Location.find_all_by_country_id(@countries)
       @stores_in_country = Store.find_all_by_country_id(@countries)
@@ -15,8 +16,8 @@ class PhotosController < ApplicationController
       @categories = Subscription.categories_by(current_user)
       # find retailers in the country and only stores exist in retailers
       # @retailers = Retail.find_all_by_retailer_id(@stores_in_country)
-      @photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
-      
+      #@photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
+      # want to be like this Photo.find_photo
       if params[:search].nil?
         # search from current_user's scope  
         @photos = Photo.find(:all, 
@@ -26,14 +27,29 @@ class PhotosController < ApplicationController
       else 
          # CREATE NEW SEARCH SESSION ? T0 MAINTAIN THE STATE AND CAN SAVE IN DB
         # @store_in_country  NEED TO FILTER BY RETAILERS/SECTOR/STORE FORMAT
-        
-        #@photos = Photo.search(params[:search])    
+        #@photos = Photo.search(params[:search])
+        unless params[:search][:fromDate].blank?
+          @from_date = params[:search][:fromDate]
+        else
+          @from_date = Date.parse('01/01/1990')
+        end
+        unless params[:search][:toDate].blank?
+          @to_date = params[:search][:toDate]
+        else
+          @to_date = Time.now
+        end
+          
+
+
         # need to check subscribed categories in condition
+        # Photo.search(params[:search])
+        #@photos = Photo.joins(:audit).where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
+        #  AND audits.store_id IN (?)', 
+        #          @from_date, @to_date, params[:search][:category], @audits_in_country)    
+
         @photos = Photo.find(:all, 
-            :conditions => ['created_at >= (?) AND created_at <= (?) AND category_id IN (?) 
-                    AND params[search][country_id] IN (?)', 
-                  Date.parse(params[:search][:fromDate]), Date.parse(params[:search][:toDate]), @categories,
-                  @countries])    
+              :conditions => ['photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?)', 
+                  @from_date, @to_date, params[:search][:category]])    
       end
 
 
