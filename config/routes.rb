@@ -1,4 +1,6 @@
 Snapshot::Application.routes.draw do
+  resources :save_searches
+
   resources :subscriptions
 
   resources :locations

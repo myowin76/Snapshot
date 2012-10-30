@@ -1,5 +1,6 @@
 <div class="span4">
   <aside>
+    <%= @search_param %>
     <h4>Filter by</h4>  
     <%= @test %>
     <%#= params[:search][:fromDate] unless params.nil? %><br />
@@ -16,7 +17,11 @@
       -->
       <fieldset>
         <%= label_tag "Country" %>
-        <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
+        <% if params[:search] && params[:search][:country_id] && params[:search][:country_id].include?(@countries.to_s) %>
+          <%#= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }, {:selected_value => @countries.first.id.to_s}) %>
+        <% else %>
+          <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
+        <% end %>
         <%#= select_tag("country[id]", options_from_collection_for_select(@countries, "id", "name", params[:id].to_i ), { :prompt => 'All' }) %>
         
       </fieldset>
@@ -61,8 +66,12 @@
           <div id="retailer" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for retailer in @retailers %>
-                <%= check_box_tag "search[retailer][]", retailer.id %>
-                <%= retailer.name %><br />
+                <% if params[:search] && params[:search][:retailer] && params[:search][:retailer].include?(retailer.id.to_s) %>
+                  <%= check_box_tag "search[retailer][]", retailer.id, :check => "checked"  %>
+                <% else %>
+                  <%= check_box_tag "search[retailer][]", retailer.id %> 
+                <% end %>  
+                  <%= retailer.name %><br />
               <% end %>
             </div>
           </div>
@@ -76,7 +85,11 @@
           <div id="sectors" class="accordion-body collapse">
             <div class="accordion-inner">
               <% for sector in @sectors %>
-                <%= check_box_tag "search[sector][]", sector.id %>
+                <% if params[:search] && params[:search][:sector] && params[:search][:sector].include?(sector.id.to_s) %>
+                  <%= check_box_tag "search[sector][]", sector.id, :check => "checked"  %>
+                <% else %>  
+                  <%= check_box_tag "search[sector][]", sector.id %>
+                <% end %>
                 <%= sector.name %><br />
               <% end %>  
             </div>
@@ -141,11 +154,35 @@
       
       <fieldset>  
         <%= submit_tag "Search", :name => nil, :class=> 'btn btn-success' %>
-        <a href="#" class='btn'>Clear</a>
-        <a href="#" class='btn btn-danger'>Save Search</a>
+        <a href="#" class="btn clear-form">Clear</a>
+        
       </fieldset>
-    <% end %>
 
+    <% end %>
+    <!-- save search form-->
+    <h3>Save Searches</h3>
+    <%= form_tag save_searches_path do %>
+    <ul>
+      <% for sv in @sv %>
+        <li>
+          <!-- need to redirect root_path -->
+          <%= link_to sv.name, save_search_path(sv) %>
+        </li>
+      <% end %>
+    </ul> 
+
+      <p>
+        <%= label_tag :name %>
+        <%= text_field_tag :name %>
+      </p>
+      <p>
+        <%= link_to "Open", save_searches_path, :class=>"btn" %>
+        <%= link_to "New", new_save_search_path, :class=>"btn" %>
+        
+        <%#= f.submit "Save", :class => 'btn btn-danger' %>
+      </p>
+    <% end %>
+    <!-- save search form -->
   </aside>
 </div><!-- span3 -->
 <div class="span8">

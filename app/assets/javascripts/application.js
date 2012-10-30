@@ -20,7 +20,8 @@
 
 $(document).ready(function() {
    
+	$('.clear-form').click(function(){
 
-
-   
+			$('form')[0].reset();
+	})
  });

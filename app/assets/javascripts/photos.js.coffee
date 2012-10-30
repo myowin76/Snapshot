@@ -9,8 +9,8 @@ jQuery ->
   "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   "sPaginationType": "bootstrap"
 
-  $('#fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
-  $('#toDate').datepicker({ dateFormat: 'dd/mm/yy'})
+  $('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
+  $('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})
   
   ###$('form').submitOnCheck()###
 

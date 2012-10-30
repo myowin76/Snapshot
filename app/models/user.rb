@@ -9,9 +9,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
-  has_many :searches
+  #has_many :saved_searches
   has_many :audits
   has_many :subscriptions
+  has_many :save_searches
 
   # check user is admin/subscriber or uploader (user types)
   
