@@ -154,27 +154,16 @@
     <% end %>
     <!-- save search form-->
     <h3>Save Searches</h3>
-    <%= form_tag save_searches_path do %>
-    <ul>
-      <% for sv in @sv %>
-        <li>
-          <!-- need to redirect root_path -->
-          <%= link_to sv.name, save_search_path(sv) %>
-        </li>
-      <% end %>
-    </ul> 
+    <%= link_to "New", new_save_search_path, id: "new_link", remote: true %>
 
-      <p>
-        <%= label_tag :name %>
-        <%= text_field_tag :name %>
-      </p>
-      <p>
-        <%= link_to "Open", save_searches_path, :class=>"btn" %>
-        <%= link_to "New", new_save_search_path, :class=>"btn" %>
-        
-        <%#= f.submit "Save", :class => 'btn btn-danger' %>
-      </p>
-    <% end %>
+    <div id = "saved-list">
+      <%#= render @saved_searches %>
+    </div> 
+    <div id = "new-save">
+      <%#= render @new_save_search %>
+    </div>
+
+
     <!-- save search form -->
   </aside>
 </div><!-- span3 -->
@@ -188,7 +177,7 @@
     
 
 <h4><%= pluralize(@photos.count, 'photo') %> found</h4>
-
+<a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | <a href="#" id="export">Export</a>
 <table id="photo-list" class="table table-striped">
   <thead>
     <tr>

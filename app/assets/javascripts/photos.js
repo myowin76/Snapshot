@@ -1,3 +1,5 @@
+/*
+###
 jQuery.fn.submitOnCheck = ->
   @find('input[type=checkbox]').click ->
     $('form').submit()
@@ -29,4 +31,11 @@ jQuery ->
       $('#search_location_id').parent().hide()
       
 
-    
+###    */
+
+$(function () {
+  //$('.new_link input[type=submit]').remove();
+  $('.edit_task input[type=checkbox]').click(function () {
+    $(this).parent('form').submit();
+  });  
+});

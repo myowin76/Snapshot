@@ -28,13 +28,18 @@ class SaveSearchesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @save_search }
+      format.js
+      #format.json { render json: @save_search }
     end
   end
 
   # GET /save_searches/1/edit
   def edit
     @save_search = SaveSearch.find(params[:id])
+    respond_to do |format|
+      format.html # new.html.erb
+      format.js
+    end
   end
 
   # POST /save_searches
@@ -46,7 +51,8 @@ class SaveSearchesController < ApplicationController
       if @save_search.save
         #format.html { redirect_to @save_search, notice: 'Save search was successfully created.' }
         format.html { redirect_to root_path, notice: 'Save search was successfull' }
-        format.json { render json: @save_search, status: :created, location: @save_search }
+        format.js
+        #format.json { render json: @save_search, status: :created, location: @save_search }
       else
         format.html { render action: "new" }
         format.json { render json: @save_search.errors, status: :unprocessable_entity }
@@ -65,6 +71,7 @@ class SaveSearchesController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
+        format.js
         format.json { render json: @save_search.errors, status: :unprocessable_entity }
       end
     end
@@ -78,6 +85,7 @@ class SaveSearchesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to save_searches_url }
+      format.js
       format.json { head :no_content }
     end
   end

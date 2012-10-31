@@ -18,6 +18,8 @@ class PhotosController < ApplicationController
       # @retailers = Retail.find_all_by_retailer_id(@stores_in_country)
       #@photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
       # want to be like this Photo.find_photo
+      @saved_searches = current_user.save_searches.all
+      @new_save_search = current_user.save_searches.new
       if params[:search].nil?
         # search from current_user's scope  
         @photos = Photo.find(:all, 
@@ -31,12 +33,12 @@ class PhotosController < ApplicationController
         unless params[:search][:fromDate].blank?
           @from_date = Date.parse(params[:search][:fromDate])
         else
-          @from_date = Date.parse('01/01/1990')
+          @from_date = DateTime.parse('01/01/1990')
         end
         unless params[:search][:toDate].blank?
-          @to_date = Date.parse(params[:search][:toDate])
+          @to_date = DateTime.parse(params[:search][:toDate])
         else
-          @to_date = Time.now
+          @to_date = DateTime.now
         end
         unless params[:search][:category].blank?
           @search_category = params[:search][:category]
@@ -53,6 +55,11 @@ class PhotosController < ApplicationController
         else
           @promotion_cal = PromotionCalendar.all
         end
+        unless params[:search][:env_type].blank?
+          @env_type = params[:search][:env_type]
+        else
+          @env_type = EnvironmentType.all
+        end
 
         
         # save searches  
@@ -65,11 +72,15 @@ class PhotosController < ApplicationController
         #  AND audits.store_id IN (?)', 
         #          @from_date, @to_date, params[:search][:category], @audits_in_country)    
 
+        #@photos = Photo.joins(:audit)
+        #      .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
+        #            AND audits.store_id IN (?) AND promotion_calendar_id IN (?) AND audits.environment_type_id IN (?)', 
+        #          @from_date, @to_date, @search_category, @search_country, @promotion_cal, @env_type )    
         @photos = Photo.joins(:audit)
               .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
-                    AND audits.store_id IN (?) AND promotion_calendar_id IN (?)', 
-                  @from_date, @to_date, @search_category, @search_country, @promotion_cal )    
-
+                    AND audits.store_id IN (?)', 
+                  @from_date, @to_date, @search_category, @search_country)   
+#debugger
         #@stores_in_country = Store.find_all_by_audit_id(@search_audits)
         #to do find stores where filtered photo exists      
         #@audits_in_country = Audit.joins(:photo).where('photo.id IN (?)', @photos)
@@ -108,7 +119,7 @@ class PhotosController < ApplicationController
     end
       
     @sectors = Sector.all
-    @sv = SaveSearch.saved_searches(current_user)
+    
     #@stores = Store.all
     @channels = Channel.all
     @environment_types = EnvironmentType.all
@@ -187,6 +198,7 @@ class PhotosController < ApplicationController
   # POST /photos
   # POST /photos.json
   def create
+
     @photo = Photo.new(params[:photo])
 
     respond_to do |format|

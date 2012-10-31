@@ -18,10 +18,20 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .
 
+
 $(document).ready(function() {
    
 	$('.clear-form').click(function(){
-
-			$('form')[0].reset();
+		$('form')[0].reset();
+	})
+	$('#checkAll').click(function(){
+		$('.table-striped input[type="checkbox"]').each(function(){
+			$(this).attr('checked', true)
+		})
+	})
+	$('#uncheckAll').click(function(){
+		$('.table-striped input[type="checkbox"]').each(function(){
+			$(this).attr('checked', false)
+		})
 	})
  });
