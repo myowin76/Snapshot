@@ -19,7 +19,7 @@ class PhotosController < ApplicationController
       #@photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
       # want to be like this Photo.find_photo
       @saved_searches = current_user.save_searches.all
-      @new_save_search = current_user.save_searches.new
+      #@new_save_search = current_user.save_searches.new
       if params[:search].nil?
         # search from current_user's scope  
         @photos = Photo.find(:all, 
