@@ -56,6 +56,11 @@ class PhotosController < ApplicationController
         else
           @promotion_cal = PromotionCalendar.all
         end
+        #unless params[:search][:promo_type].blank?
+        #  @promo_type = params[:search][:promo_type]
+        #else
+        #  @promo_type = PromotionType.all
+        #end
         unless params[:search][:env_type].blank?
           @env_type = params[:search][:env_type]
         else
@@ -131,7 +136,7 @@ class PhotosController < ApplicationController
     @locations = Location.find_all_by_country_id(@countries)
     #@retailers = Retailer.all
     @promo_calendar = PromotionCalendar.all
-    @promo_type = PromotionCalendar.all
+    @promo_type = PromotionType.all
     #@stores = Store.search(params[:search])
     # ransack syntax
     #@search = Photo.search(params[:q])
