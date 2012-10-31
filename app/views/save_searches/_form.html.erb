@@ -5,10 +5,12 @@
     <%= f.input :name %>
     <%#= f.input :params %>
     <%= f.hidden_field :user_id, :value=> current_user.id %>
+    <%= f.hidden_field :params, :value=> params[:search] %>
     <%#= f.association :user %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
+    <%= link_to "Cancel", root_path, :class=>"cancel btn btn-danger" %>
   </div>
 <% end %>

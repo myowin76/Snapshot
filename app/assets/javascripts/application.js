@@ -23,6 +23,7 @@ $(document).ready(function() {
    
 	$('.clear-form').click(function(){
 		$('form')[0].reset();
+
 	})
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){

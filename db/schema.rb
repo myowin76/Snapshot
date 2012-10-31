@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030161930) do
+ActiveRecord::Schema.define(:version => 20121031160810) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -206,6 +206,13 @@ ActiveRecord::Schema.define(:version => 20121030161930) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "user_types", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",           :null => false
     t.string   "encrypted_password",     :default => "",           :null => false
@@ -221,6 +228,7 @@ ActiveRecord::Schema.define(:version => 20121030161930) do
     t.string   "sub_country",            :default => "1,3"
     t.datetime "created_at",                                       :null => false
     t.datetime "updated_at",                                       :null => false
+    t.integer  "user_type_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

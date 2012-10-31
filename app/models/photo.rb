@@ -19,6 +19,13 @@ class Photo < ActiveRecord::Base
   	#:path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/amazon_s3.yml",
+    :s3_permissions => {
+      :thumbnail => :public_read,
+      :small => :public_read,
+      :medium => :public_read,
+      :large => :public_read,
+      :original => :private
+    },
     :bucket => "SnapshotWorldWide"
 		
     validates_attachment_presence :photo

@@ -49,6 +49,7 @@ class SaveSearchesController < ApplicationController
 
     respond_to do |format|
       if @save_search.save
+        
         #format.html { redirect_to @save_search, notice: 'Save search was successfully created.' }
         format.html { redirect_to root_path, notice: 'Save search was successfull' }
         format.js

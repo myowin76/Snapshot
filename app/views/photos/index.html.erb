@@ -120,7 +120,7 @@
               Promotion Calendar
             </a>
           </div>
-          <div id="promo_cal" class="accordion-body collapse">
+          <div id="promo_cal" class="accordion-body collapse in">
             <div class="accordion-inner">
               <% for promo_cal in @promo_calendar %>
                 <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_cal.id.to_s) %>
@@ -138,17 +138,23 @@
       <h3>Dates</h3>
       <fieldset>
         <%= label_tag "From" %>
-        <%= text_field_tag "search[fromDate]" %>
+        <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
+          <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>  
+        <% else %>
+          <%= text_field_tag "search[fromDate]" %>
+        <% end %>
       </fieldset>
       <fieldset>
         <%= label_tag "To" %>
-      <%= text_field_tag "search[toDate]" %>
+        <% if params[:search] && params[:search][:toDate] && params[:search][:toDate] %>
+          <%= text_field_tag "search[toDate]", params[:search][:toDate] %>  
+        <% else %>
+          <%= text_field_tag "search[toDate]" %>
+        <% end %>  
       </fieldset>
-      
       <fieldset>  
         <%= submit_tag "Search", :name => nil, :class=> 'btn btn-success' %>
         <a href="#" class="btn clear-form">Clear</a>
-        
       </fieldset>
 
     <% end %>
@@ -157,7 +163,7 @@
     <%= link_to "New", new_save_search_path, id: "new_link", :class => "btn btn-primary", remote: true %>
 
     <div id = "saved-list">
-      <%= render @saved_searches %>
+      <%= render @saved_searches unless current_user.save_searches.blank? %>
     </div> 
     <div id = "new-save">
       <%#= render @new_save_search %>
@@ -169,7 +175,7 @@
 </div><!-- span3 -->
 <div class="span8">
   <h4><%= pluralize(@stores_in_country.count, 'store') %> found</h4>
-  <%#= gmaps4rails(@json) %>
+  <%= gmaps4rails(@json) %>
     <%#= gmaps("markers" => {"data" => @json},
      "map_options" => { 
      "auto_zoom" => false, "zoom" => 15, "center_on_user" => true
@@ -177,7 +183,9 @@
     
 
 <h4><%= pluralize(@photos.count, 'photo') %> found</h4>
-<a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | <a href="#" id="export">Export</a>
+<a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | 
+<%= link_to "Export", download_url([9])  %>
+
 <table id="photo-list" class="table table-striped">
   <thead>
     <tr>
@@ -195,7 +203,7 @@
     <% @photos.each do |photo| %>
       <tr>
           <td>
-            <%= check_box_tag photo.id %>
+            <%= check_box_tag "chk", photo.id %>
           </td>
           <td>
               <%#= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>

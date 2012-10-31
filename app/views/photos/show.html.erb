@@ -19,6 +19,14 @@
       <td><%= @photo.created_at %></td>
     </tr>
     <tr>
+      <td>File Size</td>
+      <td><%= number_to_human_size(@photo.photo_file_size, :precision => 2)  %></td>
+    </tr>
+    <tr>
+      <td>File Name</td>
+      <td><%= @photo.photo_file_name  %></td>
+    </tr>
+    <tr>
       <td>Store</td>
       <td><%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %></td>
     </tr>

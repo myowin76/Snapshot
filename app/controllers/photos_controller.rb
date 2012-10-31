@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    @title = "Snapshot Web Portal"    
+    
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
       
@@ -18,6 +18,7 @@ class PhotosController < ApplicationController
       # @retailers = Retail.find_all_by_retailer_id(@stores_in_country)
       #@photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
       # want to be like this Photo.find_photo
+      @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
       #@new_save_search = current_user.save_searches.new
       if params[:search].nil?
@@ -61,13 +62,8 @@ class PhotosController < ApplicationController
           @env_type = EnvironmentType.all
         end
 
-        
         # save searches  
         @search_param = params[:search]
-
-        # need to check subscribed categories in condition
-        # Photo.search(params[:search])
-
         #@photos = Photo.joins(:audit).where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
         #  AND audits.store_id IN (?)', 
         #          @from_date, @to_date, params[:search][:category], @audits_in_country)    
@@ -78,8 +74,8 @@ class PhotosController < ApplicationController
         #          @from_date, @to_date, @search_category, @search_country, @promotion_cal, @env_type )    
         @photos = Photo.joins(:audit)
               .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
-                    AND audits.store_id IN (?)', 
-                  @from_date, @to_date, @search_category, @search_country)   
+                    AND audits.store_id IN (?) AND promotion_calendar_id IN (?)', 
+                  @from_date, @to_date, @search_category, @audits_in_country, @promotion_cal)   
 #debugger
         #@stores_in_country = Store.find_all_by_audit_id(@search_audits)
         #to do find stores where filtered photo exists      
@@ -210,6 +206,13 @@ class PhotosController < ApplicationController
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def get_photo
+    
+    asset = Photo.find(params[:id])
+    #assets = Photo.find(params[:chk])
+    send_file 'http://s3.amazonaws.com/SnapshotWorldWide'+asset.photo.path, :type => asset.photo_content_type
   end
 
   # PUT /photos/1
