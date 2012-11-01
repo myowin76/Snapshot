@@ -6,18 +6,25 @@ class PhotosController < ApplicationController
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
       
-      @countries = Subscription.countries_by(current_user)
+      #@countries = Subscription.countries_by(current_user)
+      @countries = Country.find(current_user.subscription.sub_country.split(","))
+      #if params[:search].blank?
+#debugger        
+ #       @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
+  #    else 
+
+        @stores_in_country = Store.find_all_by_country_id(@countries)
+        
+   #   end
       # @locations = Location.find_all_by_country_id(@countries)
-      @stores_in_country = Store.find_all_by_country_id(@countries)
-      @retailers= Retailer.all
       
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       @categories = Subscription.categories_by(current_user)
-
-      # find retailers in the country and only stores exist in retailers
-      # @retailers = Retail.find_all_by_retailer_id(@stores_in_country)
-      #@photos = Photo.find(:all, :conditions => ["audit_id in (?) AND category_id in (?)", @audits_in_country, @categories])                    
-      # want to be like this Photo.find_photo
+      #debugger
+      #@retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*")
+      @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
+      @sectors = Sector.all
+      @promo_calendar = PromotionCalendar.all
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
       #@new_save_search = current_user.save_searches.new
@@ -31,15 +38,19 @@ class PhotosController < ApplicationController
          # CREATE NEW SEARCH SESSION ? T0 MAINTAIN THE STATE AND CAN SAVE IN DB
         # @store_in_country  NEED TO FILTER BY RETAILERS/SECTOR/STORE FORMAT
         #@photos = Photo.search(params[:search])
-        unless params[:search][:fromDate].blank?
-          @from_date = Date.parse(params[:search][:fromDate])
+        unless params[:search][:postcode].blank?
+          postcode = params[:search][:postcode]
+        end
+        
+        unless params[:search][:from_date].blank?
+          from_date = DateTime.parse(params[:search][:from_date])
         else
-          @from_date = DateTime.parse('01/01/1990')
+          from_date = DateTime.parse('01/01/1970')
         end
         unless params[:search][:toDate].blank?
-          @to_date = DateTime.parse(params[:search][:toDate])
+          to_date = DateTime.parse(params[:search][:toDate])
         else
-          @to_date = DateTime.now
+          to_date = DateTime.now
         end
         unless params[:search][:category].blank?
           @search_category = params[:search][:category]
@@ -47,14 +58,15 @@ class PhotosController < ApplicationController
           @search_category = @categories
         end
         unless params[:search][:country_id].blank?
-          @search_country = params[:search][:country_id]
+          search_country = params[:search][:country_id]
         else
-          @search_country = @countries
+          search_country = @countries
         end
+        
         unless params[:search][:promo_cal].blank?
-          @promotion_cal = params[:search][:promo_cal]
+          @promo_cal = params[:search][:promo_cal]
         else
-          @promotion_cal = PromotionCalendar.all
+          @promo_cal = PromotionCalendar.all
         end
         #unless params[:search][:promo_type].blank?
         #  @promo_type = params[:search][:promo_type]
@@ -78,16 +90,10 @@ class PhotosController < ApplicationController
         #            AND audits.store_id IN (?) AND promotion_calendar_id IN (?) AND audits.environment_type_id IN (?)', 
         #          @from_date, @to_date, @search_category, @search_country, @promotion_cal, @env_type )    
         @photos = Photo.joins(:audit)
-              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
-                    AND audits.store_id IN (?) AND promotion_calendar_id IN (?)', 
-                  @from_date, @to_date, @search_category, @audits_in_country, @promotion_cal)   
-#debugger
-        #@stores_in_country = Store.find_all_by_audit_id(@search_audits)
-        #to do find stores where filtered photo exists      
-        #@audits_in_country = Audit.joins(:photo).where('photo.id IN (?)', @photos)
-        
-        #joins(:audit).where('audit.photos IN (?)', @photos)
-        #@stores_in_country = Audit.joins(:store).where('store.audits IN (?)', @audits_in_country)
+              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
+                    AND audits.store_id IN (?)', 
+                  from_date, to_date, @search_category, @promo_cal, @audits_in_country)   
+
         
       end
 
@@ -124,25 +130,14 @@ class PhotosController < ApplicationController
     #@stores = Store.all
     @channels = Channel.all
     @environment_types = EnvironmentType.all
-    if params[:category]
-
-    
-    else
-      #@photos = Photo.all
-    end
 
     #@photos = Photo.search(params[:search])    
     
     @locations = Location.find_all_by_country_id(@countries)
-    #@retailers = Retailer.all
-    @promo_calendar = PromotionCalendar.all
+    
     @promo_type = PromotionType.all
     #@stores = Store.search(params[:search])
-    # ransack syntax
-    #@search = Photo.search(params[:q])
     
-    
-
     # need to filter by search
     # MAP
       @json = @stores_in_country.to_gmaps4rails do |store, marker|
@@ -157,13 +152,10 @@ class PhotosController < ApplicationController
             # marker.json({ :id => user.id, :foo => "bar" })
       end    
 
-
-
     respond_to do |format|
       format.html  # index.html.erb
       format.json { 
         #render json: @photos 
-        
       }
       format.js
     end

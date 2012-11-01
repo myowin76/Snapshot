@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(:version => 20121031160810) do
     t.string   "sub_country",            :default => "1,3"
     t.datetime "created_at",                                       :null => false
     t.datetime "updated_at",                                       :null => false
-    t.integer  "user_type_id"
+    t.integer  "user_type_id",           :default => 1
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

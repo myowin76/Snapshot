@@ -1,19 +1,23 @@
 <div class="span4">
   <aside>
-    <%= @search_param %>
+    <%#= @search_param %>
     <h4>Filter by</h4>  
     
     <%= form_tag root_path do %>
       <fieldset>
         <%= label_tag "Postcode" %>
-        <%= text_field_tag 'search[postcode]' %>
+        <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
+          <%= text_field_tag 'search[postcode]', params[:search][:postcode] %>
+        <% else %>
+          <%= text_field_tag 'search[postcode]' %>
+        <% end %>
         <%#= hidden_field_tag params[:search] %>
       </fieldset>
       
       <fieldset>
         <%= label_tag "Country" %>
         <% if params[:search] && params[:search][:country_id] && params[:search][:country_id].include?(@countries.to_s) %>
-          <%#= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }, {:selected_value => @countries.first.id.to_s}) %>
+          <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }, {:selected_value => @countries.last.id.to_s}) %>
         <% else %>
           <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
         <% end %>        
@@ -52,7 +56,7 @@
               Retailers
             </a>
           </div>
-          <div id="retailer" class="accordion-body collapse">
+          <div id="retailer" class="accordion-body collapse in">
             <div class="accordion-inner">
               <% for retailer in @retailers %>
                 <% if params[:search] && params[:search][:retailer] && params[:search][:retailer].include?(retailer.id.to_s) %>
