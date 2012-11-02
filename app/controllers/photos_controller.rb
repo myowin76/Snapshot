@@ -24,7 +24,7 @@ class PhotosController < ApplicationController
       #@retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*")
       @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
       @sectors = Sector.all
-      @promo_calendar = PromotionCalendar.all
+      
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
       #@new_save_search = current_user.save_searches.new
@@ -127,7 +127,7 @@ class PhotosController < ApplicationController
     #@photos = Photo.search(params[:search])    
     
     @locations = Location.find_all_by_country_id(@countries)
-    
+    @promo_calendars = PromotionCalendar.all
     @promo_type = PromotionType.all
     #@stores = Store.search(params[:search])
     
