@@ -87,7 +87,7 @@ class PhotosController < ApplicationController
                     AND audits.store_id IN (?)', 
                   from_date, to_date, @search_category, @promo_cal, @stores_in_country)   
 
-        debugger
+        
       end
 
 
@@ -161,6 +161,12 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.pdf do
+        Prawn::Document.generate("hello.pdf") do
+          text "Hello World!"
+        end
+        
+      end
       format.json { render json: @photo }
     end
   end

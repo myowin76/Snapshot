@@ -18,9 +18,10 @@ gem 'ransack'
 gem 'gmaps4rails'
 gem 'aws-sdk'
 gem 'jquery-datatables-rails'
-#gem 'prawn'
+gem 'prawn'
+gem "wkhtmltopdf-binary"
 gem 'db_populate'
-
+gem "prawnto_2", :require => "prawnto"
 group :production do
 	gem "pg"
 end

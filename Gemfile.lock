@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Ascii85 (1.0.2)
     actionmailer (3.2.8)
       actionpack (= 3.2.8)
       mail (~> 2.4.4)
@@ -67,6 +68,7 @@ GEM
       multi_json (~> 1.0)
     geocoder (1.1.4)
     gmaps4rails (1.5.5)
+    hashery (2.0.1)
     hike (1.2.1)
     httparty (0.9.0)
       multi_json (~> 1.0)
@@ -105,10 +107,20 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.4.0)
       mime-types
+    pdf-reader (1.2.0)
+      Ascii85 (~> 1.0.0)
+      hashery (~> 2.0)
+      ruby-rc4
     pg (0.14.1)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
+    prawn (0.12.0)
+      pdf-reader (>= 0.9.0)
+      ttfunk (~> 1.0.2)
+    prawnto_2 (0.2.5)
+      prawn (>= 0.6.0)
+      rails (>= 3.1)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -153,6 +165,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.11.0)
+    ruby-rc4 (0.1.5)
     sass (3.2.1)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -184,6 +197,7 @@ GEM
     treetop (1.4.11)
       polyglot
       polyglot (>= 0.3.1)
+    ttfunk (1.0.3)
     twitter-bootstrap-rails (2.1.4)
       actionpack (>= 3.1)
       less-rails (~> 2.2.3)
@@ -197,6 +211,7 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     will_paginate (3.0.3)
+    wkhtmltopdf-binary (0.9.9.1)
 
 PLATFORMS
   ruby
@@ -216,6 +231,8 @@ DEPENDENCIES
   nifty-generators
   paperclip (~> 3.1)
   pg
+  prawn
+  prawnto_2
   rails (= 3.2.8)
   ransack
   rspec-rails (~> 2.0)
@@ -226,3 +243,4 @@ DEPENDENCIES
   twitter-bootstrap-rails (~> 2.0rc0)
   uglifier (>= 1.0.3)
   will_paginate (~> 3.0.0)
+  wkhtmltopdf-binary

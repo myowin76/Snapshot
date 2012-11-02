@@ -79,7 +79,7 @@
       <td><%= @photo.description %></td>
     </tr>
   </table>
-  
+  <%= link_to 'Download Pdf', photo_path(:format => "pdf") %>
   <%#= link_to 'Edit', edit_photo_path(@photo) %>
   <%#= link_to 'Back', photos_path %>
 </div>
