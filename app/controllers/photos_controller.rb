@@ -58,9 +58,9 @@ class PhotosController < ApplicationController
           @search_category = @categories
         end
         unless params[:search][:country_id].blank?
-          search_country = params[:search][:country_id]
+          @search_country = params[:search][:country_id]
         else
-          search_country = @countries
+          @search_country = @countries
         end
         
         unless params[:search][:promo_cal].blank?
@@ -81,19 +81,11 @@ class PhotosController < ApplicationController
 
         # save searches  
         @search_param = params[:search]
-        #@photos = Photo.joins(:audit).where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
-        #  AND audits.store_id IN (?)', 
-        #          @from_date, @to_date, params[:search][:category], @audits_in_country)    
-
-        #@photos = Photo.joins(:audit)
-        #      .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) 
-        #            AND audits.store_id IN (?) AND promotion_calendar_id IN (?) AND audits.environment_type_id IN (?)', 
-        #          @from_date, @to_date, @search_category, @search_country, @promotion_cal, @env_type )    
+        
         @photos = Photo.joins(:audit)
-              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?)',
-                    #AND audits.store_id IN (?)', 
-                  #from_date, to_date, @search_category, @audits_in_country)   
-              from_date, to_date, @search_category)   
+              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
+                    AND audits.store_id IN (?)', 
+                  from_date, to_date, @search_category, @promo_cal, @stores_in_country)   
 
         debugger
       end
