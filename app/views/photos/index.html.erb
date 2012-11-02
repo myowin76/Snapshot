@@ -126,13 +126,13 @@
           </div>
           <div id="promo_cal" class="accordion-body collapse">
             <div class="accordion-inner">
-              <% for promo_cal in @promo_calendar %>
-                <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_cal.id.to_s) %>
-                  <%= check_box_tag "search[promo_cal][]", promo_cal.id, :check => "checked"  %>
+              <% for promo_calendar in @promo_calendar %>
+                <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_calendar.id.to_s) %>
+                  <%= check_box_tag "search[promo_cal][]", promo_calendar.id, :check => "checked"  %>
                 <% else %>  
-                  <%= check_box_tag "search[promo_cal][]", promo_cal.id %>
+                  <%= check_box_tag "search[promo_cal][]", promo_calendar.id %>
                 <% end %>  
-                <%= promo_cal.name %><br />
+                <%= promo_calendar.name %><br />
               <% end %>  
             </div>
           </div>

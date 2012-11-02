@@ -94,7 +94,7 @@ class PhotosController < ApplicationController
                     AND audits.store_id IN (?)', 
                   from_date, to_date, @search_category, @promo_cal, @audits_in_country)   
 
-        
+        #debugger
       end
 
 
