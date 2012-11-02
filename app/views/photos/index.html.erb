@@ -50,74 +50,7 @@
             </div>
           </div>
         </div>
-        <!--div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailer">
-              Retailers
-            </a>
-          </div>
-          <div id="retailer" class="accordion-body collapse in">
-            <div class="accordion-inner">
-              <% for retailer in @retailers %>
-                <% if params[:search] && params[:search][:retailer] && params[:search][:retailer].include?(retailer.id.to_s) %>
-                  <%= check_box_tag "search[retailer][]", retailer.id, :check => "checked"  %>
-                <% else %>
-                  <%= check_box_tag "search[retailer][]", retailer.id %> 
-                <% end %>  
-                  <%= retailer.name %><br />
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#sectors">
-              Sectors
-            </a>
-          </div>
-          <div id="sectors" class="accordion-body collapse">
-            <div class="accordion-inner">
-              <% for sector in @sectors %>
-                <% if params[:search] && params[:search][:sector] && params[:search][:sector].include?(sector.id.to_s) %>
-                  <%= check_box_tag "search[sector][]", sector.id, :check => "checked"  %>
-                <% else %>  
-                  <%= check_box_tag "search[sector][]", sector.id %>
-                <% end %>
-                <%= sector.name %><br />
-              <% end %>  
-            </div>
-          </div>
-        </div>
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#channels">
-              Channels
-            </a>
-          </div>
-          <div id="channels" class="accordion-body collapse">
-            <div class="accordion-inner">
-              <% for channel in @channels %>
-                <%= check_box_tag "search[channel][]", channel.id %>
-                <%= channel.name %><br />
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#envtype">
-              Environment Types
-            </a>
-          </div>
-          <div id="envtype" class="accordion-body collapse">
-            <div class="accordion-inner">
-              <% for env_type in @environment_types %>
-                <%= check_box_tag "search[env_type][]", env_type.id %>
-                <%= env_type.name %><br />
-              <% end %>
-            </div>
-          </div>
-        </div-->
+        
         <div class="accordion-group">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_cal">
