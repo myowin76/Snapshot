@@ -42,8 +42,8 @@ class PhotosController < ApplicationController
           postcode = params[:search][:postcode]
         end
         
-        unless params[:search][:from_date].blank?
-          from_date = DateTime.parse(params[:search][:from_date])
+        unless params[:search][:fromDate].blank?
+          from_date = DateTime.parse(params[:search][:fromDate])
         else
           from_date = DateTime.parse('01/01/1970')
         end
@@ -90,11 +90,12 @@ class PhotosController < ApplicationController
         #            AND audits.store_id IN (?) AND promotion_calendar_id IN (?) AND audits.environment_type_id IN (?)', 
         #          @from_date, @to_date, @search_category, @search_country, @promotion_cal, @env_type )    
         @photos = Photo.joins(:audit)
-              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?)
-                    AND audits.store_id IN (?)', 
-                  from_date, to_date, @search_category, @audits_in_country)   
+              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?)',
+                    #AND audits.store_id IN (?)', 
+                  #from_date, to_date, @search_category, @audits_in_country)   
+              from_date, to_date, @search_category)   
 
-        #debugger
+        debugger
       end
 
 
@@ -125,11 +126,11 @@ class PhotosController < ApplicationController
       # @subscribed_country = "none"
     end
       
-    @sectors = Sector.all
+    #@sectors = Sector.all
     
     #@stores = Store.all
-    @channels = Channel.all
-    @environment_types = EnvironmentType.all
+    #@channels = Channel.all
+    #@environment_types = EnvironmentType.all
 
     #@photos = Photo.search(params[:search])    
     
