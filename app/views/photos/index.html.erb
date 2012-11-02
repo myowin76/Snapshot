@@ -51,26 +51,27 @@
           </div>
         </div>
         
-        <div class="accordion-group">
-          <div class="accordion-heading">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_cal">
-              Promotion Calendar
-            </a>
-          </div>
-          <div id="promo_cal" class="accordion-body collapse">
-            <div class="accordion-inner">
-              <% for promo_calendar in @promo_calendar %>
-                <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_calendar.id.to_s) %>
-                  <%= check_box_tag "search[promo_cal][]", promo_calendar.id, :check => "checked"  %>
-                <% else %>  
-                  <%= check_box_tag "search[promo_cal][]", promo_calendar.id %>
-                <% end %>  
-                <%= promo_calendar.name %><br />
-              <% end %>  
+        
+          <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_type">
+                  Promotion Type
+                </a>
+              </div>
+              <div id="promo_type" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                  <% for promo_type in @promo_type %>
+                    <% if params[:search] && params[:search][:promo_type] && params[:search][:promo_type].include?(promo_type.id.to_s) %>
+                      <%= check_box_tag "search[promo_type][]", promo_type.id, :check => "checked"  %>
+                    <% else %>  
+                      <%= check_box_tag "search[promo_type][]", promo_type.id %>
+                    <% end %>  
+                    <%= promo_type.name %><br />
+                  <% end %>  
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-          
         
 
       <h3>Dates</h3>
