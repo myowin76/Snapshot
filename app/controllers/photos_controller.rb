@@ -90,9 +90,9 @@ class PhotosController < ApplicationController
         #            AND audits.store_id IN (?) AND promotion_calendar_id IN (?) AND audits.environment_type_id IN (?)', 
         #          @from_date, @to_date, @search_category, @search_country, @promotion_cal, @env_type )    
         @photos = Photo.joins(:audit)
-              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
+              .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?)
                     AND audits.store_id IN (?)', 
-                  from_date, to_date, @search_category, @promo_cal, @audits_in_country)   
+                  from_date, to_date, @search_category, @audits_in_country)   
 
         #debugger
       end
