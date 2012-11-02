@@ -50,7 +50,7 @@
             </div>
           </div>
         </div>
-        <div class="accordion-group">
+        <!--div class="accordion-group">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailer">
               Retailers
@@ -117,7 +117,7 @@
               <% end %>
             </div>
           </div>
-        </div>
+        </div-->
         <div class="accordion-group">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_cal">
@@ -226,7 +226,7 @@
     <% @photos.each do |photo| %>
       <tr>
           <td>
-            <%= check_box_tag "chk", photo.id %>
+            <%= check_box_tag "photo_ids[]", photo.id %>
           </td>
           <td>
               <%#= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>

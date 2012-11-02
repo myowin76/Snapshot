@@ -207,7 +207,7 @@ class PhotosController < ApplicationController
 
   def get_photo
     
-    asset = Photo.find(params[:id])
+    asset = Photo.find(params[:photo_ids])
     #assets = Photo.find(params[:chk])
     send_file 'http://s3.amazonaws.com/SnapshotWorldWide'+asset.photo.path, :type => asset.photo_content_type
   end
