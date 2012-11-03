@@ -1,0 +1,151 @@
+<h4>Filter by</h4>  
+    
+<%= form_tag root_path, :id=>"search_form" do %>
+  <fieldset>
+    <%= label_tag "Postcode" %>
+    <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
+      <%= text_field_tag 'search[postcode]', params[:search][:postcode] %>
+    <% else %>
+      <%= text_field_tag 'search[postcode]' %>
+    <% end %>
+    <%#= hidden_field_tag params[:search] %>
+  </fieldset>
+  
+  <fieldset>
+    <%= label_tag "Country" %>
+    <% if params[:search] && params[:search][:country_id] && params[:search][:country_id].include?(@countries.to_s) %>
+      <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }, {:selected_value => @countries.last.id.to_s}) %>
+    <% else %>
+      <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
+    <% end %>        
+  </fieldset>
+
+  <fieldset>
+    <%= label_tag "Location" %>
+    <%#= collection_select(:search, :location_id, Location.find(:all), :id, :name, { :prompt => 'All' }) %>
+    <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
+          { :prompt => 'All' }) %>
+  </fieldset>
+
+  <div class="accordion" id="accordion2">
+
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#categories">
+          Categories
+        </a>
+      </div>
+      <div id="categories" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for category in @categories %>
+            <% if params[:search] && params[:search][:category] && params[:search][:category].include?(category.id.to_s) %>
+              <%= check_box_tag "search[category][]", category.id, :check => "checked" %>
+            <% else %>
+              <%= check_box_tag "search[category][]", category.id %>
+            <% end %>
+            <%= category.name %><br />
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
+            Retailers
+          </a>
+        </div>
+        <div id="retailers-accord" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <% for retailer in @retailers %>
+              <% if params[:search] && params[:search][:retailer] && params[:search][:retailer].include?(retailer.id.to_s) %>
+                <%= check_box_tag "search[retailer][]", retailer.id, :check => "checked"  %>
+              <% else %>  
+                <%= check_box_tag "search[retailer][]", retailer.id %>
+              <% end %>  
+              <%= retailer.name %><br />
+            <% end %>  
+          </div>
+        </div>
+      </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_cal">
+          Promotion Calendars
+        </a>
+      </div>
+      <div id="promo_cal" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for promo_calendar in @promo_calendars %>
+            <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_calendar.id.to_s) %>
+              <%= check_box_tag "search[promo_cal][]", promo_calendar.id, :check => "checked"  %>
+            <% else %>  
+              <%= check_box_tag "search[promo_cal][]", promo_calendar.id %>
+            <% end %>  
+            <%= promo_calendar.name %><br />
+          <% end %>  
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_type">
+          Promotion Types
+        </a>
+      </div>
+      <div id="promo_type" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for promo_type in @promo_type %>
+            <% if params[:search] && params[:search][:promo_type] && params[:search][:promo_type].include?(promo_type.id.to_s) %>
+              <%= check_box_tag "search[promo_type][]", promo_type.id, :check => "checked"  %>
+            <% else %>  
+              <%= check_box_tag "search[promo_type][]", promo_type.id %>
+            <% end %>  
+            <%= promo_type.name %><br />
+          <% end %>  
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#env_type">
+          Environment Types
+        </a>
+      </div>
+      <div id="env_type" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <% for env_type in @env_types %>
+            <% if params[:search] && params[:search][:env_type] && params[:search][:env_type].include?(env_type.id.to_s) %>
+              <%= check_box_tag "search[env_type][]", env_type.id, :check => "checked"  %>
+            <% else %>  
+              <%= check_box_tag "search[env_type][]", env_type.id %>
+            <% end %>  
+            <%= env_type.name %><br />
+          <% end %>  
+        </div>
+      </div>
+  </div>
+</div>
+    <h3>Dates</h3>
+    <fieldset>
+      <%= label_tag "From" %>
+      <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
+        <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>  
+      <% else %>
+        <%= text_field_tag "search[fromDate]" %>
+      <% end %>
+    </fieldset>
+    <fieldset>
+      <%= label_tag "To" %>
+      <% if params[:search] && params[:search][:toDate] && params[:search][:toDate] %>
+        <%= text_field_tag "search[toDate]", params[:search][:toDate] %>  
+      <% else %>
+        <%= text_field_tag "search[toDate]" %>
+      <% end %>  
+    </fieldset>
+    <fieldset>  
+      <%= submit_tag "Search", :name => nil, :class=> 'btn btn-success' %>
+      <a href="#" class="btn clear-form">Clear</a>
+    </fieldset>
+<% end %>
+
+    

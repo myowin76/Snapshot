@@ -13,7 +13,7 @@ class PhotosController < ApplicationController
  #       @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
   #    else 
 
-        @stores_in_country = Store.find_all_by_country_id(@countries)
+      @stores_in_country = Store.find_all_by_country_id(@countries)
         
    #   end
       # @locations = Location.find_all_by_country_id(@countries)
@@ -38,6 +38,7 @@ class PhotosController < ApplicationController
          # CREATE NEW SEARCH SESSION ? T0 MAINTAIN THE STATE AND CAN SAVE IN DB
         # @store_in_country  NEED TO FILTER BY RETAILERS/SECTOR/STORE FORMAT
         #@photos = Photo.search(params[:search])
+
         unless params[:search][:postcode].blank?
           postcode = params[:search][:postcode]
         end
@@ -68,11 +69,11 @@ class PhotosController < ApplicationController
         else
           @promo_cal = PromotionCalendar.all
         end
-        #unless params[:search][:promo_type].blank?
-        #  @promo_type = params[:search][:promo_type]
-        #else
-        #  @promo_type = PromotionType.all
-        #end
+        unless params[:search][:promo_type].blank?
+          @promo_type = params[:search][:promo_type]
+        else
+          @promo_type = PromotionType.all
+        end
         unless params[:search][:env_type].blank?
           @env_type = params[:search][:env_type]
         else
@@ -84,8 +85,8 @@ class PhotosController < ApplicationController
         
         @photos = Photo.joins(:audit)
               .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
-                    AND audits.store_id IN (?)', 
-                  from_date, to_date, @search_category, @promo_cal, @stores_in_country)   
+                    AND audits.store_id IN (?) AND audits.environment_type_id IN (?)', 
+                  from_date, to_date, @search_category, @promo_cal, @stores_in_country, @env_type)   
 
         
       end
@@ -119,16 +120,14 @@ class PhotosController < ApplicationController
     end
       
     #@sectors = Sector.all
-    
-    #@stores = Store.all
     #@channels = Channel.all
-    #@environment_types = EnvironmentType.all
-
     #@photos = Photo.search(params[:search])    
     
     @locations = Location.find_all_by_country_id(@countries)
     @promo_calendars = PromotionCalendar.all
     @promo_type = PromotionType.all
+    @env_types = EnvironmentType.all
+
     #@stores = Store.search(params[:search])
     
     # need to filter by search
@@ -162,10 +161,10 @@ class PhotosController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.pdf do
-        Prawn::Document.generate("hello.pdf") do
-          text "Hello World!"
-        end
-        
+        pdf = PhotoPdf.new(@photo)
+        send_data pdf.render, file_name: "photo_#{"photo.photo_file_name"}.pdf",
+                      type: "application/pdf",
+                      disposition: "inline"
       end
       format.json { render json: @photo }
     end
