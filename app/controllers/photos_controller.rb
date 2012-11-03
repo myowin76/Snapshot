@@ -24,6 +24,11 @@ class PhotosController < ApplicationController
       #@retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*")
       @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
       @sectors = Sector.all
+      @channels = Channel.all
+      @locations = Location.find_all_by_country_id(@countries)
+      @promo_calendars = PromotionCalendar.all
+      @promo_type = PromotionType.all
+      @env_types = EnvironmentType.all
       
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
@@ -79,15 +84,33 @@ class PhotosController < ApplicationController
         else
           @env_type = EnvironmentType.all
         end
+        unless params[:search][:retailer].blank?
+          @search_retailer = params[:search][:retailer]
+        else
+          @search_retailer = @retailers
+        end
+        unless params[:search][:channel].blank?
+          @search_channel = params[:search][:channel]
+        else
+          @search_channel = @channels
+        end
 
         # save searches  
         @search_param = params[:search]
+        #@photos = Photo.find( 
+        #  :all, 
+        #  :conditions => [
+        #    "photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
+        #            AND audits.store_id IN (?) AND audits.environment_type_id IN (?) ",
+        #    from_date, to_date, @search_category, @promo_cal, @stores_in_country, @env_type
+        #  ],
+        #  :include => :audit
+        #)
         
         @photos = Photo.joins(:audit)
               .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
-                    AND audits.store_id IN (?) AND audits.environment_type_id IN (?)', 
-                  from_date, to_date, @search_category, @promo_cal, @stores_in_country, @env_type)   
-
+                    AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)', 
+                  from_date, to_date, @search_category, @promo_cal, @stores_in_country, @env_type, @search_channel)   
         
       end
 
@@ -118,19 +141,9 @@ class PhotosController < ApplicationController
       # SOMETHING ELSE
       # @subscribed_country = "none"
     end
-      
-    #@sectors = Sector.all
-    #@channels = Channel.all
+    
     #@photos = Photo.search(params[:search])    
-    
-    @locations = Location.find_all_by_country_id(@countries)
-    @promo_calendars = PromotionCalendar.all
-    @promo_type = PromotionType.all
-    @env_types = EnvironmentType.all
-
-    #@stores = Store.search(params[:search])
-    
-    # need to filter by search
+  
     # MAP
       @json = @stores_in_country.to_gmaps4rails do |store, marker|
             marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })

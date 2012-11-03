@@ -49,6 +49,25 @@
       </div>
     </div>
     <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#channel">
+          Channels
+        </a>
+      </div>
+      <div id="channel" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for channel in @channels %>
+            <% if params[:search] && params[:search][:channel] && params[:search][:channel].include?(channel.id.to_s) %>
+              <%= check_box_tag "search[channel][]", channel.id, :check => "checked" %>
+            <% else %>
+              <%= check_box_tag "search[channel][]", channel.id %>
+            <% end %>
+            <%= channel.name %><br />
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
             Retailers
