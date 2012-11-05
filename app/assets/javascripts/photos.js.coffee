@@ -1,6 +1,6 @@
 
 jQuery.fn.submitOnCheck = ->
-  @find('input[type=checkbox]').click ->
+  @find('input[type=checkbox]').live 'click', (event) ->
     $('#search_form').submit()
   this
 

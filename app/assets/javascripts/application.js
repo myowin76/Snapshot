@@ -28,11 +28,15 @@ $(document).ready(function() {
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
+			
 		})
+		return false;
 	})
 	$('#uncheckAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
 			$(this).attr('checked', false)
+
 		})
+		return false;
 	})
  });

@@ -6,16 +6,14 @@ class PhotosController < ApplicationController
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
       
-      #@countries = Subscription.countries_by(current_user)
       @countries = Country.find(current_user.subscription.sub_country.split(","))
-      #if params[:search].blank?
-#debugger        
- #       @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
-  #    else 
-
-      @stores_in_country = Store.find_all_by_country_id(@countries)
-        
-   #   end
+      unless params[:search].nil?
+        #if request.xhr?
+          @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id]) unless params[:search].nil?
+      else
+        @stores_in_country = Store.find_all_by_country_id(@countries)
+      end
+      #@stores_in_country = Store.find_all_by_country_id(@countries)
       # @locations = Location.find_all_by_country_id(@countries)
       
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
@@ -27,7 +25,11 @@ class PhotosController < ApplicationController
       @channels = Channel.all
       @locations = Location.find_all_by_country_id(@countries)
       @promo_calendars = PromotionCalendar.all
+      @brands = Brand.all
       @promo_type = PromotionType.all
+      @media_types = MediaType.all
+      @media_vehicles = MediaVehicle.all
+      @media_locations = MediaLocation.all
       @env_types = EnvironmentType.all
       
       @search_param = params[:search]
@@ -94,6 +96,26 @@ class PhotosController < ApplicationController
         else
           @search_channel = @channels
         end
+        unless params[:search][:media_type].blank?
+          @search_mtype = params[:search][:media_type]
+        else
+          @search_mtype = @media_types
+        end
+        unless params[:search][:media_v].blank?
+          @search_mv = params[:search][:media_v]
+        else
+          @search_mv = @media_vehicles
+        end
+        unless params[:search][:media_loc].blank?
+          @search_ml = params[:search][:media_loc]
+        else
+          @search_ml = @media_locations
+        end
+        unless params[:search][:brand].blank?
+          @search_brand = params[:search][:brand]
+        else
+          @search_brand = @brands
+        end
 
         # save searches  
         @search_param = params[:search]
@@ -109,8 +131,10 @@ class PhotosController < ApplicationController
         
         @photos = Photo.joins(:audit)
               .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
+                    AND media_type_id IN (?) AND media_vehicle_id IN (?) AND media_location_id IN (?) AND brand_id IN (?)
                     AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)', 
-                  from_date, to_date, @search_category, @promo_cal, @stores_in_country, @env_type, @search_channel)   
+                  from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brand,
+                  @stores_in_country, @env_type, @search_channel)   
         
       end
 
@@ -225,6 +249,12 @@ class PhotosController < ApplicationController
     
     #redirect_to root_path
   end
+
+  def ajax_search_request
+    index
+    format.js
+  end
+
 
   # PUT /photos/1
   # PUT /photos/1.json

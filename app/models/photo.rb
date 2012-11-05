@@ -17,8 +17,9 @@ class Photo < ActiveRecord::Base
   	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
     #:url  => "/audits/:id/:style/:basename.:extension",
   	#:path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
+
     :storage => :s3,
-    :s3_credentials => "#{Rails.root}/config/amazon_s3.yml",
+    :s3_credentials => "#{Rails.root}/config/aws.yml",
     :s3_permissions => {
       :thumbnail => :public_read,
       :small => :public_read,
@@ -26,6 +27,12 @@ class Photo < ActiveRecord::Base
       :large => :public_read,
       :original => :private
     },
+    :s3_protocol => 'http',
+      :s3_options => {
+        :server_side_encryption => 'AES256',
+        :storage_class => :reduced_redundancy,
+        :content_disposition => 'attachment'
+      },
     :bucket => "SnapshotWorldWide"
 		
     validates_attachment_presence :photo
