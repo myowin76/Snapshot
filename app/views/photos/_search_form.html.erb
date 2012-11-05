@@ -6,30 +6,33 @@
     <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
       <%= text_field_tag 'search[postcode]', params[:search][:postcode] %>
     <% else %>
-      <%= text_field_tag 'search[postcode]' %>
+      <%= text_field_tag 'search[postcode]'%>
     <% end %>
     <%#= hidden_field_tag params[:search] %>
   </fieldset>
   
   <fieldset>
     <%= label_tag "Country" %>
-    <% if params[:search] && params[:search][:country_id] && params[:search][:country_id].include?(@countries.to_s) %>
-    
-      <%#= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }, {:selected_value => @countries.last.id.to_s}) %>
-      <%= f.select :category, options_for_select(countries, params[:search][:country_id]) %>    
+    <% if params[:search] && params[:search][:country_id] && params[:search][:country_id] %>
+      <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => params[:search][:country_id]}) %>
     <% else %>
-      <%#= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
-      <%= collection_select(:search, :country_id, @countries, :id, :name) %>
+      <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => "0"}) %>
+      <%#= collection_select(:search, :country_id, @countries, :id, :name) %>
     <% end %>  
 
   </fieldset>
 
-  <fieldset>
+  <!--fieldset>
     <%= label_tag "Location" %>
-    <%#= collection_select(:search, :location_id, Location.find(:all), :id, :name, { :prompt => 'All' }) %>
-    <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
-          { :prompt => 'All' }) %>
-  </fieldset>
+    <% if params[:search] && params[:search][:location_id] && params[:search][:location_id] %>
+      <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name) %>
+    <% else %>
+      <%#= collection_select(:search, :location_id, Location.find(:all), :id, :name, { :prompt => 'All' }) %>
+      <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
+            { :prompt => 'All' }) %>
+    
+    <% end %>
+  </fieldset-->
 
   <div class="accordion" id="accordion2">
 

@@ -13,6 +13,7 @@ class CreateCountries < ActiveRecord::Migration
     Country.create(:name => 'Scotland')
     Country.create(:name => 'Spain')
     Country.create(:name => 'Wales')
+    Country.create(:name => 'United State')
   end
 
   def self.down

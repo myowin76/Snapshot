@@ -9,10 +9,16 @@ class PhotosController < ApplicationController
       @countries = Country.find(current_user.subscription.sub_country.split(","))
       unless params[:search].nil?
         #if request.xhr?
+        if params[:search][:country_id].blank?
+          @stores_in_country = Store.find_all_by_country_id(@countries)
+        else
           @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id]) unless params[:search].nil?
+        end
+          
       else
         @stores_in_country = Store.find_all_by_country_id(@countries)
       end
+      #debugger
       #@stores_in_country = Store.find_all_by_country_id(@countries)
       # @locations = Location.find_all_by_country_id(@countries)
       
@@ -136,6 +142,7 @@ class PhotosController < ApplicationController
                   from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brand,
                   @stores_in_country, @env_type, @search_channel)   
         
+        #@stores = Store.joins
       end
 
 

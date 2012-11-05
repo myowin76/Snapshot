@@ -6,7 +6,9 @@ jQuery.fn.submitOnCheck = ->
 
 
 jQuery ->
-  $('#photo-list').dataTable
+  $('#search_postcode').autocomplete
+      source: ['foo', 'food', 'four']    
+  $('#photo-list').dataTable()
   "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   "sPaginationType": "bootstrap"
 
@@ -28,6 +30,8 @@ jQuery ->
     else
       $('#search_location_id').empty()
       $('#search_location_id').parent().hide()
+
+    
       
 
     
