@@ -117,7 +117,7 @@
       </div>
       <div id="promo_type" class="accordion-body collapse">
         <div class="accordion-inner">
-          <% for promo_type in @promo_type %>
+          <% for promo_type in @promo_types %>
             <% if params[:search] && params[:search][:promo_type] && params[:search][:promo_type].include?(promo_type.id.to_s) %>
               <%= check_box_tag "search[promo_type][]", promo_type.id, :check => "checked"  %>
             <% else %>  

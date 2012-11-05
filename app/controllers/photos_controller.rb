@@ -26,7 +26,7 @@ class PhotosController < ApplicationController
       @locations = Location.find_all_by_country_id(@countries)
       @promo_calendars = PromotionCalendar.all
       @brands = Brand.all
-      @promo_type = PromotionType.all
+      @promo_types = PromotionType.all
       @media_types = MediaType.all
       @media_vehicles = MediaVehicle.all
       @media_locations = MediaLocation.all
