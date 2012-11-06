@@ -17,8 +17,8 @@
     <% if params[:search] && params[:search][:country_id] && params[:search][:country_id] %>
       <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => params[:search][:country_id]}) %>
     <% else %>
-      <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
-      <%#= collection_select(:search, :country_id, @countries, :id, :name) %>
+      <%= collection_select(:search, :country_id, @countries, :id, :name) %>
+      <%#= collection_select(:search, :country_id, @countries, :id, :name), { :prompt => 'All' } %>
     <% end %>  
 
   </fieldset>
@@ -102,7 +102,6 @@
       </div>
       <div id="retailers-accord" class="accordion-body collapse">
         <div class="accordion-inner">
-          
           <%= render :partial => 'retailer_view', :locals => {:retailers => @retailers}%>
         </div>
       </div>

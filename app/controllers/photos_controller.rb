@@ -12,9 +12,12 @@ class PhotosController < ApplicationController
 
       unless params[:search].nil?
         
+        # search
         if params[:search][:country_id].blank?
+          # for all country search
           @stores_in_country = Store.find_all_by_country_id(@countries)
         else
+          # for selected country
           @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
         end
 
@@ -22,15 +25,48 @@ class PhotosController < ApplicationController
           @sectors = Sector.all
           #@retailers = Retailer.find_all_by_id(@sectors)  
           @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
+            
+            unless params[:search][:retailers].blank? 
+              @stores_in_country = Store.find(:all,
+                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                                  params[:search][:country_id], params[:search][:retailers]])
+
+            else
+              @stores_in_country = Store.find(:all,
+                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                                  params[:search][:country_id], @retailers])
+              
+            end
+
         else
           @sectors = Sector.all
           @sector_chk = Sector.find_all_by_id(params[:search][:sectors])  
           @retailers = Retailer.find_all_by_sector_id(@sector_chk)
-          #@retailers = Retailer.all
+          
+          if params[:search][:country_id].blank?
+            # for all country search
+            @stores_in_country = Store.find_all_by_country_id(@countries)
+          else
+            # for selected country
+            unless params[:search][:retailers].blank? 
+              @stores_in_country = Store.find(:all,
+                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                                  params[:search][:country_id], params[:search][:retailers]])
+
+            else
+              @stores_in_country = Store.find(:all,
+                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                                  params[:search][:country_id], @retailers])
+              
+            end
+          
+          end
           
         end
+
       else
         # page load
+
         @sectors = Sector.all
         #@retailers = Retailer.all
         @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
