@@ -1,5 +1,6 @@
 
 <div class="span6 details">
+
   <%= link_to image_tag(@photo.photo.url(:large)), @photo.photo.url(:originals)  %><br />
   <%= link_to 'Download Pdf', photo_path(:format => "pdf") %>
 </div>
@@ -79,8 +80,8 @@
       <td><%= @photo.description %></td>
     </tr>
   </table>
+  <%= link_to 'back', :back, :id=>'back' %>
   
-  <%= link_to 'back', :back %>
   <%#= link_to 'Edit', edit_photo_path(@photo) %>
   <%#= link_to 'Back', photos_path %>
 </div>

@@ -12,6 +12,11 @@ class PhotosController < ApplicationController
 
       unless params[:search].nil?
         
+        unless params[:search][:sformat].blank?
+          @store_formats = (params[:search][:sformat])
+        else
+          @store_formats = StoreFormat.all
+        end
         # search
         if params[:search][:country_id].blank?
           # for all country search
@@ -27,17 +32,14 @@ class PhotosController < ApplicationController
           @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
             
             unless params[:search][:retailers].blank? 
-              @stores_in_country = Store.find(:all,
-                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                                  params[:search][:country_id], params[:search][:retailers]])
-
+                @stores_in_country = Store.find(:all,
+                  :conditions => ['country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
+                  params[:search][:country_id], params[:search][:retailers], @store_formats])
             else
-              @stores_in_country = Store.find(:all,
-                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                                  params[:search][:country_id], @retailers])
-              
+                @stores_in_country = Store.find(:all,
+                  :conditions => ['country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)',  
+                  params[:search][:country_id], @retailers, @store_formats])    
             end
-
         else
           @sectors = Sector.all
           @sector_chk = Sector.find_all_by_id(params[:search][:sectors])  
@@ -49,25 +51,22 @@ class PhotosController < ApplicationController
           else
             # for selected country
             unless params[:search][:retailers].blank? 
-              @stores_in_country = Store.find(:all,
-                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                                  params[:search][:country_id], params[:search][:retailers]])
-
+                @stores_in_country = Store.find(:all,
+                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                      params[:search][:country_id], params[:search][:retailers]])
             else
-              @stores_in_country = Store.find(:all,
-                                :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                                  params[:search][:country_id], @retailers])
-              
+                @stores_in_country = Store.find(:all,
+                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                      params[:search][:country_id], @retailers])
             end
-          
-          end
-          
+          end  
         end
-
+        
       else
         # page load
 
         @sectors = Sector.all
+        @store_formats = StoreFormat.all
         #@retailers = Retailer.all
         @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
         @stores_in_country = Store.find_all_by_country_id(@countries)
@@ -94,6 +93,7 @@ class PhotosController < ApplicationController
       @media_vehicles = MediaVehicle.all
       @media_locations = MediaLocation.all
       @env_types = EnvironmentType.all
+      
       
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
@@ -183,15 +183,6 @@ class PhotosController < ApplicationController
 
         # save searches  
         @params = params[:search] unless params[:search].nil?
-        #@photos = Photo.find( 
-        #  :all, 
-        #  :conditions => [
-        #    "photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
-        #            AND audits.store_id IN (?) AND audits.environment_type_id IN (?) ",
-        #    from_date, to_date, @search_category, @promo_cal, @stores_in_country, @env_type
-        #  ],
-        #  :include => :audit
-        #)
         
         @photos = Photo.joins(:audit)
               .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
@@ -201,7 +192,6 @@ class PhotosController < ApplicationController
                   from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brands, @search_themes,
                   @stores_in_country, @env_type, @search_channel)   
         
-        #@stores = Store.joins
       end
 
 
@@ -272,6 +262,7 @@ class PhotosController < ApplicationController
                       type: "application/pdf",
                       disposition: "inline"
       end
+      format.js
       format.json { render json: @photo }
     end
   end

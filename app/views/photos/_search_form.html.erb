@@ -96,6 +96,25 @@
     </div>
     <div class="accordion-group">
       <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#store-formats">
+          Store Formats
+        </a>
+      </div>
+      <div id="store-formats" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for sf in @store_formats %>
+            <% if params[:search] && params[:search][:sformat] && params[:search][:sformat].include?(sf.id.to_s) %>
+              <%= check_box_tag "search[sformat][]", sf.id, :check => "checked"  %>
+            <% else %>  
+              <%= check_box_tag "search[sformat][]", sf.id %>
+            <% end %>  
+            <%= sf.name %><br />
+          <% end %>  
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
           Retailers
         </a>
