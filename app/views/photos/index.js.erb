@@ -1,3 +1,5 @@
 //$("#map_view").html("<%= j render("map_view") %>");
-//$("#photo-list").html("<%= j render("list_view") %>");
-$("aside h4").html("<%= @photos.count %> Stores found");
+$("aside h4").html("<%= @photos.count %> photos found");
+$("aside #retailers-accord .accordion-inner").html("<%= j render("retailer_view") %>");
+$(".span8 h4").html("<%= @photos.count %> photos found");
+$("#photo-list").html("<%= j render("list_view") %>");

@@ -26,6 +26,7 @@ Snapshot::Application.routes.draw do
   get "pages/home"
   get "pages/contact"
   get "pages/admin"
+  get "photo/autocomplete_store_postcode"
 
   resources :media_types
 
@@ -49,6 +50,8 @@ Snapshot::Application.routes.draw do
 
   match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
   match '/photos/get_photo/:id' => 'photos#get_photo', :as => :download
+
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

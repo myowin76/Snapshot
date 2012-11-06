@@ -22,6 +22,8 @@ gem 'prawn'
 gem "wkhtmltopdf-binary"
 gem 'db_populate'
 gem "prawnto_2", :require => "prawnto"
+gem 'rails3-jquery-autocomplete'
+
 group :production do
 	gem "pg"
 end

@@ -1,37 +1,58 @@
 class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
+  autocomplete :store, :postcode
   def index
     
     # NEED TO CHECK WHEN PAGE LOAD, AGAINST USER SUBSCRIPTIONS
     if user_is_country_and_category_subscriber?
       
       @countries = Country.find(current_user.subscription.sub_country.split(","))
+      @categories = Subscription.categories_by(current_user)
+
       unless params[:search].nil?
-        #if request.xhr?
+        
         if params[:search][:country_id].blank?
           @stores_in_country = Store.find_all_by_country_id(@countries)
         else
-          @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id]) unless params[:search].nil?
+          @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
         end
+
+        if params[:search][:sectors].blank?
+          @sectors = Sector.all
+          #@retailers = Retailer.find_all_by_id(@sectors)  
+          @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
+        else
+          @sectors = Sector.all
+          @sector_chk = Sector.find_all_by_id(params[:search][:sectors])  
+          @retailers = Retailer.find_all_by_sector_id(@sector_chk)
+          #@retailers = Retailer.all
           
+        end
       else
+        # page load
+        @sectors = Sector.all
+        #@retailers = Retailer.all
+        @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
         @stores_in_country = Store.find_all_by_country_id(@countries)
       end
-      #debugger
+      
       #@stores_in_country = Store.find_all_by_country_id(@countries)
       # @locations = Location.find_all_by_country_id(@countries)
       
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
-      @categories = Subscription.categories_by(current_user)
-      #debugger
+      
+     
       #@retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*")
-      @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
-      @sectors = Sector.all
+     #   @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
+      
+      
+      
       @channels = Channel.all
       @locations = Location.find_all_by_country_id(@countries)
       @promo_calendars = PromotionCalendar.all
       @brands = Brand.all
+      @themes = Theme.all
       @promo_types = PromotionType.all
       @media_types = MediaType.all
       @media_vehicles = MediaVehicle.all
@@ -92,11 +113,7 @@ class PhotosController < ApplicationController
         else
           @env_type = EnvironmentType.all
         end
-        unless params[:search][:retailer].blank?
-          @search_retailer = params[:search][:retailer]
-        else
-          @search_retailer = @retailers
-        end
+        
         unless params[:search][:channel].blank?
           @search_channel = params[:search][:channel]
         else
@@ -118,13 +135,18 @@ class PhotosController < ApplicationController
           @search_ml = @media_locations
         end
         unless params[:search][:brand].blank?
-          @search_brand = params[:search][:brand]
+          @search_brands = params[:search][:brand]
         else
-          @search_brand = @brands
+          @search_brands = @brands
+        end
+        unless params[:search][:theme].blank?
+          @search_themes = params[:search][:theme]
+        else
+          @search_themes = @themes
         end
 
         # save searches  
-        @search_param = params[:search]
+        @params = params[:search] unless params[:search].nil?
         #@photos = Photo.find( 
         #  :all, 
         #  :conditions => [
@@ -138,8 +160,9 @@ class PhotosController < ApplicationController
         @photos = Photo.joins(:audit)
               .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
                     AND media_type_id IN (?) AND media_vehicle_id IN (?) AND media_location_id IN (?) AND brand_id IN (?)
+                     AND brand_id IN (?)
                     AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)', 
-                  from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brand,
+                  from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brands, @search_themes,
                   @stores_in_country, @env_type, @search_channel)   
         
         #@stores = Store.joins
@@ -172,7 +195,8 @@ class PhotosController < ApplicationController
       # SOMETHING ELSE
       # @subscribed_country = "none"
     end
-    
+
+    #debugger
     #@photos = Photo.search(params[:search])    
   
     # MAP
@@ -196,7 +220,9 @@ class PhotosController < ApplicationController
       format.js
     end
   end
-
+  def postcode
+    postcode = Store
+  end
   # GET /photos/1
   # GET /photos/1.json
   def show

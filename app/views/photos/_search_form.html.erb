@@ -1,12 +1,13 @@
 <h4>Filter by</h4>  
     
-<%= form_tag root_path, :id=>"search_form" do %>
+<%= form_tag root_path, :id=>"search_form", remote: true do %>
   <fieldset>
     <%= label_tag "Postcode" %>
     <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
-      <%= text_field_tag 'search[postcode]', params[:search][:postcode] %>
+      <%= text_field_tag 'search[post-code]', params[:search][:postcode] %>
     <% else %>
-      <%= text_field_tag 'search[postcode]'%>
+      <%#= text_field_tag 'search[postcode]'%>
+      <%= text_field_tag 'search[post-codes]', '', :autocomplete => photo_autocomplete_store_postcode_path %>
     <% end %>
     <%#= hidden_field_tag params[:search] %>
   </fieldset>
@@ -16,7 +17,7 @@
     <% if params[:search] && params[:search][:country_id] && params[:search][:country_id] %>
       <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => params[:search][:country_id]}) %>
     <% else %>
-      <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => "0"}) %>
+      <%= collection_select(:search, :country_id, @countries, :id, :name, { :prompt => 'All' }) %>
       <%#= collection_select(:search, :country_id, @countries, :id, :name) %>
     <% end %>  
 
@@ -75,24 +76,37 @@
       </div>
     </div>
     <div class="accordion-group">
-        <div class="accordion-heading">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
-            Retailers
-          </a>
-        </div>
-        <div id="retailers-accord" class="accordion-body collapse">
-          <div class="accordion-inner">
-            <% for retailer in @retailers %>
-              <% if params[:search] && params[:search][:retailer] && params[:search][:retailer].include?(retailer.id.to_s) %>
-                <%= check_box_tag "search[retailer][]", retailer.id, :check => "checked"  %>
-              <% else %>  
-                <%= check_box_tag "search[retailer][]", retailer.id %>
-              <% end %>  
-              <%= retailer.name %><br />
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#sector-accord">
+          Sectors
+        </a>
+      </div>
+      <div id="sector-accord" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for sector in @sectors %>
+            <% if params[:search] && params[:search][:sectors] && params[:search][:sectors].include?(sector.id.to_s) %>
+              <%= check_box_tag "search[sectors][]", sector.id, :check => "checked"  %>
+            <% else %>  
+              <%= check_box_tag "search[sectors][]", sector.id %>
             <% end %>  
-          </div>
+            <%= sector.name %><br />
+          <% end %>  
         </div>
       </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
+          Retailers
+        </a>
+      </div>
+      <div id="retailers-accord" class="accordion-body collapse">
+        <div class="accordion-inner">
+          
+          <%= render :partial => 'retailer_view', :locals => {:retailers => @retailers}%>
+        </div>
+      </div>
+    </div>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_cal">
@@ -209,6 +223,25 @@
     </div>
     <div class="accordion-group">
       <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#themes">
+          Themes
+        </a>
+      </div>
+      <div id="themes" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for theme in @themes %>
+            <% if params[:search] && params[:search][:theme] && params[:search][:theme].include?(theme.id.to_s) %>
+              <%= check_box_tag "search[theme][]", theme.id, :check => "checked"  %>
+            <% else %>  
+              <%= check_box_tag "search[theme][]", theme.id %>
+            <% end %>  
+            <%= theme.name %><br />
+          <% end %>  
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#env_type">
           Environment Types
         </a>
@@ -249,5 +282,4 @@
       <a href="#" class="btn clear-form">Clear</a>
     </fieldset>
 <% end %>
-
-    
+<%#= link_to "Submit", root_path(params[:search]) %>

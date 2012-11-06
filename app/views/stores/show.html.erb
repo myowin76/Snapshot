@@ -28,6 +28,8 @@
     <% unless @photo_category.nil? %>
       <% @photo_category.each do |category, photos| %>  
         <% category = Category.find_by_id(category) %>
+
+        
         <br /><h4><%= category.name %></h4>
         <% for photo in photos %>
           

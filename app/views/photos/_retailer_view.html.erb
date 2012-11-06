@@ -1,0 +1,8 @@
+<% for retailer in @retailers %>
+  <% if params[:search] && params[:search][:retailers] && params[:search][:retailers].include?(retailer.id.to_s) %>
+    <%= check_box_tag "search[retailers][]", retailer.id, :check => "checked"  %>
+  <% else %>  
+    <%= check_box_tag "search[retailers][]", retailer.id %>
+  <% end %>  
+  <%= retailer.name %><br />
+<% end %>  

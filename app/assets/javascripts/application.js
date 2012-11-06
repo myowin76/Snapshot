@@ -13,10 +13,12 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require autocomplete-rails
 //= require jquery.ui.datepicker
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+
 //= require_tree .
 
 
@@ -40,5 +42,5 @@ $(document).ready(function() {
 		})
 		return false;
 	})
-	$("#search_country_id").prepend('<option>All</option>');
+	
  });

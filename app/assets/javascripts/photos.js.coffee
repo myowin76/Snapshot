@@ -2,12 +2,15 @@
 jQuery.fn.submitOnCheck = ->
   @find('input[type=checkbox]').live 'click', (event) ->
     $('#search_form').submit()
+  @find('#search_country_id').change ->
+    $('#search_form').submit()
   this
+  
 
 
 jQuery ->
-  $('#search_postcode').autocomplete
-      source: ['foo', 'food', 'four']    
+  ###$('#search_postcode').autocomplete
+      source: "/stores/postcodes"###
   $('#photo-list').dataTable()
   "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   "sPaginationType": "bootstrap"
