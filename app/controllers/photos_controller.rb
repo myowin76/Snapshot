@@ -239,12 +239,11 @@ class PhotosController < ApplicationController
                         #:height  => 32
                        })
         marker.title   store.name
+
         # marker.sidebar "i'm the sidebar"
         # marker.json({ :id => user.id, :foo => "bar" })
-    
-
       end    
-#debugger
+
     respond_to do |format|
       format.html  # index.html.erb
       format.json { 

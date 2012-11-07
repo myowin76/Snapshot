@@ -1,5 +1,13 @@
 $("#map-view").html("<%= j render("map_view") %>");
-
+Gmaps.map = new Gmaps4RailsGoogle();
+Gmaps.load_map = function() {
+    Gmaps.map.map_options.maxZoom = 15;
+    Gmaps.map.initialize();
+    Gmaps.map.markers = <%=raw @json %>;
+    Gmaps.map.create_markers();
+    Gmaps.map.adjustMapToBounds();
+    Gmaps.map.callback();
+};
 Gmaps.loadMaps();
 
 

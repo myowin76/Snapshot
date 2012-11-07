@@ -1,28 +1,24 @@
-<% unless @json.nil? %>
-	<%= gmaps(
-			"map_options" => { "zoom" => 10},
-			"markers" => { "data" => @json }
-
+<% unless @photos.empty?  %>
+<%#= gmaps(
+			
+			"markers" => { "data" => @json },
+			"map_options" => {"auto_adjust" => "true", "do_clustering" => "true" }
+			
 	) %>
+	<%= gmaps(:markers => {:data => @json, :options => { :do_clustering => true}	}) %>
 <% else %>
-	<%= gmaps({
-    "map_options" => { "type" => "SATELLITE", "center_longitude" => 180, "zoom" => 3, "auto_adjust" => true},
-    "markers"     => { "data" => '[{ "description": "", "title": "", "lng": "5.9311119", "lat": "43.1251606", "picture": "", "width": "", "height": "" } ,{ "description": "", "title": "", "lng": "2.3509871", "lat": "48.8566667", "picture": "", "width": "", "height": "" } ]',
-		},
-	 
-	    })
-    %>
-<% end %>		
-<script type="text/javascript">
-Gmaps.map = new Gmaps4RailsGoogle();
-Gmaps.load_map = function() {
-    Gmaps.map.map_options.maxZoom = 15;
-    Gmaps.map.initialize();
-    
-    Gmaps.map.create_markers();
-    Gmaps.map.adjustMapToBounds();
-    Gmaps.map.callback();
-};
-Gmaps.loadMaps();
-</script>
+	<%= gmaps(
+		:markers => {:data => @json, :options => { :do_clustering => true}}
+		) %>
+ %> 
+<% end  %>	
+
   <%#= gmaps4rails(@json) %>
+  <%#= gmaps("markers" => {"data" => @json},
+     "map_options" => { 
+     		"auto_adjust"=>true, "do_clustering"=>true 
+     },
+     :last_map    => false
+
+     ) %> 
+
