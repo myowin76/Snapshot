@@ -1,12 +1,12 @@
-<div class="span4">
-  <aside>
-    
-    <%= render 'search_form' %>
-    <%= render 'save_form' %>
 
-  </aside>
-</div>
-<div class="span8">
+<aside class="span4">
+  
+  <%= render 'search_form' %>
+  <%= render 'save_form' %>
+
+</aside>
+
+<div class="content span8">
   
 	<h4><%= pluralize(@photos.count, 'photo') %> found</h4>
 	<a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | 

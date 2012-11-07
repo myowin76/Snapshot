@@ -20,7 +20,11 @@ body {
   padding: 10px 0px;
   line-height: 1em;
 }
-
+.loading{
+  background: image-url("loading_red.gif") no-repeat;
+  width: 24px; height: 24px;
+  display: none;
+}
 a {
   color: #0000FF;
   img { border: none; }
@@ -31,7 +35,9 @@ a {
   height: 0;
   overflow: hidden;
 }
-
+#content-wrapper{
+  margin-top: 60px;
+}
 .container-fluid{
   min-height: 500px;
   margin: 35px auto 0;
@@ -42,14 +48,15 @@ a {
   margin-top: 35px;
   padding-top: 20px;
   
+}
+.l-side-main{
+ > .content{
 
-  
- 
+ }
 
 }
 aside{
   background-color: #eee;
-  padding: 20px;
 }
 
 #flash_notice, #flash_alert {
