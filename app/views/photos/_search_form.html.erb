@@ -56,7 +56,25 @@
         </div>
       </div>
     </div>
-    
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#channel">
+          Channels
+        </a>
+      </div>
+      <div id="channel" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for channel in @channels %>
+            <% if params[:search] && params[:search][:pchannel] && params[:search][:pchannel].include?(channel.id.to_s) %>
+              <%= check_box_tag "search[pchannel][]", channel.id, :check => "checked" %>
+            <% else %>
+              <%= check_box_tag "search[pchannel][]", channel.id %>
+            <% end %>
+            <%= channel.name %><br />
+          <% end %>
+        </div>
+      </div>
+    </div>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#sector-accord">
@@ -76,6 +94,19 @@
         </div>
       </div>
     </div>
+    
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
+          Retailers
+        </a>
+      </div>
+      <div id="retailers-accord" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <%= render :partial => 'retailer_view', :locals => {:retailers => @retailers}%>
+        </div>
+      </div>
+    </div>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#store-formats">
@@ -92,18 +123,6 @@
             <% end %>  
             <%= sf.name %><br />
           <% end %>  
-        </div>
-      </div>
-    </div>
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
-          Retailers
-        </a>
-      </div>
-      <div id="retailers-accord" class="accordion-body collapse">
-        <div class="accordion-inner">
-          <%= render :partial => 'retailer_view', :locals => {:retailers => @retailers}%>
         </div>
       </div>
     </div>
