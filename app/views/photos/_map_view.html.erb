@@ -1,17 +1,10 @@
-<% unless @photos.empty?  %>
-<%#= gmaps(
-			
-			"markers" => { "data" => @json },
-			"map_options" => {"auto_adjust" => "true", "do_clustering" => "true" }
-			
-	) %>
-	<%= gmaps(:markers => {:data => @json, :options => { :do_clustering => true}	}) %>
-<% else %>
+
+
 	<%= gmaps(
-		:markers => {:data => @json, :options => { :do_clustering => true}}
-		) %>
- %> 
-<% end  %>	
+		:markers => {:data => @json, 
+				:options => { :do_clustering => true, :clusterer_gridSize => 100, :clusterer_maxZoom => 20 }	
+		}
+	) %>
 
   <%#= gmaps4rails(@json) %>
   <%#= gmaps("markers" => {"data" => @json},
