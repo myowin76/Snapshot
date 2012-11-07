@@ -155,8 +155,8 @@ class PhotosController < ApplicationController
           @env_type = EnvironmentType.all
         end
         
-        unless params[:search][:channel].blank?
-          @search_channel = params[:search][:channel]
+        unless params[:search][:pchannel].blank?
+          @search_channel = params[:search][:pchannel]
         else
           @search_channel = @channels
         end
