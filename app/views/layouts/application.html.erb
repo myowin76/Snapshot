@@ -64,24 +64,26 @@
       </div>
     </div>
   </div>    
-  <div class="container">
-    <div class="row">
-      <% flash.each do |name, msg| %>
-        <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-          <%= content_tag :div, msg %>
-        </div>
-      <% end %>
-      
-      <%= content_tag :h1, yield(:title) if show_title? %>
-      <%= yield %>
-      
+  <div id="wrap">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <% flash.each do |name, msg| %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <%= content_tag :div, msg %>
+          </div>
+        <% end %>
+        
+        <%= content_tag :h1, yield(:title) if show_title? %>
+        <%= yield %>
+        
+      </div>
     </div>
-  </div>
-  
+    <div id="push"></div>
+  </div>      
   
   <footer>
-    <div class="container">
-    <div class="row">    
+    <div class="container-fluid">
+    <div class="row-fluid">    
       <div class="span8">
         &copy; 2012 <a href="#">Snapshot World Wide</a>, all rights reserved.
       </div>
