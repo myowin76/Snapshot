@@ -6,6 +6,7 @@ class SaveSearchesController < ApplicationController
     @save_searches = current_user.save_searches.all
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @save_searches }
     end
   end

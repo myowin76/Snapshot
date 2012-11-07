@@ -2,9 +2,10 @@
 	<h3>Save Searches</h3>
 
 	<div id = "saved-list">
-	  <%= render @saved_searches unless current_user.save_searches.blank? %>
+	  <%#= render @saved_searches unless current_user.save_searches.blank? %>
 	</div> 
 	<%= link_to "Save", new_save_search_path, id: "new_link", :class => "btn btn-primary", remote: true %>
+	<%= link_to "Open", save_searches_path, id: "open_link", :class => "btn btn-success", remote: true %>
 	<!--div id = "new-save">
 	  <%#= render @new_save_search %>
 	</div-->

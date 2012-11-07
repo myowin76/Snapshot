@@ -25,9 +25,13 @@
 $(document).ready(function() {
    
 	$('.clear-form').click(function(){
-		$('form')[0].reset();
+		$('#search_form input:text').val('');
+		$('#search_form input:checkbox').attr('checked',false);
+		$('#search_form').submit();
+	
 
 	})
+	
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
@@ -42,5 +46,8 @@ $(document).ready(function() {
 		})
 		return false;
 	})
+
+	//$('.accordion').on('show','hide').toggleClass('test','nottest');
+
 	
  });

@@ -1,8 +1,16 @@
-<div class="box">
-  <h4>Filter by</h4>  
-</div>
+
 <%= form_tag root_path, :id=>"search_form", remote: true do %>
   <div class="box">
+    <h4>Filter by</h4>
+      <fieldset>
+        <button type="submit" class="btn btn-danger clear-form">
+          <i class="icon-refresh icon-white"></i> Clear
+        </button>
+        <button type="submit" class="btn btn-primary">
+          <i class="icon-search icon-white"></i> Search
+        </button>
+      </fieldset>  
+
       <fieldset>
         <%= label_tag "Postcode" %>
         <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
@@ -42,7 +50,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#categories">
-          Categories
+          Categories <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="categories" class="accordion-body collapse">
@@ -61,7 +69,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#channel">
-          Channels
+          Channels <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="channel" class="accordion-body collapse">
@@ -80,7 +88,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#sector-accord">
-          Sectors
+          Sectors <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="sector-accord" class="accordion-body collapse">
@@ -100,7 +108,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
-          Retailers
+          Retailers <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="retailers-accord" class="accordion-body collapse">
@@ -112,7 +120,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#store-formats">
-          Store Formats
+          Store Formats <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="store-formats" class="accordion-body collapse">
@@ -131,7 +139,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_cal">
-          Promotion Calendars
+          Promotion Calendars <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="promo_cal" class="accordion-body collapse">
@@ -150,7 +158,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#promo_type">
-          Promotion Types
+          Promotion Types <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="promo_type" class="accordion-body collapse">
@@ -169,7 +177,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#media_type">
-          Media Types
+          Media Types <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="media_type" class="accordion-body collapse">
@@ -188,7 +196,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brands">
-          Brands
+          Brands <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="brands" class="accordion-body collapse">
@@ -207,7 +215,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#media_vehicle">
-          Media Vehicles
+          Media Vehicles <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="media_vehicle" class="accordion-body collapse">
@@ -226,7 +234,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#media_location">
-          Media Locations
+          Media Locations <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="media_location" class="accordion-body collapse">
@@ -245,7 +253,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#themes">
-          Themes
+          Themes <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="themes" class="accordion-body collapse">
@@ -264,7 +272,7 @@
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#env_type">
-          Environment Types
+          Environment Types <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="env_type" class="accordion-body collapse">
@@ -280,34 +288,43 @@
         </div>
       </div>
   </div>
+  <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#dates">
+          Dates <i class="icon-plus pull-right"></i>
+        </a>
+      </div>
+      <div id="dates" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <fieldset>
+            <%= label_tag "From" %>
+            <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
+              <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>  
+            <% else %>
+              <%= text_field_tag "search[fromDate]" %>
+            <% end %>
+          </fieldset>
+          <fieldset>
+            <%= label_tag "To" %>
+            <% if params[:search] && params[:search][:toDate] && params[:search][:toDate] %>
+              <%= text_field_tag "search[toDate]", params[:search][:toDate] %>  
+            <% else %>
+              <%= text_field_tag "search[toDate]" %>
+            <% end %>  
+          </fieldset>
+        </div>
+      </div>
+  </div>
 </div>
 <div class="box">
-    <h3>Dates</h3>
-    <fieldset>
-      <%= label_tag "From" %>
-      <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
-        <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>  
-      <% else %>
-        <%= text_field_tag "search[fromDate]" %>
-      <% end %>
-    </fieldset>
-    <fieldset>
-      <%= label_tag "To" %>
-      <% if params[:search] && params[:search][:toDate] && params[:search][:toDate] %>
-        <%= text_field_tag "search[toDate]", params[:search][:toDate] %>  
-      <% else %>
-        <%= text_field_tag "search[toDate]" %>
-      <% end %>  
-    </fieldset>
-    <fieldset>  
-      <%#= submit_tag "Search", :name => nil, :class=> 'btn btn-primary' %>
-      <button type="submit" class="btn btn-primary">
-        <i class="icon-search icon-white"></i> Search
-      </button>
-      <button type="submit" class="btn btn-danger">
-        <i class="icon-refresh icon-white"></i> Clear
-      </button>
-      
+  <fieldset>  
+    <%#= submit_tag "Search", :name => nil, :class=> 'btn btn-primary' %>
+    <button type="submit" class="btn btn-primary">
+      <i class="icon-search icon-white"></i> Search
+    </button>
+    <button type="submit" class="btn btn-danger clear-form">
+      <i class="icon-refresh icon-white"></i> Clear
+    </button>      
     </fieldset>
 </div>    
 <% end %>
