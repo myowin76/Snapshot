@@ -1,7 +1,7 @@
 class StoresController < ApplicationController
   # GET /stores
   # GET /stores.json
-layout 'admin'  
+
 
   def index
 

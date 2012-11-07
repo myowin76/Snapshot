@@ -2,7 +2,7 @@
 <%= form_for save_search, remote: true do |f| %>
 	<li>
 	  <%= link_to save_search.name, root_path %>  
-	  <%= link_to "(remove)", save_search, method: :delete, data: {confirm: "Are you sure?"}, remote: true %>
+	  <%= link_to "", save_search, method: :delete, data: {confirm: "Are you sure?"}, remote: true, :class=>'icon-trash pull-right' %>
 	</li>  
 <% end %>
 </ul>

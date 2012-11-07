@@ -1,40 +1,42 @@
-<h4>Filter by</h4>  
-    
+<div class="box">
+  <h4>Filter by</h4>  
+</div>
 <%= form_tag root_path, :id=>"search_form", remote: true do %>
-  <fieldset>
-    <%= label_tag "Postcode" %>
-    <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
-      <%= text_field_tag 'search[postcode]', params[:search][:postcode] %>
-    <% else %>
-      <%#= text_field_tag 'search[postcode]'%>
-      <%= text_field_tag 'search[postcode]', '', :autocomplete => photo_autocomplete_store_postcode_path %>
-    <% end %>
-    <%#= hidden_field_tag params[:search] %>
-  </fieldset>
-  
-  <fieldset>
-    <%= label_tag "Country" %>
-    <% if params[:search] && params[:search][:country_id] && params[:search][:country_id] %>
-      <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => params[:search][:country_id]}) %>
-    <% else %>
-      <%= collection_select(:search, :country_id, @countries, :id, :name) %>
-      <%#= collection_select(:search, :country_id, @countries, :id, :name), { :prompt => 'All' } %>
-    <% end %>  
+  <div class="box">
+      <fieldset>
+        <%= label_tag "Postcode" %>
+        <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
+          <%= text_field_tag 'search[postcode]', params[:search][:postcode] %>
+        <% else %>
+          <%#= text_field_tag 'search[postcode]'%>
+          <%= text_field_tag 'search[postcode]', '', :autocomplete => photo_autocomplete_store_postcode_path %>
+        <% end %>
+        <%#= hidden_field_tag params[:search] %>
+      </fieldset>
+      
+      <fieldset>
+        <%= label_tag "Country" %>
+        <% if params[:search] && params[:search][:country_id] && params[:search][:country_id] %>
+          <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => params[:search][:country_id]}) %>
+        <% else %>
+          <%= collection_select(:search, :country_id, @countries, :id, :name) %>
+          <%#= collection_select(:search, :country_id, @countries, :id, :name), { :prompt => 'All' } %>
+        <% end %>  
 
-  </fieldset>
+      </fieldset>
 
-  <!--fieldset>
-    <%= label_tag "Location" %>
-    <% if params[:search] && params[:search][:location_id] && params[:search][:location_id] %>
-      <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name) %>
-    <% else %>
-      <%#= collection_select(:search, :location_id, Location.find(:all), :id, :name, { :prompt => 'All' }) %>
-      <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
-            { :prompt => 'All' }) %>
-    
-    <% end %>
-  </fieldset-->
-
+      <!--fieldset>
+        <%= label_tag "Location" %>
+        <% if params[:search] && params[:search][:location_id] && params[:search][:location_id] %>
+          <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name) %>
+        <% else %>
+          <%#= collection_select(:search, :location_id, Location.find(:all), :id, :name, { :prompt => 'All' }) %>
+          <%= grouped_collection_select(:search, :location_id, @countries, :locations, :name, :id, :name,  
+                { :prompt => 'All' }) %>
+        
+        <% end %>
+      </fieldset-->
+  </div>    
   <div class="accordion" id="accordion2">
 
     <div class="accordion-group">
@@ -279,6 +281,7 @@
       </div>
   </div>
 </div>
+<div class="box">
     <h3>Dates</h3>
     <fieldset>
       <%= label_tag "From" %>
@@ -297,8 +300,15 @@
       <% end %>  
     </fieldset>
     <fieldset>  
-      <%= submit_tag "Search", :name => nil, :class=> 'btn btn-success' %>
-      <a href="#" class="btn clear-form">Clear</a>
+      <%#= submit_tag "Search", :name => nil, :class=> 'btn btn-primary' %>
+      <button type="submit" class="btn btn-primary">
+        <i class="icon-search icon-white"></i> Search
+      </button>
+      <button type="submit" class="btn btn-danger">
+        <i class="icon-refresh icon-white"></i> Clear
+      </button>
+      
     </fieldset>
+</div>    
 <% end %>
 <%#= link_to "Submit", root_path(params[:search]) %>

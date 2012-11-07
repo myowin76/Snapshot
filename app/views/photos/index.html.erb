@@ -8,13 +8,23 @@
 
 <div class="content span8">
   
-	<h4><%= pluralize(@photos.count, 'photo') %> found</h4>
-	<a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | 
-	<%= link_to "Export", download_url(12)  %>
+	
 
-  <%= render 'list_view' %>   
-  <div style="margin-top: 50px;"
-	<div id="map_view">
-  	<%= render 'map_view', :locals => {@json => @json} %>    
-  </div>	
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#map-view" data-toggle="tab">Map</a></li>
+  <li><a href="#list-view" data-toggle="tab">List</a></li>
+</ul>  
+<div class="tab-content">
+  <div class="tab-pane active" id="map-view">
+    <%= render 'map_view' %>    
+  </div>
+  <div class="tab-pane" id="list-view">
+    <h4><%= pluralize(@photos.count, 'photo') %> found</h4>
+    <a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | 
+    <%= link_to "Export", download_url(12)  %>
+    <%= render 'list_view' %>   
+  </div>
+  
 </div>
+  

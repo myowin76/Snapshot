@@ -1,6 +1,26 @@
+<%#= gmaps(
+			"map_options" => { "zoom" => 10},
+			"markers" => { "data" => @json }
 
+	) %>
+<script type="text/javascript">
+Gmaps.map = new Gmaps4RailsGoogle();
+Gmaps.load_map = function() {
+    Gmaps.map.map_options.maxZoom = 15;
+    Gmaps.map.initialize();
+    
+    Gmaps.map.create_markers();
+    Gmaps.map.adjustMapToBounds();
+    Gmaps.map.callback();
+};
+Gmaps.loadMaps();
+</script>
   <%= gmaps4rails(@json) %>
   <%#= gmaps("markers" => {"data" => @json},
      "map_options" => { 
-     "auto_zoom" => false, "zoom" => 5, 
-     "auto_adjust"=>false, "do_clustering"=>true }) %> 
+     		"auto_adjust"=>true, "do_clustering"=>true 
+     },
+     :last_map    => false
+
+     ) %> 
+

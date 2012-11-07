@@ -1,9 +1,11 @@
-<h3>Save Searches</h3>
-<%= link_to "New", new_save_search_path, id: "new_link", :class => "btn btn-primary", remote: true %>
+<div class="box">
+	<h3>Save Searches</h3>
 
-<div id = "saved-list">
-  <%= render @saved_searches unless current_user.save_searches.blank? %>
-</div> 
-<div id = "new-save">
-  <%#= render @new_save_search %>
+	<div id = "saved-list">
+	  <%= render @saved_searches unless current_user.save_searches.blank? %>
+	</div> 
+	<%= link_to "Save", new_save_search_path, id: "new_link", :class => "btn btn-primary", remote: true %>
+	<!--div id = "new-save">
+	  <%#= render @new_save_search %>
+	</div-->
 </div>

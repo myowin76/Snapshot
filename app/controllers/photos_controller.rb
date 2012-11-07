@@ -1,6 +1,5 @@
 class PhotosController < ApplicationController
-  # GET /photos
-  # GET /photos.json
+
   autocomplete :store, :postcode
   def index
     
@@ -242,7 +241,7 @@ class PhotosController < ApplicationController
             # marker.sidebar "i'm the sidebar"
             # marker.json({ :id => user.id, :foo => "bar" })
       end    
-
+#debugger
     respond_to do |format|
       format.html  # index.html.erb
       format.json { 
