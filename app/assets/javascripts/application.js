@@ -47,7 +47,7 @@ $(document).ready(function() {
 		return false;
 	})
 
-	//$('.accordion').on('show','hide').toggleClass('test','nottest');
+	//$('.accordion .accordion-heading .collapsed').on('show','hide').toggleClass('test','nottest');
 
 	
  });

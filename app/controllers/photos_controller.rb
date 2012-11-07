@@ -230,16 +230,19 @@ class PhotosController < ApplicationController
     #@photos = Photo.search(params[:search])    
   
     # MAP
+    
       @json = @stores_in_country.to_gmaps4rails do |store, marker|
-            marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
-            marker.picture({
-                            #:picture => "http://www.blankdots.com/img/github-32x32.png",
-                            #:width   => 32,
-                            #:height  => 32
-                           })
-            marker.title   store.name
-            # marker.sidebar "i'm the sidebar"
-            # marker.json({ :id => user.id, :foo => "bar" })
+        marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
+        marker.picture({
+                        #:picture => "http://www.blankdots.com/img/github-32x32.png",
+                        #:width   => 32,
+                        #:height  => 32
+                       })
+        marker.title   store.name
+        # marker.sidebar "i'm the sidebar"
+        # marker.json({ :id => user.id, :foo => "bar" })
+    
+
       end    
 #debugger
     respond_to do |format|
