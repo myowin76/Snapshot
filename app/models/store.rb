@@ -1,4 +1,3 @@
-#include Geokit::Geocoders
 class Store < ActiveRecord::Base
   attr_accessible :address, :address2, :description, :latitude, :longitude, :name, 
   	:postcode, :retailer_id, :store_format_id, :country_id
@@ -10,65 +9,16 @@ class Store < ActiveRecord::Base
   geocoded_by :postcode
   after_validation :geocode
   
-  
-
-
+  scope :by_postcode, lambda{|postcode| where('postcode LIKE ?', "%#{postcode}%") unless postcode.blank? }    
 
   # GEOCODERS
   acts_as_gmappable :process_geocoding => false
-  #acts_as_mappable :default_units => :miles,
-	#	:default_formula => :sphere,
-	# :distance_field_name => :distance,
-	#	:lat_column_name => :latitude,
-	#	:lng_column_name => :longitude
 
-	#	before_save :generate_longitude_latitude    
-    # before_save :generate_longitude_latitude_from_address
-
-    def full_address
-      [address, address2].join(' ')
-    end
-
-    def self.search(search)
-      if search
-        find(:all, :conditions => ['postcode LIKE ?', "%#{search}%"])
-      else
-        find(:all)
-      end
-    end
-
-  #gmap4rails
+  def full_address
+    [address, address2].join(' ')
+  end
   
-  
-
-
-
-
-
-
-    private
-
-    def generate_longitude_latitude
-      if !self.postcode.blank?
-        #Geocode the postcode
-        geocode = MultiGeocoder.geocode(self.postcode)
-        self.latitude = geocode.ll.split(",")[0]
-        self.longitude = geocode.ll.split(",")[1]
-      else
-        #Geocode the address
-        geocode = MultiGeocoder.geocode(full_address)
-        self.latitude = geocode.ll.split(",")[0]
-        self.longitude = geocode.ll.split(",")[1]
-      end
-    end
-
-    def generate_longitude_latitude_from_address
-      #Geocode the postcode
-      geocode = MultiGeocoder.geocode(full_address)
-      self.latitude = geocode.ll.split(",")[0]
-      self.longitude = geocode.ll.split(",")[1]
-    end
-
+  private
 
    #Get full address from longitude and latitude
    def area_address

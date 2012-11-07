@@ -4,10 +4,10 @@
   <fieldset>
     <%= label_tag "Postcode" %>
     <% if params[:search] && params[:search][:postcode] && params[:search][:postcode] %>
-      <%= text_field_tag 'search[post-code]', params[:search][:postcode] %>
+      <%= text_field_tag 'search[postcode]', params[:search][:postcode] %>
     <% else %>
       <%#= text_field_tag 'search[postcode]'%>
-      <%= text_field_tag 'search[post-codes]', '', :autocomplete => photo_autocomplete_store_postcode_path %>
+      <%= text_field_tag 'search[postcode]', '', :autocomplete => photo_autocomplete_store_postcode_path %>
     <% end %>
     <%#= hidden_field_tag params[:search] %>
   </fieldset>

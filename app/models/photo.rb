@@ -33,6 +33,7 @@ class Photo < ActiveRecord::Base
         :storage_class => :reduced_redundancy,
         :content_disposition => 'attachment'
       },
+    :s3_headers => {"Content-Disposition" => "attachment"},
     :bucket => "SnapshotWorldWide"
 		
     validates_attachment_presence :photo
