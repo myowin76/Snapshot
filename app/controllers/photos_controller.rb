@@ -308,10 +308,10 @@ class PhotosController < ApplicationController
   def get_photo
     
     #asset = Photo.find(params[:photo_ids])
-    asset = Photo.find(12)
+    asset = Photo.find_by_id(12)
     #send_file asset.photo.url(:medium), :type => asset.photo_content_type
     redirect_to asset.photo.url(:medium)
-    open(asset.photo.url(:medium))
+    #open(asset.photo.url(:medium))
     #redirect_to root_path
   end
 
