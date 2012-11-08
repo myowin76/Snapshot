@@ -31,6 +31,11 @@ body{
 	padding: 0;
 	font-family: "FontAwesome", "Helvetica Neue", sans-serif;
 }
+.control-group {
+	margin-bottom: 0;
+}
+
+/** TOP NAVIGATION STYLE **/
 .navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner{
 	background: none;
 	background-color: #4B7399;
@@ -38,14 +43,9 @@ body{
 	border: none;
 	padding-left: 40px;
 }
-
-.control-group {
-	margin-bottom: 0;
-}
 .navbar .brand{
 	color: white;
 	text-shadow: none;
-
 }
 .navbar .nav li a{
 	color: white;
@@ -95,6 +95,8 @@ body{
 	margin-top: 2px;
 	margin-right: -6px;
 }
+
+/** TABS STYLES **/
 .nav-tabs 
 	> li > a, .nav-pills > li > a {
 	padding-left: 40px;
@@ -103,6 +105,8 @@ body{
 .tab-content{
 	overflow: visible;
 }
+
+/** ACCORDION STYLES OVERWRITES **/
 .accordion-heading .accordion-toggle {
     padding: 8px 10px 8px 20px;
 }
@@ -111,6 +115,8 @@ body{
 	background: #e1e1e1;
 	box-shadow: inset 0 0 5px #666;
 }
+
+/** GOOGLE MAP STYLE FIX **/
 #map img { 
   max-width: none;
 }
@@ -118,6 +124,155 @@ body{
   width: auto; display:inline; 
 } 
 map_container img{max-width: none;}
+
+
+
+/****************************** DIL'S STYLES ADDED **************************/
+// LABELS
+// =========================================
+.labels{
+  display:block;
+  margin-left:15px;
+  margin-right:15px;
+}
+
+.label{
+  cursor: pointer;
+  font-weight:400;
+  display:inline-block;
+  width:101px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  background:#999;
+  @include transition(background 0.5s);
+  margin-left:5px;
+  margin-bottom:5px;
+
+  &:nth-child(3n+1){
+    margin-left:0;
+  }
+
+  i{
+  	-webkit-transform: rotate(45deg);
+  	-moz-transform: rotate(45deg);
+  	-ms-transform: rotate(45deg);
+  	transform: rotate(45deg);
+  	-webkit-transition: all .5s;
+  	-moz-transition: all .5s;
+  	-o-transition: all .5s;
+  	transition: all .5s;
+    /*@include rotate(45deg);
+    @include transition(all 0.5s);*/
+  }
+
+  &:hover{
+    background:#AD0404;
+    i{
+      /*@include rotate(0deg);*/
+      -webkit-transform: rotate(0deg);
+	  	-moz-transform: rotate(0deg);
+	  	-ms-transform: rotate(0deg);
+	  	transform: rotate(0deg);
+	  	-webkit-transition: all .5s;
+	  	-moz-transition: all .5s;
+	  	-o-transition: all .5s;
+	  	transition: all .5s;
+    }
+
+
+  }
+
+}
+
+/*
+.accordion-toggle{
+  position:relative;
+  &:after{
+    font-size:20px;
+    position:absolute;
+    width:20px;
+    height:20px;
+
+    top:10px;
+    right:15px;
+
+    //background:red;
+    content:"-";
+  }
+}
+
+.accordion-toggle.collapsed{
+  &:after{
+   content:"+";
+  }
+}
+*/
+
+// ACCORDION
+// =========================================
+.accordion-heading{
+
+}
+.accordion-toggle{
+
+  //background:#eee;
+  &:hover{
+    text-decoration:none;
+
+    //color:#000;
+  }
+
+  &.collapsed{
+    //background:darken(#eee, 10%);
+  }
+
+}
+
+.accordion-body{
+  background:darken(#eee, 5%);
+  @include box-shadow(inset 0 0 5px rgba(0,0,0,0.2));
+}
+
+
+// FILTER
+// =========================================
+.mod-filter{
+  
+
+  .filter-info{
+    margin:15px;
+  }
+
+  .filter-actions{
+    margin:15px;
+  }
+
+  h5{}
+  label{
+    cursor:pointer;
+
+    input[type="checkbox"]{
+      margin-right:5px;
+    }
+  }
+
+}
+
+
+/****************** DIL'S STYLES ENDS HERE ******************/
+
+
+
+
+
+
+
+
+
+
+/** MEDIA QUERIES **/
+
 
 @media (max-width: 767px){
   body{

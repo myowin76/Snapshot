@@ -1,10 +1,7 @@
-
-
-	<%= gmaps(
-		:markers => {:data => @json, 
-				:options => { :do_clustering => true, :clusterer_gridSize => 100, :clusterer_maxZoom => 20 }	
-		}
-	) %>
+<%= gmaps(
+	:markers => {:data => @json, 
+	:options => { :do_clustering => true, :clusterer_gridSize => 100, :clusterer_maxZoom => 20 }	
+}) %>
 
   <%#= gmaps4rails(@json) %>
   <%#= gmaps("markers" => {"data" => @json},

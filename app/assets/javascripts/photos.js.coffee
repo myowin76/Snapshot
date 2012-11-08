@@ -1,7 +1,10 @@
 
 jQuery.fn.submitOnCheck = ->
-  @find('input[type=checkbox]').live 'click', (event) ->
+
+  @find('input[type=checkbox]').live 'change', (event) ->
     $('#search_form').submit()
+  @find('.label').live 'click', (event) ->
+    $('#search_form').submit()  
   @find('#search_country_id').change ->
     $('#search_form').submit()
   this
@@ -9,11 +12,9 @@ jQuery.fn.submitOnCheck = ->
 
 
 jQuery ->
-  ###$('#search_postcode').autocomplete
-      source: "/stores/postcodes"###
-  $('#photo-list').dataTable()
+  ###$('#photo-list').dataTable()
   "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-  "sPaginationType": "bootstrap"
+  "sPaginationType": "bootstrap"###
 
   $('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
   $('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})

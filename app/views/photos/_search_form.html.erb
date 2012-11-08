@@ -57,11 +57,17 @@
         <div class="accordion-inner">
           <% for category in @categories %>
             <% if params[:search] && params[:search][:category] && params[:search][:category].include?(category.id.to_s) %>
-              <%= check_box_tag "search[category][]", category.id, :check => "checked" %>
+              <%= label_tag "search[category][#{category.id}]", category.id do %>
+                <%= check_box_tag "search[category][]", category.id, true, :id => "search_category_#{category.id}" %>
+                <%= category.name %>
+              <% end %>    
             <% else %>
-              <%= check_box_tag "search[category][]", category.id %>
+              <%= label_tag "search[category][#{category.id}]" do %>
+                <%= check_box_tag "search[category][]", category.id, false, :id => "search_category_#{category.id}" %>
+                <%= category.name %>
+              <% end %>  
             <% end %>
-            <%= category.name %><br />
+            
           <% end %>
         </div>
       </div>
@@ -76,11 +82,16 @@
         <div class="accordion-inner">
           <% for channel in @channels %>
             <% if params[:search] && params[:search][:pchannel] && params[:search][:pchannel].include?(channel.id.to_s) %>
-              <%= check_box_tag "search[pchannel][]", channel.id, :check => "checked" %>
+              <%= label_tag "search[pchannel][#{channel.id}]" do %>
+                <%= check_box_tag "search[pchannel][]", channel.id, true, :id => "search_channel_#{channel.id}" %>
+                <%= channel.name %>
+              <% end %>  
             <% else %>
-              <%= check_box_tag "search[pchannel][]", channel.id %>
+              <%= label_tag "search[pchannel][#{channel.id}]" do %>
+                <%= check_box_tag "search[pchannel][]", channel.id, false, :id => "search_channel_#{channel.id}" %>
+                <%= channel.name %>
+              <% end %>
             <% end %>
-            <%= channel.name %><br />
           <% end %>
         </div>
       </div>
@@ -95,11 +106,17 @@
         <div class="accordion-inner">
           <% for sector in @sectors %>
             <% if params[:search] && params[:search][:sectors] && params[:search][:sectors].include?(sector.id.to_s) %>
-              <%= check_box_tag "search[sectors][]", sector.id, :check => "checked"  %>
+              <%= label_tag "search[sectors][#{sector.id}]" do %>
+                <%= check_box_tag "search[sectors][]", sector.id, true, :id => "search_sectors_#{sector.id}" %>
+                <%= sector.name %>
+              <% end %>  
             <% else %>  
-              <%= check_box_tag "search[sectors][]", sector.id %>
+              <%= label_tag "search[sectors][#{sector.id}]" do %>
+                <%= check_box_tag "search[sectors][]", sector.id, false, :id => "search_sectors_#{sector.id}" %>
+                <%= sector.name %>
+              <% end %>  
             <% end %>  
-            <%= sector.name %><br />
+            
           <% end %>  
         </div>
       </div>
@@ -127,11 +144,16 @@
         <div class="accordion-inner">
           <% for sf in @store_formats %>
             <% if params[:search] && params[:search][:sformat] && params[:search][:sformat].include?(sf.id.to_s) %>
-              <%= check_box_tag "search[sformat][]", sf.id, :check => "checked"  %>
-            <% else %>  
-              <%= check_box_tag "search[sformat][]", sf.id %>
-            <% end %>  
-            <%= sf.name %><br />
+              <%= label_tag "search[sformat][#{sf.id}]" do %>
+                <%= check_box_tag "search[sformat][]", sf.id, true, :id => "search_sectors_#{sector.id}" %>
+                <%= sf.name %>
+              <% end %>  
+            <% else %> 
+              <%= label_tag "search[sformat][#{sf.id}]" do %> 
+                <%= check_box_tag "search[sformat][]", sf.id, false, :id => "search_sectors_#{sector.id}" %>
+                <%= sf.name %>
+              <% end %>  
+            <% end %>
           <% end %>  
         </div>
       </div>
@@ -146,11 +168,16 @@
         <div class="accordion-inner">
           <% for promo_calendar in @promo_calendars %>
             <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_calendar.id.to_s) %>
-              <%= check_box_tag "search[promo_cal][]", promo_calendar.id, :check => "checked"  %>
-            <% else %>  
-              <%= check_box_tag "search[promo_cal][]", promo_calendar.id %>
-            <% end %>  
-            <%= promo_calendar.name %><br />
+              <%= label_tag "search[promo_cal][#{promo_calendar.id}]" do %>
+                <%= check_box_tag "search[promo_cal][]", promo_calendar.id, :check => "checked"  %>
+                <%= promo_calendar.name %>
+              <% end %>
+            <% else %>
+              <%= label_tag "search[promo_cal][#{promo_calendar.id}]" do %>  
+                <%= check_box_tag "search[promo_cal][]", promo_calendar.id %>
+                <%= promo_calendar.name %>
+              <% end %>
+            <% end %>
           <% end %>  
         </div>
       </div>
