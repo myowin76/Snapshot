@@ -1,5 +1,5 @@
-//$("#map-view").html("<%= j render("map_view") %>");
-/*
+$("#map-view").html("<%= j render("map_view") %>");
+
 	Gmaps.map = new Gmaps4RailsGoogle();
 	Gmaps.load_map = function() {
     Gmaps.map.map_options.maxZoom = 15;
@@ -10,7 +10,7 @@
     Gmaps.map.callback();
 	};
 	Gmaps.loadMaps();
-*/
+
 $(".loading").show();
 $("aside h4").html("<%= @photos.count %> photos found");
 $("aside #retailers-accord .accordion-inner").html("<%= j render("retailer_view") %>");
