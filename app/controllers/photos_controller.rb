@@ -1,6 +1,7 @@
 class PhotosController < ApplicationController
 
   autocomplete :store, :postcode
+
   def index
     
     if user_is_country_and_category_subscriber?
@@ -91,7 +92,7 @@ class PhotosController < ApplicationController
       
       
       
-        @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
+      @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
