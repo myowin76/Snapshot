@@ -53,6 +53,9 @@ $(document).ready(function() {
 	
  });
 
+
+/* dils js */
+
 function initAccordion(el){
   "use strict";
   var $el = $(el);

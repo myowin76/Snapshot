@@ -41,7 +41,7 @@ class PhotosController < ApplicationController
         else
           @sectors = Sector.all
           @sector_chk = Sector.find_all_by_id(params[:search][:sectors])  
-          @retailers = Retailer.find_all_by_sector_id(@sector_chk)
+          @retailers = Retailer.find_all_by_sector_id(@sector_chk.map(&:id))
           
           if params[:search][:country_id].blank?
             # for all country search
@@ -57,7 +57,8 @@ class PhotosController < ApplicationController
                     :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
                      params[:search][:country_id], @retailers])
             end
-          end  
+          end
+            
         end
         unless params[:search][:postcode].blank? 
           @stores_in_country = Store.by_postcode(params[:search][:postcode])
