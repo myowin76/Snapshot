@@ -1,7 +1,10 @@
 <h3><%= store.name %></h3>
 <p>
 	<%= store.address %><br />
-	<%= store.address2 %>
+	<%= store.address2 %><br />
+	<%= store.postcode %>
  </p>
-<p><%= store.postcode %></p>
+<p>
+	<%= store.retailer.sector.name %>
+</p>
 <%= link_to "View Details", store %>

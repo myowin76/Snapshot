@@ -322,7 +322,27 @@
         </div>
       </div>
     </div>
-    <!-- GEO LOCATION TEXT BOX TO DO HERE -->
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#themes">
+          Location Search <i class="icon-plus pull-right"></i>
+        </a>
+      </div>
+      <div id="themes" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <fieldset>
+            <%= label_tag "Location" %>
+            <% if params[:search] && params[:search][:location] && params[:search][:location] %>
+              <%= text_field_tag 'search[location]', params[:search][:location] %>
+            <% else %>
+              <%= text_field_tag 'search[location]'%>
+              <%#= text_field_tag 'search[location]', '', :autocomplete => photo_autocomplete_store_location_path %>
+            <% end %>
+            <span>e.g Edinburgh, EH3, etc</span>
+          </fieldset>
+        </div>
+      </div>
+    </div>
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#themes">

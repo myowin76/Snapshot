@@ -5,9 +5,10 @@ class Store < ActiveRecord::Base
   belongs_to :store_format
   belongs_to :retailer
   belongs_to :country
+  belongs_to :location
   has_many :audits
-  geocoded_by :postcode
-  after_validation :geocode
+  geocoded_by :full_address
+  after_validation :geocode, :if => :address_changed?
   
   scope :by_postcode, lambda{|postcode| where('postcode LIKE ?', "%#{postcode}%") unless postcode.blank? }    
 
@@ -15,7 +16,7 @@ class Store < ActiveRecord::Base
   acts_as_gmappable :process_geocoding => false
 
   def full_address
-    [address, address2].join(' ')
+    [address, address2, postcode].join(',')
   end
   
   private

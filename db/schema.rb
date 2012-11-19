@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121031160810) do
+ActiveRecord::Schema.define(:version => 20121119130710) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -107,13 +107,14 @@ ActiveRecord::Schema.define(:version => 20121031160810) do
     t.integer  "promotion_calendar_id"
     t.integer  "theme_id"
     t.text     "description"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.string   "additional_brands"
+    t.boolean  "published",             :default => false
   end
 
   add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"
@@ -187,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20121031160810) do
     t.text     "description"
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
+    t.integer  "location_id"
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -214,8 +216,8 @@ ActiveRecord::Schema.define(:version => 20121031160810) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",           :null => false
-    t.string   "encrypted_password",     :default => "",           :null => false
+    t.string   "email",                                            :null => false
+    t.string   "encrypted_password",                               :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

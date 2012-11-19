@@ -16,12 +16,18 @@ class PhotosController < ApplicationController
           @store_formats = StoreFormat.all
         end
         # search
+        
         if params[:search][:country_id].blank?
           # for all country search
           @stores_in_country = Store.find_all_by_country_id(@countries)
         else
+           if params[:search][:location].present?
+            @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where('id IN (?)', ['1','2'])  
+           else
+            @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
+           end 
           # for selected country
-          @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
+          
         end
 
         if params[:search][:sectors].blank?
@@ -30,14 +36,33 @@ class PhotosController < ApplicationController
           @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
             
             unless params[:search][:retailers].blank? 
+              #location check
+              if params[:search][:location].present?
+                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
+                    params[:search][:country_id], params[:search][:retailers], @store_formats
+                  )
+
+              else  
+
                 @stores_in_country = Store.find(:all,
                   :conditions => ['country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
                   params[:search][:country_id], params[:search][:retailers], @store_formats])
+              end  
             else
+              if params[:search][:location].present?
+                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
+                    params[:search][:country_id], Retailer.all, @store_formats
+                  )
+            
+              else              
                 @stores_in_country = Store.find(:all,
                   :conditions => ['country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)',  
                   params[:search][:country_id], @retailers, @store_formats])    
+              end  
             end
+            
         else
           @sectors = Sector.all
           @sector_chk = Sector.find_all_by_id(params[:search][:sectors])  
@@ -48,20 +73,35 @@ class PhotosController < ApplicationController
             @stores_in_country = Store.find_all_by_country_id(@countries)
           else
             # for selected country
-            unless params[:search][:retailers].blank? 
-              @stores_in_country = Store.find(:all,
-                  :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                  params[:search][:country_id], params[:search][:retailers]])
+            unless params[:search][:retailers].blank?
+              if params[:search][:location].present?
+                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
+                    params[:search][:country_id], params[:search][:retailers], @store_formats
+                  )
+              else               
+                @stores_in_country = Store.find(:all,
+                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                    params[:search][:country_id], params[:search][:retailers]])
+              end  
             else
-              @stores_in_country = Store.find(:all,
-                  :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                   params[:search][:country_id], @retailers])
+              if params[:search][:location].present?
+                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
+                    params[:search][:country_id], params[:search][:retailers], @store_formats
+                  )
+                #debugger
+              else              
+                @stores_in_country = Store.find(:all,
+                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                     params[:search][:country_id], @retailers])
+              end  
             end
           end  
         end
-        unless params[:search][:postcode].blank? 
-          @stores_in_country = Store.by_postcode(params[:search][:postcode])
-        end
+        #unless params[:search][:postcode].blank? 
+        #  @stores_in_country = Store.by_postcode(params[:search][:postcode])
+        #end
       else
         # page load
         @sectors = Sector.all
@@ -81,8 +121,10 @@ class PhotosController < ApplicationController
       @media_vehicles = MediaVehicle.all
       @media_locations = MediaLocation.all
       @env_types = EnvironmentType.all
-
-      @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
+      
+      #@audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
+      @audits_in_country = Audit.find_all_by_store_id(@stores_in_country.map(&:id))
+      #debugger
       
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
@@ -165,7 +207,8 @@ class PhotosController < ApplicationController
         else
           @search_themes = @themes
         end
-
+        
+        
         # save searches  
         @params = params[:search] unless params[:search].nil?
         
