@@ -1,7 +1,4 @@
 jQuery ->
-  $('.created_at').datepicker({dateFormat: 'dd/mm/yy'})
-
-jQuery ->
   $('#audit_store_id').parent().hide()
   store = $('#audit_store_id').html()
   $('#audit_retailer_id').change ->
@@ -16,4 +13,5 @@ jQuery ->
       options = "<option>No Stores Found</option>"
       $('#audit_store_id').html(options)
       
-      
+
+  $('.created_at').datepicker({dateFormat: 'dd/mm/yy'})

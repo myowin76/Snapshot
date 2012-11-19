@@ -5,10 +5,12 @@
     <tr>
       <th></th>
       <th>Photo</th>
+      <th>Retailer/Brand</th>
       <th>Date</th>
+      <th>Location</th>
+      <th>Sector</th>
       <th>Category</th>
-      <th>Store</th>
-      <th>Details</th>
+      <!--th>Details</th-->
     </tr>
   </thead>
     
@@ -23,16 +25,24 @@
               <%#= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
               <%= link_to image_tag(photo.photo.url(:thumb)), photo  %>
           </td>
+          <td>
+            <%= photo.audit.store.retailer.name %><br />
+            <%= photo.brand.name %>
+          </td>
           <td>  
               <%= photo.created_at.strftime('%d/%m/%Y') %>
+          </td>
+          <td>
+            <%= photo.audit.store.country.name %>
+          </td>
+          <td>
+              <%= photo.audit.store.retailer.sector.name %>
           </td>
           <td>    
               <%= photo.category.name %>
           </td>
-          <td>
-              <%= photo.audit.store.name %>
-          </td>
-          <td>
+          
+          
               <%# unless photo.promotion_calendar_id.nil? %>
                 <!--strong>Promotion Calendar:</strong> <%#= photo.promotion_calendar.name %><br />
               <% #end %>
@@ -40,8 +50,8 @@
                 <strong>Promotion Type:</strong> <%#= photo.promotion_type.name %><br />
               <% #end %>
             -->
-              <%= link_to "Details", photo %>
-          </td>
+              <%#= link_to "Details", photo %>
+          
               
               <%#= link_to 'Show', photo %>
               <%#= link_to 'Edit', edit_photo_path(photo) %>

@@ -14,6 +14,8 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require autocomplete-rails
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require jquery.ui.datepicker
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
@@ -24,6 +26,8 @@
 
 $(document).ready(function() {
  	
+
+  
 	$('.clear-form').click(function(){
 		$('#search_form input:text').val('');
 		$('#search_form input:checkbox').attr('checked',false);
@@ -35,19 +39,16 @@ $(document).ready(function() {
 		$('.table-striped input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
 		})
-		//return false;
+		return false;
 	})
 
 	$('#uncheckAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
 			$(this).attr('checked', false)
 		})
-		//return false;
+		return false;
 	})
 
-	$('.accordion').on('show hide', function(e){
-		$(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
-	})
 
 	filterUI.init();
 	

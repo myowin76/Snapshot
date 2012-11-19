@@ -49,23 +49,19 @@ class PhotosController < ApplicationController
           else
             # for selected country
             unless params[:search][:retailers].blank? 
-                @stores_in_country = Store.find(:all,
-                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                    params[:search][:country_id], params[:search][:retailers]])
+              @stores_in_country = Store.find(:all,
+                  :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                  params[:search][:country_id], params[:search][:retailers]])
             else
-                @stores_in_country = Store.find(:all,
-                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                     params[:search][:country_id], @retailers])
+              @stores_in_country = Store.find(:all,
+                  :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
+                   params[:search][:country_id], @retailers])
             end
-          end
-            
+          end  
         end
         unless params[:search][:postcode].blank? 
           @stores_in_country = Store.by_postcode(params[:search][:postcode])
-          
         end
-        
-        
       else
         # page load
         @sectors = Sector.all
@@ -75,11 +71,6 @@ class PhotosController < ApplicationController
         @stores_in_country = Store.find_all_by_country_id(@countries)
       end
       
-      #@stores_in_country = Store.find_all_by_country_id(@countries)
-      # @locations = Location.find_all_by_country_id(@countries)     
-      #@retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*")
-     #   @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
-
       @channels = Channel.all
       @locations = Location.find_all_by_country_id(@countries)
       @promo_calendars = PromotionCalendar.all
@@ -90,25 +81,19 @@ class PhotosController < ApplicationController
       @media_vehicles = MediaVehicle.all
       @media_locations = MediaLocation.all
       @env_types = EnvironmentType.all
-      
-      
-      
+
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
-      #@new_save_search = current_user.save_searches.new
+      
       if params[:search].nil?
         # search from current_user's scope  
         @photos = Photo.find(:all, 
           :conditions => ["audit_id in (?) AND category_id in (?)", 
             @audits_in_country, @categories])                    
-
       else 
-         # CREATE NEW SEARCH SESSION ? T0 MAINTAIN THE STATE AND CAN SAVE IN DB
-        # @store_in_country  NEED TO FILTER BY RETAILERS/SECTOR/STORE FORMAT
         #@photos = Photo.search(params[:search])
-
         unless params[:search][:postcode].blank?
           postcode = params[:search][:postcode]
         end
