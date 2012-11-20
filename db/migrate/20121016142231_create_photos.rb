@@ -7,8 +7,8 @@ class CreatePhotos < ActiveRecord::Migration
       t.references :media_location
       t.references :media_vehicle
       t.references :media_type
-      t.references :promotion_type
-      t.references :promotion_calendar
+      t.references :promotion_type, :default => '0'
+      t.references :promotion_calendar, :default => '0'
       t.references :theme
       t.text :description
 

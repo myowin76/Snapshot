@@ -1,17 +1,31 @@
-<%= simple_form_for(@photo) do |f| %>
-  <%= f.error_notification %>
+<table>
+  <tr>
+    <td valign='top'>
+      <%= link_to image_tag(@photo.photo.url(:large)), @photo.photo.url(:originals)  %><br />
+    </td>
+    <td width='50'></td>
+    <td>
+      <%= simple_form_for(@photo) do |f| %>
+        <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.association :brand %>
-    <%= f.association :audit %>
-    <%= f.association :category %>
-    <%= f.association :media_location %>
-    <%= f.association :media_vehicle %>
-    <%= f.association :media_type %>
-    <%= f.input :description %>
-  </div>
+        <div class="form-inputs">
+          <%= f.input :headline %>
+          <%= f.association :brand %>
+          <%#= f.association :audit %>
+          <%= f.association :category %>
+          <%= f.association :media_location %>
+          <%= f.association :media_vehicle %>
+          <%= f.association :media_type %>
+          <%= f.association :theme %>
+          <%= f.input :description %>
+        </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+        <div class="form-actions">
+          <%= f.button :submit %>
+        </div>
+      <% end %>
+
+    </td>
+  </tr>
+</table>
+

@@ -7,13 +7,16 @@ class Store < ActiveRecord::Base
   belongs_to :country
   belongs_to :location
   has_many :audits
+  
+
   geocoded_by :full_address
   after_validation :geocode, :if => :address_changed?
-  
-  scope :by_postcode, lambda{|postcode| where('postcode LIKE ?', "%#{postcode}%") unless postcode.blank? }    
 
   # GEOCODERS
   acts_as_gmappable :process_geocoding => false
+
+  # scope :by_postcode, lambda{|postcode| where('postcode LIKE ?', "%#{postcode}%") unless postcode.blank? }    
+  validates :postcode, :presence => true, :uniqueness => true
 
   def full_address
     [address, address2, postcode].join(',')

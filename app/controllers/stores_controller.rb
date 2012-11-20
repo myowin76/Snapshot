@@ -33,11 +33,12 @@ class StoresController < ApplicationController
     @store = Store.find(params[:id])
     @audits = @store.audits.find_all
     #@user_categories = Category.find(current_user.sub_cats.split(","))
+    
     @audits.each do |audit|
-      @photos = audit.photos.find(:all, :order => 'category_id, id')
-      @photo_category = @photos.group_by { |c| c.category.id }
+     @photos = audit.photos.find(:all, :order => 'category_id, id')
+     @photo_category = @photos.group_by { |c| c.category.id }
     end
-
+    debugger
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @store }

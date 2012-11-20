@@ -22,7 +22,7 @@ class PhotosController < ApplicationController
           @stores_in_country = Store.find_all_by_country_id(@countries)
         else
            if params[:search][:location].present?
-            @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where('id IN (?)', ['1','2'])  
+            @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where('id IN (?)', ['1','2'])  
            else
             @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
            end 
@@ -38,7 +38,7 @@ class PhotosController < ApplicationController
             unless params[:search][:retailers].blank? 
               #location check
               if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
                     'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
                     params[:search][:country_id], params[:search][:retailers], @store_formats
                   )
@@ -51,7 +51,7 @@ class PhotosController < ApplicationController
               end  
             else
               if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
                     'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
                     params[:search][:country_id], Retailer.all, @store_formats
                   )
@@ -75,7 +75,7 @@ class PhotosController < ApplicationController
             # for selected country
             unless params[:search][:retailers].blank?
               if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
                     'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
                     params[:search][:country_id], params[:search][:retailers], @store_formats
                   )
@@ -86,7 +86,7 @@ class PhotosController < ApplicationController
               end  
             else
               if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 10, :order => :distance).where(
+                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
                     'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
                     params[:search][:country_id], params[:search][:retailers], @store_formats
                   )
@@ -132,8 +132,8 @@ class PhotosController < ApplicationController
       if params[:search].nil?
         # search from current_user's scope  
         @photos = Photo.find(:all, 
-          :conditions => ["audit_id in (?) AND category_id in (?)", 
-            @audits_in_country, @categories])                    
+          :conditions => ["audit_id in (?) AND category_id in (?) AND published = ?", 
+            @audits_in_country, @categories, true])                    
       else 
         #@photos = Photo.search(params[:search])
         unless params[:search][:postcode].blank?
@@ -216,9 +216,9 @@ class PhotosController < ApplicationController
           .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
             AND media_type_id IN (?) AND media_vehicle_id IN (?) AND media_location_id IN (?) AND brand_id IN (?)
             AND brand_id IN (?)
-            AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)', 
+            AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?) AND published = ?', 
             from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brands, @search_themes,
-            @stores_in_country, @env_type, @search_channel)   
+            @stores_in_country, @env_type, @search_channel, true)
         
       end
 
@@ -363,5 +363,8 @@ class PhotosController < ApplicationController
       format.html { redirect_to photos_url }
       format.json { head :no_content }
     end
+  end
+  def update_individual
+    
   end
 end

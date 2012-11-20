@@ -1,5 +1,5 @@
 jQuery ->
-  $('#audit_store_id').parent().hide()
+  ###$('#audit_store_id').parent().hide()###
   store = $('#audit_store_id').html()
   $('#audit_retailer_id').change ->
     retailer = $('#audit_retailer_id :selected').text()
@@ -15,3 +15,4 @@ jQuery ->
       
 
   $('.created_at').datepicker({dateFormat: 'dd/mm/yy'})
+  

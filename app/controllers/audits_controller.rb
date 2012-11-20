@@ -28,9 +28,10 @@ class AuditsController < ApplicationController
   # GET /audits/new.json
   def new
     @audit = Audit.new
-    
-    # @stores = Store.find_all_by_retailer_id(params[:id])
-    @audit.photos.build
+    #debugger    
+    @stores = Store.find_all_by_retailer_id(params[:id])
+    # @audit.photos.build
+    5.times {@audit.photos.build}
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @audit }
@@ -55,7 +56,7 @@ class AuditsController < ApplicationController
         @audit.update_attribute(:user_id, current_user.id)
          
         if @audit.photos.blank?
-          format.html { redirect_to photos_path, notice: 'Audit was successfully created.' }
+          format.html { redirect_to edit_audit_path, notice: 'Please upload images.' }
         else
           format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
         end

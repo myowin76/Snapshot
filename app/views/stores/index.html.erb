@@ -11,7 +11,8 @@
     <th>Store</th>
     <th>Store format</th>
     <th>Retailer</th>
-    <th>Sector</th>
+    <th>Address</th>
+    <!--th>Sector</th-->
     <!--th>Description</th-->
     <th></th>
     <th></th>
@@ -27,7 +28,12 @@
     <td><%= link_to store.name, store %></td>
     <td><%= store.store_format.name %></td>
     <td><%= store.retailer.name %></td>
-    <td><%= store.retailer.sector.name %></td>
+    <td>
+      <%= store.address %><br /><%= store.address2 %><br />
+      <%= store.postcode %>,
+      <%= store.country.name %>
+    </td>
+    <!--td><%= store.retailer.sector.name %></td-->
     <!--td><%#= store.longitude %></td-->
     <!--td><%#= store.latitude %></td-->
     <!--td><%#= store.description %></td-->

@@ -2,10 +2,15 @@
 <div class="span6 details">
   <%= link_to image_tag(@photo.photo.url(:large)), @photo.photo.url(:originals)  %><br />
   <%= link_to 'Download Pdf', photo_path(:format => "pdf") %>
+  <%= link_to 'Edit', edit_photo_path %>
 </div>
 
 <div class="span6">
   <table class="table table-striped">
+    <tr>
+      <td>Headline</td>
+      <td><%= @photo.headline %></td>
+    </tr>
     <tr>
       <td>Brand</td>
       <td><%= @photo.brand.name %></td>
@@ -36,7 +41,7 @@
     </tr>
     <tr>
       <td>Category</td>
-      <td><%= @photo.category.name %></td>
+      <td><%= @photo.category.name unless @photo.category_id.nil?  %></td>
     </tr>
     <tr>
       <td>Store Format</td>
@@ -44,19 +49,19 @@
     </tr>
     <tr>
       <td>Retailer</td>
-      <td><%= @photo.audit.retailer.name %></td>
+      <td><%= @photo.audit.retailer.name%></td>
     </tr>
     <tr>
       <td>Media location</td>
-      <td><%= @photo.media_location.name %></td>
+      <td><%= @photo.media_location.name unless @photo.media_location_id.nil?  %></td>
     </tr>
     <tr>
       <td>Media vehicle</td>
-      <td><%= @photo.media_vehicle.name %></td>
+      <td><%= @photo.media_vehicle.name unless @photo.media_vehicle_id.nil?  %></td>
     </tr>
     <tr>
       <td>Media type</td>
-      <td><%= @photo.media_type.name %></td>
+      <td><%= @photo.media_type.name unless @photo.media_type_id.nil? %></td>
     </tr>
     <tr>
       <td>Sector</td>

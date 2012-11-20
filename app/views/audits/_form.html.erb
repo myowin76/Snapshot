@@ -3,27 +3,40 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :retailer,:include_blank => false ,  :prompt => 'Please Select'  %>
+
+    <%#= f.association :retailer,:include_blank => false ,  :prompt => 'Please Select'  %>
+    <% unless params[:retailer].present?  %>
+      <%= f.association :retailer, :prompt => 'Please Select'  %>
+    <% else  %>  
+      <%#= f.association :retailer, :selected => params[:retailer] %>
+
+      <% retailer = Retailer.find_by_name(params[:retailer])  %>
+      <%= f.input :retailer_id, :as => :hidden, :input_html => {:value => retailer.id} %>
+      <%= f.label "Retailer" %>
+      <%= retailer.name %>
+    <% end  %>
     <%#= f.association :store, :include_blank => false %>
     
     <p>
       <%= f.label "Store" %>
-      <%= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
-      include_blank: true %>
-      <%= link_to "add new store", new_store_path, :class => "add-store" %>
+      <% unless params[:store].present?  %>
+        <%= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
+        include_blank: true %>
+        <%= link_to "add new store", new_store_path, :class => "add-store" %>
+      <% else %>
+        <% store = Store.find_by_name(params[:store]) %>
+        <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
+        <%= store.name %>
+      <% end %>  
     </p>
       
     <%= f.association :channel, :include_blank => false %>
     <%= f.association :environment_type, :include_blank => false %>
     
-    
     <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
-        
           <%= photo_fields.file_field :photo, :class=>'file-upload' %><br />
           <%#= render :partial => "file_upload", :locals => { photo_fields => :photo } %>  
-        
-
       <% end %>
     <% end %>
     <script id="template-upload" type="text/x-tmpl">
@@ -57,8 +70,9 @@
             <%= photo_fields.association :promotion_type, {:include_blank => "None"} %>
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
             <%= photo_fields.association :theme, :include_blank => false %>
-            <%= photo_fields.label "Remove" %>
-            <%= photo_fields.check_box :_destroy %>   
+            <%= photo_fields.input_field :published, :as => :boolean, inline_label: 'Publish' %>   
+            <%= photo_fields.input_field :_destroy, :as => :boolean, inline_label: 'Destroy' %>   
+            
           </div>
         </div>  
       <% end %>
@@ -68,7 +82,7 @@
   </div>
 
     <div class="form-actions">
-      <%= f.button :submit, :class=>"btn btn-primary" %>
+      <%= f.button :submit, "Next", :class=>"btn btn-primary" %>
     </div>
 
 <% end %>

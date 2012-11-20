@@ -1,3 +1,39 @@
 
-	<div class="tabbable">
-	</div>	
+<table id="tbl-unpublished" class="table table-striped">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Images</th>
+    <th>Audit</th>
+    <th>Retailer/Store</th>
+    <th>Date</th>
+    <th>Category</th>
+    <th>User</th>
+    
+  </tr>
+</thead>
+<tbody>
+
+<% @unpublished_photos.each do |photo| %>
+	<tr>
+    <td>
+    	<%= check_box_tag "photo_ids[]", photo.id %>
+    </td>
+    <td>
+    	<%= link_to image_tag(photo.photo.url(:thumb)), photo  %>
+    </td>
+    <td><%= link_to photo.audit.id %></td>
+    <td>
+    	<%= link_to photo.audit.store.retailer.name %><br />
+    	<%= link_to photo.audit.store.name %>
+    </td>
+    <td><%= photo.created_at %></td>
+    <td>
+      <%= photo.category.name %>
+    </td>
+    <td><%= link_to photo.audit.user.email %></td>
+	</tr>
+<% end %>
+
+</tbody>
+</table>

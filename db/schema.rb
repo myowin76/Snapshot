@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119130710) do
+ActiveRecord::Schema.define(:version => 20121120134329) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(:version => 20121119130710) do
     t.integer  "media_location_id"
     t.integer  "media_vehicle_id"
     t.integer  "media_type_id"
-    t.integer  "promotion_type_id"
-    t.integer  "promotion_calendar_id"
+    t.integer  "promotion_type_id",     :default => 0
+    t.integer  "promotion_calendar_id", :default => 0
     t.integer  "theme_id"
     t.text     "description"
     t.datetime "created_at",                               :null => false
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20121119130710) do
     t.datetime "photo_updated_at"
     t.string   "additional_brands"
     t.boolean  "published",             :default => false
+    t.string   "headline"
   end
 
   add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"
