@@ -24,10 +24,11 @@
               <li>
                 <%= link_to "Basket", edit_user_registration_path %>
               </li>
-              
+              <% if admin_or_uploader? %>
               <li>
                 <%= link_to "Admin", admin_path %>
               </li>
+              <% end %>
             <% else %>
               <li>
                 <%= link_to 'Sign in', new_user_session_path %>

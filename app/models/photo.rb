@@ -11,7 +11,7 @@ class Photo < ActiveRecord::Base
   belongs_to :theme
 
   attr_accessible :description, :created_at, :audit_id, :brand_id, :category_id, :media_location_id,  :additional_brands, 
-  		:media_vehicle_id, :media_type_id, :promotion_calendar_id, :promotion_type_id, :theme_id, :published, :photo
+  		:media_vehicle_id, :media_type_id, :promotion_calendar_id, :promotion_type_id, :theme_id, :published, :headline, :photo
 
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
@@ -37,7 +37,7 @@ class Photo < ActiveRecord::Base
     :bucket => "SnapshotWorldWide"
 		
     validates_attachment_presence :photo
-    
+
   	validates_attachment_content_type :photo, 
     #validates_attachment_size :photo, :less_than => 5.megabytes
       :content_type => ['image/jpeg', 'image/pjpeg', 

@@ -364,7 +364,33 @@ class PhotosController < ApplicationController
       format.json { head :no_content }
     end
   end
-  def update_individual
+  def publish_individual
+    
+    @photo = Photo.find(params[:id])
+    if @photo.update_attributes(:published => true)
+      flash[:notice] = "Selected Images successfully Published."  
+      redirect_to admin_path
+    else
+      flash[:notice] = "Error occured during publish..please try again"  
+      redirect_to photo_path(@photo)
+      
+    end  
+    
+  end
+
+  def publish_multiple
+    
+    if params[:photo_ids].present?
+      @photos = Photo.find(params[:photo_ids])
+      @photos.each do |photo|
+        photo.update_attributes(:published => true)
+      end
+      flash[:notice] = "Selected Images successfully Published."  
+    else
+      flash[:notice] = "Please Select one or more image"
+    end  
+    
+    redirect_to admin_path
     
   end
 end

@@ -1,8 +1,14 @@
 
 <div class="span6 details">
   <%= link_to image_tag(@photo.photo.url(:large)), @photo.photo.url(:originals)  %><br />
-  <%= link_to 'Download Pdf', photo_path(:format => "pdf") %>
-  <%= link_to 'Edit', edit_photo_path %>
+  <%= link_to 'Download Pdf', photo_path(:format => "pdf") %><br />
+  <%= link_to 'Edit', edit_photo_path %><br />
+  <% if @photo.published == true %>
+    <%#= link_to 'Un-publish', publish_multiple_photos_path(:photo_ids => @photo.id), :method => :put %>
+  <% else %>  
+    <%= link_to 'Publish', publish_individual_photos_path(:id => @photo.id), :method => :put %>
+  <% end %>  
+  <br />
 </div>
 
 <div class="span6">

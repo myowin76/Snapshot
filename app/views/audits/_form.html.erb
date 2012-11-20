@@ -53,10 +53,12 @@
         
         <div class="thumb" style="border-top: 1px solid #ddd;overflow:hidden;padding: 20px 0;">
           <div class="span2">
-            <%= link_to image_tag(photo_fields.object.photo.url(:thumb)), photo_fields.object.photo.url(:original) %>
+            <%#= link_to image_tag(photo_fields.object.photo.url(:small)), photo_fields.object.photo.url(:original) %>
+            <%= image_tag(photo_fields.object.photo.url(:medium)) %>
           </div>
           <div class="span6">  
-            
+            <label>Headline</label>
+            <%= photo_fields.text_field :headline %>
             <label>Date Created</label>
             <%= photo_fields.text_field :created_at, :class=>"created_at"%>
             <%= photo_fields.association :brand, :include_blank => false %>

@@ -15,7 +15,12 @@ Snapshot::Application.routes.draw do
 
   devise_for :users
 
-  resources :photos
+  resources :photos do
+    collection do
+      put :publish_multiple
+      put :publish_individual
+    end
+  end
 
   resources :audits
 
