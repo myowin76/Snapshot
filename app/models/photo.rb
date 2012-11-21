@@ -9,14 +9,14 @@ class Photo < ActiveRecord::Base
   belongs_to :promotion_type
   belongs_to :promotion_calendar
   belongs_to :theme
-
+  
   attr_accessible :description, :created_at, :audit_id, :brand_id, :category_id, :media_location_id,  :additional_brands, 
   		:media_vehicle_id, :media_type_id, :promotion_calendar_id, :promotion_type_id, :theme_id, :published, :headline, :photo
 
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
-    #:url  => "/audits/:id/:style/:basename.:extension",
-  	#:path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
+    # :url  => "/audits/:id/:style/:basename.:extension",
+  	# :path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
 
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/aws.yml",
@@ -49,8 +49,16 @@ class Photo < ActiveRecord::Base
     def find_photos
       find(:all, :conditions => conditions)
     end
-    
 
+    def category_tokens=(ids)
+      # self.category_id = Category.ids_from_tokens(tokens)
+      self.category_id = ids.split(",")
+      
+    end
+    
+    def category_array(ids)
+      self.category_ids = ids.split(",")
+    end
     #def self.search(search)
     #  if search
         #find_by_postcode()
@@ -70,6 +78,9 @@ class Photo < ActiveRecord::Base
         Photo.find(:all, :conditions => conditions)    
       
 
+    end
+    def change_to_array
+      # category_id = params[:category_id].join(",")
     end
 
     private #------------------------------

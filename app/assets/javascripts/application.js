@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require chosen-jquery
 //= require autocomplete-rails
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
+//= require jquery.tokeninput
 //= require jquery.ui.datepicker
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
@@ -48,7 +48,10 @@ $(document).ready(function() {
 		})
 		return false;
 	})
-
+  $('.accordion').on('show hide', function(e){
+    $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
+  })  
+   
 
 	filterUI.init();
 	

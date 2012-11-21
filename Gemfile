@@ -14,16 +14,15 @@ gem 'taps'
 gem 'geocoder'
 gem 'devise'
 gem 'will_paginate', '~> 3.0.0'
-gem 'ransack'
 gem 'gmaps4rails'
 gem 'aws-sdk'
 gem 'jquery-datatables-rails'
 gem 'prawn'
 gem "wkhtmltopdf-binary"
-gem 'db_populate'
 gem "prawnto_2", :require => "prawnto"
 gem 'rails3-jquery-autocomplete'
-
+gem "rubyzip", :require => 'zip/zip'
+gem 'chosen-rails'
 group :production do
 	gem "pg"
 end
@@ -43,8 +42,6 @@ group :assets do
 end
 group :development do
   gem "nifty-generators"	
-
-  # To use debugger
 	gem 'debugger'
 end
 

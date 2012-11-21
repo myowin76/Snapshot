@@ -1,4 +1,9 @@
 jQuery ->
+  ###$('.chosen-category').chosen()###
+  $('.category-tokens').tokenInput '/categories.json'
+    tokenDelimiter: ","
+    theme: 'facebook'
+    prePopulate: $('.category-tokens').data('load')
   ###$('#audit_store_id').parent().hide()###
   store = $('#audit_store_id').html()
   $('#audit_retailer_id').change ->

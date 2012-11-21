@@ -324,9 +324,22 @@ class PhotosController < ApplicationController
     
     #asset = Photo.find(params[:photo_ids])
     asset = Photo.find_by_id(12)
+    # download_zip(asset)
+    # input_filenames = asset.photo_file_name
+    # zipfile_name = "archive.zip"
+    # debugger
     #send_file asset.photo.url(:medium), :type => asset.photo_content_type
+    # Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
+      #input_filenames.each do |filename|
+      # Two arguments:
+      # - The name of the file as it will appear in the archive
+      # - The original file, including the path to find it
+      # zipfile.add(input_filenames, asset.photo.url(:medium))
+      #end
+    # end
+
     redirect_to asset.photo.url(:medium)
-    #open(asset.photo.url(:medium))
+    #openall_(asset.photo.url(:medium))
     #redirect_to root_path
   end
 

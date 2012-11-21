@@ -3,11 +3,12 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   layout "admin"
   def index
-    @categories = Category.all
+    @categories = Category.order(:name)
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @categories }
+      # format.json { render json: @categories }
+      format.json { render json: @categories.tokens(params[:q])}
     end
   end
 

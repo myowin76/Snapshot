@@ -63,9 +63,15 @@
             <%= photo_fields.text_field :created_at, :class=>"created_at"%>
             <%= photo_fields.association :brand, :include_blank => false %>
             <label>Additional Brands</label>
-            <%= photo_fields.text_field :additional_brands %>
-            <%= photo_fields.association :category, :include_blank => false %>
+            <%= photo_fields.text_field :additional_brands %><br />
+            <%#= photo_fields.association :category, :include_blank => false %>
+            <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
+            { }, {multiple: true, :include_blank => false } %>
             
+              
+            <label>Categories</label>    
+            <%= photo_fields.text_field :category_id, :class => 'category-tokenss'  
+                  %><br />
             <%= photo_fields.association :media_location, :include_blank => false %>
             <%= photo_fields.association :media_vehicle, :include_blank => false %>
             <%= photo_fields.association :media_type, :include_blank => false %>
