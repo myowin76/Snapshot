@@ -1,6 +1,6 @@
 
 <div class="span6 details">
-  <%= link_to image_tag(@photo.photo.url(:large)), @photo.photo.url(:originals)  %><br />
+  <%= image_tag(@photo.photo.url(:large))  %><br />
   <%= link_to 'Download Pdf', photo_path(:format => "pdf") %><br />
   <%= link_to 'Edit', edit_photo_path %><br />
   <% if @photo.published == true %>
@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <td>Brand Owner</td>
-      <td><%= @photo.brand.owner %></td>
+      <td><%= @photo.brand.brand_owner.name %></td>
     </tr>
     <tr>
       <td>Additional Brands</td>

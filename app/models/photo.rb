@@ -10,7 +10,7 @@ class Photo < ActiveRecord::Base
   belongs_to :promotion_calendar
   belongs_to :theme
   
-  attr_accessible :description, :created_at, :audit_id, :brand_id, :category_id, :media_location_id,  :additional_brands, 
+  attr_accessible :description, :created_at, :audit_id, :brand_id, :category_id, :media_location_id,  :additional_brands, :photo_file_name,
   		:media_vehicle_id, :media_type_id, :promotion_calendar_id, :promotion_type_id, :theme_id, :published, :headline, :photo
 
   has_attached_file :photo, 

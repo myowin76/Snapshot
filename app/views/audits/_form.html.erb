@@ -57,6 +57,9 @@
             <%= image_tag(photo_fields.object.photo.url(:medium)) %>
           </div>
           <div class="span6">  
+
+            <label>Filename</label>
+            <%= photo_fields.text_field :photo_file_name %>
             <label>Headline</label>
             <%= photo_fields.text_field :headline %>
             <label>Date Created</label>
@@ -73,11 +76,13 @@
             <%#= photo_fields.text_field :category_id, :class => 'category-tokenss'  
                   %>
             <%= photo_fields.association :media_location, :include_blank => false %>
-            <%= photo_fields.association :media_vehicle, :include_blank => false %>
-            <%= photo_fields.association :media_type, :include_blank => false %>
+            <%= photo_fields.association :media_vehicle, {:include_blank => "None"} %>
+            <%= photo_fields.association :media_type, {:include_blank => "None"} %>
             <%= photo_fields.association :promotion_type, {:include_blank => "None"} %>
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
-            <%= photo_fields.association :theme, :include_blank => false %>
+            <%= photo_fields.association :theme, {:include_blank => "None"} %>
+            <label>Description</label>
+            <%= photo_fields.text_field :description, :as => :text %>
             <%= photo_fields.input_field :published, :as => :boolean, inline_label: 'Publish' %>   
             <%= photo_fields.input_field :_destroy, :as => :boolean, inline_label: 'Destroy' %>   
             

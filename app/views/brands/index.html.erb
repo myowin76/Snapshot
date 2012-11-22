@@ -18,7 +18,7 @@
       <tr>
         <td><%= link_to brand.id, brand_path(brand) %></td>
         <td><%= brand.name %></td>
-        <td><%= brand.owner %></td>
+        <td><%= brand.brand_owner.name unless brand.brand_owner_id.nil? %></td>
         <td><%= brand.description %></td>
         <td><%=l brand.created_at %></td>
         <td>

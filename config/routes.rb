@@ -1,4 +1,6 @@
 Snapshot::Application.routes.draw do
+  resources :brand_owners
+
   resources :user_types
 
   resources :save_searches

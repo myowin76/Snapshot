@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @brand_owner.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @brand_owner.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_brand_owner_path(@brand_owner) %> |
+<%= link_to 'Back', brand_owners_path %>

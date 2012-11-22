@@ -9,7 +9,7 @@ class Store < ActiveRecord::Base
   has_many :audits
   
 
-  # geocoded_by :full_address
+   geocoded_by :full_address
   after_validation :geocode, :if => :address_changed?
 
   # GEOCODERS

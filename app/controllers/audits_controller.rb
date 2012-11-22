@@ -84,7 +84,7 @@ class AuditsController < ApplicationController
     unless params[:photo_ids].empty?
       Photo.destroy_pics(params[:id], params[:photo_ids])
     end
-debugger
+
     respond_to do |format|
       if @audit.update_attributes(params[:audit])
         format.html { redirect_to audits_path, notice: 'Audit was successfully updated.' }
