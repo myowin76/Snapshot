@@ -9,7 +9,7 @@ class Store < ActiveRecord::Base
   has_many :audits
   
 
-  geocoded_by :full_address
+  # geocoded_by :full_address
   after_validation :geocode, :if => :address_changed?
 
   # GEOCODERS
@@ -20,6 +20,15 @@ class Store < ActiveRecord::Base
 
   def full_address
     [address, address2, postcode].join(',')
+  end
+  
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |store|
+        csv << store.attributes.values_at(*column_names)
+      end
+    end
   end
   
   private

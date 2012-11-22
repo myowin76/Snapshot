@@ -7,9 +7,11 @@ class StoresController < ApplicationController
 
     if user_is_country_and_category_subscriber?
       
-      @countries = Country.find(current_user.sub_country.split(","))
-      @stores_in_country = Store.find_all_by_country_id(@countries)
+      @countries = Country.find(current_user.sub_country.split(",")).map(&:id)
+      # @stores_in_country = Store.find_all_by_country_id(@countries)
       @categories = Category.find(current_user.sub_cats.split(","))
+      @stores_in_country = Store.order(:name).where('country_id IN (?)', @countries)
+      # @stores = Store.all
 
     elsif user_is_country_subscriber?
       
@@ -23,7 +25,11 @@ class StoresController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @stores }
+      format.csv { send_data @stores_in_country.to_csv }
+      format.xls  { send_data @stores_in_country.to_csv(col_sep: "\t") }
+      format.json { render json: @stores_in_country }
+      # format.csv { render text: @stores_in_country.to_csv }
+      
     end
   end
 

@@ -5,7 +5,14 @@ class AuditsController < ApplicationController
 
   def index
 
-    @audits = Audit.all
+    if admin_user?
+      @audits = Audit.all
+    # elsif uploader?
+    #   @audits = current_user.audits.all
+    # elsif subscriber?
+    else
+      @audits = current_user.audits.all
+    end  
 
     respond_to do |format|
       format.html # index.html.erb

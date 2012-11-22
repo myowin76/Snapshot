@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
   
   def uploader?
-  	# return false if current_user.nil? || current_user.user_type.name != 'Uploader'
+  	return false if current_user.nil? || current_user.user_type.name != 'Uploader'
     true
   end
 
