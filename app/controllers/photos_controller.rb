@@ -6,8 +6,26 @@ class PhotosController < ApplicationController
     
     if user_is_country_and_category_subscriber?
       
+      # NEW SEARCH START
+        # @countries = Country.find(current_user.subscription.sub_country.split(","))
+        # @categories = Subscription.categories_by(current_user)
+
+        #   unless params[:search].nil?
+        #     if params[:search][:country_id].blank?
+        #       # for all country search
+        #       @stores_in_country = Store.find_all_by_country_id(@countries)
+        #     else
+        #       # country selected
+        #       @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
+        #     end
+        #   else
+        
+        #   end        
+      # NEW SEARCH ENDS
+
       @countries = Country.find(current_user.subscription.sub_country.split(","))
       @categories = Subscription.categories_by(current_user)
+
       unless params[:search].nil?
         
         unless params[:search][:sformat].blank?
@@ -95,7 +113,9 @@ class PhotosController < ApplicationController
                 @stores_in_country = Store.find(:all,
                     :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
                      params[:search][:country_id], @retailers])
+
               end  
+
             end
           end  
         end
@@ -124,21 +144,22 @@ class PhotosController < ApplicationController
       
       #@audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country.map(&:id))
-      #debugger
+      
       
       @search_param = params[:search]
       @saved_searches = current_user.save_searches.all
       
       if params[:search].nil?
+
         # search from current_user's scope  
         @photos = Photo.find(:all, 
           :conditions => ["audit_id in (?) AND category_id in (?) AND published = ?", 
             @audits_in_country, @categories, true])                    
       else 
         #@photos = Photo.search(params[:search])
-        unless params[:search][:postcode].blank?
-          postcode = params[:search][:postcode]
-        end
+        # unless params[:search][:postcode].blank?
+        #   postcode = params[:search][:postcode]
+        # end
         
         unless params[:search][:fromDate].blank?
           from_date = DateTime.parse(params[:search][:fromDate])
@@ -153,7 +174,7 @@ class PhotosController < ApplicationController
         unless params[:search][:category].blank?
           @search_category = params[:search][:category]
         else
-          @search_category = @categories
+          @search_category = @categories.map(&:id)
         end
         unless params[:search][:country_id].blank?
           @search_country = params[:search][:country_id]
@@ -180,46 +201,49 @@ class PhotosController < ApplicationController
         unless params[:search][:pchannel].blank?
           @search_channel = params[:search][:pchannel]
         else
-          @search_channel = @channels
+          @search_channel = @channels.map(&:id)
         end
         unless params[:search][:media_type].blank?
           @search_mtype = params[:search][:media_type]
         else
-          @search_mtype = @media_types
+          @search_mtype = @media_types.map(&:id)
         end
         unless params[:search][:media_v].blank?
           @search_mv = params[:search][:media_v]
         else
-          @search_mv = @media_vehicles
+          @search_mv = @media_vehicles.map(&:id)
         end
         unless params[:search][:media_loc].blank?
           @search_ml = params[:search][:media_loc]
         else
-          @search_ml = @media_locations
+          @search_ml = @media_locations.map(&:id)
         end
         unless params[:search][:brand].blank?
           @search_brands = params[:search][:brand]
         else
-          @search_brands = @brands
+          @search_brands = @brands.map(&:id)
         end
         unless params[:search][:theme].blank?
           @search_themes = params[:search][:theme]
         else
-          @search_themes = @themes
+          @search_themes = @themes.map(&:id)
         end
         
-        
-        # save searches  
-        @params = params[:search] unless params[:search].nil?
-        
-        @photos = Photo.joins(:audit)
-          .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
-            AND media_type_id IN (?) AND media_vehicle_id IN (?) AND media_location_id IN (?) AND brand_id IN (?)
-            AND brand_id IN (?)
-            AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?) AND published = ?', 
-            from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brands, @search_themes,
-            @stores_in_country, @env_type, @search_channel, true)
-        
+          # @photos = Photo.joins(:audit)
+          #   .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
+          #     AND media_type_id IN (?) AND media_vehicle_id IN (?) AND media_location_id IN (?) AND brand_id IN (?)
+          #     AND brand_id IN (?)
+          #     AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?) AND published = ?', 
+          #     from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brands, @search_themes,
+          #     @stores_in_country, @env_type, @searech_channel, true)  
+      
+          @photos = Photo.joins(:audit)
+            .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?)
+              AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND published = ?', 
+              from_date, to_date, @search_category, @stores_in_country, @env_type, true)  
+
+             
+        debugger
       end
 
 

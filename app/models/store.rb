@@ -8,6 +8,9 @@ class Store < ActiveRecord::Base
   belongs_to :location
   has_many :audits
   
+  # scope :by_retailer, lambda do |retailer|
+  #   joins(:profile).where('profile.age = ?', age) unless age.nil?
+  # end  
 
    geocoded_by :full_address
   after_validation :geocode, :if => :address_changed?

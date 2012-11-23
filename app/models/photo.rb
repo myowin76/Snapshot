@@ -46,9 +46,9 @@ class Photo < ActiveRecord::Base
 
     acts_as_gmappable :process_geocoding => false
 
-    def find_photos
-      find(:all, :conditions => conditions)
-    end
+    # def find_photos
+    #   find(:all, :conditions => conditions)
+    # end
 
     def category_tokens=(ids)
       # self.category_id = Category.ids_from_tokens(tokens)
@@ -59,32 +59,24 @@ class Photo < ActiveRecord::Base
     def category_array(ids)
       self.category_ids = ids.split(",")
     end
-    #def self.search(search)
-    #  if search
-        #find_by_postcode()
-        
-        #find(:all, :conditions => ['category_id IN (?)', "category[]"])
-    #    find(:all, :conditions => ['created_at > (?)', Date.parse("%#{search}%")])
-
-        
-    #  else
-    #    find(:all)
-    #  end
-    #end
-
-    def self.search options
-      
-        # need to check subscribed categories in condition
-        Photo.find(:all, :conditions => conditions)    
-      
-
-    end
-    def change_to_array
-      # category_id = params[:category_id].join(",")
-    end
-
-    private #------------------------------
     
+    def self.search(search)
+
+
+     if search.present?
+        find(:all, :conditions => conditions)                    
+        # debugger   
+     else
+       find(:all)
+
+     end
+    end
+
+    
+    
+    def self.category_conditions
+      ["category_id IN ?", search[:category_id]] unless search[:category_id].blank?
+    end
     def date_filter_conditions
       ['photos.created_at >= (?) AND photos.created_at <= (?)', 
           Date.parse(options[:fromDate]), Date.parse(options[:toDate])]
@@ -110,19 +102,19 @@ class Photo < ActiveRecord::Base
       #["media_type_id = ?", promo_type] unless promo_type.blank?
     end
     
-    def conditions
+    def self.conditions
       [conditions_clauses.join(' AND '), *conditions_options]
     end
 
-    def conditions_clauses
+    def self.conditions_clauses
       conditions_parts.map { |condition| condition.first }
     end
 
-    def conditions_options
+    def self.conditions_options
       conditions_parts.map { |condition| condition[1..-1] }.flatten
     end
 
-    def conditions_parts
+    def self.conditions_parts
       private_methods(false).grep(/_conditions$/).map { |m| send(m) }.compact
     end
 
