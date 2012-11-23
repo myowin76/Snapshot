@@ -19,11 +19,11 @@
     </tr>
     <tr>
       <td>Brand</td>
-      <td><%= @photo.brand.name %></td>
+      <td><%= @photo.brand.name unless @photo.brand_id.nil? %></td>
     </tr>
     <tr>
       <td>Brand Owner</td>
-      <td><%= @photo.brand.brand_owner.name %></td>
+      <td><%= @photo.brand.brand_owner.name unless @photo.brand.brand_owner_id.nil? %></td>
     </tr>
     <tr>
       <td>Additional Brands</td>
