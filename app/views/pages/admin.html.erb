@@ -30,7 +30,7 @@
         </td>
         <td><%= photo.created_at %></td>
         <td>
-          <%= photo.category.name %>
+          <%= photo.category.name unless photo.category_id.nil? %>
         </td>
         <td><%= link_to photo.audit.user.email %></td>
     	</tr>

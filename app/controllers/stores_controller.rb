@@ -42,6 +42,7 @@ class StoresController < ApplicationController
     
     @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
     @photo_category = @photos.group_by { |c| c.category.id }
+
     
     respond_to do |format|
       format.html # show.html.erb
