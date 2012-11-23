@@ -23,13 +23,13 @@ class	PhotoPdf < Prawn::Document
 		text "Store: #{@photo.audit.store.name}", :size => 12
 		text "Retailer: #{@photo.audit.retailer.name}", :size => 12
 
-		text "Promotion Calendar: #{@photo.promotion_calendar.name}"
-		text "Promotion Type: #{@photo.promotion_type.name}"
-		text "Media Location: #{@photo.media_location.name}"
-		text "Media Type: #{@photo.media_type.name}"
+		text "Promotion Calendar: #{@photo.promotion_calendar.name unless @photo.promotion_calendar_id.nil? }"
+		text "Promotion Type: #{@photo.promotion_type.name unless @photo.promotion_type_id.nil? }"
+		text "Media Location: #{@photo.media_location.name  unless @photo.media_location_id.nil? }"
+		text "Media Type: #{@photo.media_type.name unless @photo.media_type_id.nil? }"
 		text "Sector: #{@photo.audit.store.retailer.sector.name}"
 		text "Environment Type: #{@photo.audit.environment_type.name}"
-		text "Media Vehicle: #{@photo.media_vehicle.name}"
+		text "Media Vehicle: #{@photo.media_vehicle.name unless @photo.media_vehicle_id.nil? }"
 		text "Country: #{@photo.audit.store.country.name}"
 		text "Store Format: #{@photo.audit.store.store_format.name}"
 		
