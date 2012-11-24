@@ -1,5 +1,7 @@
 
-<div class="loading" title="loading..please wait"></div>
+<div id="loader_cont" style="display: none;">
+  <img src="/assets/loading_red.gif">
+</div>
 <table id="photo-list" class="table table-striped">
   <thead>
     <tr>
@@ -23,7 +25,7 @@
           </td>
           <td>
               <%#= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
-              <%= link_to image_tag(photo.photo.url(:thumb)), photo  %>
+              <%= link_to image_tag(photo.photo.url(:thumb)), photo, remote: true, "data-toggle" => "modal" %>
           </td>
           <td>
             <%= photo.audit.store.retailer.name %><br />

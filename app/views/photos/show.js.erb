@@ -1,6 +1,3 @@
-//$('#wrap > .container-fluid > .row-fluid').html{}
-$("#wrap > .container-fluid > .row-fluid").hide()
-$("#wrap > .container-fluid").html("<%= j render("show_view") %>");
-$('#back').click(function(){
-	
-});
+
+$("#photo-detail-model").html("<%= j render("show_view") %>");
+$("#photo-detail-model").modal();

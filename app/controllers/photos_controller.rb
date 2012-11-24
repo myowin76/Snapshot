@@ -113,7 +113,6 @@ class PhotosController < ApplicationController
                 @stores_in_country = Store.find(:all,
                     :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
                      params[:search][:country_id], @retailers])
-
               end  
 
             end
@@ -131,16 +130,16 @@ class PhotosController < ApplicationController
         @stores_in_country = Store.find_all_by_country_id(@countries)
       end
       
-      @channels = Channel.all
+      @channels = Channel.order(:name)
       @locations = Location.find_all_by_country_id(@countries)
-      @promo_calendars = PromotionCalendar.all
-      @brands = Brand.all
-      @themes = Theme.all
-      @promo_types = PromotionType.all
-      @media_types = MediaType.all
-      @media_vehicles = MediaVehicle.all
-      @media_locations = MediaLocation.all
-      @env_types = EnvironmentType.all
+      @promo_calendars = PromotionCalendar.order(:name)
+      @brands = Brand.order(:name)
+      @themes = Theme.order(:name)
+      @promo_types = PromotionType.order(:name)
+      @media_types = MediaType.order(:name)
+      @media_vehicles = MediaVehicle.order(:name)
+      @media_locations = MediaLocation.order(:name)
+      @env_types = EnvironmentType.order(:name)
       
       #@audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
       @audits_in_country = Audit.find_all_by_store_id(@stores_in_country.map(&:id))
@@ -236,14 +235,16 @@ class PhotosController < ApplicationController
           #     AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?) AND published = ?', 
           #     from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brands, @search_themes,
           #     @stores_in_country, @env_type, @searech_channel, true)  
-      
-          @photos = Photo.joins(:audit)
-            .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?)
-              AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND published = ?', 
-              from_date, to_date, @search_category, @stores_in_country, @env_type, true)  
+        # @photos = Photo.search_by params[:search]
+        
 
-             
-        debugger
+          @photos = Photo.joins(:audit)
+            .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND brand_id IN (?)
+              AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?) AND published = ?', 
+              from_date, to_date, @search_category, @search_brands,
+              @stores_in_country, @env_type, @search_channel, true)  
+
+sleep 2
       end
 
 

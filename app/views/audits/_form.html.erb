@@ -35,17 +35,10 @@
     
     <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
-          <%= photo_fields.file_field :photo, :class=>'file-upload' %><br />
-          <%#= render :partial => "file_upload", :locals => { photo_fields => :photo } %>  
+          <%= render "file_upload", :photos => photo_fields %>  
       <% end %>
     <% end %>
-    <script id="template-upload" type="text/x-tmpl">
-    <div class="upload">
-      {%=o.name%}
-      <div class="progress"><div class="bar" style="width: 0%"></div></div>
-    </div>
-    </script>
-
+    <%#= link_to "Add Image Upload", "#", class: "add_field" %>
 
     <section style="clear:both;overflow:hidden;">
     <%= f.fields_for :photos do |photo_fields| %>      

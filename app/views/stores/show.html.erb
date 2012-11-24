@@ -3,7 +3,7 @@
     <h1><%= @store.name %></h1>
   </div>
 </div>
-<div class="span8">
+<div class="span12">
   <p>
     <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
   </p>
@@ -33,17 +33,27 @@
   </p>
 
     <% unless @photo_category.nil? %>
+      <div class="widget">
       <% @photo_category.each do |category, photos| %>  
         <% category = Category.find_by_id(category) %>
-
-        <br /><h4><%= category.name %></h4>
-        <% for photo in photos %>
-          
-            <%= link_to image_tag(photo.photo.url(:thumb)), photo  %>
-            
-        <% end %> 
+        
+          <header>
+            <h4><%= category.name %></h4>
+            <ul class="toggle_content" style="display: none;">                         
+              <li class="arrow"><a href="#">Toggle Content</a></li>
+            </ul>
+          </header>
+          <section class="group">
+            <ul class="gallery_basic" id="basicGallery">
+              <% for photo in photos %>
+                <li><%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true, "data-toggle" => "modal" %></li>
+              <% end %> 
+            </ul>
+          </section>
+        
       <% end %>     
     <% end %>  
+    </div>  
 
   <%#= link_to 'Edit', edit_store_path(@store) %>
   <%#= link_to 'Back', stores_path %>

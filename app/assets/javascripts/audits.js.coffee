@@ -5,6 +5,12 @@ jQuery ->
     theme: 'facebook'
     prePopulate: $('.category-tokens').data('load')
   ###$('#audit_store_id').parent().hide()###
+  $('form').on 'click', '.remove_field', (event) ->
+    $(this).closest('.upload-field').remove()
+    event.preventDefault()
+  ###$('form').on 'click', '.add_field', (event) ->
+    $(this).before($(this).closest('.upload-field'))
+    event.preventDefault()    ###
   store = $('#audit_store_id').html()
   $('#audit_retailer_id').change ->
     retailer = $('#audit_retailer_id :selected').text()

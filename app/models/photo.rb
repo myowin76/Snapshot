@@ -46,6 +46,11 @@ class Photo < ActiveRecord::Base
 
     acts_as_gmappable :process_geocoding => false
 
+    scope :published, lambda { where("published = ?", true) }
+    # scope :published, lambda { where("published = ?", true) }
+    # named_scope :by_category, lambda do |category_id|
+    #   joins(:category).where('category.id IN (?)', cat) unless category_id.nil?
+    # end
     # def find_photos
     #   find(:all, :conditions => conditions)
     # end
@@ -55,55 +60,58 @@ class Photo < ActiveRecord::Base
       self.category_id = ids.split(",")
       
     end
+    def published?
+      published == 1
+    end
     
     def category_array(ids)
       self.category_ids = ids.split(",")
     end
     
-    def self.search(search)
-
-
-     if search.present?
-        find(:all, :conditions => conditions)                    
-        # debugger   
-     else
-       find(:all)
-
-     end
-    end
-
-    
-    
-    def self.category_conditions
-      ["category_id IN ?", search[:category_id]] unless search[:category_id].blank?
-    end
-    def date_filter_conditions
-      ['photos.created_at >= (?) AND photos.created_at <= (?)', 
-          Date.parse(options[:fromDate]), Date.parse(options[:toDate])]
+    def self.search_by(params)
+      find(:all, :conditions => conditions ) 
+      
     end
     
-    def promotion_cal_conditions
+    private
+
+    def self.find_photos
+      photos = Photo.all  
+    end
+    
+    def category_conditions
+      ["category_id IN ?", params[:search][:category]] unless search[:category].blank?
+      
+    end
+    def self.date_filter_conditions
+      # ['photos.created_at >= (?) AND photos.created_at <= (?)', 
+      #     Date.parse(options[:fromDate]), Date.parse(options[:toDate])]
+    end
+    
+    def self.promotion_cal_conditions
       #["promotion_calendar_id = ?", promo_cal] unless promo_cal.blank?
     end
     
-    def promotion_type_conditions
+    def self.promotion_type_conditions
       #["promotion_type_id = ?", promo_type] unless promo_type.blank?
     end
     
-    def media_vehicle_conditions
+    def self.media_vehicle_conditions
       #["media_vehicle_id = ?", promo_type] unless promo_type.blank?
     end
     
-    def media_location_conditions
+    def self.media_location_conditions
       #["media_location_id = ?", media_loc] unless media_loc.blank?
     end
     
-    def media_type_conditions
+    def self.media_type_conditions
       #["media_type_id = ?", promo_type] unless promo_type.blank?
     end
     
     def self.conditions
+
       [conditions_clauses.join(' AND '), *conditions_options]
+      debugger
     end
 
     def self.conditions_clauses
@@ -116,6 +124,7 @@ class Photo < ActiveRecord::Base
 
     def self.conditions_parts
       private_methods(false).grep(/_conditions$/).map { |m| send(m) }.compact
+      debugger
     end
 
 
