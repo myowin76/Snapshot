@@ -45,9 +45,17 @@ class Photo < ActiveRecord::Base
 
 
     acts_as_gmappable :process_geocoding => false
+    scope :published, where(:published => true)
+    scope :unpublished, where(:published => false)
 
-    scope :published, lambda { where("published = ?", true) }
+    scope :by_audits_in_stores, lambda { |stores, environment, channel|
+      joins(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
+         stores, environment, channel) }
+      
+    
+    
     # scope :published, lambda { where("published = ?", true) }
+
     # named_scope :by_category, lambda do |category_id|
     #   joins(:category).where('category.id IN (?)', cat) unless category_id.nil?
     # end

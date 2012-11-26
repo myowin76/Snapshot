@@ -8,7 +8,6 @@ class PagesController < ApplicationController
   def contact
   end
   def admin
-		@unpublished_photos = Photo.find(:all, :conditions =>['published = ?', false])  	
-		
+		@unpublished_photos = Photo.unpublished  
   end
 end

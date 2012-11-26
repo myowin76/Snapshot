@@ -6,132 +6,55 @@ class PhotosController < ApplicationController
     
     if user_is_country_and_category_subscriber?
       
-      # NEW SEARCH START
-        # @countries = Country.find(current_user.subscription.sub_country.split(","))
-        # @categories = Subscription.categories_by(current_user)
-
-        #   unless params[:search].nil?
-        #     if params[:search][:country_id].blank?
-        #       # for all country search
-        #       @stores_in_country = Store.find_all_by_country_id(@countries)
-        #     else
-        #       # country selected
-        #       @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
-        #     end
-        #   else
-        
-        #   end        
-      # NEW SEARCH ENDS
-
       @countries = Country.find(current_user.subscription.sub_country.split(","))
-      @categories = Subscription.categories_by(current_user)
+      @categories = Category.find(current_user.subscription.sub_cats.split(","))
+      # need to check category and country
+      @stores = Store.where('country_id IN (?)', @countries.map(&:id))
+      @store_formats = StoreFormat.order(:name)
+      
+      # @categories = Subscription.categories_by(current_user)
 
       unless params[:search].nil?
         
-        unless params[:search][:sformat].blank?
-          @store_formats = (params[:search][:sformat])
-        else
-          @store_formats = StoreFormat.all
-        end
-        # search
-        
-        if params[:search][:country_id].blank?
-          # for all country search
-          @stores_in_country = Store.find_all_by_country_id(@countries)
-        else
-           if params[:search][:location].present?
-            @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where('id IN (?)', ['1','2'])  
-           else
-            @stores_in_country = Store.find_all_by_country_id(params[:search][:country_id])
-           end 
+        # Country Search
+        if params[:search][:country_id].present?
           # for selected country
-          
+          @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
+        # else
+        #   # for all country search
+        #   @stores_in_country = @stores.where('country_id IN (?)', @countries.map(&:id))
         end
 
-        if params[:search][:sectors].blank?
-          @sectors = Sector.all
-          #@retailers = Retailer.find_all_by_id(@sectors)  
-          @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
-            
-            unless params[:search][:retailers].blank? 
-              #location check
-              if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
-                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
-                    params[:search][:country_id], params[:search][:retailers], @store_formats
-                  )
+        if params[:search][:sformat].present?
+          # @store_formats = (params[:search][:sformat])
+          @stores = @stores.where('store_format_id IN (?)', params[:search][:sformat])
+        end
+        # Location Search
+        if params[:search][:location].present?
+          @stores = @stores.near(params[:search][:location], 25, :order => :distance)
+          # .where('id IN (?)', ['5','9'])    
+        end 
 
-              else  
-
-                @stores_in_country = Store.find(:all,
-                  :conditions => ['country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
-                  params[:search][:country_id], params[:search][:retailers], @store_formats])
-              end  
-            else
-              if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
-                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
-                    params[:search][:country_id], Retailer.all, @store_formats
-                  )
-            
-              else              
-                @stores_in_country = Store.find(:all,
-                  :conditions => ['country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)',  
-                  params[:search][:country_id], @retailers, @store_formats])    
-              end  
-            end
-            
+        if params[:search][:sectors].present?
+          @stores = @stores.joins(:retailer).where('retailers.sector_id IN (?)', params[:search][:sectors])
+          @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors])
         else
-          @sectors = Sector.all
-          @sector_chk = Sector.find_all_by_id(params[:search][:sectors])  
-          @retailers = Retailer.find_all_by_sector_id(@sector_chk.map(&:id))
-          
-          if params[:search][:country_id].blank?
-            # for all country search
-            @stores_in_country = Store.find_all_by_country_id(@countries)
-          else
-            # for selected country
-            unless params[:search][:retailers].blank?
-              if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
-                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
-                    params[:search][:country_id], params[:search][:retailers], @store_formats
-                  )
-              else               
-                @stores_in_country = Store.find(:all,
-                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                    params[:search][:country_id], params[:search][:retailers]])
-              end  
-            else
-              if params[:search][:location].present?
-                @stores_in_country = Store.near(params[:search][:location], 25, :order => :distance).where(
-                    'country_id IN (?) AND retailer_id IN (?) AND store_format_id IN (?)', 
-                    params[:search][:country_id], params[:search][:retailers], @store_formats
-                  )
-                #debugger
-              else              
-                @stores_in_country = Store.find(:all,
-                    :conditions => ['country_id IN (?) AND retailer_id IN (?)', 
-                     params[:search][:country_id], @retailers])
-              end  
-
-            end
-          end  
+          @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
         end
-        #unless params[:search][:postcode].blank? 
-        #  @stores_in_country = Store.by_postcode(params[:search][:postcode])
-        #end
+
+        if params[:search][:retailers].present?
+          @stores = @stores.where('retailer_id IN (?)', params[:search][:retailers])
+        end
+          
       else
         # page load
-        @sectors = Sector.all
-        @store_formats = StoreFormat.all
-        #@retailers = Retailer.all
+        @sectors = Sector.order(:name)
         @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
-        @stores_in_country = Store.find_all_by_country_id(@countries)
+        @stores = @stores.where('country_id IN (?)', @countries.map(&:id))
       end
       
+      
       @channels = Channel.order(:name)
-      @locations = Location.find_all_by_country_id(@countries)
       @promo_calendars = PromotionCalendar.order(:name)
       @brands = Brand.order(:name)
       @themes = Theme.order(:name)
@@ -141,146 +64,83 @@ class PhotosController < ApplicationController
       @media_locations = MediaLocation.order(:name)
       @env_types = EnvironmentType.order(:name)
       
-      #@audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
-      @audits_in_country = Audit.find_all_by_store_id(@stores_in_country.map(&:id))
-      
-      
-      @search_param = params[:search]
+
+      @audits_in_country = Audit.find_all_by_store_id(@stores)
       @saved_searches = current_user.save_searches.all
       
       if params[:search].nil?
-
         # search from current_user's scope  
-        @photos = Photo.find(:all, 
-          :conditions => ["audit_id in (?) AND category_id in (?) AND published = ?", 
-            @audits_in_country, @categories, true])                    
+        @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
+                  .where('category_id in (?) AND published = ?', @categories, true)
+                            
       else 
-        #@photos = Photo.search(params[:search])
-        # unless params[:search][:postcode].blank?
-        #   postcode = params[:search][:postcode]
-        # end
         
-        unless params[:search][:fromDate].blank?
-          from_date = DateTime.parse(params[:search][:fromDate])
-        else
-          from_date = DateTime.parse('01/01/1970')
-        end
-        unless params[:search][:toDate].blank?
-          to_date = DateTime.parse(params[:search][:toDate])
-        else
-          to_date = DateTime.now
-        end
-        unless params[:search][:category].blank?
-          @search_category = params[:search][:category]
-        else
-          @search_category = @categories.map(&:id)
-        end
-        unless params[:search][:country_id].blank?
-          @search_country = params[:search][:country_id]
-        else
-          @search_country = @countries
-        end
+        from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')
+        to_date = params[:search][:toDate].present? ? params[:search][:toDate] : DateTime.now
+        @search_category = params[:search][:category] ? params[:search][:category] : @categories
+        # @search_country = params[:search][:country_id] ? params[:search][:country_id] : @countries.map(&:id)
+        @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
+        @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
         
-        unless params[:search][:promo_cal].blank?
-          @promo_cal = params[:search][:promo_cal]
-        else
-          @promo_cal = PromotionCalendar.all
-        end
-        unless params[:search][:promo_type].blank?
-          @promo_type = params[:search][:promo_type]
-        else
-          @promo_type = PromotionType.all
-        end
-        unless params[:search][:env_type].blank?
-          @env_type = params[:search][:env_type]
-        else
-          @env_type = EnvironmentType.all
-        end
-        
-        unless params[:search][:pchannel].blank?
-          @search_channel = params[:search][:pchannel]
-        else
-          @search_channel = @channels.map(&:id)
-        end
-        unless params[:search][:media_type].blank?
-          @search_mtype = params[:search][:media_type]
-        else
-          @search_mtype = @media_types.map(&:id)
-        end
-        unless params[:search][:media_v].blank?
-          @search_mv = params[:search][:media_v]
-        else
-          @search_mv = @media_vehicles.map(&:id)
-        end
-        unless params[:search][:media_loc].blank?
-          @search_ml = params[:search][:media_loc]
-        else
-          @search_ml = @media_locations.map(&:id)
-        end
-        unless params[:search][:brand].blank?
-          @search_brands = params[:search][:brand]
-        else
-          @search_brands = @brands.map(&:id)
-        end
-        unless params[:search][:theme].blank?
-          @search_themes = params[:search][:theme]
-        else
-          @search_themes = @themes.map(&:id)
-        end
-        
-          # @photos = Photo.joins(:audit)
-          #   .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND promotion_calendar_id IN (?)
-          #     AND media_type_id IN (?) AND media_vehicle_id IN (?) AND media_location_id IN (?) AND brand_id IN (?)
-          #     AND brand_id IN (?)
-          #     AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?) AND published = ?', 
-          #     from_date, to_date, @search_category, @promo_cal, @search_mtype, @search_mv, @search_ml, @search_brands, @search_themes,
-          #     @stores_in_country, @env_type, @searech_channel, true)  
-        # @photos = Photo.search_by params[:search]
-        
+          @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+          
+          unless params[:search][:promo_cal]
+            @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars)
+          else
+            @photos = @photos.where('promotion_calendar_id IN (?)', params[:search][:promo_cal])
+          end  
+          unless params[:search][:promo_types]
+            @photos = @photos.where('promotion_type_id IS NULL OR promotion_type_id IN (?)', @promo_types.map(&:id)) 
+          else
+            @photos = @photos.where('promotion_type_id IN (?)', params[:search][:promo_types]) 
+          end  
+          unless params[:search][:media_type]
+            @photos = @photos.where('media_type_id IS NULL OR media_type_id IN (?)', @media_types.map(&:id)) 
+          else
+            @photos = @photos.where('media_type_id IN (?)', params[:search][:media_type]) 
+          end
+          unless params[:search][:media_v]
+            @photos = @photos.where('media_vehicle_id IS NULL OR media_vehicle_id IN (?)', @media_vehicles.map(&:id)) 
+          else
+            @photos = @photos.where('media_vehicle_id IN (?)', params[:search][:media_v]) 
+          end
+          unless params[:search][:media_loc]
+            @photos = @photos.where('media_location_id IS NULL OR media_location_id IN (?)', @media_locations.map(&:id)) 
+          else
+            @photos = @photos.where('media_location_id IN (?)', params[:search][:media_loc]) 
+          end
+          unless params[:search][:brands]
+            @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
+          else
+            @photos = @photos.where('brand_id IN (?)', params[:search][:brands]) 
+          end
+          unless params[:search][:themes]
+            @photos = @photos.where('theme_id IS NULL OR theme_id IN (?)', @themes.map(&:id)) 
+          else
+            @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
+          end      
 
-          @photos = Photo.joins(:audit)
-            .where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND brand_id IN (?)
-              AND audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?) AND published = ?', 
-              from_date, to_date, @search_category, @search_brands,
-              @stores_in_country, @env_type, @search_channel, true)  
-
-sleep 2
+          @photos = @photos.where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND published = ?', 
+            from_date, to_date, @search_category, true )
+          
+        sleep 2
       end
 
 
     elsif user_is_country_subscriber?
-      # TO CHECK ONLY COUNTRY/IES USER SUBSCRIBED
-      @countries = Subscription.countries_by(current_user)
-      @locations = Location.find_all_by_country_id(@countries)
-      # if not post request with params(first load), find all photos OR with limit amount
-      @stores_in_country = Store.find_all_by_country_id(@countries)
       
-      #@retailers_in_country = Retailer.find_all_by_id(@store_in_country, :select => 'DISTINCT id', :order => 'name')
-      @retailers = Retailer.all
-      @audits_in_country = Audit.find_all_by_store_id(@stores_in_country)
-      
-      @categories = Category.all
-      @photos = Photo.find_all_by_audit_id(@audits_in_country)  
 
     elsif user_is_category_subscriber?
-      @countries = Country.all
-      @stores_in_country = Store.find_all_by_country_id(@countries)
-      @categories = Category.find(current_user.sub_cats.split(","))
-      @photos = Photo.find_all_by_category_id(@categories)          
-      #@audits = Audit.find_all_by_id(@stores_in_country)
-      @retailers = Retailer.all
+      
       
     else 
       # SOMETHING ELSE
-      # @subscribed_country = "none"
+
     end
 
-    #debugger
-    #@photos = Photo.search(params[:search])    
-  
     # MAP
     
-      @json = @stores_in_country.to_gmaps4rails do |store, marker|
+      @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({
                         #:picture => "http://www.blankdots.com/img/github-32x32.png",

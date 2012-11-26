@@ -21,6 +21,11 @@ class Store < ActiveRecord::Base
   # scope :by_postcode, lambda{|postcode| where('postcode LIKE ?', "%#{postcode}%") unless postcode.blank? }    
   validates :postcode, :presence => true, :uniqueness => true
 
+  # scope :in_countries, lambda{ |c_ids| where('country_id IN (?)', c_ids) }
+  scope :by_sectors, lambda { |sectors|
+      joins(:retailer).where('retailers.sector_id IN (?)',
+         sectors) }  
+
   def full_address
     [address, address2, postcode].join(',')
   end

@@ -7,6 +7,7 @@ jQuery.fn.submitOnCheck = ->
   this
   
 jQuery ->
+  ###$('#photo-list').dataTable()###
   $('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
   $('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})
   

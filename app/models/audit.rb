@@ -12,6 +12,9 @@ class Audit < ActiveRecord::Base
   accepts_nested_attributes_for :photos, :allow_destroy => true 
   validates :retailer_id, :presence => true
 
+  scope :all_in_the_country, lambda { |country|
+      joins(:store).where('store.country_id IN (?)',
+         country) }
 
   #def get_current_user_id
   #	self.user_id = current_user.id
