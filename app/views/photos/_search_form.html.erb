@@ -94,11 +94,16 @@
         <div class="accordion-inner">
           <% for brand in @brands %>
             <% if params[:search] && params[:search][:brands] && params[:search][:brands].include?(brand.id.to_s) %>
-              <%= check_box_tag "search[brands][]", brand.id, :check => "checked"  %>
+              <%= label_tag "search[brands][#{brand.id}]" do %>
+                <%= check_box_tag "search[brands][]", brand.id, :check => "checked", :id => "search_brands_#{brand.id}" %>
+                <%= brand.name %><br />
+              <% end %>  
             <% else %>  
-              <%= check_box_tag "search[brands][]", brand.id %>
+              <%= label_tag "search[brands][#{brand.id}]" do %>
+                <%= check_box_tag "search[brands][]", brand.id, false, :id => "search_brands_#{brand.id}" %>
+                <%= brand.name %><br />
+              <% end %>  
             <% end %>  
-            <%= brand.name %><br />
           <% end %>  
         </div>
       </div>
@@ -140,13 +145,13 @@
         <div class="accordion-inner">
           <% for channel in @channels %>
             <% if params[:search] && params[:search][:pchannel] && params[:search][:pchannel].include?(channel.id.to_s) %>
-              <%= label_tag "search[pchannel][]" do %>
-                <%= check_box_tag "search[pchannel][]", channel.id, true, :id => "search_channel_#{channel.id}" %>
+              <%= label_tag "search[pchannel][#{channel.id}]" do %>
+                <%= check_box_tag "search[pchannel][]", channel.id, true, :id => "search_pchannel_#{channel.id}" %>
                 <%= channel.name %>
               <% end %>  
             <% else %>
-              <%= label_tag "search[pchannel][]" do %>
-                <%= check_box_tag "search[pchannel][]", channel.id, false, :id => "search_channel_#{channel.id}" %>
+              <%= label_tag "search[pchannel][#{channel.id}]" do %>
+                <%= check_box_tag "search[pchannel][]", channel.id, false, :id => "search_pchannel_#{channel.id}" %>
                 <%= channel.name %>
               <% end %>
             <% end %>
@@ -164,13 +169,13 @@
         <div class="accordion-inner">
           <% for env_type in @env_types %>
             <% if params[:search] && params[:search][:env_types] && params[:search][:env_types].include?(env_type.id.to_s) %>
-              <%= label_tag "search[env_types][]" do %>
-                <%= check_box_tag "search[env_types][]", env_type.id, :check => "checked"  %>
+              <%= label_tag "search[env_types][#{env_type.id}]" do %>
+                <%= check_box_tag "search[env_types][]", env_type.id, :check => "checked", :id => "search_env_types_#{env_type.id}" %>
                 <%= env_type.name %>
               <% end %>  
             <% else %>
-              <%= label_tag "search[env_types][]" do %>
-                <%= check_box_tag "search[env_types][]", env_type.id %>
+              <%= label_tag "search[env_types][#{env_type.id}]" do %>
+                <%= check_box_tag "search[env_types][]", env_type.id, false, :id => "search_env_types_#{env_type.id}" %>
                 <%= env_type.name %>
               <% end %>  
             <% end %>  
@@ -188,13 +193,13 @@
         <div class="accordion-inner">
           <% for sf in @store_formats %>
             <% if params[:search] && params[:search][:sformats] && params[:search][:sformats].include?(sf.id.to_s) %>
-              <%= label_tag "search[sformats][]" do %>
-                <%= check_box_tag "search[sformats][]", sf.id, true, :id => "search_sectors_#{sector.id}" %>
+              <%= label_tag "search[sformats][#{sf.id}]" do %>
+                <%= check_box_tag "search[sformats][]", sf.id, true, :id => "search_sectors_#{sf.id}" %>
                 <%= sf.name %>
               <% end %>  
             <% else %> 
-              <%= label_tag "search[sformats][]" do %> 
-                <%= check_box_tag "search[sformats][]", sf.id, false, :id => "search_sectors_#{sector.id}" %>
+              <%= label_tag "search[sformats][#{sf.id}]" do %> 
+                <%= check_box_tag "search[sformats][]", sf.id, false, :id => "search_sectors_#{sf.id}" %>
                 <%= sf.name %>
               <% end %>  
             <% end %>
@@ -213,12 +218,12 @@
           <% for media_location in @media_locations %>
             <% if params[:search] && params[:search][:media_loc] && params[:search][:media_loc].include?(media_location.id.to_s) %>
               <%= label_tag "search[media_loc][#{media_location.id}]" do %>    
-                <%= check_box_tag "search[media_loc][]", media_location.id, :check => "checked"  %>
+                <%= check_box_tag "search[media_loc][]", media_location.id, :check => "checked", :id => "search_media_loc_#{media_location.id}" %>
                 <%= media_location.name %><br />
               <% end %>    
             <% else %>
               <%= label_tag "search[media_loc][#{media_location.id}]" do %>      
-                <%= check_box_tag "search[media_loc][]", media_location.id %>
+                <%= check_box_tag "search[media_loc][]", media_location.id, false, :id => "search_media_loc_#{media_location.id}" %>
                 <%= media_location.name %><br />
               <% end %>    
             <% end %>  
@@ -237,12 +242,12 @@
           <% for media_vehicle in @media_vehicles %>
             <% if params[:search] && params[:search][:media_v] && params[:search][:media_v].include?(media_vehicle.id.to_s) %>
               <%= label_tag "search[media_v][#{media_vehicle.id}]" do %>    
-                <%= check_box_tag "search[media_v][]", media_vehicle.id, :check => "checked"  %>
+                <%= check_box_tag "search[media_v][]", media_vehicle.id, :check => "checked", :id => "search_media_v_#{media_vehicle.id}" %>
                 <%= media_vehicle.name %><br />
               <% end %>    
             <% else %>
               <%= label_tag "search[media_v][#{media_vehicle.id}]" do %>      
-                <%= check_box_tag "search[media_v][]", media_vehicle.id, false, :id => "search_vehicle_#{media_vehicle.id}" %>
+                <%= check_box_tag "search[media_v][]", media_vehicle.id, false, :id => "search_media_v_#{media_vehicle.id}" %>
                 <%= media_vehicle.name %><br />
               <% end %>    
             <% end %>  
@@ -262,12 +267,12 @@
           <% for media_type in @media_types %>
             <% if params[:search] && params[:search][:media_type] && params[:search][:media_type].include?(media_type.id.to_s) %>
               <%= label_tag "search[media_type][#{media_type.id}]" do %>    
-                <%= check_box_tag "search[media_type][]", media_type.id, :check => "checked"  %>
+                <%= check_box_tag "search[media_type][]", media_type.id, :check => "checked", :id => "search_media_type_#{media_type.id}" %>
                 <%= media_type.name %><br />
               <% end %>  
             <% else %>
               <%= label_tag "search[media_type][#{media_type.id}]" do %>      
-                <%= check_box_tag "search[media_type][]", media_type.id, false, :id => "search_media_types_#{media_type.id}" %>
+                <%= check_box_tag "search[media_type][]", media_type.id, false, :id => "search_media_type_#{media_type.id}" %>
                 <%= media_type.name %><br />
               <% end %>    
             <% end %>  
@@ -317,7 +322,7 @@
               <% end %>
             <% else %>
               <%= label_tag "search[promo_cal][#{promo_calendar.id}]" do %>  
-                <%= check_box_tag "search[promo_cal][", promo_calendar.id, false, :id => "search_promo_cal_#{promo_calendar.id}" %>
+                <%= check_box_tag "search[promo_cal][]", promo_calendar.id, false, :id => "search_promo_cal_#{promo_calendar.id}" %>
                 <%= promo_calendar.name %>
               <% end %>
             <% end %>

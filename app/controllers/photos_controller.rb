@@ -85,7 +85,7 @@ class PhotosController < ApplicationController
           @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
           
           unless params[:search][:promo_cal]
-            @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars)
+            @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
           else
             @photos = @photos.where('promotion_calendar_id IN (?)', params[:search][:promo_cal])
           end  
