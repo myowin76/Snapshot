@@ -43,7 +43,6 @@ class Photo < ActiveRecord::Base
       :content_type => ['image/jpeg', 'image/pjpeg', 
   								   'image/jpg', 'image/png']
 
-
     acts_as_gmappable :process_geocoding => false
     scope :published, where(:published => true)
     scope :unpublished, where(:published => false)
@@ -51,89 +50,14 @@ class Photo < ActiveRecord::Base
     scope :by_audits_in_stores, lambda { |stores, environment, channel|
       joins(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
          stores, environment, channel) }
-      
-    
-    
-    # scope :published, lambda { where("published = ?", true) }
-
-    # named_scope :by_category, lambda do |category_id|
-    #   joins(:category).where('category.id IN (?)', cat) unless category_id.nil?
-    # end
-    # def find_photos
-    #   find(:all, :conditions => conditions)
-    # end
 
     def category_tokens=(ids)
       # self.category_id = Category.ids_from_tokens(tokens)
       self.category_id = ids.split(",")
       
     end
-    def published?
-      published == 1
-    end
-    
-    def category_array(ids)
-      self.category_ids = ids.split(",")
-    end
-    
-    def self.search_by(params)
-      find(:all, :conditions => conditions ) 
-      
-    end
     
     private
-
-    def self.find_photos
-      photos = Photo.all  
-    end
-    
-    def category_conditions
-      ["category_id IN ?", params[:search][:category]] unless search[:category].blank?
-      
-    end
-    def self.date_filter_conditions
-      # ['photos.created_at >= (?) AND photos.created_at <= (?)', 
-      #     Date.parse(options[:fromDate]), Date.parse(options[:toDate])]
-    end
-    
-    def self.promotion_cal_conditions
-      #["promotion_calendar_id = ?", promo_cal] unless promo_cal.blank?
-    end
-    
-    def self.promotion_type_conditions
-      #["promotion_type_id = ?", promo_type] unless promo_type.blank?
-    end
-    
-    def self.media_vehicle_conditions
-      #["media_vehicle_id = ?", promo_type] unless promo_type.blank?
-    end
-    
-    def self.media_location_conditions
-      #["media_location_id = ?", media_loc] unless media_loc.blank?
-    end
-    
-    def self.media_type_conditions
-      #["media_type_id = ?", promo_type] unless promo_type.blank?
-    end
-    
-    def self.conditions
-
-      [conditions_clauses.join(' AND '), *conditions_options]
-      debugger
-    end
-
-    def self.conditions_clauses
-      conditions_parts.map { |condition| condition.first }
-    end
-
-    def self.conditions_options
-      conditions_parts.map { |condition| condition[1..-1] }.flatten
-    end
-
-    def self.conditions_parts
-      private_methods(false).grep(/_conditions$/).map { |m| send(m) }.compact
-      debugger
-    end
 
 
 end

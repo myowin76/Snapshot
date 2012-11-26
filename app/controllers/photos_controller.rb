@@ -1,28 +1,21 @@
 class PhotosController < ApplicationController
-
-  autocomplete :store, :postcode
-
+  # autocomplete :store, :postcode
   def index
     
     if user_is_country_and_category_subscriber?
       
       @countries = Country.find(current_user.subscription.sub_country.split(","))
+      # @categories = Category.order(:name)
       @categories = Category.find(current_user.subscription.sub_cats.split(","))
       # need to check category and country
       @stores = Store.where('country_id IN (?)', @countries.map(&:id))
       @store_formats = StoreFormat.order(:name)
       
-      # @categories = Subscription.categories_by(current_user)
-
       unless params[:search].nil?
-        
         # Country Search
         if params[:search][:country_id].present?
           # for selected country
           @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
-        # else
-        #   # for all country search
-        #   @stores_in_country = @stores.where('country_id IN (?)', @countries.map(&:id))
         end
 
         if params[:search][:sformat].present?
@@ -43,6 +36,7 @@ class PhotosController < ApplicationController
         end
 
         if params[:search][:retailers].present?
+          # categories to find out in the retailers
           @stores = @stores.where('retailer_id IN (?)', params[:search][:retailers])
         end
           

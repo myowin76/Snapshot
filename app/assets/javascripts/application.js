@@ -156,6 +156,7 @@ var filterUI = {
       .find('[data-id="'+ $el.attr('id')  +'"]')
       .remove();
 
+
   },
 
   attachEventToLabel : function(el){
@@ -167,6 +168,7 @@ var filterUI = {
     $el.parent().delegate("a", "click", function() {
       that.removeLabel( '#' + $(this).attr('data-id') );
       that.uncheckCheckbox( '#' + $(this).attr('data-id') );
+      $('#search_form').submit();
     });
 
   },
