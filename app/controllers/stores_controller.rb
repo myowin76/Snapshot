@@ -40,7 +40,7 @@ class StoresController < ApplicationController
     @audits = @store.audits.find_all
     #@user_categories = Category.find(current_user.sub_cats.split(","))
     
-    @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
+    @photos = Photo.find_all_by_audit_id(@audits)
     @photo_category = @photos.group_by { |c| c.category.id }
 
     

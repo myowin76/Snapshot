@@ -11,31 +11,29 @@ namespace :stores do
 		  unless row.join.blank?
 			  # row = row.to_hash
 				# next if n == 1 or row.join.blank?
-					
-					
 
 			# # working copy don't delete
-			#    	@store_format = StoreFormat.find_by_name(row[5]) rescue nil#unless row[5].blank?
-			# 	  @retailer = Retailer.find_by_name(row[6]) rescue nil #unless row[6].blank?
-			# 	  @country = Country.find_by_name(row[7]) rescue nil #unless row[7].blank?
+		   	@store_format = StoreFormat.find_by_name(row[5]) rescue nil#unless row[5].blank?
+			  @retailer = Retailer.find_by_name(row[6]) rescue nil #unless row[6].blank?
+			  @country = Country.find_by_name(row[7]) rescue nil #unless row[7].blank?
 			  
-			#   # Store.create!(row.to_hash)
-			#   Store.create(
-			#   	#:id => row[0],
-			#   	:name => row[1],
-			#   	:address => row[2],
-			#   	:address2 => row[3],
-			#   	:postcode => row[4],
-			#   	:store_format_id => @store_format.id,
-			#   	:retailer_id => @retailer.id,
-			#   	:country_id => @country.id,
-			#   	:longitude => row[8],
-			#   	:latitude => row[9],
-			#   	:description => row[10],
-			#   	:created_at => Time.now,
-			#   	:updated_at => Time.now,
-			#   	:location_id => 1
-			#   	)
+			  # Store.create!(row.to_hash)
+			  Store.create(
+			  	#:id => row[0],
+			  	:name => row[1],
+			  	:address => row[2],
+			  	:address2 => row[3],
+			  	:postcode => row[4],
+			  	:store_format_id => @store_format.id,
+			  	:retailer_id => @retailer.id,
+			  	:country_id => @country.id,
+			  	:longitude => row[8],
+			  	:latitude => row[9],
+			  	:description => row[10],
+			  	:created_at => Time.now,
+			  	:updated_at => Time.now,
+			  	:location_id => 1
+			  	)
 			# 	# working copy don't delete		  
 			end
 		end
