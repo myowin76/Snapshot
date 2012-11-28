@@ -1,6 +1,6 @@
 class Store < ActiveRecord::Base
   attr_accessible :address, :address2, :description, :latitude, :longitude, :name, 
-  	:postcode, :retailer_id, :store_format_id, :country_id
+  	:postcode, :retailer_id, :store_format_id, :country_id, :created_at, :updated_at, :location_id
 
   belongs_to :store_format
   belongs_to :retailer
@@ -12,7 +12,7 @@ class Store < ActiveRecord::Base
   #   joins(:profile).where('profile.age = ?', age) unless age.nil?
   # end  
 
-   geocoded_by :full_address
+  geocoded_by :full_address
   after_validation :geocode, :if => :address_changed?
 
   # GEOCODERS

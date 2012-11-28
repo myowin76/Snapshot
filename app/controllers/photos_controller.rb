@@ -65,8 +65,7 @@ class PhotosController < ApplicationController
       if params[:search].nil?
         # search from current_user's scope  
         @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
-                  .where('category_id in (?) AND published = ?', @categories, true)
-                            
+                  .where('category_id in (?) AND published = ?', @categories, true)     
       else 
         
         from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')

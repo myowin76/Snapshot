@@ -57,10 +57,10 @@
             <%= photo_fields.text_field :headline %>
             <label>Date Created</label>
             <%= photo_fields.text_field :created_at, :class=>"created_at"%>
-            <%= photo_fields.association :brand, :include_blank => false %>
+            <%= photo_fields.association :brand, :include_blank => false, :input_html => { :class=> 'audit_brands' } %>
             <label>Additional Brands</label>
             <%= photo_fields.text_field :additional_brands %><br />
-            <%= photo_fields.association :category, :include_blank => false %>
+            <%= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
             <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
             { }, {multiple: true, :include_blank => false } %>
             

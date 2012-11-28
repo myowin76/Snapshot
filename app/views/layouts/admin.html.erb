@@ -4,7 +4,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
     <%= stylesheet_link_tag "gmaps4rails", "application" %>
-    <%= javascript_include_tag :defaults, "application" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
   </head>
@@ -72,11 +72,11 @@
         <div class="span3"> 
           <h3>Audits(Uploader Users)</h3>
           <ul class="nav nav-tabs nav-stacked">
-            <li>
+            <!-- <li>
               <%= link_to new_audit_path do %>
               Upload images <i class="icon-chevron-right"></i>
               <% end  %>
-            </li>
+            </li> -->
             <li>
               <%= link_to audits_path do %>
               Audit List
@@ -85,15 +85,11 @@
             </li>
               <li>
                 <%= link_to stores_path do %>
-                Manage Stores <i class="icon-chevron-right"></i>
+                Stores <i class="icon-chevron-right"></i>
                 <% end  %>
               </li>
           </ul>
 
-          
-          
-          
-        
           <h3>Manage Setting</h3>
           <ul class="nav nav-tabs nav-stacked">
             <li>
@@ -196,7 +192,6 @@
         <div id="builtby" class="span4">
           <a href="http://skyron.co.uk">Powered by Skyron.</a>        
         </div>   
-      
       </div>
     </div>
     </footer>

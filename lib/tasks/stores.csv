@@ -1,0 +1,5 @@
+id,name,address,address2,postcode,store_format_id,retailer_id,country_id,longitude,latitude,description,created_at,updated_at,location_id
+6,Aldi Ayelsbury,143 Cambridge Close,Aylesbury,HP20 1DF,2,43,1,-0.8077956,51.819761,"",22/11/2012 12:33PM,22/11/2012 12:33PM,1
+7,Asda Battersea Clapham,204 Lavender Hill,Battersea,SW11 1JG,1,44,1,-0.1649623,51.465371,"",22/11/2012  5:34PM,22/11/2012  5:34PM,1
+8,Budgens Southfields,"5 Replingham Road, Southfields",London,SW18 5LT,4,9,1,-0.2058516,51.4448803,"",22/11/2012  5:46PM,22/11/2012  5:47PM,1
+9,Debenhams Edinburgh,109 Princes Street,Edinburgh,EH2 3AA,3,19,6,-3.2010497,55.951683,"",23/11/2012 12:23AM,23/11/2012 12:44AM,1

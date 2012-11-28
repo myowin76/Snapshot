@@ -23,6 +23,7 @@ gem "prawnto_2", :require => "prawnto"
 gem 'rails3-jquery-autocomplete'
 gem "rubyzip", :require => 'zip/zip'
 gem 'chosen-rails'
+gem 'smarter_csv'
 group :production do
 	gem "pg"
 end

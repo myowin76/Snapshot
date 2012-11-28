@@ -63,7 +63,7 @@ class AuditsController < ApplicationController
         @audit.update_attribute(:user_id, current_user.id)
          
         if @audit.photos.blank?
-          format.html { redirect_to edit_audit_path, notice: 'Please upload images.' }
+          format.html { redirect_to edit_audit_path(@audit), notice: 'Please upload images.' }
         else
           format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
         end

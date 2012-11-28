@@ -26,7 +26,11 @@
 
 $(document).ready(function() {
  	
-
+  $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
+  // $('#store_retailer_id').chosen({no_results_text: "No results matched"})
+  // $('#store_country_id').chosen({no_results_text: "No results matched"})
+  // $('.audit_categories').chosen({no_results_text: "No results matched"})
+  // $('.audit_brands').chosen({no_results_text: "No results matched"})
   
 	$('.clear-form').click(function(){
 		$('#search_form input:text').val('');
