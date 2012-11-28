@@ -68,7 +68,7 @@ module Snapshot
     config.assets.version = '1.0'
     # Devise instruction as if you use heroku set this, not to access DB or load models when precompiling
     # your assets
-    config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = true
     
 
   end
