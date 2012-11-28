@@ -22,8 +22,8 @@ namespace :audits do
 					Audit.create!(
 				  	:id => row[13],
 				  	# :created_at => row[3]				
-				  	:store_id => @store.id
-				  	:environment_type_id => @env_type.id
+				  	:store_id => @store.id,
+				  	:environment_type_id => @env_type.id,
 				  	:channel_id => @channel.id
 					)
 				else
