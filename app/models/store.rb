@@ -19,7 +19,7 @@ class Store < ActiveRecord::Base
   acts_as_gmappable :process_geocoding => false
 
   # scope :by_postcode, lambda{|postcode| where('postcode LIKE ?', "%#{postcode}%") unless postcode.blank? }    
-  validates :postcode, :presence => true, :uniqueness => true
+  # validates :postcode, :presence => true, :uniqueness => true
 
   # scope :in_countries, lambda{ |c_ids| where('country_id IN (?)', c_ids) }
   
