@@ -26,16 +26,18 @@
         <td>
         	<%= link_to image_tag(photo.photo.url(:thumb)), photo  %>
         </td>
-        <td><%= link_to photo.audit.id %></td>
+        <td><%= link_to photo.audit.id unless photo.audit_id.nil? %></td>
         <td>
-        	<%= link_to photo.audit.store.retailer.name %><br />
-        	<%= link_to photo.audit.store.name %>
+        	<%= link_to photo.audit.store.retailer.name unless photo.audit_id.nil?  %><br />
+        	<%= link_to photo.audit.store.name unless photo.audit_id.nil?  %>
         </td>
         <td><%= photo.created_at %></td>
         <td>
-          <%= photo.category.name unless photo.category_id.nil? %>
+          <% photo.categories.each do |cat| %>  
+            <%= cat.name %>
+          <% end %>  
         </td>
-        <td><%= link_to photo.audit.user.email %></td>
+        <td><%= link_to photo.audit.user.email unless photo.audit_id.nil? %></td>
     	</tr>
     <% end %>
 

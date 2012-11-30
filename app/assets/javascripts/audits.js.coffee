@@ -1,9 +1,15 @@
 jQuery ->
-  ###$('.chosen-category').chosen()###
-  $('.category-tokens').tokenInput '/categories.json'
+  $('.chosen-category').chosen()
+  $('.chosen-brand').chosen()
+  $('.chosen-media-local').chosen()
+  $('.chosen-media-vehic').chosen()
+  $('.chosen-media-type').chosen()
+  $('.chosen-promo-type').chosen()
+  
+  ###$('.category-tokens').tokenInput '/categories.json'
     tokenDelimiter: ","
     theme: 'facebook'
-    prePopulate: $('.category-tokens').data('load')
+    prePopulate: $('.category-tokens').data('load')###
   ###$('#audit_store_id').parent().hide()###
   $('form').on 'click', '.remove_field', (event) ->
     $(this).closest('.upload-field').remove()

@@ -19,11 +19,19 @@
     </tr>
     <tr>
       <td>Brand</td>
-      <td><%= @photo.brand.name unless @photo.brand_id.nil? %></td>
+      <td>
+        <% @photo.brands.each do |brand| %>
+          <%= brand.name %>
+        <% end  %>
+      </td>
     </tr>
     <tr>
       <td>Brand Owner</td>
-      <td><%= @photo.brand.brand_owner.name unless @photo.brand.brand_owner_id.nil? %></td>
+      <% @photo.brands.each do |brand| %>
+        <td><%#= @photo.brand.brand_owner.name unless @photo.brand.brand_owner_id.nil? %>
+          <%= brand.brand_owner.name unless brand.brand_owner_id.nil? %>
+        </td>
+      <% end %>  
     </tr>
     <tr>
       <td>Additional Brands</td>
@@ -47,7 +55,9 @@
     </tr>
     <tr>
       <td>Category</td>
-      <td><%= @photo.category.name unless @photo.category_id.nil?  %></td>
+      <% @photo.categories.each do |cat|  %>
+      <td><%= cat.name  %></td>
+      <% end %>
     </tr>
     <tr>
       <td>Store Format</td>
@@ -59,15 +69,21 @@
     </tr>
     <tr>
       <td>Media location</td>
-      <td><%= @photo.media_location.name unless @photo.media_location_id.nil?  %></td>
+      <% @photo.medialocations.each do |md|  %>
+        <td><% md.media_location.name unless md.media_location_id.nil?  %></td>
+      <% end %>  
     </tr>
     <tr>
       <td>Media vehicle</td>
-      <td><%= @photo.media_vehicle.name unless @photo.media_vehicle_id.nil?  %></td>
+      <% @photo.mediavehicles.each do |mv|  %>
+      <td><%= mv.media_vehicle.name unless mv.media_vehicle_id.nil?  %></td>
+      <% end %>
     </tr>
     <tr>
       <td>Media type</td>
-      <td><%= @photo.media_type.name unless @photo.media_type_id.nil? %></td>
+      <% @photo.mediatypes.each do |mt| %>
+      <td><%= mt.media_type.name unless mt.media_type_id.nil? %></td>
+      <% end %>
     </tr>
     <tr>
       <td>Sector</td>
@@ -79,11 +95,13 @@
     </tr>
     <tr>
       <td>Promotion Calendar:</td>
-      <td><%= @photo.promotion_calendar.name if @photo.promotion_calendar %></td>
+      <td><%= @photo.promotion_calendar.name unless @photo.promotion_calendar %></td>
     </tr>
     <tr>
       <td>Promotion type:</td>
-      <td><%= @photo.promotion_type.name if @photo.promotion_type %></td>
+      <% @photo.promotiontypes.each do |pt| %>
+      <td><%= pt.promotion_type.name unless pt.promotion_type_id.nil? %></td>
+      <% end %>
     </tr>
     <tr>
       <td>Country</td>

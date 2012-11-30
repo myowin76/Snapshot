@@ -29,7 +29,9 @@
           </td>
           <td>
             <%= photo.audit.store.retailer.name %><br />
-            <%= photo.brand.name %>
+            <%  photo.brands.each do |brand| %>
+              <%= brand.name %>
+            <% end %>
           </td>
           <td>  
               <%= photo.created_at.strftime('%d/%m/%Y') %>
@@ -41,7 +43,9 @@
               <%= photo.audit.store.retailer.sector.name %>
           </td>
           <td>    
-              <%= photo.category.name %>
+              <% photo.categories.each do |cat| %>
+                <%=  cat.name %>
+              <% end  %>
           </td>
           
           

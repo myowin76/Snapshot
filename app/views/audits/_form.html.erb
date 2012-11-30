@@ -57,21 +57,28 @@
             <%= photo_fields.text_field :headline %>
             <label>Date Created</label>
             <%= photo_fields.text_field :created_at, :class=>"created_at"%>
-            <%= photo_fields.association :brand, :include_blank => false, :input_html => { :class=> 'audit_brands' } %>
+            <%#= photo_fields.association :brand, :include_blank => false, :input_html => { :class=> 'audit_brands' } %>
+            <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
+            <label>Brand Owner</label>
+            <%#= @audit.photos %>
             <label>Additional Brands</label>
             <%= photo_fields.text_field :additional_brands %><br />
-            <%= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
+            <%#= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
             <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
             { }, {multiple: true, :include_blank => false } %>
-            
-              
+            <%#= photo_fields.input :category_id, :collection => Category.order(:name), :input_html => { multiple: true } %>
+            <%= photo_fields.association :categories, :input_html => { :class=> 'chosen-category' } %>
             
             <%#= photo_fields.text_field :category_id, :class => 'category-tokenss'  
                   %>
-            <%= photo_fields.association :media_location, :include_blank => false %>
-            <%= photo_fields.association :media_vehicle, {:include_blank => "None"} %>
-            <%= photo_fields.association :media_type, {:include_blank => "None"} %>
-            <%= photo_fields.association :promotion_type, {:include_blank => "None"} %>
+            <%= photo_fields.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
+            <%= photo_fields.association :media_vehicles, :input_html => { :class=> 'chosen-media-vehic' } %>      
+            <%= photo_fields.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
+            <%= photo_fields.association :promotion_types, :input_html => { :class=> 'chosen-promo-type' } %>            
+            <%#= photo_fields.association :media_location, :include_blank => false %>
+            <%#= photo_fields.association :media_vehicle, {:include_blank => "None"} %>
+            <%#= photo_fields.association :media_type, {:include_blank => "None"} %>
+            <%#= photo_fields.association :promotion_type, {:include_blank => "None"} %>
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
             <%= photo_fields.association :theme, {:include_blank => "None"} %>
             <label>Description</label>

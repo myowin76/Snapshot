@@ -1,23 +1,37 @@
 class Photo < ActiveRecord::Base
   
-  belongs_to :brand
+  
   belongs_to :audit
-  belongs_to :category
-  belongs_to :media_location
-  belongs_to :media_vehicle
-  belongs_to :media_type
-  belongs_to :promotion_type
+  # belongs_to :category
+  has_many :categorizations
+  has_many :categories, :through => :categorizations
+  has_many :brandings
+  has_many :brands, :through => :brandings
+  has_many :medialocations
+  has_many :media_locations, :through => :medialocations
+  has_many :mediavehicles
+  has_many :media_vehicles, :through => :mediavehicles
+  has_many :promotiontypes
+  has_many :promotion_types, :through => :promotiontypes
+  has_many :mediatypes
+  has_many :media_types, :through => :mediatypes
+  # belongs_to :media_type
+  # belongs_to :promotion_type
   belongs_to :promotion_calendar
   belongs_to :theme
   
-  attr_accessible :description, :created_at, :audit_id, :brand_id, :category_id, :media_location_id,  :additional_brands, :photo_file_name,
-  		:media_vehicle_id, :media_type_id, :promotion_calendar_id, :promotion_type_id, :theme_id, :published, :headline, :photo
+  attr_accessible :description, :created_at, :audit_id, 
+      :theme_id,
+      :additional_brands, :photo_file_name,
+  		:promotion_calendar_id, :published, :headline, :photo, 
+      :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids
+      # :brand_id, :category_id, :media_location_id,  :media_vehicle_id, :media_type_id, :promotion_type_id, 
 
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
   	# :path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
-
+    # :storage => :filesystem,
     :storage => :s3,
     :s3_credentials => "#{Rails.root}/config/aws.yml",
     :s3_permissions => {

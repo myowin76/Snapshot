@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122130529) do
+ActiveRecord::Schema.define(:version => 20121129181954) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -36,6 +36,13 @@ ActiveRecord::Schema.define(:version => 20121122130529) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "brandings", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "brand_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "brands", :force => true do |t|
     t.string   "name"
     t.string   "owner"
@@ -48,6 +55,13 @@ ActiveRecord::Schema.define(:version => 20121122130529) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "categorizations", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "category_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -104,6 +118,27 @@ ActiveRecord::Schema.define(:version => 20121122130529) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "medialocations", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "media_location_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "mediatypes", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "media_type_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "mediavehicles", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "media_vehicle_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "photos", :force => true do |t|
     t.integer  "brand_id"
     t.integer  "audit_id"
@@ -148,6 +183,13 @@ ActiveRecord::Schema.define(:version => 20121122130529) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "promotiontypes", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "promotion_type_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "retailers", :force => true do |t|
