@@ -15,17 +15,17 @@ class Photo < ActiveRecord::Base
   has_many :promotion_types, :through => :promotiontypes
   has_many :mediatypes
   has_many :media_types, :through => :mediatypes
-  # belongs_to :media_type
-  # belongs_to :promotion_type
+  has_many :themings
+  has_many :themes, :through => :themings
   belongs_to :promotion_calendar
   belongs_to :theme
   
   attr_accessible :description, :created_at, :audit_id, 
-      :theme_id,
+      :theme_ids, :brand_compliant, :display_for_project,
       :additional_brands, :photo_file_name,
   		:promotion_calendar_id, :published, :headline, :photo, 
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids
-      # :brand_id, :category_id, :media_location_id,  :media_vehicle_id, :media_type_id, :promotion_type_id, 
+      # :brand_id, :category_id, :media_location_id,  :media_vehicle_id, :media_type_id, :promotion_type_id, :theme_id, 
 
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
@@ -61,6 +61,10 @@ class Photo < ActiveRecord::Base
     scope :published, where(:published => true)
     scope :unpublished, where(:published => false)
 
+    scope :in_category, lambda { |cat|
+      joins(:category).where('audits.channel_id IN (?)',
+         channel) }
+    
     scope :by_audits_in_stores, lambda { |stores, environment, channel|
       joins(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
          stores, environment, channel) }

@@ -95,7 +95,7 @@
     </tr>
     <tr>
       <td>Promotion Calendar:</td>
-      <td><%= @photo.promotion_calendar.name unless @photo.promotion_calendar %></td>
+      <td><%= @photo.promotion_calendar.name unless @photo.promotion_calendar_id.nil? %></td>
     </tr>
     <tr>
       <td>Promotion type:</td>

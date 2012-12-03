@@ -25,12 +25,12 @@ class DataStructureChanges < ActiveRecord::Migration
    #    INSERT INTO promotiontypes (photo_id, promotion_type_id) 
 			# 	SELECT id, promotion_type_id FROM photos
 	  # })
-	  remove_column :photos, :brand_id
-	  remove_column :photos, :category_id
-	  remove_column :photos, :media_location_id
-	  remove_column :photos, :media_vehicle_id
-	  remove_column :photos, :media_type_id
-	  remove_column :photos, :promotion_type_id
+	  # remove_column :photos, :brand_id
+	  # remove_column :photos, :category_id
+	  # remove_column :photos, :media_location_id
+	  # remove_column :photos, :media_vehicle_id
+	  # remove_column :photos, :media_type_id
+	  # remove_column :photos, :promotion_type_id
 	  
   end
 

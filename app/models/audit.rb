@@ -8,7 +8,7 @@ class Audit < ActiveRecord::Base
 
   #before_save :get_current_user_id
 
-  attr_accessible :store_id, :environment_type_id, :channel_id, :retailer_id, :user_id, :photos_attributes
+  attr_accessible :store_id, :environment_type_id, :channel_id, :retailer_id, :user_id, :photos_attributes, :reference
   accepts_nested_attributes_for :photos, :allow_destroy => true 
   # validates :retailer_id, :presence => true
 

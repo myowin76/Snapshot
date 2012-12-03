@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129181954) do
+ActiveRecord::Schema.define(:version => 20121130111539) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20121129181954) do
     t.integer  "user_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "reference"
   end
 
   add_index "audits", ["channel_id"], :name => "index_audits_on_channel_id"
@@ -140,13 +141,7 @@ ActiveRecord::Schema.define(:version => 20121129181954) do
   end
 
   create_table "photos", :force => true do |t|
-    t.integer  "brand_id"
     t.integer  "audit_id"
-    t.integer  "category_id"
-    t.integer  "media_location_id"
-    t.integer  "media_vehicle_id"
-    t.integer  "media_type_id"
-    t.integer  "promotion_type_id",     :default => 0
     t.integer  "promotion_calendar_id", :default => 0
     t.integer  "theme_id"
     t.text     "description"
@@ -159,16 +154,15 @@ ActiveRecord::Schema.define(:version => 20121129181954) do
     t.string   "additional_brands"
     t.boolean  "published",             :default => false
     t.string   "headline"
+    t.boolean  "display_for_project",   :default => false
+    t.boolean  "brand_compliant",       :default => false
+    t.string   "insight"
+    t.string   "role_of_comm"
+    t.string   "perspective"
   end
 
   add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"
-  add_index "photos", ["brand_id"], :name => "index_photos_on_brand_id"
-  add_index "photos", ["category_id"], :name => "index_photos_on_category_id"
-  add_index "photos", ["media_location_id"], :name => "index_photos_on_media_location_id"
-  add_index "photos", ["media_type_id"], :name => "index_photos_on_media_type_id"
-  add_index "photos", ["media_vehicle_id"], :name => "index_photos_on_media_vehicle_id"
   add_index "photos", ["promotion_calendar_id"], :name => "index_photos_on_promotion_calendar_id"
-  add_index "photos", ["promotion_type_id"], :name => "index_photos_on_promotion_type_id"
   add_index "photos", ["theme_id"], :name => "index_photos_on_theme_id"
 
   create_table "promotion_calendars", :force => true do |t|
@@ -257,6 +251,13 @@ ActiveRecord::Schema.define(:version => 20121129181954) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "themings", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "theme_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "user_types", :force => true do |t|

@@ -32,7 +32,8 @@
       
     <%= f.association :channel, :include_blank => false %>
     <%= f.association :environment_type, :include_blank => false %>
-    
+    <%= f.input :reference %>
+
     <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
           <%= render "file_upload", :photos => photo_fields %>  
@@ -59,8 +60,7 @@
             <%= photo_fields.text_field :created_at, :class=>"created_at"%>
             <%#= photo_fields.association :brand, :include_blank => false, :input_html => { :class=> 'audit_brands' } %>
             <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
-            <label>Brand Owner</label>
-            <%#= @audit.photos %>
+            
             <label>Additional Brands</label>
             <%= photo_fields.text_field :additional_brands %><br />
             <%#= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
@@ -80,9 +80,12 @@
             <%#= photo_fields.association :media_type, {:include_blank => "None"} %>
             <%#= photo_fields.association :promotion_type, {:include_blank => "None"} %>
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
-            <%= photo_fields.association :theme, {:include_blank => "None"} %>
+            <%= photo_fields.association :themes, :input_html => { :class=> 'chosen-theme' } %>
+            <%#= photo_fields.association :theme, {:include_blank => "None"} %>
             <label>Description</label>
             <%= photo_fields.text_field :description, :as => :text %>
+            <%= photo_fields.input_field :brand_compliant, :as => :boolean, inline_label: 'Brand Compliant' %>   
+            <%= photo_fields.input_field :display_for_project, :as => :boolean, inline_label: 'Only display for project' %>   
             <%= photo_fields.input_field :published, :as => :boolean, inline_label: 'Publish' %>   
             <%= photo_fields.input_field :_destroy, :as => :boolean, inline_label: 'Destroy' %>   
             

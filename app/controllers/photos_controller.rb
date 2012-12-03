@@ -64,8 +64,23 @@ class PhotosController < ApplicationController
       
       if params[:search].nil?
         # search from current_user's scope  
-        @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
-                  .where('category_id in (?) AND published = ?', @categories, true)     
+        # @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
+        #           .where('category_id in (?) AND published = ?', @categories, true)     
+          
+          @photos_instores = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
+                  .where('published = ?', true)
+          
+          
+          @categories.each do |cat|
+            @photos = cat.photos
+            
+          end        
+          # @photos_instores.each do |photos|
+          #   @photos = photo.categories
+          #   debugger
+          # end        
+
+          
       else 
         
         from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')
@@ -83,6 +98,7 @@ class PhotosController < ApplicationController
             @photos = @photos.where('promotion_calendar_id IN (?)', params[:search][:promo_cal])
           end  
           unless params[:search][:promo_types]
+
             @photos = @photos.where('promotion_type_id IS NULL OR promotion_type_id IN (?)', @promo_types.map(&:id)) 
           else
             @photos = @photos.where('promotion_type_id IN (?)', params[:search][:promo_types]) 
