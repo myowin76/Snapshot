@@ -67,14 +67,14 @@ class PhotosController < ApplicationController
         # @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
         #           .where('category_id in (?) AND published = ?', @categories, true)     
           
-          @photos_instores = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
+          @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
                   .where('published = ?', true)
           
           
-          @categories.each do |cat|
-            @photos = cat.photos
-            
-          end        
+          # @categories.each do |cat|
+          #   @photos = cat.photos
+
+          # end        
           # @photos_instores.each do |photos|
           #   @photos = photo.categories
           #   debugger
@@ -129,8 +129,11 @@ class PhotosController < ApplicationController
             @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
           end      
 
-          @photos = @photos.where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND published = ?', 
-            from_date, to_date, @search_category, true )
+          # @photos = @photos.where('photos.created_at >= (?) AND photos.created_at <= (?) AND category_id IN (?) AND published = ?', 
+          #   from_date, to_date, @search_category, true )
+
+          @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
+                  .where('published = ?', true)
           
         sleep 2
       end
