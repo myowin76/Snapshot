@@ -41,8 +41,9 @@ class StoresController < ApplicationController
     #@user_categories = Category.find(current_user.sub_cats.split(","))
     
     @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
-    @photo_category = @photos.group_by { |c| c.category.id }
-
+    # @photo_category = @photos.group_by { |c| c.category.id }
+    @photo_category = @photos.group_by { |pc| pc.categories }
+    # debugger
     
     respond_to do |format|
       format.html # show.html.erb

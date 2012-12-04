@@ -90,7 +90,7 @@ class PhotosController < ApplicationController
         @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
         @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
         
-          @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+          # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
           
           unless params[:search][:promo_cal]
             @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 

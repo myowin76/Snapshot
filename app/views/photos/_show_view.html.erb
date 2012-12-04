@@ -1,7 +1,7 @@
 
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><%= @photo.brand.name %></h3>
+    <h3 id="myModalLabel"><%= @photo.photo_file_name %></h3>
   </div>
   <div class="modal-body">
     
@@ -14,7 +14,9 @@
             <table class="table table-striped">
               <tr>
                 <td>Brand</td>
-                <td><%= @photo.brand.name %></td>
+                <% @photo.brands.each do |brand| %>
+                <td><%= brand.name %></td>
+                <% end %>
               </tr>
               <tr>
                 <td>Additional Brands</td>
@@ -38,7 +40,9 @@
               </tr>
               <tr>
                 <td>Category</td>
-                <td><%= @photo.category.name %></td>
+                <% @photo.categories.each do |cat| %>
+                <td><%= cat.name %></td>
+                <% end %>
               </tr>
               <tr>
                 <td>Store Format</td>
@@ -50,15 +54,21 @@
               </tr>
               <tr>
                 <td>Media location</td>
-                <td><%= @photo.media_location.name %></td>
+                <% @photo.media_locations.each do |ml| %>
+                <td><%= ml.name %></td>
+                <% end %>
               </tr>
               <tr>
                 <td>Media vehicle</td>
-                <td><%= @photo.media_vehicle.name %></td>
+                <% @photo.media_vehicles.each do |mv| %>
+                <td><%= mv.name %></td>
+                <% end %>
               </tr>
               <tr>
                 <td>Media type</td>
-                <td><%= @photo.media_type.name %></td>
+                <% @photo.media_types.each do |mt| %>
+                <td><%= mt.name %></td>
+                <% end %>
               </tr>
               <tr>
                 <td>Sector</td>
@@ -74,7 +84,9 @@
               </tr>
               <tr>
                 <td>Promotion type:</td>
-                <td><%= @photo.promotion_type.name if @photo.promotion_type %></td>
+                <% @photo.promotion_types.each do |pt| %>
+                <td><%= pt.name %></td>
+                <% end %>
               </tr>
               <tr>
                 <td>Country</td>
