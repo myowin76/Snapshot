@@ -21,7 +21,7 @@ class Photo < ActiveRecord::Base
   belongs_to :theme
   
   attr_accessible :description, :created_at, :audit_id, 
-      :theme_ids, :brand_compliant, :display_for_project,
+      :theme_ids, :brand_compliant, :display_for_project, :insight, :role_of_comm, :perspective,
       :additional_brands, :photo_file_name,
   		:promotion_calendar_id, :published, :headline, :photo, 
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids

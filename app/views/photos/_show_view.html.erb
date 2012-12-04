@@ -13,6 +13,10 @@
           <td>
             <table class="table table-striped">
               <tr>
+                <td>Headline</td>
+                <td><%= @photo.headline %></td>
+              </tr>
+              <tr>
                 <td>Brand</td>
                 <td>
                   <% @photo.brands.each do |brand| %>
@@ -58,15 +62,19 @@
               </tr>
               <tr>
                 <td>Media location</td>
-                <% @photo.media_locations.each do |ml| %>
-                <td><%= ml.name %></td>
-                <% end %>
+                <td>
+                  <% @photo.media_locations.each do |ml| %>
+                  <%= ml.name %>
+                  <% end %>
+                </td>  
               </tr>
               <tr>
                 <td>Media vehicle</td>
-                <% @photo.media_vehicles.each do |mv| %>
-                <td><%= mv.name %></td>
-                <% end %>
+                <td>
+                  <% @photo.media_vehicles.each do |mv| %>
+                    <%= mv.name %>,
+                  <% end %>
+                </td>
               </tr>
               <tr>
                 <td>Media type</td>

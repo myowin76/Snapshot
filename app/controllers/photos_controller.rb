@@ -85,10 +85,11 @@ class PhotosController < ApplicationController
         
         from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')
         to_date = params[:search][:toDate].present? ? params[:search][:toDate] : DateTime.now
-        @search_category = params[:search][:category] ? params[:search][:category] : @categories
-        # @search_country = params[:search][:country_id] ? params[:search][:country_id] : @countries.map(&:id)
         @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
         @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
+        # @search_category = params[:search][:category] ? params[:search][:category] : @categories
+        # @search_country = params[:search][:country_id] ? params[:search][:country_id] : @countries.map(&:id)
+        
         
           # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
           @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
@@ -147,8 +148,6 @@ class PhotosController < ApplicationController
           @photos = @photos.where('photos.created_at >= (?) AND photos.created_at <= (?) AND published = ?', 
             from_date, to_date, true )
 
-
-          
         sleep 2
       end
 
