@@ -14,9 +14,11 @@
             <table class="table table-striped">
               <tr>
                 <td>Brand</td>
-                <% @photo.brands.each do |brand| %>
-                <td><%= brand.name %></td>
-                <% end %>
+                <td>
+                  <% @photo.brands.each do |brand| %>
+                  <%= brand.name %>
+                  <% end %>
+                </td>  
               </tr>
               <tr>
                 <td>Additional Brands</td>
@@ -40,9 +42,11 @@
               </tr>
               <tr>
                 <td>Category</td>
-                <% @photo.categories.each do |cat| %>
-                <td><%= cat.name %></td>
-                <% end %>
+                <td>
+                  <% @photo.categories.each do |cat| %>
+                  <%= cat.name %>
+                  <% end %>
+                </td>  
               </tr>
               <tr>
                 <td>Store Format</td>
@@ -66,9 +70,11 @@
               </tr>
               <tr>
                 <td>Media type</td>
-                <% @photo.media_types.each do |mt| %>
-                <td><%= mt.name %></td>
-                <% end %>
+                <td>
+                  <% @photo.media_types.each do |mt| %>
+                    <%= mt.name %>
+                  <% end %>
+                </td>  
               </tr>
               <tr>
                 <td>Sector</td>
@@ -84,9 +90,11 @@
               </tr>
               <tr>
                 <td>Promotion type:</td>
-                <% @photo.promotion_types.each do |pt| %>
-                <td><%= pt.name %></td>
-                <% end %>
+                <td>
+                  <% @photo.promotion_types.each do |pt| %>
+                  <%= pt.name %>
+                  <% end %>
+                </td>  
               </tr>
               <tr>
                 <td>Country</td>

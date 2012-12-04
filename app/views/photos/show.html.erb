@@ -27,10 +27,12 @@
     </tr>
     <tr>
       <td>Brand Owner</td>
-      <% @photo.brands.each do |brand| %>
-        <%#= @photo.brand.brand_owner.name unless @photo.brand.brand_owner_id.nil? %>
-          <%= brand.brand_owner.name unless brand.brand_owner_id.nil? %>
-      <% end %>  
+      <td>
+        <% @photo.brands.each do |brand| %>
+          <%#= @photo.brand.brand_owner.name unless @photo.brand.brand_owner_id.nil? %>
+            <%= brand.brand_owner.name unless brand.brand_owner_id.nil? %>
+        <% end %>
+      </td>    
     </tr>
     <tr>
       <td>Additional Brands</td>
