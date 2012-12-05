@@ -13,7 +13,8 @@ class	PhotoPdf < Prawn::Document
 	end
 	def photo_image
 		text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold
-		image open("#{@photo.photo.url(:medium).to_s.sub!(/\?.+\Z/, '')}")
+		image open("#{@photo.photo.url(:medium)}")
+		# image open("#{@photo.photo.url(:medium).to_s.sub!(/\?.+\Z/, '')}")
 
 	end
 

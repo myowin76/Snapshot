@@ -28,7 +28,7 @@ class Photo < ActiveRecord::Base
       # :brand_id, :category_id, :media_location_id,  :media_vehicle_id, :media_type_id, :promotion_type_id, :theme_id, 
 
   has_attached_file :photo, 
-  	:styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" },
+  	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
   	 # :path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
     :path => 'photos/photos/000/000/:id/:style/:basename.:extension',

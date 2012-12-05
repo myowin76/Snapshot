@@ -24,7 +24,7 @@
           </td>
           <td>
               <%#= link_to image_tag(photo.photo.url(:thumb)), photo.photo.url(:originals)  %>
-              <%= link_to image_tag(photo.photo.url(:thumb)), photo, remote: true, "data-toggle" => "modal" %>
+              <%= link_to image_tag(photo.photo.url(:small)), photo, remote: true, "data-toggle" => "modal" %>
           </td>
           <td>
             <%= photo.audit.store.retailer.name %><br />

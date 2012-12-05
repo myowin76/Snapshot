@@ -70,6 +70,7 @@ class PhotosController < ApplicationController
           @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
                   .where('published = ?', true)
           
+          # debugger
           # @categories.each do |cat|
           #   @photos = cat.photos
 
