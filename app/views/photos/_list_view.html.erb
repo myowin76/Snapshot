@@ -39,7 +39,7 @@
             <%= photo.audit.store.country.name %>
           </td>
           <td>
-              <%= photo.audit.store.retailer.sector.name %>
+              <%= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
           </td>
           <td>    
               <% photo.categories.each do |cat| %>

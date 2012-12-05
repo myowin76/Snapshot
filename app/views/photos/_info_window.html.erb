@@ -5,6 +5,6 @@
 	<%= store.postcode %>
  </p>
 <p>
-	<%= store.retailer.sector.name %>
+	<%= store.retailer.sector.name unless store.retailer.sector_id.nil? %>
 </p>
 <%= link_to "View Details", store %>

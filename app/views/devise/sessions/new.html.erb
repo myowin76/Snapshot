@@ -1,5 +1,4 @@
-
-	<div class="login">
+	<!--div class="login">
 
 		<h2>Sign in</h2>
 
@@ -17,4 +16,29 @@
 
 		<%= render "devise/shared/links" %>
 
-	</div>
+	</div-->
+	<%= simple_form_for(resource, :html => { :class => "widget login"}, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+		<header>
+		  <h3 class="login-header">Sign In</h3>
+		</header>
+
+		<section>
+		  <fieldset>
+		    <%= f.input :email, :required => true, :autofocus => true %>
+		  </fieldset>
+		  <fieldset>
+		    <%= f.input :password, :required => true %>
+		  </fieldset>
+		  <fieldset class="sumbit-area">
+		  	<%= f.button :submit, "Sign in", :class=>"btn" %>
+		  </fieldset>
+		  <!--
+		  <fieldset class="remember-me">
+		    <label for="remember-me">
+		      <input type="checkbox" id="remember-me" />Remember me
+		    </label>
+		    <a href="#">Forgot password?</a>
+		  </fieldset-->
+
+		</section>
+	<% end %>

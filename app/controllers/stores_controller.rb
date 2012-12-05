@@ -37,12 +37,12 @@ class StoresController < ApplicationController
   # GET /stores/1.json
   def show
     @store = Store.find(params[:id])
-    @audits = @store.audits.find_all
-    #@user_categories = Category.find(current_user.sub_cats.split(","))
     
-    @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
+    #@user_categories = Category.find(current_user.sub_cats.split(","))
+    @photos = Photo.joins(:audit).where('audits.store_id = ?', @store.id)
     # @photo_category = @photos.group_by { |c| c.category.id }
-    @photo_category = @photos.group_by { |pc| pc.categories }
+    @photo_category = @photos.group_by{ |pc| pc.categories}
+
     # debugger
     
     respond_to do |format|

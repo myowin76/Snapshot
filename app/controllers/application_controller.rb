@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :subscribed_country, :admin_user?, :uploader?, :admin_or_uploader?
   before_filter :authenticate_user!
+
+  layout :layout_by_resource
   def after_sign_in_path_for(resource)                                                                                                                      
       root_path                                                                                         
   end                                                                                                                                                     
@@ -41,6 +43,16 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+  
+
+  def layout_by_resource
+    if devise_controller?
+      "sign_in"
+    else
+      "application"
+    end
+  end
+
   def admin_user?
   	 return false if current_user.nil? || current_user.user_type.name != 'Admin'
   	true

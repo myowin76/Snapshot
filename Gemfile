@@ -40,7 +40,9 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'compass', '>= 0.12.2'
   gem 'compass-rails'
+  gem 'compass-susy-plugin'
 end
 group :development do
   gem "nifty-generators"	
