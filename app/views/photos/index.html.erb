@@ -17,7 +17,7 @@
       <%= render 'map_view' %>    
     </div>
     <div class="tab-pane" id="list-view">
-      <%# unless params[:query].nil? %>
+      <%# unless params[:search].nil? %>
         <h4><%= pluralize(@photos.count, 'photo') %> found</h4>
         <a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | 
         <%= link_to "Export", download_url(12)  %>
