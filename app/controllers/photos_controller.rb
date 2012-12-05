@@ -171,7 +171,7 @@ class PhotosController < ApplicationController
               # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
 
               
-            sleep 2
+            # sleep 2
       end
 
 

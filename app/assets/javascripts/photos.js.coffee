@@ -1,6 +1,7 @@
 jQuery.fn.submitOnCheck = ->
 
-  @find('input[type=checkbox]').live 'click', (event) ->
+  
+  @find('button[type=submit]').live 'click', (event) ->
     $('#search_form').submit()
   @find('#search_country_id').change ->
     $('#search_form').submit()
@@ -14,7 +15,7 @@ jQuery ->
   $('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
   $('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})
   
-  $('#search_form').submitOnCheck()
+  ###$('#search_form').submitOnCheck()###
 
   $('#search_location_id').parent().hide()
   location = $('#search_location_id').html()
