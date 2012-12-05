@@ -8,9 +8,9 @@
         <button type="submit" class="btn btn-danger clear-form">
           <i class="icon-refresh icon-white"></i> Clear
         </button>
-        <!-- <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
           <i class="icon-search icon-white"></i> Search
-        </button> -->
+        </button>
       </fieldset>  
       <fieldset>
         <%= label_tag "Country" %>
@@ -384,12 +384,13 @@
   <fieldset>  
     <%#= submit_tag "Search", :name => nil, :class=> 'btn btn-primary' %>
     <%#= link_to 'Search', params.merge({:query => "p"}), :class => "btn submit btn-primary" %>
-    <button type="submit" class="btn btn-primary">
-      <i class="icon-search icon-white"></i> Search
-    </button>
     <button type="submit" class="btn btn-danger clear-form">
       <i class="icon-refresh icon-white"></i> Clear
     </button>      
+    <button type="submit" class="btn btn-primary">
+      <i class="icon-search icon-white"></i> Search
+    </button>
+    
     <%#= link_to "save search test", new_save_search_path, remote: true %>
     </fieldset>
 </div>    
