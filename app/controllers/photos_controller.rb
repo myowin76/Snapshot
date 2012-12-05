@@ -62,15 +62,14 @@ class PhotosController < ApplicationController
       @audits_in_country = Audit.find_all_by_store_id(@stores)
       @saved_searches = current_user.save_searches.all
       
-
       if params[:search].nil?
         # search from current_user's scope  
         # @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
         #           .where('category_id in (?) AND published = ?', @categories, true)     
           
-            @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
-                  .where('published = ?', true)
-            
+      @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
+            .where('published = ?', true)
+      
           
           
           # debugger
@@ -83,7 +82,7 @@ class PhotosController < ApplicationController
           #   debugger
           # end        
 
-          
+        # unless params[:search].nil?  
       else 
 
             from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')
@@ -148,8 +147,8 @@ class PhotosController < ApplicationController
                 @photos = @photos.joins(:categories).where('categories.id IN (?)', params[:search][:category])
               end            
 
-              @photos = @photos.where('photos.created_at >= (?) AND photos.created_at <= (?) AND published = ?', 
-                from_date, to_date, true )
+              @photos = @photos.where('photos.created_at >= (?) AND photos.created_at <= (?)', 
+                from_date, to_date)
 
               
               # @stores = @stores.joins(:audits).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
@@ -171,7 +170,7 @@ class PhotosController < ApplicationController
               # @audit1 = Audit.joins(:photos).select("distinct(audits.id), audits.*")
               # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
 
-              
+              debugger
             sleep 2
       end
 
