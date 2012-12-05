@@ -38,6 +38,9 @@ $(document).ready(function() {
 		$('.accordion-heading').find('.labels').remove();
 		$('#search_form').submit();
 	})
+  $('a.submit').click(function(){
+    $('#search_form').submit();
+  })
 	
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){

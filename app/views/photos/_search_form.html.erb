@@ -5,12 +5,12 @@
       <fieldset>
         <%= link_to 'Search', params.merge({:query => "p"}), :class => "btn submit btn-primary" %>        
         <%#= link_to 'Search', params[:search][:query], :class => "btn submit btn-primary", remote: true %>        
-        <!-- <button type="submit" class="btn btn-danger clear-form">
+        <button type="submit" class="btn btn-danger clear-form">
           <i class="icon-refresh icon-white"></i> Clear
-        </button> -->
-        <button type="submit" class="btn btn-primary">
-          <i class="icon-search icon-white"></i> Search
         </button>
+        <!-- <button type="submit" class="btn btn-primary">
+          <i class="icon-search icon-white"></i> Search
+        </button> -->
       </fieldset>  
       <fieldset>
         <%= label_tag "Country" %>
