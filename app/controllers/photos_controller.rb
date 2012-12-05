@@ -159,7 +159,7 @@ class PhotosController < ApplicationController
               @audits.each do |s|
                 @store_ids.push(s.store_id)
               end
-              @stores = @stores.where('id IN (?)', @store_ids)
+              @stores = @stores.where('stores.id IN (?)', @store_ids)
               
 
               # @audits = @audits_in_country.where('id = ?', @photo_audits)
