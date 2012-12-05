@@ -38,9 +38,9 @@ $(document).ready(function() {
 		$('.accordion-heading').find('.labels').remove();
 		$('#search_form').submit();
 	})
-  $('a.submit').click(function(){
-    $('#search_form').submit();
-  })
+  //$('a.submit').click(function(){
+   // $('#search_form').submit();
+  //})
 	
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
@@ -175,7 +175,7 @@ var filterUI = {
     $el.parent().delegate("a", "click", function() {
       that.removeLabel( '#' + $(this).attr('data-id') );
       that.uncheckCheckbox( '#' + $(this).attr('data-id') );
-      $('#search_form').submit();
+      //$('#search_form').submit();
     });
 
   },
