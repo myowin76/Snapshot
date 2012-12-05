@@ -170,7 +170,7 @@ class PhotosController < ApplicationController
               # @audit1 = Audit.joins(:photos).select("distinct(audits.id), audits.*")
               # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
 
-              debugger
+              
             sleep 2
       end
 
