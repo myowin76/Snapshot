@@ -147,9 +147,9 @@ class PhotosController < ApplicationController
                 @photos = @photos.joins(:categories).where('categories.id IN (?)', params[:search][:category])
               end            
 
-              @photos = @photos.where('photos.created_at >= (?) AND photos.created_at <= (?)', 
+              @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
                 from_date, to_date)
-
+              
               
               # @stores = @stores.joins(:audits).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
               #   stores, environment, channel)
