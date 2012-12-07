@@ -252,7 +252,7 @@ DEPENDENCIES
   rails (= 3.2.8)
   rails3-jquery-autocomplete
   rspec-rails (~> 2.0)
-  rubyzip
+  rubyzip (~> 0.9.4)
   sass-rails
   simple_form
   taps
