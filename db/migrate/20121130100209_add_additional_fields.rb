@@ -7,9 +7,9 @@ class AddAdditionalFields < ActiveRecord::Migration
   end
 
   def down
-  	remove_column :photos, :display_for_project, :boolean, :default => false
-    remove_column :photos, :brand_compliant, :boolean, :default => false
-    remove_column :photos, :insight, :string
-    remove_column :photos, :role_of_comm, :string
+  	remove_column :photos, :display_for_project
+    remove_column :photos, :brand_compliant
+    remove_column :photos, :insight
+    remove_column :photos, :role_of_comm
   end
 end

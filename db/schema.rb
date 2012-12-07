@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121130111301) do
+ActiveRecord::Schema.define(:version => 20121206155200) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -88,23 +88,6 @@ ActiveRecord::Schema.define(:version => 20121130111301) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "locations", :force => true do |t|
-    t.string   "name"
-    t.integer  "country_id"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
-
-  create_table "media_locations", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "media_types", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -142,8 +125,7 @@ ActiveRecord::Schema.define(:version => 20121130111301) do
 
   create_table "photos", :force => true do |t|
     t.integer  "audit_id"
-    t.integer  "promotion_calendar_id", :default => 0
-    t.integer  "theme_id"
+    t.integer  "promotion_calendar_id"
     t.text     "description"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
@@ -163,7 +145,6 @@ ActiveRecord::Schema.define(:version => 20121130111301) do
 
   add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"
   add_index "photos", ["promotion_calendar_id"], :name => "index_photos_on_promotion_calendar_id"
-  add_index "photos", ["theme_id"], :name => "index_photos_on_theme_id"
 
   create_table "promotion_calendars", :force => true do |t|
     t.string   "name"
@@ -256,8 +237,8 @@ ActiveRecord::Schema.define(:version => 20121130111301) do
   create_table "themings", :force => true do |t|
     t.integer  "photo_id"
     t.integer  "theme_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "user_types", :force => true do |t|
@@ -268,8 +249,8 @@ ActiveRecord::Schema.define(:version => 20121130111301) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                            :null => false
-    t.string   "encrypted_password",                               :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -278,10 +259,8 @@ ActiveRecord::Schema.define(:version => 20121130111301) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "sub_cats",               :default => "1,2,3,9,10"
-    t.string   "sub_country",            :default => "1,3"
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "user_type_id",           :default => 1
   end
 

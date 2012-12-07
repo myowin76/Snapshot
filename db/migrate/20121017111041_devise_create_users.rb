@@ -18,8 +18,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
-      t.string   :sub_cats, :default => "1,2,3,9,10"
-      t.string   :sub_country, :default => "1,3"
+      # t.string   :sub_cats, :default => "1,2,3,9,10"
+      # t.string   :sub_country, :default => "1,3"
 
       ## Confirmable
       # t.string   :confirmation_token
