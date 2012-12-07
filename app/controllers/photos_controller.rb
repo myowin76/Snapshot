@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  # autocomplete :store, :postcode
+  
   def index
     
     if user_is_country_and_category_subscriber?
@@ -8,7 +8,8 @@ class PhotosController < ApplicationController
       # @categories = Category.order(:name)
       @categories = Category.find(current_user.subscription.sub_cats.split(","))
       # need to check category and country
-      @stores = Store.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
+      # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
+      @stores = Store.order(:id)
 
       @store_formats = StoreFormat.order(:name)
       
@@ -17,7 +18,8 @@ class PhotosController < ApplicationController
         if params[:search][:country_id].present?
           # for selected country
           @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
-        
+        else
+          @stores = @stores.where('country_id IN (?)', @countries.map(&:id))
         end
 
         if params[:search][:sformats].present?
@@ -25,11 +27,8 @@ class PhotosController < ApplicationController
           @stores = @stores.where('store_format_id IN (?)', params[:search][:sformats])
         end
         # Location Search
-        if params[:search][:location].present?
-          
+        if params[:search][:location].present?          
           @stores = @stores.near(params[:search][:location], 25, :order => :distance)
-          # .where('id IN (?)', ['5','9'])    
-          
         end 
 
         if params[:search][:sectors].present?
@@ -43,14 +42,13 @@ class PhotosController < ApplicationController
           # categories to find out in the retailers
           @stores = @stores.where('retailer_id IN (?)', params[:search][:retailers])
         end
-          
+
       else
         # page load
         @sectors = Sector.order(:name)
         @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
-        @stores = @stores.where('country_id IN (?)', @countries.map(&:id))
+        @stores = @stores.where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
       end
-      
       
       @channels = Channel.order(:name)
       @promo_calendars = PromotionCalendar.order(:name)
@@ -62,135 +60,100 @@ class PhotosController < ApplicationController
       @media_locations = MediaLocation.order(:name)
       @env_types = EnvironmentType.order(:name)
       
-
-      @audits_in_country = Audit.find_all_by_store_id(@stores)
+      @audits_in_country = Audit.find_all_by_store_id(@stores.map(&:id))
       @saved_searches = current_user.save_searches.all
       
       if params[:search].nil?
-        # search from current_user's scope  
-        # @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
-        #           .where('category_id in (?) AND published = ?', @categories, true)     
-          
-      # @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
-      #       .where('published = ?', true)
+        # on page load
         @photos = []
           
-          
-          # debugger
-          # @categories.each do |cat|
-          #   @photos = cat.photos
-
-          # end        
-          # @photos_instores.each do |photos|
-          #   @photos = photo.categories
-          #   debugger
-          # end        
-
-        # unless params[:search].nil?  
       else 
-
-            from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')
-            to_date = params[:search][:toDate].present? ? params[:search][:toDate] : DateTime.now
-            @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
-            @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
-            # @search_category = params[:search][:category] ? params[:search][:category] : @categories
-            # @search_country = params[:search][:country_id] ? params[:search][:country_id] : @countries.map(&:id)
+        # search action
+          from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')
+          to_date = params[:search][:toDate].present? ? params[:search][:toDate] : DateTime.now
+          @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
+          @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
+          # @search_category = params[:search][:category] ? params[:search][:category] : @categories
+          # @search_country = params[:search][:country_id] ? params[:search][:country_id] : @countries.map(&:id)
+          
+            # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+            @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+                    
+            unless params[:search][:promo_types]
+              # @photos = @photos.where('promotion_type_id IS NULL OR promotion_type_id IN (?)', @promo_types.map(&:id)) 
+              # @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?) OR promotion_types.id IS NULL', params[:search][:promo_types])
+            else
+                @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', params[:search][:promo_types])
+              # @photos = @photos.where('promotion_type_id IN (?)', params[:search][:promo_types]) 
+            end  
+            unless params[:search][:promo_cal]
+              @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
+            else
+              @photos = @photos.where('promotion_calendar_id IN (?)', params[:search][:promo_cal])
+            end  
             
+            unless params[:search][:media_type]
+              # @photos = @photos.where('media_type_id IS NULL OR media_type_id IN (?)', @media_types.map(&:id)) 
+            else
+              # @photos = @photos.where('media_type_id IN (?)', params[:search][:media_type]) 
+              @photos = @photos.joins(:media_types).where('media_types.id IN (?)', params[:search][:media_type])
+            end
+            unless params[:search][:media_v]
+              # @photos = @photos.where('media_vehicle_id IS NULL OR media_vehicle_id IN (?)', @media_vehicles.map(&:id)) 
+            else
+              # @photos = @photos.where('media_vehicle_id IN (?)', params[:search][:media_v]) 
+              @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', params[:search][:media_v])
+            end
+            unless params[:search][:media_loc]
+              # @photos = @photos.where('media_location_id IS NULL OR media_location_id IN (?)', @media_locations.map(&:id)) 
+            else
+              # @photos = @photos.where('media_location_id IN (?)', params[:search][:media_loc]) 
+              @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', params[:search][:media_loc])
+            end
+            unless params[:search][:brands]
+              # @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
+            else
+              # @photos = @photos.where('brand_id IN (?)', params[:search][:brands]) 
+              @photos = @photos.joins(:brands).where('brands.id IN (?)', params[:search][:brands])
+            end
+            unless params[:search][:themes]
+              # @photos = @photos.where('theme_id IS NULL OR theme_id IN (?)', @themes.map(&:id)) 
+            else
+              # @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
+              @photos = @photos.joins(:themes).where('themes.id IN (?)', params[:search][:themes])
+            end
+            unless params[:search][:category]
+              # @photos = @photos.where('theme_id IS NULL OR theme_id IN (?)', @themes.map(&:id)) 
+            else
+              # @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
+              @photos = @photos.joins(:categories).where('categories.id IN (?)', params[:search][:category])
+            end            
+
+            @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
+              from_date, to_date)
+
+            # @stores = @stores.joins(:audits).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
+            #   stores, environment, channel)
+            @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
+            @audits = Audit.find_all_by_id(@photo_audits)
+            @store_ids = []
+            @audits.each do |s|
+              @store_ids.push(s.store_id)
+            end
             
-              # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
-              @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
-                      
-              unless params[:search][:promo_types]
-                # @photos = @photos.where('promotion_type_id IS NULL OR promotion_type_id IN (?)', @promo_types.map(&:id)) 
-                # @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?) OR promotion_types.id IS NULL', params[:search][:promo_types])
-              else
-                  @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', params[:search][:promo_types])
-                # @photos = @photos.where('promotion_type_id IN (?)', params[:search][:promo_types]) 
-              end  
-              unless params[:search][:promo_cal]
-                @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
-              else
-                @photos = @photos.where('promotion_calendar_id IN (?)', params[:search][:promo_cal])
-              end  
-              
-              unless params[:search][:media_type]
-                # @photos = @photos.where('media_type_id IS NULL OR media_type_id IN (?)', @media_types.map(&:id)) 
-              else
-                # @photos = @photos.where('media_type_id IN (?)', params[:search][:media_type]) 
-                @photos = @photos.joins(:media_types).where('media_types.id IN (?)', params[:search][:media_type])
-              end
-              unless params[:search][:media_v]
-                # @photos = @photos.where('media_vehicle_id IS NULL OR media_vehicle_id IN (?)', @media_vehicles.map(&:id)) 
-              else
-                # @photos = @photos.where('media_vehicle_id IN (?)', params[:search][:media_v]) 
-                @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', params[:search][:media_v])
-              end
-              unless params[:search][:media_loc]
-                # @photos = @photos.where('media_location_id IS NULL OR media_location_id IN (?)', @media_locations.map(&:id)) 
-              else
-                # @photos = @photos.where('media_location_id IN (?)', params[:search][:media_loc]) 
-                @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', params[:search][:media_loc])
-              end
-              unless params[:search][:brands]
-                # @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
-              else
-                # @photos = @photos.where('brand_id IN (?)', params[:search][:brands]) 
-                @photos = @photos.joins(:brands).where('brands.id IN (?)', params[:search][:brands])
-              end
-              unless params[:search][:themes]
-                # @photos = @photos.where('theme_id IS NULL OR theme_id IN (?)', @themes.map(&:id)) 
-              else
-                # @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
-                @photos = @photos.joins(:themes).where('themes.id IN (?)', params[:search][:themes])
-              end
-              unless params[:search][:category]
-                # @photos = @photos.where('theme_id IS NULL OR theme_id IN (?)', @themes.map(&:id)) 
-              else
-                # @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
-                @photos = @photos.joins(:categories).where('categories.id IN (?)', params[:search][:category])
-              end            
-
-              @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
-                from_date, to_date)
-
-              
-              # @stores = @stores.joins(:audits).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
-              #   stores, environment, channel)
-              @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
-              @audits = Audit.find_all_by_id(@photo_audits)
-              @store_ids = []
-              @audits.each do |s|
-                @store_ids.push(s.store_id)
-              end
-              # @stores = @stores.where('stores.id IN (?)', @store_ids)
-              @stores = @stores.where('stores.id IN (?)', @store_ids)
-                
-              # @audits = @audits_in_country.where('id = ?', @photo_audits)
-              # @stores = @stores.joins(:audits).where('audits.audits.id IN (?)', @photo_audits)
-              # @audit_stores = @audits_in_country.select('DISTINCT ')
-              
-
-              # @audit1 = Audit.joins(:photos).select("distinct(audits.id), audits.*")
-              # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
-
-              
-            # sleep 2
+            @stores = @stores.where('stores.id IN (?)', @store_ids)
+            @stores = @stores.where('stores.country_id IS NOT NULL')
+            
       end
 
-
     elsif user_is_country_subscriber?
-      
-
     elsif user_is_category_subscriber?
-      
-      
     else 
       # SOMETHING ELSE
-
     end
 
     # MAP
-    
+    debugger
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({
