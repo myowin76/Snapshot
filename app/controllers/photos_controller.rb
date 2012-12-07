@@ -19,7 +19,7 @@ class PhotosController < ApplicationController
           @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
         
         end
-debugger
+
         if params[:search][:sformats].present?
           # @store_formats = (params[:search][:sformat])
           @stores = @stores.where('store_format_id IN (?)', params[:search][:sformats])
