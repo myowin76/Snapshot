@@ -36,7 +36,7 @@ class AuditsController < ApplicationController
   def new
     @audit = Audit.new
     @retailers = Retailer.all
-    debugger    
+    
     # @stores = Store.find_all_by_retailer_id(params[:id])
     # @audit.photos.build
     5.times{@audit.photos.build}

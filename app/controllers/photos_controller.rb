@@ -8,19 +8,21 @@ class PhotosController < ApplicationController
       # @categories = Category.order(:name)
       @categories = Category.find(current_user.subscription.sub_cats.split(","))
       # need to check category and country
-      @stores = Store.where('country_id IN (?)', @countries.map(&:id))
-      @store_formats = StoreFormat.order(:name)
+      @stores = Store.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
+
+      @store_formats = StoreFormat.find(:all)
       
       unless params[:search].nil?
         # Country Search
         if params[:search][:country_id].present?
           # for selected country
           @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
+        
         end
-
-        if params[:search][:sformat].present?
+debugger
+        if params[:search][:sformats].present?
           # @store_formats = (params[:search][:sformat])
-          @stores = @stores.where('store_format_id IN (?)', params[:search][:sformat])
+          @stores = @stores.where('store_format_id IN (?)', params[:search][:sformats])
         end
         # Location Search
         if params[:search][:location].present?
@@ -96,7 +98,7 @@ class PhotosController < ApplicationController
             
             
               # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
-              @photos = Photo.by_audits_in_stores(@stores, @env_types.map(&:id), @channels.map(&:id))
+              @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
                       
               unless params[:search][:promo_types]
                 # @photos = @photos.where('promotion_type_id IS NULL OR promotion_type_id IN (?)', @promo_types.map(&:id)) 
@@ -161,8 +163,9 @@ class PhotosController < ApplicationController
               @audits.each do |s|
                 @store_ids.push(s.store_id)
               end
+              # @stores = @stores.where('stores.id IN (?)', @store_ids)
               @stores = @stores.where('stores.id IN (?)', @store_ids)
-              
+                
 # debugger
               # @audits = @audits_in_country.where('id = ?', @photo_audits)
               # @stores = @stores.joins(:audits).where('audits.audits.id IN (?)', @photo_audits)

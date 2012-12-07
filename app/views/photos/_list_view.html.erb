@@ -36,7 +36,7 @@
               <%= photo.created_at.strftime('%d/%m/%Y') %>
           </td>
           <td>
-            <%= photo.audit.store.country.name %>
+            <%= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
           </td>
           <td>
               <%= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
