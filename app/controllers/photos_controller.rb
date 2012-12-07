@@ -17,9 +17,9 @@ class PhotosController < ApplicationController
         # Country Search
         if params[:search][:country_id].present?
           # for selected country
-          @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
+          @stores = @stores.where('country_id IN (?) OR country_id IS NULL', params[:search][:country_id])
         else
-          @stores = @stores.where('country_id IN (?)', @countries.map(&:id))
+          @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
         end
 
         if params[:search][:sformats].present?
@@ -153,7 +153,7 @@ class PhotosController < ApplicationController
     end
 
     # MAP
-    debugger
+    # debugger
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({
