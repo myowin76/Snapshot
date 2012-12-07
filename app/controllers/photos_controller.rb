@@ -10,7 +10,7 @@ class PhotosController < ApplicationController
       # need to check category and country
       @stores = Store.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
 
-      @store_formats = StoreFormat.find(:all)
+      @store_formats = StoreFormat.order(:name)
       
       unless params[:search].nil?
         # Country Search
@@ -29,7 +29,7 @@ class PhotosController < ApplicationController
           
           @stores = @stores.near(params[:search][:location], 25, :order => :distance)
           # .where('id IN (?)', ['5','9'])    
-          # debugger
+          
         end 
 
         if params[:search][:sectors].present?
@@ -105,7 +105,6 @@ class PhotosController < ApplicationController
                 # @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?) OR promotion_types.id IS NULL', params[:search][:promo_types])
               else
                   @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', params[:search][:promo_types])
-                  # debugger
                 # @photos = @photos.where('promotion_type_id IN (?)', params[:search][:promo_types]) 
               end  
               unless params[:search][:promo_cal]
@@ -166,7 +165,6 @@ class PhotosController < ApplicationController
               # @stores = @stores.where('stores.id IN (?)', @store_ids)
               @stores = @stores.where('stores.id IN (?)', @store_ids)
                 
-# debugger
               # @audits = @audits_in_country.where('id = ?', @photo_audits)
               # @stores = @stores.joins(:audits).where('audits.audits.id IN (?)', @photo_audits)
               # @audit_stores = @audits_in_country.select('DISTINCT ')
