@@ -24,8 +24,10 @@ class PhotosController < ApplicationController
         end
         # Location Search
         if params[:search][:location].present?
+          
           @stores = @stores.near(params[:search][:location], 25, :order => :distance)
           # .where('id IN (?)', ['5','9'])    
+          # debugger
         end 
 
         if params[:search][:sectors].present?
@@ -149,7 +151,7 @@ class PhotosController < ApplicationController
 
               @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
                 from_date, to_date)
-              
+
               
               # @stores = @stores.joins(:audits).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
               #   stores, environment, channel)
@@ -161,7 +163,7 @@ class PhotosController < ApplicationController
               end
               @stores = @stores.where('stores.id IN (?)', @store_ids)
               
-
+# debugger
               # @audits = @audits_in_country.where('id = ?', @photo_audits)
               # @stores = @stores.joins(:audits).where('audits.audits.id IN (?)', @photo_audits)
               # @audit_stores = @audits_in_country.select('DISTINCT ')
@@ -310,6 +312,16 @@ class PhotosController < ApplicationController
       format.json { head :no_content }
     end
   end
+  # def save_search
+  #   respond_to do |format|
+  #     format.html  # index.html.erb
+  #     format.json { 
+  #       #render json: @photos 
+  #     }
+  #     format.js
+  #   end
+  # end
+
   def publish_individual
     
     @photo = Photo.find(params[:id])

@@ -1,3 +1,4 @@
+
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -14,6 +15,7 @@ $.fn.serializeObject = function()
     });
     return o;
 };
+
 $(function () {
   //$('.edit_task input[type=submit]').remove();
   $('#new_save_search .cancel').click(function () {
@@ -28,3 +30,12 @@ $(function () {
         return false;
 	  });
 });
+
+// $(function () {
+  
+//     $('#save-search').live('click', function () {
+//       var test = JSON.stringify($('#search_form').serializeObject());
+//       alert(test);
+//       });
+// });
+

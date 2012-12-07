@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121130111539) do
+ActiveRecord::Schema.define(:version => 20121130111301) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -256,8 +256,8 @@ ActiveRecord::Schema.define(:version => 20121130111539) do
   create_table "themings", :force => true do |t|
     t.integer  "photo_id"
     t.integer  "theme_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_types", :force => true do |t|
