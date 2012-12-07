@@ -72,21 +72,27 @@
     </tr>
     <tr>
       <td>Media location</td>
-      <% @photo.medialocations.each do |md|  %>
-        <% md.media_location.name unless md.media_location_id.nil?  %>
-      <% end %>  
+      <td>
+        <% @photo.medialocations.each do |md|  %>
+          <% md.media_location.name unless md.media_location_id.nil?  %>
+        <% end %>
+      </td>    
     </tr>
     <tr>
       <td>Media vehicle</td>
-      <% @photo.mediavehicles.each do |mv|  %>
-        <%= mv.media_vehicle.name unless mv.media_vehicle_id.nil?  %>
-      <% end %>
+      <td>
+        <% @photo.mediavehicles.each do |mv|  %>
+          <%= mv.media_vehicle.name unless mv.media_vehicle_id.nil?  %>
+        <% end %>
+      </td>  
     </tr>
     <tr>
       <td>Media type</td>
+      <td>
       <% @photo.mediatypes.each do |mt| %>
         <%= mt.media_type.name unless mt.media_type_id.nil? %>
       <% end %>
+      </td>
     </tr>
     <tr>
       <td>Sector</td>
@@ -110,7 +116,7 @@
     </tr>
     <tr>
       <td>Country</td>
-      <td><%= @photo.audit.store.country.name %></td>
+      <td><%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %></td>
     </tr>
     <tr>
       <td>Description</td>
