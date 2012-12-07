@@ -11,7 +11,7 @@ jQuery ->
     tokenDelimiter: ","
     theme: 'facebook'
     prePopulate: $('.category-tokens').data('load')###
-  ###$('#audit_store_id').parent().hide()###
+  $('#audit_store_id').parent().hide()
   $('form').on 'click', '.remove_field', (event) ->
     $(this).closest('.upload-field').remove()
     event.preventDefault()

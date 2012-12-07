@@ -4,7 +4,7 @@ class AuditsController < ApplicationController
   layout "admin"
 
   def index
-
+    @retailers = Retailer.all
     if admin_user?
       @audits = Audit.all
     # elsif uploader?
@@ -35,8 +35,9 @@ class AuditsController < ApplicationController
   # GET /audits/new.json
   def new
     @audit = Audit.new
-    #debugger    
-    @stores = Store.find_all_by_retailer_id(params[:id])
+    @retailers = Retailer.all
+    debugger    
+    # @stores = Store.find_all_by_retailer_id(params[:id])
     # @audit.photos.build
     5.times{@audit.photos.build}
     respond_to do |format|
@@ -49,6 +50,9 @@ class AuditsController < ApplicationController
   def edit
     
     @audit = Audit.find(params[:id])
+
+    @store = @audit.store
+    @retailers = Retailer.all
     5.times{@audit.photos.build}
   end
 

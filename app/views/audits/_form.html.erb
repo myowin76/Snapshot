@@ -6,12 +6,20 @@
 
     <%#= f.association :retailer,:include_blank => false ,  :prompt => 'Please Select'  %>
     <% unless params[:retailer].present?  %>
-      <%= f.association :retailer, :prompt => 'Please Select'  %>
+      <%#= f.association :retailer, :prompt => 'Please Select'  %>
+      <%= f.label "Retailer" %>
+      <%#= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name") %>
+      <% #@select = @audit.new_record? ? "" : @audit.store.retailer.id  %>
+      <% if @audit.new_record? %>
+        <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name") %>
+      <% else  %>
+        <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ) %>
+      <% end %>
     <% else  %>  
       <%#= f.association :retailer, :selected => params[:retailer] %>
 
       <% retailer = Retailer.find_by_name(params[:retailer])  %>
-      <%= f.input :retailer_id, :as => :hidden, :input_html => {:value => retailer.id} %>
+      <%#= f.input :retailer_id, :as => :hidden, :input_html => {:value => retailer.id} %>
       <%= f.label "Retailer" %>
       <%= retailer.name %>
     <% end  %>
@@ -24,8 +32,8 @@
         include_blank: true %>
         <%= link_to "add new store", new_store_path, :class => "add-store" %>
       <% else %>
-        <% store = Store.find_by_name(params[:store]) %>
-        <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
+        
+        <%= f.input :store_id, :as => :hidden, :input_html => {:value => @store.id} %>
         <%= store.name %>
       <% end %>  
     </p>
