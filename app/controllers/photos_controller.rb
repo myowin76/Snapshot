@@ -20,6 +20,7 @@ class PhotosController < ApplicationController
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', params[:search][:country_id])
         else
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
+          
         end
 
         if params[:search][:sformats].present?
@@ -218,27 +219,55 @@ class PhotosController < ApplicationController
       end
     end
   end
+  def generate_zip
+    
+  end
+  def download_photos_as_zip # silly name but you get the idea
+    generate_zip do |zipname, zip_path|
+      File.open(zip_path, 'rb') do |zf|
+        # you may need to set these to get the file to stream (if you care about that)
+        # self.last_modified
+        # self.etag
+        # self.response.headers['Content-Length']
+        self.response.headers['Content-Type'] = "application/zip"
+        self.response.headers['Content-Disposition'] = "attachment; filename=#{zipname}"
+        self.response.body = Enumerator.new do |out| # Enumerator is ruby 1.9
+          while !zf.eof? do
+            out << zf.read(4096)
+          end
+        end
+      end
+    end
+  end
 
   def get_photo
     
     #asset = Photo.find(params[:photo_ids])
-    asset = Photo.find_by_id(12)
-    # download_zip(asset)
-    # input_filenames = asset.photo_file_name
-    # zipfile_name = "archive.zip"
+    asset = Photo.find_by_id(3201)
+    redirect_to asset.photo.url(:large)
+    
     # debugger
-    #send_file asset.photo.url(:medium), :type => asset.photo_content_type
-    # Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
-      #input_filenames.each do |filename|
-      # Two arguments:
-      # - The name of the file as it will appear in the archive
-      # - The original file, including the path to find it
-      # zipfile.add(input_filenames, asset.photo.url(:medium))
-      #end
-    # end
+    # t = Tempfile.new("#{Rail.root}")
+    # # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
+    # Zip::ZipOutputStream.open(t.path) do |zos|
+    #   # asset.each do |file|
 
-    redirect_to asset.photo.url(:medium)
-    #openall_(asset.photo.url(:medium))
+    #     # Create a new entry with some arbitrary name
+    #     zos.put_next_entry("some-funny-name.jpg")
+    #     debugger
+    #     # Add the contents of the file, don't read the stuff linewise if its binary, instead use direct IO
+    #     zos.print IO.read(asset.photo.url(:medium))
+    #   # end
+    # end
+    # # End of the block  automatically closes the file.
+    # # Send it using the right mime type, with a download window and some nice file name.
+    # send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "some-brilliant-file-name.zip"
+    # # The temp file will be deleted some time...
+    # t.close
+    
+
+    # redirect_to asset.photo.url(:medium)
+    # #openall_(asset.photo.url(:medium))
     #redirect_to root_path
   end
 

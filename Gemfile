@@ -21,7 +21,7 @@ gem 'prawn'
 gem "wkhtmltopdf-binary"
 gem "prawnto_2", :require => "prawnto"
 gem 'rails3-jquery-autocomplete'
-gem "rubyzip", :require => 'zip/zip'
+gem 'rubyzip', '~> 0.9.4', :require => ['zip/zip', 'zip/zipfilesystem'] 
 gem 'chosen-rails'
 
 group :production do
