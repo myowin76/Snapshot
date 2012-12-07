@@ -15,7 +15,7 @@
     <%= @store.address2 %><br />
     <%= @store.postcode %><br />
     <%# = @store.location.name %>
-    <%= @store.country.name %>
+    <%= @store.country.name unless @store.country_id.nil? %>
   </p>
   <p>
     <b>Sector</b>
