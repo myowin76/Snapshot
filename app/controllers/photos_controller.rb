@@ -10,7 +10,7 @@ class PhotosController < ApplicationController
       # need to check category and country
       # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
       @stores = Store.order(:id)
-
+      @sectors = Sector.order(:name)
       @store_formats = StoreFormat.order(:name)
       
       unless params[:search].nil?

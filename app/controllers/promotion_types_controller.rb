@@ -61,7 +61,7 @@ class PromotionTypesController < ApplicationController
 
     respond_to do |format|
       if @promotion_type.update_attributes(params[:promotion_type])
-        format.html { redirect_to @promotion_type, notice: 'Promotion type was successfully updated.' }
+        format.html { redirect_to promotion_types_path, notice: 'Promotion type was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

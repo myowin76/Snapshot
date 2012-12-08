@@ -5,7 +5,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
+      
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -15,7 +15,7 @@
   <tbody>
     <% @promotion_calendars.each do |promotion_calendar| %>
       <tr>
-        <td><%= link_to promotion_calendar.id, promotion_calendar_path(promotion_calendar) %></td>
+        
         <td><%= promotion_calendar.name %></td>
         <td><%= promotion_calendar.description %></td>
         <td><%=l promotion_calendar.created_at %></td>

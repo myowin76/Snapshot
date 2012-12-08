@@ -20,7 +20,7 @@
   <%= @audit.retailer.name %>
 </p>
 <% @audit.photos.each do |photo| %>
- <%= link_to image_tag(photo.photo.url(:thumb)), photo, remote: true, "data-toggle" => "modal" %>
+ <%= link_to image_tag(photo.photo.url(:small)), photo, remote: true, "data-toggle" => "modal" %>
 <% end %>  
 
 <%= link_to 'Edit', edit_audit_path(@audit) %> |
