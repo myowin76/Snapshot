@@ -1,4 +1,4 @@
-
+// http://jsfiddle.net/sxGtM/3/
 $.fn.serializeObject = function()
 {
     var o = {};

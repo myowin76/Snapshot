@@ -1,5 +1,4 @@
 class PhotosController < ApplicationController
-  
   def index
     
     if user_is_country_and_category_subscriber?
@@ -17,7 +16,7 @@ class PhotosController < ApplicationController
         # Country Search
         if params[:search][:country_id].present?
           # for selected country
-          @stores = @stores.where('country_id IN (?) OR country_id IS NULL', params[:search][:country_id])
+          @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
         else
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
           
@@ -240,28 +239,52 @@ class PhotosController < ApplicationController
     end
   end
 
+
+# def get_photo # silly name but you get the idea
+#   photo = Photo.find_by_id(3201)
+#   tmp_filename = "#{Rails.root}/tmp/" << Time.now.strftime('%Y-%m-%d-%H%M%S-%N').to_s << ".zip"
+#   zip = Zip::ZipFile.open(tmp_filename, Zip::ZipFile::CREATE)
+#   zip.close
+
+#   # photos.each do |photo|
+#     file_to_add = photo.photo_file_name
+#     zip = Zip::ZipFile.open(tmp_filename)
+    
+#     zip.add("tmp/", photo.photo.url(:medium))
+#     debugger
+#     zip.close
+#   # end
+# end
+
+
+# Zipfile generator
+
+
   def get_photo
     
     #asset = Photo.find(params[:photo_ids])
     asset = Photo.find_by_id(3201)
-    redirect_to asset.photo.url(:large)
+    # redirect_to asset.photo.url(:large)
     
-    # debugger
-    # t = Tempfile.new("#{Rail.root}")
+    
+     t = Tempfile.new("#{Rails.root}")
+     # t = asset.photo.url(:medium)
     # # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
-    # Zip::ZipOutputStream.open(t.path) do |zos|
+    Zip::ZipOutputStream.open(t.path) do |zos|
     #   # asset.each do |file|
-
     #     # Create a new entry with some arbitrary name
-    #     zos.put_next_entry("some-funny-name.jpg")
-    #     debugger
+        zos.put_next_entry(asset.photo_file_name)
+    
     #     # Add the contents of the file, don't read the stuff linewise if its binary, instead use direct IO
-    #     zos.print IO.read(asset.photo.url(:medium))
+         zos.puts IO.read(asset.photo.url(:medium))
+        # zos.print = open(asset.photo.url(:medium))
+
+        # test = data.read unless data.nil?
     #   # end
-    # end
+    end
     # # End of the block  automatically closes the file.
     # # Send it using the right mime type, with a download window and some nice file name.
-    # send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "some-brilliant-file-name.zip"
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "export.zip"
     # # The temp file will be deleted some time...
     # t.close
     

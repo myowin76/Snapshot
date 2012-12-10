@@ -1,6 +1,3 @@
-
-
-
 $("#map-view").html("<%= j render("map_view") %>");
 
 	Gmaps.map = new Gmaps4RailsGoogle();
@@ -17,7 +14,7 @@ $("#map-view").html("<%= j render("map_view") %>");
 
 $(".loader_cont").show();
 $("aside h4").html("<%= @photos.count %> photos found");
-$("aside #retailers-accord .accordion-inner").html("<%= j render("retailer_view") %>");
+$("aside #retailers-accord .accordion-inner").html("<%= j render("photos/shared/retailer_view") %>");
 $(".span8 h4").html("<%= @photos.count %> photos found");
 <%# if params[:query]  %>
         $("#photo-list").html("<%= j render("list_view") %>");

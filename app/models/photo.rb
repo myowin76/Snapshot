@@ -1,3 +1,4 @@
+require 'open-uri'
 class Photo < ActiveRecord::Base
   
   
@@ -27,6 +28,8 @@ class Photo < ActiveRecord::Base
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids
       # :brand_id, :category_id, :media_location_id,  :media_vehicle_id, :media_type_id, :promotion_type_id, :theme_id, 
 
+
+    
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
@@ -62,21 +65,21 @@ class Photo < ActiveRecord::Base
     scope :published, where(:published => true)
     scope :unpublished, where(:published => false)
 
-    scope :in_category, lambda { |cat|
-      joins(:category).where('audits.channel_id IN (?)',
-         channel) }
+    # scope :in_category, lambda { |cat|
+    #   joins(:category).where('audits.channel_id IN (?)',
+    #      channel) }
     
     scope :by_audits_in_stores, lambda { |stores, environment, channel|
       joins(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
          stores, environment, channel) }
 
-    def category_tokens=(ids)
-      # self.category_id = Category.ids_from_tokens(tokens)
-      self.category_id = ids.split(",")
+    # def category_tokens=(ids)
+    #   # self.category_id = Category.ids_from_tokens(tokens)
+    #   self.category_id = ids.split(",")
       
-    end
+    # end
     
-    private
+    # private
 
 
 end

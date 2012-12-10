@@ -36,7 +36,7 @@ $(document).ready(function() {
 		$('#search_form input:text').val('');
 		$('#search_form input:checkbox').attr('checked',false);
 		$('.accordion-heading').find('.labels').remove();
-		$('#search_form').submit();
+		// $('#search_form').submit();
 	})
   //$('a.submit').click(function(){
    // $('#search_form').submit();
