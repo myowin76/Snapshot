@@ -40,11 +40,11 @@ class StoresController < ApplicationController
     
     #@user_categories = Category.find(current_user.sub_cats.split(","))
     @photos = Photo.joins(:audit).where('audits.store_id = ?', @store.id)
+    @photo_category = @photos.group_by{ |pc| pc.categories}
     
-    
-    @photo_category = @photos.group_by { |c| c.category.id }
-    # @photo_category = @photos.group_by(@categories)
-    debugger
+    # @photo_category = @photos.group_by { |c| c.categories }
+    # # @photo_category = @photos.group_by(@categories)
+    # debugger
     # @photo_category = @photos.group(&:categories)
     # @categories = Category.find(current_user.subscription.sub_cats.split(","))
 
