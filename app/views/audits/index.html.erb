@@ -20,7 +20,7 @@
 
   <% @audits.each do |audit| %>
     <tr>
-      <td><%= audit.store.retailer.name %></td>
+      <td><%= audit.store.retailer.name unless audit.store.retailer_id.nil? %></td>
       <td><%= audit.store.name %></td>
       <td><%= audit.channel.name %></td>
       <td><%= audit.environment_type.name %></td>
