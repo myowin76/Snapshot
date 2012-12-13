@@ -3,10 +3,10 @@ class Store < ActiveRecord::Base
   	:postcode, :retailer_id, :store_format_id, :country_id, :created_at, :updated_at, :location_id
 
   belongs_to :store_format
-  belongs_to :retailer
+  belongs_to :retailer, :include => :sector
   belongs_to :country
-  belongs_to :location
   has_many :audits
+  has_many :photos, :through => :audits
   
   # scope :by_retailer, lambda do |retailer|
   #   joins(:profile).where('profile.age = ?', age) unless age.nil?

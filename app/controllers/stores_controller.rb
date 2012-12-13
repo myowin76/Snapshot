@@ -33,24 +33,23 @@ class StoresController < ApplicationController
     end
   end
 
-  # GET /stores/1
-  # GET /stores/1.json
   def show
     @store = Store.find(params[:id])
-    
-    #@user_categories = Category.find(current_user.sub_cats.split(","))
-    @photos = Photo.joins(:audit).where('audits.store_id = ?', @store.id)
+    @photos = @store.photos
+
     @photo_category = @photos.group_by{ |pc| pc.categories}
+    debugger
+
+
+
+    # @photos.each do |pc|
+    #   @photo_categories = pc.categories
+    #   debugger
+    # end
+    # @photo_category = @photos.group_by{ |pc| pc.categories}
     
-    # @photo_category = @photos.group_by { |c| c.categories }
-    # # @photo_category = @photos.group_by(@categories)
-    # debugger
     # @photo_category = @photos.group(&:categories)
-    # @categories = Category.find(current_user.subscription.sub_cats.split(","))
-
-    # debugger
-
-    # debugger
+    
     
     respond_to do |format|
       format.html # show.html.erb

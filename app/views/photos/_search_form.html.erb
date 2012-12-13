@@ -1,5 +1,6 @@
 
-<%= form_tag root_path, :id=>"search_form", remote: true do %>
+<%#= form_tag root_path, :id=>"search_form", remote: true do %>
+<%= form_tag root_path, :id=>"search_form" do %>
   <div class="box">
     <h4>Filter by</h4>
       <fieldset>
@@ -82,6 +83,30 @@
             <% end %>
             
           <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brand_owners">
+          Brand Owners <i class="icon-plus pull-right"></i>
+        </a>
+      </div>
+      <div id="brand_owners" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for brand_owner in @brand_owners %>
+            <% if params[:search] && params[:search][:brand_owners] && params[:search][:brand_owners].include?(brand_owner.id.to_s) %>
+              <%= label_tag "search[brand_owners][#{brand_owner.id}]" do %>
+                <%= check_box_tag "search[brand_owners][]", brand_owner.id, :check => "checked", :id => "search_brands_#{brand_owner.id}" %>
+                <%= brand_owner.name %><br />
+              <% end %>  
+            <% else %>  
+              <%= label_tag "search[brand_owners][#{brand_owner.id}]" do %>
+                <%= check_box_tag "search[brand_owners][]", brand_owner.id, false, :id => "search_brands_#{brand_owner.id}" %>
+                <%= brand_owner.name %><br />
+              <% end %>  
+            <% end %>  
+          <% end %>  
         </div>
       </div>
     </div>

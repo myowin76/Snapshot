@@ -1,9 +1,8 @@
-require 'open-uri'
+# require 'open-uri'
 class Photo < ActiveRecord::Base
   
   
-  belongs_to :audit
-  # belongs_to :category
+  belongs_to :audit,  :include => :store
   has_many :categorizations
   has_many :categories, :through => :categorizations
   has_many :brandings
@@ -27,8 +26,6 @@ class Photo < ActiveRecord::Base
   		:promotion_calendar_id, :published, :headline, :photo, 
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids
       # :brand_id, :category_id, :media_location_id,  :media_vehicle_id, :media_type_id, :promotion_type_id, :theme_id, 
-
-
     
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },

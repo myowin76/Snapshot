@@ -11,10 +11,10 @@
       <%#= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name") %>
       <% #@select = @audit.new_record? ? "" : @audit.store.retailer.id  %>
       <% if @audit.new_record? %>
-        <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name") %>
+        <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name"), {:prompt => 'Please Select'} %>
       <% else  %>
-        <%#= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ) %>
-        <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name") %>
+        <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ) %>
+
       <% end %>
     <% else  %>  
       <%#= f.association :retailer, :selected => params[:retailer] %>

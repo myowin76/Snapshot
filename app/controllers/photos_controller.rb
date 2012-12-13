@@ -22,14 +22,10 @@ class PhotosController < ApplicationController
           
         end
 
-        if params[:search][:sformats].present?
-          # @store_formats = (params[:search][:sformat])
-          @stores = @stores.where('store_format_id IN (?)', params[:search][:sformats])
-        end
-        # Location Search
-        if params[:search][:location].present?          
-          @stores = @stores.near(params[:search][:location], 25, :order => :distance)
-        end 
+        @stores = @stores.where('store_format_id IN (?)', params[:search][:sformats]) if params[:search][:sformats].present?
+        # Location Search          
+        @stores = @stores.near(params[:search][:location], 25, :order => :distance) if params[:search][:location].present?
+        
 
         if params[:search][:sectors].present?
           @stores = @stores.joins(:retailer).where('retailers.sector_id IN (?)', params[:search][:sectors])
@@ -38,11 +34,8 @@ class PhotosController < ApplicationController
           @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
         end
 
-        if params[:search][:retailers].present?
-          # categories to find out in the retailers
-          @stores = @stores.where('retailer_id IN (?)', params[:search][:retailers])
-        end
-
+        @stores = @stores.where('retailer_id IN (?)', params[:search][:retailers]) if params[:search][:retailers].present?
+        
       else
         # page load
         @sectors = Sector.order(:name)
@@ -52,6 +45,7 @@ class PhotosController < ApplicationController
       
       @channels = Channel.order(:name)
       @promo_calendars = PromotionCalendar.order(:name)
+      @brand_owners = BrandOwner.order(:name)
       @brands = Brand.order(:name)
       @themes = Theme.order(:name)
       @promo_types = PromotionType.order(:name)
@@ -60,7 +54,7 @@ class PhotosController < ApplicationController
       @media_locations = MediaLocation.order(:name)
       @env_types = EnvironmentType.order(:name)
       
-      @audits_in_country = Audit.find_all_by_store_id(@stores.map(&:id))
+      # @audits_in_country = Audit.find_all_by_store_id(@stores.map(&:id))
       @saved_searches = current_user.save_searches.all
       
       if params[:search].nil?
@@ -73,18 +67,13 @@ class PhotosController < ApplicationController
           to_date = params[:search][:toDate].present? ? params[:search][:toDate] : DateTime.now
           @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
           @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
-          # @search_category = params[:search][:category] ? params[:search][:category] : @categories
-          # @search_country = params[:search][:country_id] ? params[:search][:country_id] : @countries.map(&:id)
           
-            # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
-            @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+          @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
                     
             unless params[:search][:promo_types]
-              # @photos = @photos.where('promotion_type_id IS NULL OR promotion_type_id IN (?)', @promo_types.map(&:id)) 
-              # @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?) OR promotion_types.id IS NULL', params[:search][:promo_types])
+              # @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?) OR promotion_types.id IS NULL', @promo_types.map(&:id))
             else
-                @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', params[:search][:promo_types])
-              # @photos = @photos.where('promotion_type_id IN (?)', params[:search][:promo_types]) 
+              @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', params[:search][:promo_types])
             end  
             unless params[:search][:promo_cal]
               @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
@@ -110,6 +99,13 @@ class PhotosController < ApplicationController
               # @photos = @photos.where('media_location_id IN (?)', params[:search][:media_loc]) 
               @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', params[:search][:media_loc])
             end
+            unless params[:search][:brand_owners]
+              # @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
+            else
+              # @photos = @photos.where('brand_id IN (?)', params[:search][:brands]) 
+              @brands_by_owners = @brands.find_all_by_brand_owner_id(params[:search][:brand_owners])
+              @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
+            end
             unless params[:search][:brands]
               # @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
             else
@@ -132,8 +128,6 @@ class PhotosController < ApplicationController
             @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
               from_date, to_date)
 
-            # @stores = @stores.joins(:audits).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
-            #   stores, environment, channel)
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
             @store_ids = []
@@ -261,31 +255,47 @@ class PhotosController < ApplicationController
 
 
   def get_photo
-    
+    require 'zip/zipfilesystem'
     #asset = Photo.find(params[:photo_ids])
-    asset = Photo.find_by_id(3201)
-    # redirect_to asset.photo.url(:large)
-    
-    
-     t = Tempfile.new("#{Rails.root}")
-     # t = asset.photo.url(:medium)
-    # # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
-    Zip::ZipOutputStream.open(t.path) do |zos|
-    #   # asset.each do |file|
-    #     # Create a new entry with some arbitrary name
-        zos.put_next_entry(asset.photo_file_name)
-    
-    #     # Add the contents of the file, don't read the stuff linewise if its binary, instead use direct IO
-         zos.puts IO.read(asset.photo.url(:medium))
-        # zos.print = open(asset.photo.url(:medium))
+    asset = Photo.find_by_id(3861)
+    redirect_to asset.photo.url(:large)
+     # t = Tempfile.new("#{Rails.root}")
+    #  tmp_filename = "#{Rails.root}/tmp/" << Time.now.strftime('%Y-%m-%d-%H%M%S-%N').to_s << ".zip"
+    # t = Tempfile.new(tmp_filename)
+    # file_to_add = "#{Rails.root}/tmp/export/" << "IMG_0662".to_s << ".jpg"
+   
 
-        # test = data.read unless data.nil?
-    #   # end
-    end
-    # # End of the block  automatically closes the file.
-    # # Send it using the right mime type, with a download window and some nice file name.
-    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "export.zip"
-    # # The temp file will be deleted some time...
+    # # zip = Zip::ZipFile.open(t, Zip::ZipFile::CREATE)
+    # # zip.close
+
+    
+    # #   file_to_add = "#{Rails.root}/tmp/export/" << "IMG_0662".to_s << ".jpg"
+    # #   debugger
+    #   zip = Zip::ZipFile.open(file_to_add, Zip::ZipFile::CREATE)
+    #   zip.add("tmp/", file_to_add)
+    #   zip.close
+    
+    # # send_file asset.photo.url(:medium)
+    
+    # #  t = Tempfile.new("#{Rails.root}")
+    # #  # t = asset.photo.url(:medium)
+    # # # # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
+    # # Zip::ZipOutputStream.open(t.path) do |zos|
+    # # #   # asset.each do |file|
+    # # #     # Create a new entry with some arbitrary name
+    # #     zos.put_next_entry(asset.photo_file_name)
+    
+    # # #     # Add the contents of the file, don't read the stuff linewise if its binary, instead use direct IO
+    # #      zos.puts IO.read(asset.photo.url(:medium))
+    # #     # zos.print = open(asset.photo.url(:medium))
+
+    # #     # test = data.read unless data.nil?
+    # # #   # end
+    # # end
+    # # # # End of the block  automatically closes the file.
+    # # # # Send it using the right mime type, with a download window and some nice file name.
+    # send_data t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "export.zip"
+    # # # The temp file will be deleted some time...
     # t.close
     
 
