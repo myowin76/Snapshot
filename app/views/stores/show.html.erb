@@ -37,17 +37,21 @@
 
 
       <% @photo_category.each do |category, photos| %>
-        <% c = Category.find_by_id(category) %>
+        
+          
           <header>
-            <h4><%= c.name %></h4>
+        
             <ul class="toggle_content" style="display: none;">                         
               <li class="arrow"><a href="#">Toggle Content</a></li>
             </ul>
           </header>
           <section class="group">
             <ul class="gallery_basic" id="basicGallery">
-              <% for photo in photos %>
-                <li><%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true, "data-toggle" => "modal" %></li>
+              <% for c in category %>
+                <%= c.name  %>
+                <% for photo in c.photos %>
+                  <li><%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true, "data-toggle" => "modal" %></li>
+                <% end %>
               <% end %> 
             </ul>
           </section>

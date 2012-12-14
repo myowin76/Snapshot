@@ -38,7 +38,7 @@ class StoresController < ApplicationController
     @photos = @store.photos
 
     @photo_category = @photos.group_by{ |pc| pc.categories}
-    debugger
+    
 
 
 

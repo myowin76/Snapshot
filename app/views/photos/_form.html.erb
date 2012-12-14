@@ -9,19 +9,34 @@
         <%= f.error_notification %>
 
         <div class="form-inputs">
+          <label>Audit Id: 
+          <%= link_to @photo.audit_id, audit_path(@photo.audit) %><br />
+          </label>
+          <label> User:
+            <%= @photo.audit.user.email %>
+          </label>
+          <label>Date Created:
+          <%= @photo.created_at %>
+          </label>
           <%= f.input :headline %>
-          <%= f.association :brands %>
+          <%= f.association :brands, :input_html => { :class=> 'chosen-brand' } %>
           <%#= f.association :audit %>
-          <%= f.association :categories %>
-          <%= f.association :media_locations %>
-          <%= f.association :media_vehicles %>
-          <%= f.association :media_types %>
-          <%= f.association :themes %>
+          <%= f.association :categories, :input_html => { :class=> 'chosen-category' } %>
+          <%= f.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
+          <%= f.association :media_vehicles, :input_html => { :class=> 'chosen-media-vehic' } %>
+          <%= f.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
+          <%= f.association :themes, :input_html => { :class=> 'chosen-theme' } %>
+          <%= f.input :display_for_project %>
+          <%= f.input :brand_compliant %>
+          <%= f.input :insight %>
+          <%= f.input :role_of_comm %>
+          <%= f.input :perspective %>
           <%= f.input :description %>
         </div>
 
         <div class="form-actions">
           <%= f.button :submit %>
+          <%= link_to 'Cancel', @photo %>
         </div>
       <% end %>
 

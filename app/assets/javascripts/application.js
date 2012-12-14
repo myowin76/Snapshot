@@ -26,6 +26,13 @@
 
 $(document).ready(function() {
  	
+    $('.pagination a').click(function () {
+      // $.get(this.href, null, null, 'script');
+      // return false;
+      alert("work");
+      return false;
+    });
+  
   $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_country_id').chosen({no_results_text: "No results matched"})

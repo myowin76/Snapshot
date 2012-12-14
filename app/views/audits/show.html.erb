@@ -1,27 +1,50 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <b>Reference:</b>
+  <%= @audit.reference %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @audit.user.email %>
+</p>
+<p>
+  <b>Date Created:</b>
+  <%= @audit.created_at %>
+</p>
+<p>
+  <b>Retailer:</b>
+  <%= @audit.store.retailer.name %>
+</p>
+<p>
   <b>Store:</b>
   <%= @audit.store.name %>
 </p>
-
 <p>
   <b>Environment type:</b>
   <%= @audit.environment_type.name %>
 </p>
-
 <p>
   <b>Channel:</b>
   <%= @audit.channel.name %>
 </p>
+  <table class="table table-striped">
+    <thead>
+    <tr>    
+      <th>Image</th>
+      <th>Categories</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <% @audit.photos.each do |photo| %>
+      <tr>
+      	<td><%= link_to image_tag(photo.photo.url(:small)), photo, remote: true, "data-toggle" => "modal" %></td>
+      	<td><%= photo.categories.map(&:name).join(",") %></td>
+      	<td><%= photo.created_at %></td>
+      </tr>
+    <% end %>    
+</table>
 
-<p>
-  <b>Retailer:</b>
-  <%= @audit.retailer.name %>
-</p>
-<% @audit.photos.each do |photo| %>
- <%= link_to image_tag(photo.photo.url(:small)), photo, remote: true, "data-toggle" => "modal" %>
-<% end %>  
-
-<%= link_to 'Edit', edit_audit_path(@audit) %> |
-<%= link_to 'Back', audits_path %>
+<%= link_to 'Edit', edit_audit_path(@audit) %>
+<%#= link_to 'Back', audits_path %>

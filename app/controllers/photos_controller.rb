@@ -102,7 +102,6 @@ class PhotosController < ApplicationController
             unless params[:search][:brand_owners]
               # @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
             else
-              # @photos = @photos.where('brand_id IN (?)', params[:search][:brands]) 
               @brands_by_owners = @brands.find_all_by_brand_owner_id(params[:search][:brand_owners])
               @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
             end
@@ -127,6 +126,7 @@ class PhotosController < ApplicationController
 
             @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
               from_date, to_date)
+            #.paginate(:page => params[:page], :per_page => 3)
 
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
@@ -255,53 +255,24 @@ class PhotosController < ApplicationController
 
 
   def get_photo
-    require 'zip/zipfilesystem'
-    #asset = Photo.find(params[:photo_ids])
-    asset = Photo.find_by_id(3861)
-    redirect_to asset.photo.url(:large)
-     # t = Tempfile.new("#{Rails.root}")
-    #  tmp_filename = "#{Rails.root}/tmp/" << Time.now.strftime('%Y-%m-%d-%H%M%S-%N').to_s << ".zip"
-    # t = Tempfile.new(tmp_filename)
-    # file_to_add = "#{Rails.root}/tmp/export/" << "IMG_0662".to_s << ".jpg"
-   
+    
+    asset = Photo.find(params[:id])
+    # asset = Photo.find_by_id(3861)
+    if asset
+      data = open(URI.parse(URI.encode(asset.photo.url(:large))))
+      temp_file = Tempfile.new("#{Rails.root}/tmp/export/" << "export".to_s << ".zip")
 
-    # # zip = Zip::ZipFile.open(t, Zip::ZipFile::CREATE)
-    # # zip.close
+      Zip::ZipOutputStream.open(temp_file) do |zos|
+        zos.put_next_entry(asset.photo_file_name)
+        zos.print IO.read(data)
+      end
 
-    
-    # #   file_to_add = "#{Rails.root}/tmp/export/" << "IMG_0662".to_s << ".jpg"
-    # #   debugger
-    #   zip = Zip::ZipFile.open(file_to_add, Zip::ZipFile::CREATE)
-    #   zip.add("tmp/", file_to_add)
-    #   zip.close
-    
-    # # send_file asset.photo.url(:medium)
-    
-    # #  t = Tempfile.new("#{Rails.root}")
-    # #  # t = asset.photo.url(:medium)
-    # # # # Give the path of the temp file to the zip outputstream, it won't try to open it as an archive.
-    # # Zip::ZipOutputStream.open(t.path) do |zos|
-    # # #   # asset.each do |file|
-    # # #     # Create a new entry with some arbitrary name
-    # #     zos.put_next_entry(asset.photo_file_name)
-    
-    # # #     # Add the contents of the file, don't read the stuff linewise if its binary, instead use direct IO
-    # #      zos.puts IO.read(asset.photo.url(:medium))
-    # #     # zos.print = open(asset.photo.url(:medium))
-
-    # #     # test = data.read unless data.nil?
-    # # #   # end
-    # # end
-    # # # # End of the block  automatically closes the file.
-    # # # # Send it using the right mime type, with a download window and some nice file name.
-    # send_data t.path, :type => 'application/zip', :disposition => 'attachment', :filename => "export.zip"
-    # # # The temp file will be deleted some time...
-    # t.close
-    
-
-    # redirect_to asset.photo.url(:medium)
-    # #openall_(asset.photo.url(:medium))
-    #redirect_to root_path
+      send_file temp_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"
+      
+      # redirect_to asset.photo.url(:medium)
+      temp_file.close
+      
+    end
   end
 
   def ajax_search_request
