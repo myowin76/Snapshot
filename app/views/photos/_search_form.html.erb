@@ -15,8 +15,9 @@
       </fieldset>  
       <fieldset>
         <%= label_tag "Country" %>
-        <% if params[:search] && params[:search][:country_id] && params[:search][:country_id] %>
-          <%= collection_select(:search, :country_id, @countries, :id, :name, {:selected => params[:search][:country_id]}) %>
+        <% if params[:search] && params[:search][:country_id].present? %>
+          <%= collection_select(:search, :country_id, @countries, :id, :name, 
+          {:selected => params[:search][:country_id], :include_blank => 'All'}) %>
         <% else %>
           <%= collection_select(:search, :country_id, @countries, :id, :name, :prompt => 'All')  %>
           <%#= collection_select(:search, :country_id, @countries, :id, :name), { :prompt => 'All' } %>

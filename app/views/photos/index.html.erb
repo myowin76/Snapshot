@@ -17,13 +17,13 @@
       <%= render 'map_view' %>    
     </div>
     <div class="tab-pane" id="list-view">
-      <%# unless params[:search].nil? %>
-        <h4><%= pluralize(@photos.count, 'photo') %> found</h4>
+      <% unless params[:search].nil? %>
+        <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->
         <a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | 
-        <%= link_to "Export", download_url(3861)  %>
+        <%= link_to "Export", download_url(3861), :id => 'export', :method => 'post', remote: true  %>
 
         <%= render 'list_view' %>
-      <% #end  %>   
+      <% end  %>   
     </div>
   
   </div>

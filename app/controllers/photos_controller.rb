@@ -4,14 +4,14 @@ class PhotosController < ApplicationController
     if user_is_country_and_category_subscriber?
       
       @countries = Country.find(current_user.subscription.sub_country.split(","))
-      # @categories = Category.order(:name)
-      @categories = Category.find(current_user.subscription.sub_cats.split(","))
+      @categories = Category.order(:name)
+      # @categories = Category.find(current_user.subscription.sub_cats.split(","))
       # need to check category and country
       # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
       @stores = Store.order(:id)
       @sectors = Sector.order(:name)
       @store_formats = StoreFormat.order(:name)
-      
+          
       unless params[:search].nil?
         # Country Search
         if params[:search][:country_id].present?
@@ -28,8 +28,9 @@ class PhotosController < ApplicationController
         
 
         if params[:search][:sectors].present?
-          @stores = @stores.joins(:retailer).where('retailers.sector_id IN (?)', params[:search][:sectors])
           @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors])
+          @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
+          
         else
           @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
         end
