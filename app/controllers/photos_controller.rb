@@ -215,53 +215,11 @@ class PhotosController < ApplicationController
   end
   def generate_zip
     
-  end
-  def download_photos_as_zip # silly name but you get the idea
-    generate_zip do |zipname, zip_path|
-      File.open(zip_path, 'rb') do |zf|
-        # you may need to set these to get the file to stream (if you care about that)
-        # self.last_modified
-        # self.etag
-        # self.response.headers['Content-Length']
-        self.response.headers['Content-Type'] = "application/zip"
-        self.response.headers['Content-Disposition'] = "attachment; filename=#{zipname}"
-        self.response.body = Enumerator.new do |out| # Enumerator is ruby 1.9
-          while !zf.eof? do
-            out << zf.read(4096)
-          end
-        end
-      end
-    end
-  end
-
-
-# def get_photo # silly name but you get the idea
-#   photo = Photo.find_by_id(3201)
-#   tmp_filename = "#{Rails.root}/tmp/" << Time.now.strftime('%Y-%m-%d-%H%M%S-%N').to_s << ".zip"
-#   zip = Zip::ZipFile.open(tmp_filename, Zip::ZipFile::CREATE)
-#   zip.close
-
-#   # photos.each do |photo|
-#     file_to_add = photo.photo_file_name
-#     zip = Zip::ZipFile.open(tmp_filename)
-    
-#     zip.add("tmp/", photo.photo.url(:medium))
-#     debugger
-#     zip.close
-#   # end
-# end
-
-
-# Zipfile generator
-
-
-  def get_photo
-    
-    asset = Photo.find(params[:id])
-    # asset = Photo.find_by_id(3861)
+    # asset = Photo.find(params[:photo_ids])
+    # debugger
+    asset = Photo.find_by_id(3861)
     if asset
       data = open(URI.parse(URI.encode(asset.photo.url(:large))))
-      # temp_file = Tempfile.new("#{Rails.root}/tmp/export/" << "export".to_s << ".zip")
       temp_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
       Zip::ZipOutputStream.open(temp_file) do |zos|
         zos.put_next_entry(asset.photo_file_name)
@@ -269,7 +227,6 @@ class PhotosController < ApplicationController
       end
 
       send_file temp_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"
-      
       # redirect_to asset.photo.url(:medium)
       temp_file.close
       
@@ -319,6 +276,19 @@ class PhotosController < ApplicationController
   #     format.js
   #   end
   # end
+
+  def generate_pdf
+    # @photo_list = Photo.find(params[:photo_ids])
+    debugger
+    @photo_list = Photo.first
+    format.pdf do
+      pdf = PhotoListPdf.new(@photo_list)
+      send_data pdf.render, file_name: "photo_list.pdf",
+                    type: "application/pdf",
+                    disposition: "inline"
+    end
+    
+  end
 
   def publish_individual
     

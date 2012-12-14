@@ -198,6 +198,23 @@ ul.ui-autocomplete {
     width: 150px; height: auto;
   }
 }
+
+
+#list-view{
+  .action{
+    overflow: hidden;
+    height: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    ul{
+      float: right;
+      li{
+        float:left;
+        margin-right: 9px;
+      }  
+    }
+  }
+}
 @media (max-width: 767px){
 
   .container-fluid{

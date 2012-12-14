@@ -14,7 +14,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require chosen-jquery
-//= require autocomplete-rails
 //= require jquery.tokeninput
 //= require jquery.ui.datepicker
 //= require twitter/bootstrap
@@ -25,13 +24,6 @@
 
 
 $(document).ready(function() {
- 	
-    $('.pagination a').click(function () {
-      // $.get(this.href, null, null, 'script');
-      // return false;
-      alert("work");
-      return false;
-    });
   
   $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_retailer_id').chosen({no_results_text: "No results matched"})
@@ -43,11 +35,16 @@ $(document).ready(function() {
 		$('#search_form input:text').val('');
 		$('#search_form input:checkbox').attr('checked',false);
 		$('.accordion-heading').find('.labels').remove();
-		// $('#search_form').submit();
+		
 	})
-  //$('a.submit').click(function(){
-   // $('#search_form').submit();
-  //})
+  // $('#export-pdf').click(function(){
+  //  alert("hi");
+  //  return false;
+  // })
+  // $('#export-zip').click(function(){
+  //  alert("hi");
+  //  return false;
+  // })
 	
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
@@ -182,7 +179,7 @@ var filterUI = {
     $el.parent().delegate("a", "click", function() {
       that.removeLabel( '#' + $(this).attr('data-id') );
       that.uncheckCheckbox( '#' + $(this).attr('data-id') );
-      //$('#search_form').submit();
+      
     });
 
   },

@@ -9,17 +9,17 @@ jQuery.fn.submitOnCheck = ->
   
 jQuery ->
   $('#photo-list').dataTable
-    "sPaginationType": "full_numbers"
     "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+    "sPaginationType": 'full_numbers'
+    "bRetrieve": true
+    
 
   ###"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   "sPaginationType": "bootstrap"###
 
   $('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
   $('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})
-  $('#export').live 'click', (event) ->
-    alert('test')
-
+  
   ###$('#search_form').submitOnCheck()###
 
   $('#search_location_id').parent().hide()

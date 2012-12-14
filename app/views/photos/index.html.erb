@@ -19,9 +19,21 @@
     <div class="tab-pane" id="list-view">
       <% unless params[:search].nil? %>
         <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->
-        <a href="#" id="checkAll">Select All</a> | <a href="#" id="uncheckAll">Deselect All</a> | 
-        <%= link_to "Export", download_url(3861), :id => 'export', :method => 'post', remote: true  %>
-
+        <div class="action">
+          <ul>
+            <li>
+              <a href="#" id="checkAll">Select All</a> |
+            </li>
+            <li>
+              <a href="#" id="uncheckAll">Deselect All</a> | 
+            </li>
+            <li>
+              <%= link_to "Export Zip", download_url(3861), :id => 'export-zip'%> |
+            </li>
+            <li>
+              <%= link_to "Export PDF", download_pdf_url, :id => 'export-pdf'%>
+            </li>
+        </div>
         <%= render 'list_view' %>
       <% end  %>   
     </div>

@@ -16,12 +16,18 @@ Snapshot::Application.routes.draw do
   resources :promotion_types
 
   devise_for :users
-
+  
   resources :photos do
     collection do
       put :publish_multiple
       put :publish_individual
+
     end
+    member do
+      get :generate_zip
+      get :generate_pdf
+    end
+
   end
 
   resources :audits
@@ -33,7 +39,6 @@ Snapshot::Application.routes.draw do
   get "pages/home"
   get "pages/contact"
   get "pages/admin"
-  get "photo/autocomplete_store_postcode"
 
   resources :media_types
 
@@ -56,7 +61,10 @@ Snapshot::Application.routes.draw do
   resources :countries
 
   match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
-  match '/photos/get_photo/:id' => 'photos#get_photo', :as => :download
+  # match "photos/generate_zip", :controller => "photos", :action => 'gnerate_zip', :as => :download_zip
+  match "photos/generate_zip" => "photos#generate_zip", :as =>  "download_zip"
+  match "photos/generate_pdf" => "photos#generate_pdf", :as => "download_pdf"
+  match '/photos/generate_zip/:id' => 'photos#generate_zip', :as => :download
 
   
 
