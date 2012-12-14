@@ -10,8 +10,8 @@ jQuery.fn.submitOnCheck = ->
 jQuery ->
   $('#photo-list').dataTable
     "sPaginationType": "full_numbers"
-    "sDom": '<"top"ip>rt<"bottom"flp><"clear">'
-    
+    "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+
   ###"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   "sPaginationType": "bootstrap"###
 
