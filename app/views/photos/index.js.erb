@@ -1,22 +1,20 @@
 $("#map-view").html("<%= j render("map_view") %>");
 
-	Gmaps.map = new Gmaps4RailsGoogle();
-	Gmaps.load_map = function() {
-        Gmaps.map.map_options.maxZoom = 20;
-        Gmaps.map.map_options.clusterer_gridSize = 100;
-        Gmaps.map.initialize();
-        Gmaps.map.markers = <%=raw @json %>;
-        Gmaps.map.create_markers();
-        Gmaps.map.adjustMapToBounds();
-        Gmaps.map.callback();
-	};
-	Gmaps.loadMaps();
+	// Gmaps.map = new Gmaps4RailsGoogle();
+	// Gmaps.load_map = function() {
+ //    Gmaps.map.map_options.maxZoom = 20;
+ //    Gmaps.map.map_options.clusterer_gridSize = 100;
+ //    Gmaps.map.initialize();
+ //    Gmaps.map.markers = <%=raw @json %>;
+ //    Gmaps.map.create_markers();
+ //    Gmaps.map.adjustMapToBounds();
+ //    Gmaps.map.callback();
+	// };
+	// Gmaps.loadMaps();
 
-$(".loader_cont").show();
+// $(".loader_cont").show();
 $("aside h4").html("<%= @photos.count %> photos found");
 $("aside #retailers-accord .accordion-inner").html("<%= j render("photos/shared/retailer_view") %>");
 $(".span8 h4").html("<%= @photos.count %> photos found");
-<%# if params[:query]  %>
-        $("#photo-list").html("<%= j render("list_view") %>");
-<%# end %>
-$(".loader_cont").hide();
+$("#photo-list").html("<%= j render("list_view") %>");
+// $(".loader_cont").hide();

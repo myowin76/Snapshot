@@ -260,8 +260,8 @@ class PhotosController < ApplicationController
     # asset = Photo.find_by_id(3861)
     if asset
       data = open(URI.parse(URI.encode(asset.photo.url(:large))))
-      temp_file = Tempfile.new("#{Rails.root}/tmp/export/" << "export".to_s << ".zip")
-
+      # temp_file = Tempfile.new("#{Rails.root}/tmp/export/" << "export".to_s << ".zip")
+      temp_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
       Zip::ZipOutputStream.open(temp_file) do |zos|
         zos.put_next_entry(asset.photo_file_name)
         zos.print IO.read(data)
