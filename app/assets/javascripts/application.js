@@ -37,9 +37,9 @@ $(document).ready(function() {
 		$('.accordion-heading').find('.labels').remove();
 		
 	});
-  $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
-    alert("clicked");
-  });
+  // $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
+  //   alert("clicked");
+  // });
   
 
   // $('#export-pdf').click(function(){
@@ -69,7 +69,7 @@ $(document).ready(function() {
   })  
    
 
-	// filterUI.init();
+	filterUI.init();
 	
  });
 
