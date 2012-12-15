@@ -62,8 +62,8 @@ Snapshot::Application.routes.draw do
 
   match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
   # match "photos/generate_zip", :controller => "photos", :action => 'gnerate_zip', :as => :download_zip
-  match "photos/generate_zip" => "photos#generate_zip", :as =>  "download_zip"
-  match "photos/generate_pdf" => "photos#generate_pdf", :as => "download_pdf"
+  # match "photos/generate_zip" => "photos#generate_zip", :as =>  "download"
+  # match "photos/generate_pdf" => "photos#generate_pdf", :as => "download_pdf"
   match '/photos/generate_zip/:id' => 'photos#generate_zip', :as => :download
 
   

@@ -13,8 +13,9 @@ $("#map-view").html("<%= j render("map_view") %>");
 	// Gmaps.loadMaps();
 
 // $(".loader_cont").show();
-$("aside h4").html("<%= @photos.count %> photos found");
+// $("aside h4").html("<%= @photos.count %> photos found");
 $("aside #retailers-accord .accordion-inner").html("<%= j render("photos/shared/retailer_view") %>");
 $(".span8 h4").html("<%= @photos.count %> photos found");
 $("#photo-list").html("<%= j render("list_view") %>");
+$("search_sectors_<%= @sector.id %>")
 // $(".loader_cont").hide();

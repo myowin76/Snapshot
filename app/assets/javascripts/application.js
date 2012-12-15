@@ -36,7 +36,12 @@ $(document).ready(function() {
 		$('#search_form input:checkbox').attr('checked',false);
 		$('.accordion-heading').find('.labels').remove();
 		
-	})
+	});
+  $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
+    alert("clicked");
+  });
+  
+
   // $('#export-pdf').click(function(){
   //  alert("hi");
   //  return false;
@@ -64,7 +69,7 @@ $(document).ready(function() {
   })  
    
 
-	filterUI.init();
+	// filterUI.init();
 	
  });
 

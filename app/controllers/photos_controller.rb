@@ -167,6 +167,12 @@ class PhotosController < ApplicationController
       format.json { 
         #render json: @photos 
       }
+      # format.pdf do
+      #   pdf = PhotoPdf.new(@photos)
+      #   send_data pdf.render, file_name: "photos.pdf",
+      #     type: "application/pdf",
+      #     disposition: "inline"
+      # end
       format.js
     end
   end
