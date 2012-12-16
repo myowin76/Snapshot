@@ -65,6 +65,19 @@ class Photo < ActiveRecord::Base
     # scope :in_category, lambda { |cat|
     #   joins(:category).where('audits.channel_id IN (?)',
     #      channel) }
+    def self.zip_files photo_ids
+      zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
+      Zip::ZipOutputStream.open(zip_file) do |zos|
+        photo_ids.each do |photo_id|
+          asset = find_by_id(photo_id)
+          download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
+
+          zos.put_next_entry(asset.photo_file_name)
+          zos.print IO.read(download_url)
+        end
+      end
+      zip_file
+    end
     
     scope :by_audits_in_stores, lambda { |stores, environment, channel|
       joins(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',

@@ -1,0 +1,1 @@
+pdf.text "File Name: #{@photos.first.photo_file_name}", :size => 14, :style => :bold

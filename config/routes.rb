@@ -17,17 +17,15 @@ Snapshot::Application.routes.draw do
 
   devise_for :users
   
+  match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
   resources :photos do
     collection do
       put :publish_multiple
       put :publish_individual
-
+      post :refresh_brands
+      post :refresh_retailers
     end
-    member do
-      get :generate_zip
-      get :generate_pdf
-    end
-
+    
   end
 
   resources :audits
@@ -64,7 +62,7 @@ Snapshot::Application.routes.draw do
   # match "photos/generate_zip", :controller => "photos", :action => 'gnerate_zip', :as => :download_zip
   # match "photos/generate_zip" => "photos#generate_zip", :as =>  "download"
   # match "photos/generate_pdf" => "photos#generate_pdf", :as => "download_pdf"
-  match '/photos/generate_zip/:id' => 'photos#generate_zip', :as => :download
+  
 
   
 

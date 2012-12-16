@@ -1,8 +1,16 @@
 class PhotosController < ApplicationController
+  include PhotosHelper
+
+
   def index
     
     if user_is_country_and_category_subscriber?
-      
+      if params[:saved_search_id] 
+        saved = SaveSearch.find_by_id(params[:saved_search_id])
+        @saved_params = saved.to_params
+      end
+
+
       @countries = Country.find(current_user.subscription.sub_country.split(","))
       @categories = Category.order(:name)
       # @categories = Category.find(current_user.subscription.sub_cats.split(","))
@@ -12,30 +20,31 @@ class PhotosController < ApplicationController
       @sectors = Sector.order(:name)
       @store_formats = StoreFormat.order(:name)
           
-      unless params[:search].nil?
+      unless params_search.nil?
         # Country Search
-        if params[:search][:country_id].present?
+        if search_country_id.present?
           # for selected country
-          @stores = @stores.where('country_id IN (?)', params[:search][:country_id])
+          @stores = @stores.where('country_id IN (?)', search_country_id)
         else
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
           
         end
 
-        @stores = @stores.where('store_format_id IN (?)', params[:search][:sformats]) if params[:search][:sformats].present?
+        @stores = @stores.where('store_format_id IN (?)', search_store_formats) if search_store_formats.present?
         # Location Search          
-        @stores = @stores.near(params[:search][:location], 25, :order => :distance) if params[:search][:location].present?
-        
+        @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
 
-        if params[:search][:sectors].present?
-          @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors])
+        if search_sectors.present?          
+          @retailers = Retailer.find_all_by_sector_id(search_sectors)
           @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
-          
         else
           @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
         end
-
-        @stores = @stores.where('retailer_id IN (?)', params[:search][:retailers]) if params[:search][:retailers].present?
+        if search_retailers.present?
+          @stores = @stores.where('retailer_id IN (?)', search_retailers)
+        else
+          @stores = @stores.where('retailer_id IN (?)', @retailers)
+        end  
         
       else
         # page load
@@ -68,61 +77,39 @@ class PhotosController < ApplicationController
           to_date = params[:search][:toDate].present? ? params[:search][:toDate] : DateTime.now
           @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
           @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
-          
+
           @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
                     
-            unless params[:search][:promo_types]
-              # @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?) OR promotion_types.id IS NULL', @promo_types.map(&:id))
-            else
-              @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', params[:search][:promo_types])
+            if search_promotion_types.present?
+              @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types)
             end  
-            unless params[:search][:promo_cal]
+            unless search_promotion_calendars.present?
               @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
             else
-              @photos = @photos.where('promotion_calendar_id IN (?)', params[:search][:promo_cal])
+              @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars)
             end  
             
-            unless params[:search][:media_type]
-              # @photos = @photos.where('media_type_id IS NULL OR media_type_id IN (?)', @media_types.map(&:id)) 
-            else
-              # @photos = @photos.where('media_type_id IN (?)', params[:search][:media_type]) 
-              @photos = @photos.joins(:media_types).where('media_types.id IN (?)', params[:search][:media_type])
+            if search_media_types.present?
+              @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types)
             end
-            unless params[:search][:media_v]
-              # @photos = @photos.where('media_vehicle_id IS NULL OR media_vehicle_id IN (?)', @media_vehicles.map(&:id)) 
-            else
-              # @photos = @photos.where('media_vehicle_id IN (?)', params[:search][:media_v]) 
-              @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', params[:search][:media_v])
+            if search_media_vehicles.present?
+              @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', search_media_vehicles)
             end
-            unless params[:search][:media_loc]
-              # @photos = @photos.where('media_location_id IS NULL OR media_location_id IN (?)', @media_locations.map(&:id)) 
-            else
-              # @photos = @photos.where('media_location_id IN (?)', params[:search][:media_loc]) 
-              @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', params[:search][:media_loc])
-            end
-            unless params[:search][:brand_owners]
-              # @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
-            else
-              @brands_by_owners = @brands.find_all_by_brand_owner_id(params[:search][:brand_owners])
+            
+            @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', search_media_locations) if search_media_locations.present?
+            
+            if search_brand_owners.present?
+              @brands_by_owners = @brands.find_all_by_brand_owner_id(search_brand_owners)
               @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
             end
-            unless params[:search][:brands]
-              # @photos = @photos.where('brand_id IS NULL OR brand_id IN (?)', @brands.map(&:id)) 
-            else
-              # @photos = @photos.where('brand_id IN (?)', params[:search][:brands]) 
-              @photos = @photos.joins(:brands).where('brands.id IN (?)', params[:search][:brands])
+            if search_brands.present?
+              @photos = @photos.joins(:brands).where('brands.id IN (?)', search_brands)
             end
-            unless params[:search][:themes]
-              # @photos = @photos.where('theme_id IS NULL OR theme_id IN (?)', @themes.map(&:id)) 
-            else
-              # @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
-              @photos = @photos.joins(:themes).where('themes.id IN (?)', params[:search][:themes])
+            if search_themes.present?
+              @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes)
             end
-            unless params[:search][:category]
-              # @photos = @photos.where('theme_id IS NULL OR theme_id IN (?)', @themes.map(&:id)) 
-            else
-              # @photos = @photos.where('theme_id IN (?)', params[:search][:themes]) 
-              @photos = @photos.joins(:categories).where('categories.id IN (?)', params[:search][:category])
+            if search_categories.present?
+              @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories)
             end            
 
             @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
@@ -167,12 +154,6 @@ class PhotosController < ApplicationController
       format.json { 
         #render json: @photos 
       }
-      # format.pdf do
-      #   pdf = PhotoPdf.new(@photos)
-      #   send_data pdf.render, file_name: "photos.pdf",
-      #     type: "application/pdf",
-      #     disposition: "inline"
-      # end
       format.js
     end
   end
@@ -219,23 +200,17 @@ class PhotosController < ApplicationController
       end
     end
   end
+
+
   def generate_zip
     
     # asset = Photo.find(params[:photo_ids])
-    # debugger
-    asset = Photo.find_by_id(3861)
-    if asset
-      data = open(URI.parse(URI.encode(asset.photo.url(:large))))
-      temp_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
-      Zip::ZipOutputStream.open(temp_file) do |zos|
-        zos.put_next_entry(asset.photo_file_name)
-        zos.print IO.read(data)
-      end
-
-      send_file temp_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"
+    # asset = Photo.find_by_id(3861)
+    zip_file = Photo.zip_files(params[:photo_ids].split(','))
+    if zip_file
+      send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"
       # redirect_to asset.photo.url(:medium)
-      temp_file.close
-      
+      zip_file.close
     end
   end
 
@@ -285,7 +260,6 @@ class PhotosController < ApplicationController
 
   def generate_pdf
     # @photo_list = Photo.find(params[:photo_ids])
-    debugger
     @photo_list = Photo.first
     format.pdf do
       pdf = PhotoListPdf.new(@photo_list)
@@ -324,5 +298,24 @@ class PhotosController < ApplicationController
     
     redirect_to admin_path
     
+  end
+
+  def refresh_retailers
+
+    @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors])
+    respond_to do |format|
+      format.js {
+        render :partial => 'refresh_retailers', :locals => { :retailers => @retailers }
+      }
+    end
+  end
+  def refresh_brands
+
+    @brands = Brand.find_all_by_brand_owner_id(params[:search][:brand_owners])
+    respond_to do |format|
+      format.js {
+        render :partial => 'refresh_brands', :locals => { :brands => @brands }
+      }
+    end
   end
 end

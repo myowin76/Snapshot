@@ -46,7 +46,6 @@ class SaveSearchesController < ApplicationController
   # POST /save_searches
   # POST /save_searches.json
   def create
-    
     @save_search = SaveSearch.new(params[:save_search])
 
     respond_to do |format|

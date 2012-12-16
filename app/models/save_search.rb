@@ -7,4 +7,8 @@ class SaveSearch < ActiveRecord::Base
   def self.saved_searches user
 		find_all_by_user_id(user.id)  	
   end
+
+  def to_params
+  	JSON.parse params
+  end
 end

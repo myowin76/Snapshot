@@ -19,11 +19,22 @@
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
-
 //= require_tree .
 
 
 $(document).ready(function() {
+  
+  $('#export-zip').click(function(e){
+    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+    url = '/photos/generate_zip?photo_ids=' + checkbox_array;
+    
+    $(this).attr('href', url);
+    // $.ajax({
+    //     url: $(this).attr('href'),
+    //     type: "POST",
+    //     data: checkbox_array
+    // })
+  })
   
   $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_retailer_id').chosen({no_results_text: "No results matched"})
@@ -37,20 +48,33 @@ $(document).ready(function() {
 		$('.accordion-heading').find('.labels').remove();
 		
 	});
-  // $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
-  //   alert("clicked");
-  // });
+   $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
+    sectores_checkboxes = $('#sector-group .accordion-inner input[type=checkbox]:checked').serializeObject();
+    $.ajax({
+      url: '/photos/refresh_retailers',
+      type: "POST",
+      dataType: 'script',
+      data: sectores_checkboxes
+    })
+
+   });
+   $('#brand-owners-group .accordion-inner input[type=checkbox]').live('click',function(){
+    brand_owners_checkboxes = $('#brand-owners-group .accordion-inner input[type=checkbox]:checked').serializeObject();
+    $.ajax({
+      url: '/photos/refresh_brands',
+      type: "POST",
+      dataType: 'script',
+      data: brand_owners_checkboxes
+    })
+
+   });
   
 
   // $('#export-pdf').click(function(){
   //  alert("hi");
   //  return false;
   // })
-  // $('#export-zip').click(function(){
-  //  alert("hi");
-  //  return false;
-  // })
-	
+  
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
@@ -69,7 +93,7 @@ $(document).ready(function() {
   })  
    
 
-	filterUI.init();
+	// filterUI.init();
 	
  });
 

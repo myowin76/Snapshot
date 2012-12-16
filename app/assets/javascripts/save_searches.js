@@ -27,7 +27,7 @@ $(function () {
 	    //values += "&content=" + encodeURIComponent(content_val);
 	    //alert(values);
 	    $('#save_search_params').val(JSON.stringify($('#search_form').serializeObject()));
-        return false;
+        
 	  });
 });
 

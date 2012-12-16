@@ -15,9 +15,9 @@
       </fieldset>  
       <fieldset>
         <%= label_tag "Country" %>
-        <% if params[:search] && params[:search][:country_id].present? %>
+        <% if search_country_id.present? %>
           <%= collection_select(:search, :country_id, @countries, :id, :name, 
-          {:selected => params[:search][:country_id], :include_blank => 'All'}) %>
+          {:selected => search_country_id, :include_blank => 'All'}) %>
         <% else %>
           <%= collection_select(:search, :country_id, @countries, :id, :name, :prompt => 'All')  %>
           <%#= collection_select(:search, :country_id, @countries, :id, :name), { :prompt => 'All' } %>
@@ -34,7 +34,7 @@
       <div id="sector-accord" class="accordion-body collapse">
         <div class="accordion-inner">
           <% for sector in @sectors %>
-            <% if params[:search] && params[:search][:sectors] && params[:search][:sectors].include?(sector.id.to_s) %>
+            <% if search_sectors && search_sectors.include?(sector.id.to_s) %>
               <%= label_tag "search[sectors][#{sector.id}]" do %>
                 <%= check_box_tag "search[sectors][]", sector.id, true, :id => "search_sectors_#{sector.id}" %>
                 <%= sector.name %>
@@ -71,14 +71,14 @@
       <div id="categories" class="accordion-body collapse">
         <div class="accordion-inner">
           <% for category in @categories %>
-            <% if params[:search] && params[:search][:category] && params[:search][:category].include?(category.id.to_s) %>
-              <%= label_tag "search[category][#{category.id}]", category.id do %>
-                <%= check_box_tag "search[category][]", category.id, true, :id => "search_category_#{category.id}" %>
+            <% if search_categories && search_categories.include?(category.id.to_s) %>
+              <%= label_tag "search[categories][#{category.id}]", category.id do %>
+                <%= check_box_tag "search[categories][]", category.id, true, :id => "search_categories_#{category.id}" %>
                 <%= category.name %>
               <% end %>    
             <% else %>
-              <%= label_tag "search[category][#{category.id}]" do %>
-                <%= check_box_tag "search[category][]", category.id, false, :id => "search_category_#{category.id}" %>
+              <%= label_tag "search[categories][#{category.id}]" do %>
+                <%= check_box_tag "search[categories][]", category.id, false, :id => "search_categories_#{category.id}" %>
                 <%= category.name %>
               <% end %>  
             <% end %>
@@ -87,7 +87,7 @@
         </div>
       </div>
     </div>
-    <div class="accordion-group">
+    <div class="accordion-group" id="brand-owners-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brand_owners">
           Brand Owners <i class="icon-plus pull-right"></i>
@@ -96,14 +96,14 @@
       <div id="brand_owners" class="accordion-body collapse">
         <div class="accordion-inner">
           <% for brand_owner in @brand_owners %>
-            <% if params[:search] && params[:search][:brand_owners] && params[:search][:brand_owners].include?(brand_owner.id.to_s) %>
+            <% if search_brand_owners && search_brand_owners.include?(brand_owner.id.to_s) %>
               <%= label_tag "search[brand_owners][#{brand_owner.id}]" do %>
-                <%= check_box_tag "search[brand_owners][]", brand_owner.id, :check => "checked", :id => "search_brands_#{brand_owner.id}" %>
+                <%= check_box_tag "search[brand_owners][]", brand_owner.id, :check => "checked", :id => "search_brand_owners_#{brand_owner.id}" %>
                 <%= brand_owner.name %><br />
               <% end %>  
             <% else %>  
               <%= label_tag "search[brand_owners][#{brand_owner.id}]" do %>
-                <%= check_box_tag "search[brand_owners][]", brand_owner.id, false, :id => "search_brands_#{brand_owner.id}" %>
+                <%= check_box_tag "search[brand_owners][]", brand_owner.id, false, :id => "search_brand_owners_#{brand_owner.id}" %>
                 <%= brand_owner.name %><br />
               <% end %>  
             <% end %>  
@@ -113,25 +113,13 @@
     </div>
     <div class="accordion-group">
       <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brands">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brands-accord">
           Brands <i class="icon-plus pull-right"></i>
         </a>
       </div>
-      <div id="brands" class="accordion-body collapse">
+      <div id="brands-accord" class="accordion-body collapse">
         <div class="accordion-inner">
-          <% for brand in @brands %>
-            <% if params[:search] && params[:search][:brands] && params[:search][:brands].include?(brand.id.to_s) %>
-              <%= label_tag "search[brands][#{brand.id}]" do %>
-                <%= check_box_tag "search[brands][]", brand.id, :check => "checked", :id => "search_brands_#{brand.id}" %>
-                <%= brand.name %><br />
-              <% end %>  
-            <% else %>  
-              <%= label_tag "search[brands][#{brand.id}]" do %>
-                <%= check_box_tag "search[brands][]", brand.id, false, :id => "search_brands_#{brand.id}" %>
-                <%= brand.name %><br />
-              <% end %>  
-            <% end %>  
-          <% end %>  
+          <%= render 'photos/shared/brand_view', :locals => {:brands => @brands}%>
         </div>
       </div>
     </div>
@@ -221,12 +209,12 @@
           <% for sf in @store_formats %>
             <% if params[:search] && params[:search][:sformats] && params[:search][:sformats].include?(sf.id.to_s) %>
               <%= label_tag "search[sformats][#{sf.id}]" do %>
-                <%= check_box_tag "search[sformats][]", sf.id, true, :id => "search_sectors_#{sf.id}" %>
+                <%= check_box_tag "search[sformats][]", sf.id, true, :id => "search_sformats_#{sf.id}" %>
                 <%= sf.name %>
               <% end %>  
             <% else %> 
               <%= label_tag "search[sformats][#{sf.id}]" do %> 
-                <%= check_box_tag "search[sformats][]", sf.id, false, :id => "search_sectors_#{sf.id}" %>
+                <%= check_box_tag "search[sformats][]", sf.id, false, :id => "search_sformats_#{sf.id}" %>
                 <%= sf.name %>
               <% end %>  
             <% end %>
