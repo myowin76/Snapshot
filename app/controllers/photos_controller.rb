@@ -301,8 +301,11 @@ class PhotosController < ApplicationController
   end
 
   def refresh_retailers
-
-    @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors])
+    if params[:search].nil?
+      @retailers = Retailer.all
+    else
+      @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors])
+    end
     respond_to do |format|
       format.js {
         render :partial => 'refresh_retailers', :locals => { :retailers => @retailers }
@@ -310,8 +313,11 @@ class PhotosController < ApplicationController
     end
   end
   def refresh_brands
-
-    @brands = Brand.find_all_by_brand_owner_id(params[:search][:brand_owners])
+    if params[:search].nil?
+      @brands = Brand.all
+    else
+      @brands = Brand.find_all_by_brand_owner_id(params[:search][:brand_owners])
+    end  
     respond_to do |format|
       format.js {
         render :partial => 'refresh_brands', :locals => { :brands => @brands }
