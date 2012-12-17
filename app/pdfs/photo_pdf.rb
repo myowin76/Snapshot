@@ -14,7 +14,7 @@ class	PhotoPdf < Prawn::Document
 	end
 	def photo_image
 		text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold
-		image open("#{@photo.photo.url(:medium)}"), :width => 200
+		image open("#{@photo.photo.url(:medium)}") #, :width => 200
 		# image open("#{@photo.photo.url(:medium).to_s.sub!(/\?.+\Z/, '')}")
 
 	end
@@ -22,16 +22,16 @@ class	PhotoPdf < Prawn::Document
 	def photo_details
 		
 		# start_new_page
-		grid.show_all
-		grid([3,0], [2,1]).bounding_box do
-		
+		# grid.show_all
+		# grid([3,0], [2,1]).bounding_box do
+		# end	
 			text "Retailer: #{@photo.audit.store.retailer.name}", :size => 12
 			text "Store: #{@photo.audit.store.name}", :size => 12
 			text "Store Format: #{@photo.audit.store.store_format.name}"
 			text "Sector: #{@photo.audit.store.retailer.sector.name}"
 			text "Environment Type: #{@photo.audit.environment_type.name}"
-			text "Country: #{@photo.audit.store.country.name}"
-		end
+			text "Country: #{@photo.audit.store.country.name}" unless @photo.audit.store.country_id.nil?
+		
 		
 		
 

@@ -26,6 +26,11 @@ $(document).ready(function() {
   
   $('#export-zip').click(function(e){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+    
+    if (checkbox_array == undefined) {
+      alert("Please select the image to download");
+      return false;
+    };
     url = '/photos/generate_zip?photo_ids=' + checkbox_array;
     
     $(this).attr('href', url);
@@ -45,10 +50,21 @@ $(document).ready(function() {
 	$('.clear-form').click(function(){
 		$('#search_form input:text').val('');
 		$('#search_form input:checkbox').attr('checked',false);
-		$('.accordion-heading').find('.labels').remove();
+		// $('.accordion-heading').find('.labels').remove();
 		
 	});
-   $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
+
+ // $('#search_form input[type=checkbox]').live('click',function(){
+ //    sectores_checkboxes = $('#search_form input[type=checkbox]:checked').serializeObject();
+ //    $.ajax({
+ //      url: '/photos/refresh_results',
+ //      type: "POST",
+ //      dataType: 'script',
+ //      data: sectores_checkboxes
+ //    })
+ // });
+
+ $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
     sectores_checkboxes = $('#sector-group .accordion-inner input[type=checkbox]:checked').serializeObject();
     $.ajax({
       url: '/photos/refresh_retailers',
@@ -56,9 +72,9 @@ $(document).ready(function() {
       dataType: 'script',
       data: sectores_checkboxes
     })
+ });
 
-   });
-   $('#brand-owners-group .accordion-inner input[type=checkbox]').live('click',function(){
+ $('#brand-owners-group .accordion-inner input[type=checkbox]').live('click',function(){
     brand_owners_checkboxes = $('#brand-owners-group .accordion-inner input[type=checkbox]:checked').serializeObject();
     $.ajax({
       url: '/photos/refresh_brands',
@@ -66,8 +82,7 @@ $(document).ready(function() {
       dataType: 'script',
       data: brand_owners_checkboxes
     })
-
-   });
+  });
   
 
   // $('#export-pdf').click(function(){

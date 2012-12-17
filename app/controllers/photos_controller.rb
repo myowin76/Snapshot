@@ -7,11 +7,13 @@ class PhotosController < ApplicationController
     if user_is_country_and_category_subscriber?
       if params[:saved_search_id] 
         saved = SaveSearch.find_by_id(params[:saved_search_id])
-        @saved_params = saved.to_params
+        if saved
+          @saved_params = saved.to_params
+        end  
       end
 
-
-      @countries = Country.find(current_user.subscription.sub_country.split(","))
+      @countries = Country.order(:name)
+      # @countries = Country.find(current_user.subscription.sub_country.split(","))
       @categories = Category.order(:name)
       # @categories = Category.find(current_user.subscription.sub_cats.split(","))
       # need to check category and country
@@ -203,9 +205,7 @@ class PhotosController < ApplicationController
 
 
   def generate_zip
-    
-    # asset = Photo.find(params[:photo_ids])
-    # asset = Photo.find_by_id(3861)
+
     zip_file = Photo.zip_files(params[:photo_ids].split(','))
     if zip_file
       send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"
@@ -214,14 +214,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  def ajax_search_request
-    index
-    format.js
-  end
-
-
-  # PUT /photos/1
-  # PUT /photos/1.json
   def update
     @photo = Photo.find(params[:id])
 
@@ -237,8 +229,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # DELETE /photos/1
-  # DELETE /photos/1.json
   def destroy
     @photo = Photo.find(params[:id])
     @photo.destroy
@@ -248,15 +238,6 @@ class PhotosController < ApplicationController
       format.json { head :no_content }
     end
   end
-  # def save_search
-  #   respond_to do |format|
-  #     format.html  # index.html.erb
-  #     format.json { 
-  #       #render json: @photos 
-  #     }
-  #     format.js
-  #   end
-  # end
 
   def generate_pdf
     # @photo_list = Photo.find(params[:photo_ids])
@@ -323,5 +304,8 @@ class PhotosController < ApplicationController
         render :partial => 'refresh_brands', :locals => { :brands => @brands }
       }
     end
+  end
+  def refresh_photo_count
+    
   end
 end

@@ -36,70 +36,70 @@ module PhotosHelper
   	if params[:search]
     	params[:search][:location]
     else
-    	@saved_params && @saved_params['search[location]']
+    	@saved_params && @saved_params['search[location][]']
     end
   end
   def search_promotion_types
     if params[:search]
       params[:search][:promo_types]
     else
-      @saved_params && @saved_params['search[promo_types]']
+      @saved_params && @saved_params['search[promo_types][]']
     end
   end
   def search_promotion_calendars
     if params[:search]
       params[:search][:promo_cal]
     else
-      @saved_params && @saved_params['search[promo_cal]']
+      @saved_params && @saved_params['search[promo_cal][]']
     end
   end
   def search_media_types
     if params[:search]
       params[:search][:media_type]
     else
-      @saved_params && @saved_params['search[media_type]']
+      @saved_params && @saved_params['search[media_type][]']
     end
   end
   def search_media_vehicles
     if params[:search]
       params[:search][:media_v]
     else
-      @saved_params && @saved_params['search[media_v]']
+      @saved_params && @saved_params['search[media_v][]']
     end
   end
   def search_media_locations
     if params[:search]
       params[:search][:media_loc]
     else
-      @saved_params && @saved_params['search[media_loc]']
+      @saved_params && @saved_params['search[media_loc][]']
     end
   end
   def search_brand_owners
     if params[:search]
       params[:search][:brand_owners]
     else
-      @saved_params && @saved_params['search[brand_owners]']
+      @saved_params && @saved_params['search[brand_owners][]']
     end
   end
   def search_brands
     if params[:search]
       params[:search][:brands]
     else
-      @saved_params && @saved_params['search[brands]']
+      @saved_params && @saved_params['search[brands][]']
     end
   end
   def search_themes
     if params[:search]
       params[:search][:themes]
     else
-      @saved_params && @saved_params['search[themes]']
+      @saved_params && @saved_params['search[themes][]']
     end
   end
   def search_categories
     if params[:search]
       params[:search][:categories]
     else
-      @saved_params && @saved_params['search[categories]']
+      @saved_params && @saved_params['search[categories][]']
     end
   end
 
