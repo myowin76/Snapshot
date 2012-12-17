@@ -20,14 +20,13 @@
 
   <% @audits.each do |audit| %>
     <tr>
-      <td><%= audit.store.retailer.name unless audit.store.retailer_id.nil? %></td>
+      <td><%= link_to audit.store.retailer.name, audit unless audit.store.retailer_id.nil?%></td>
       <td><%= audit.store.name %></td>
       <td><%= audit.channel.name %></td>
       <td><%= audit.environment_type.name %></td>
       <td><%= audit.photos.count %></td>
       <td><%= audit.user.email %></td>
       
-      <td><%= link_to 'Show', audit %></td>
       <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
       <td><%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>

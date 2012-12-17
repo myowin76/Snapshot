@@ -3,10 +3,7 @@ class Retailer < ActiveRecord::Base
   
   belongs_to :sector
   has_many :stores
-  # has_many :countries, :through => :stores
-
-
-  #named_scope :with_stores, :joins => :stores, 
-  #	:select => 'distinct(retailers.id), retailers.*', :having => "count(stores.id) > 0"
-
+  has_many :audits, :through => :stores
+  # has_many :photos, :through => :audits
+  
 end

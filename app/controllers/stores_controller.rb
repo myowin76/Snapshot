@@ -1,8 +1,5 @@
 class StoresController < ApplicationController
-  # GET /stores
-  # GET /stores.json
-
-
+  
   def index
 
     if user_is_country_and_category_subscriber?
@@ -34,25 +31,16 @@ class StoresController < ApplicationController
   end
 
   def show
+    # @selected_categories = params[categories] from search page
+
     @store = Store.find(params[:id])
-    @audits = @store.audits
-    @photos = @store.photos
-    
+    @audits = @store.audits.order('created_at DESC')
 
-    @photo_category = @photos.group_by{ |pc| pc.categories}
-    
+    @audit = @audits.first
+    # @photos = @store.photos #.group_by{ |pc| pc.categories}
 
-
-
-    # @photos.each do |pc|
-    #   @photo_categories = pc.categories
-    #   debugger
-    # end
-    # @photo_category = @photos.group_by{ |pc| pc.categories}
-    
     # @photo_category = @photos.group(&:categories)
-    
-    
+        # debugger
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @store }
@@ -118,4 +106,21 @@ class StoresController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def refresh_store_view_categories
+    # When user select between audits in select boxes
+    # the categories of the selected audits need to refresh
+    
+    if params[:audit_id]
+      
+      @audit = Audit.find_by_id(params[:audit_id])
+      respond_to do |format|
+        format.js {
+          render :partial => 'stores/refresh_store_view_categories', :locals => { :audit => @audit }
+        }
+      end
+    end  
+    
+  end
+
 end

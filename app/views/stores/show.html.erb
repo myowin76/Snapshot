@@ -14,7 +14,6 @@
     <%= @store.address %><br />
     <%= @store.address2 %><br />
     <%= @store.postcode %><br />
-    <%# = @store.location.name %>
     <%= @store.country.name unless @store.country_id.nil? %>
   </p>
   <p>
@@ -31,36 +30,16 @@
     <b>Retailer:</b>
     <%= @store.retailer.name %>
   </p>
-<!--
-    <% unless @photo_category.nil? %>
-      <div class="widget">
-
-
-      <% @photo_category.each do |category, photos| %>
-        
-          
-          <header>
-        
-            <ul class="toggle_content" style="display: none;">                         
-              <li class="arrow"><a href="#">Toggle Content</a></li>
-            </ul>
-          </header>
-          <section class="group">
-            <ul class="gallery_basic" id="basicGallery">
-              <% for c in category %>
-                <%= c.name  %>
-                <% for photo in c.photos %>
-                  <li><%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true, "data-toggle" => "modal" %></li>
-                <% end %>
-              <% end %> 
-            </ul>
-          </section>
-      <% end %>     
-      
-    </div>  
-    <% end %>
-    -->
-  <%#= link_to 'Edit', edit_store_path(@store) %>
-  <%#= link_to 'Back', stores_path %>
+  
+  <% unless @audits.nil? %>
+    <p>
+      <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
+    </p>
+    <section class="store_audit_categories">
+        <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
+    </section> 
+</div>  
+  <% end %>
+  
 
 </div>

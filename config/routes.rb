@@ -32,7 +32,11 @@ Snapshot::Application.routes.draw do
 
   resources :environment_types
 
-  resources :stores
+  resources :stores do
+    collection do
+      post :refresh_store_view_categories
+    end
+  end
 
   get "pages/home"
   get "pages/contact"
@@ -59,11 +63,6 @@ Snapshot::Application.routes.draw do
   resources :countries
 
   match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
-  # match "photos/generate_zip", :controller => "photos", :action => 'gnerate_zip', :as => :download_zip
-  # match "photos/generate_zip" => "photos#generate_zip", :as =>  "download"
-  # match "photos/generate_pdf" => "photos#generate_pdf", :as => "download_pdf"
-  
-
   
 
   # The priority is based upon order of creation:

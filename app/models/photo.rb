@@ -2,7 +2,7 @@
 class Photo < ActiveRecord::Base
   
   
-  belongs_to :audit,  :include => :store
+  belongs_to :audit
   has_many :categorizations
   has_many :categories, :through => :categorizations
   has_many :brandings

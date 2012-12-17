@@ -307,7 +307,5 @@ class PhotosController < ApplicationController
       }
     end
   end
-  def refresh_photo_count
-    
-  end
+  
 end

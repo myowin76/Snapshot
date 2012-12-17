@@ -14,7 +14,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require chosen-jquery
-//= require jquery.tokeninput
 //= require jquery.ui.datepicker
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
@@ -22,7 +21,16 @@
 //= require_tree .
 
 $(document).ready(function() {
-  
+  $('#store-audit-select').change(function(){
+    audit_id = $('#store-audit-select').serializeObject();
+    
+    $.ajax({
+      url: '/stores/refresh_store_view_categories',
+      type: "POST",
+      dataType: 'script',
+      data: audit_id
+    })
+  })    
   $('#export-zip').click(function(e){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
     
@@ -82,6 +90,7 @@ $(document).ready(function() {
       data: brand_owners_checkboxes
     })
   });
+
   
 
   // $('#export-pdf').click(function(){
