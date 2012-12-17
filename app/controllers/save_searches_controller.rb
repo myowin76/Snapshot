@@ -43,16 +43,13 @@ class SaveSearchesController < ApplicationController
     end
   end
 
-  # POST /save_searches
-  # POST /save_searches.json
   def create
     @save_search = SaveSearch.new(params[:save_search])
-
+    
     respond_to do |format|
       if @save_search.save
-        
-        #format.html { redirect_to @save_search, notice: 'Save search was successfully created.' }
-        format.html { redirect_to root_path, notice: 'Save search was successfull' }
+        url = "#{root_path}?saved_search_id=#{@save_search.id}"
+        format.html { redirect_to url, notice: 'Save search was successfully created.' }
         format.js
         #format.json { render json: @save_search, status: :created, location: @save_search }
       else
@@ -62,8 +59,6 @@ class SaveSearchesController < ApplicationController
     end
   end
 
-  # PUT /save_searches/1
-  # PUT /save_searches/1.json
   def update
     @save_search = SaveSearch.find(params[:id])
 

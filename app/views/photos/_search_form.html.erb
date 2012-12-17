@@ -3,9 +3,8 @@
 <%= form_tag root_path, :id=>"search_form" do %>
   <div class="box">
     <h4>Filter by</h4>
+      
       <fieldset>
-        <%#= link_to 'Search', params.merge({:query => "p"}), :class => "btn submit btn-primary" %>        
-        <%#= link_to 'Search', params[:search][:query], :class => "btn submit btn-primary", remote: true %>        
         <button type="submit" class="btn btn-danger clear-form">
           <i class="icon-refresh icon-white"></i> Clear
         </button>
@@ -13,6 +12,7 @@
           <i class="icon-search icon-white"></i> Search
         </button>
       </fieldset>  
+      
       <fieldset>
         <%= label_tag "Country" %>
         <% if search_country_id.present? %>
@@ -20,10 +20,10 @@
           {:selected => search_country_id, :include_blank => 'All'}) %>
         <% else %>
           <%= collection_select(:search, :country_id, @countries, :id, :name, :prompt => 'All')  %>
-          <%#= collection_select(:search, :country_id, @countries, :id, :name), { :prompt => 'All' } %>
         <% end %>  
       </fieldset>
   </div>    
+
   <div class="accordion" id="accordion2">
     <div class="accordion-group" id="sector-group">
       <div class="accordion-heading">
@@ -134,7 +134,7 @@
           <fieldset>
             <%= label_tag "From" %>
             <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
-              <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>  
+              <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>
             <% else %>
               <%= text_field_tag "search[fromDate]" %>
             <% end %>
