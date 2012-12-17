@@ -1,30 +1,22 @@
-
 <%= simple_form_for @audit, :html => { :multipart => true } do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-
-    <%#= f.association :retailer,:include_blank => false ,  :prompt => 'Please Select'  %>
     <% unless params[:retailer].present?  %>
-      <%#= f.association :retailer, :prompt => 'Please Select'  %>
       <%= f.label "Retailer" %>
-      <%#= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name") %>
-      <% #@select = @audit.new_record? ? "" : @audit.store.retailer.id  %>
+      
       <% if @audit.new_record? %>
         <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name"), {:prompt => 'Please Select'} %>
       <% else  %>
         <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ) %>
-
       <% end %>
     <% else  %>  
-      <%#= f.association :retailer, :selected => params[:retailer] %>
-
+      
       <% retailer = Retailer.find_by_name(params[:retailer])  %>
-      <%#= f.input :retailer_id, :as => :hidden, :input_html => {:value => retailer.id} %>
+      
       <%= f.label "Retailer" %>
       <%= retailer.name %>
     <% end  %>
-    <%#= f.association :store, :include_blank => false %>
     
     <p>
       <%= f.label "Store" %>
@@ -84,13 +76,10 @@
             <%= photo_fields.association :media_vehicles, :input_html => { :class=> 'chosen-media-vehic' } %>      
             <%= photo_fields.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
             <%= photo_fields.association :promotion_types, :input_html => { :class=> 'chosen-promo-type' } %>            
-            <%#= photo_fields.association :media_location, :include_blank => false %>
-            <%#= photo_fields.association :media_vehicle, {:include_blank => "None"} %>
-            <%#= photo_fields.association :media_type, {:include_blank => "None"} %>
-            <%#= photo_fields.association :promotion_type, {:include_blank => "None"} %>
+            
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
             <%= photo_fields.association :themes, :input_html => { :class=> 'chosen-theme' } %>
-            <%#= photo_fields.association :theme, {:include_blank => "None"} %>
+            
             <label>Description</label>
             <%= photo_fields.text_field :description, :as => :text %>
             <%= photo_fields.input :insight %>

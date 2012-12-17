@@ -21,7 +21,6 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .
 
-
 $(document).ready(function() {
   
   $('#export-zip').click(function(e){

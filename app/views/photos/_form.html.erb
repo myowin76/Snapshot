@@ -20,12 +20,13 @@
           </label>
           <%= f.input :headline %>
           <%= f.association :brands, :input_html => { :class=> 'chosen-brand' } %>
-          <%#= f.association :audit %>
           <%= f.association :categories, :input_html => { :class=> 'chosen-category' } %>
           <%= f.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
           <%= f.association :media_vehicles, :input_html => { :class=> 'chosen-media-vehic' } %>
           <%= f.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
           <%= f.association :themes, :input_html => { :class=> 'chosen-theme' } %>
+          <%= f.association :promotion_types, :input_html => { :class=> 'chosen-promo-type' } %>
+            <%= f.association :promotion_calendar, :input_html => { :class=> 'chosen-promo-cal' } %>
           <%= f.input :display_for_project %>
           <%= f.input :brand_compliant %>
           <%= f.input :insight %>

@@ -5,6 +5,7 @@ jQuery ->
   $('.chosen-media-vehic').chosen()
   $('.chosen-media-type').chosen()
   $('.chosen-promo-type').chosen()
+  $('.chosen-promo-cal').chosen()
   $('.chosen-theme').chosen()
 
   ###$('.category-tokens').tokenInput '/categories.json'
