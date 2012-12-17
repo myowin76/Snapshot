@@ -35,7 +35,9 @@ class StoresController < ApplicationController
 
   def show
     @store = Store.find(params[:id])
+    @audits = @store.audits
     @photos = @store.photos
+    
 
     @photo_category = @photos.group_by{ |pc| pc.categories}
     

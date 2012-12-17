@@ -102,5 +102,33 @@ module PhotosHelper
       @saved_params && @saved_params['search[categories][]']
     end
   end
+  def search_from_date
+    if params[:search]
+      params[:search][:fromDate]
+    else
+      @saved_params && @saved_params['search[fromDate][]']
+    end
+  end
+  def search_to_date
+    if params[:search]
+      params[:search][:toDate]
+    else
+      @saved_params && @saved_params['search[toDate][]']
+    end
+  end
+  def search_environment_types
+    if params[:search]
+      params[:search][:env_types]
+    else
+      @saved_params && @saved_params['search[env_types][]']
+    end
+  end
+  def search_channels
+    if params[:search]
+      params[:search][:pchannel]
+    else
+      @saved_params && @saved_params['search[pchannel][]']
+    end
+  end
 
 end

@@ -12,8 +12,8 @@ class PhotosController < ApplicationController
         end  
       end
 
-      @countries = Country.order(:name)
-      # @countries = Country.find(current_user.subscription.sub_country.split(","))
+      # @countries = Country.order(:name)
+      @countries = Country.find(current_user.subscription.sub_country.split(","))
       @categories = Category.order(:name)
       # @categories = Category.find(current_user.subscription.sub_cats.split(","))
       # need to check category and country
@@ -69,16 +69,16 @@ class PhotosController < ApplicationController
       # @audits_in_country = Audit.find_all_by_store_id(@stores.map(&:id))
       @saved_searches = current_user.save_searches.all
       
-      if params[:search].nil?
+      if params_search.nil?
         # on page load
         @photos = []
           
       else 
         # search action
-          from_date = params[:search][:fromDate].present? ? params[:search][:fromDate] : DateTime.parse('01/01/1970')
-          to_date = params[:search][:toDate].present? ? params[:search][:toDate] : DateTime.now
-          @search_env_type = params[:search][:env_types].present? ? params[:search][:env_types] : @env_types.map(&:id)
-          @search_channel = params[:search][:pchannel].present? ? params[:search][:pchannel] : @channels.map(&:id)
+          from_date = search_from_date.present? ? search_from_date : DateTime.parse('01/01/1970')
+          to_date = search_to_date.present? ? search_to_date : DateTime.now
+          @search_env_type = search_environment_types.present? ? search_environment_types : @env_types.map(&:id)
+          @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
 
           @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
                     
@@ -111,12 +111,14 @@ class PhotosController < ApplicationController
               @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes)
             end
             if search_categories.present?
-              @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories)
+              @photos = @photos.includes(:categories).where('categories.id IN (?)', search_categories)
             end            
 
             @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
               from_date, to_date)
             #.paginate(:page => params[:page], :per_page => 3)
+
+            #### need to refactor the queries #####  
 
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
