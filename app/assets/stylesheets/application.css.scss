@@ -23,6 +23,9 @@ body {
   padding: 10px 0px;
 }
 
+
+
+
 #loader_cont{
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
@@ -215,9 +218,138 @@ ul.ui-autocomplete {
     }
   }
 }
+
+.action{
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 767px){
 
   .container-fluid{
     margin-top: 0;
   }
+}
+
+//******************************* new 
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  position: relative;
+}
+#main {
+  clear: both;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  .content-wrap {
+    float: right;
+    width: 76.53061%;
+  }
+}
+#header{
+  clear: both;
+  width: 100%;
+  float: left;
+  padding: 40px 0 0 0;
+  #branding {
+    float: left;
+    width: 45%;
+    overflow: hidden;
+  }
+}
+#footer{
+  font-size: 12px;
+  overflow: hidden;
+  clear: both;
+  //max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em 1em;
+  background: #D92680;
+  color: white;
+  margin: 0;
+  a {
+    color: white;
+  }
+  p{
+    margin-bottom: 0;
+  }
+}
+#footer-content {
+  float: left;
+  width: 30%;
+}
+#menu-subsidiary {
+  float: right;
+  width: 65%;
+  position: relative;
+  .menu{
+    float: right;
+    ul{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      
+      li{
+        display: block;
+        float: left;
+        padding-left: 1.5em;
+        background: url(../assets/menu-separator.png) no-repeat left 15%;
+        a {
+          display: block;
+          text-transform: uppercase;
+          border-width: 0;
+        }
+      }
+
+    }
+  }
+}
+
+// NAVIGATION
+#menu-primary {
+  font-size: 1em;
+  width: 100%;
+  margin: 1.5em 0;
+  float: left;
+  clear: left;
+  position: relative;
+  z-index: 99;
+  border-bottom: 1px solid #CCC;
+  ul{
+    padding-left: 0;
+    &.account{
+      float: right;
+    }
+    li {
+      display: block;
+      float: left;
+      min-height: 30px;
+      padding-left: 1.8em;
+      background: url(../assets/menu-separator.png) no-repeat left 15%;
+      &:first-child {
+        padding-left: 0;
+        background: none;
+      }
+      a {
+        color: #D92680;
+        font-size: 1;
+        font-weight: 400;
+        line-height: 1em;
+        margin-right: 1em;
+        display: block;
+        text-transform: lowercase;
+      }
+    }
+  }  
+}
+
+.aside {
+  select{
+    width: 100%;
+  }
+  float: left;
+  font-size: 12px;
+  width: 20.40816%;
 }

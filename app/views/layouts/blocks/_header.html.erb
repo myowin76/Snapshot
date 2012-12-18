@@ -1,0 +1,48 @@
+<div id="header" class="site-header" role="banner">
+	<div id="branding">
+						
+		<h1 id="site-title">
+			<a href="http://snapshot-wp.preview.skyron.co.uk" title="Snapshot Worldwide" rel="Home">
+				<img class="logo" src="http://snapshot-wp.preview.skyron.co.uk/wp-content/uploads/2012/12/snapshot-logo-300x62.png" alt="Snapshot Worldwide">
+			</a>
+		</h1>
+								
+												
+	</div>
+	<div id="menu-primary" class="menu-container">
+
+		<div class="menu">
+			<ul>
+				<li>
+					<a href="http://snapshot-wp.preview.skyron.co.uk/">Home</a>
+				</li>
+				<li>
+					<a href="http://snapshot-wp.preview.skyron.co.uk/about-us/">About us</a>
+				</li>
+				<li>
+					<a href="http://snapshot-wp.preview.skyron.co.uk/category/news/">News</a>
+				</li>
+				<li>
+					<a href="http://snapshot-wp.preview.skyron.co.uk/category/reports/">Reports</a>
+				</li>
+				<li>
+					<a href="http://snapshot-wp.preview.skyron.co.uk/consultancy-research/">Consultancy &amp; Research</a>
+				</li>
+				<li>
+					<a href="http://snapshot-wp.preview.skyron.co.uk/contact/">Contact</a>
+				</li>
+			</ul>
+			<ul class="account">
+				<% if user_signed_in? %>
+					<li>
+	          <%= link_to "Admin", admin_path %>
+	        </li>
+					<li>
+						<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+</div>	
+

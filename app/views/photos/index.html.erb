@@ -1,42 +1,48 @@
 
-<aside id="sidebar" class="mod-sidebar span4">
+<!--aside id="sidebar" class="mod-sidebar span4">
   
+  <%#= render 'search_form' %>
+  <%#= render 'save_form' %>
+
+</aside-->
+<div class="aside">
   <%= render 'search_form' %>
   <%= render 'save_form' %>
 
-</aside>
+</div>
+<div class="content-wrap">
+  <div class="content">
 
-<div class="content span8">
-
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#map-view" data-toggle="tab">Map</a></li>
-    <li><a href="#list-view" data-toggle="tab">List</a></li>
-  </ul>  
-  <div class="tab-content">
-    <div class="tab-pane active" id="map-view">
-      <%= render 'map_view' %>    
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#map-view" data-toggle="tab">Map</a></li>
+      <li><a href="#list-view" data-toggle="tab">List</a></li>
+    </ul>  
+    <div class="tab-content">
+      <div class="tab-pane active" id="map-view">
+        <%= render 'map_view' %>    
+      </div>
+      <div class="tab-pane" id="list-view">
+        <% if params_search %>
+          <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->
+          <div class="action">
+            <ul>
+              <li>
+                <a href="#" id="checkAll">Select All</a> |
+              </li>
+              <li>
+                <a href="#" id="uncheckAll">Deselect All</a> | 
+              </li>
+              <li>
+                <%= link_to "Export Zip", download_url, :id => 'export-zip'%>
+              </li>
+              <li>
+                <%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf'%>
+              </li>
+          </div>
+          <%= render 'list_view' %>
+        <% end  %>   
+      </div>
+    
     </div>
-    <div class="tab-pane" id="list-view">
-      <% if params_search %>
-        <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->
-        <div class="action">
-          <ul>
-            <li>
-              <a href="#" id="checkAll">Select All</a> |
-            </li>
-            <li>
-              <a href="#" id="uncheckAll">Deselect All</a> | 
-            </li>
-            <li>
-              <%= link_to "Export Zip", download_url, :id => 'export-zip'%>
-            </li>
-            <!--li>
-              <%#= link_to "Export PDF", download_pdf_url(3861), :id => 'export-pdf'%>
-            </li-->
-        </div>
-        <%= render 'list_view' %>
-      <% end  %>   
-    </div>
-  
-  </div>
+  </div>  
 </div>  

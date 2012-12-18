@@ -2,16 +2,18 @@
     <h1>Unpublished images</h1>
   </div>
 <%= form_tag publish_multiple_photos_path, :method => :put do %>
-    <%= submit_tag "Publish Checked", :class=> 'btn btn-primary' %>
+    <div class="action">
+        <%= submit_tag "Publish Checked", :class=> 'btn btn-primary pull-right', :id => 'publish_multiple'%>
+    </div>
+    
     <table id="tbl-unpublished" class="table table-striped">
       <thead>
       <tr>
         <th></th>
         <th>Images</th>
-        <th>Audit</th>
         <th>Retailer/Store</th>
         <th>Date</th>
-        <th>Category</th>
+        <th>Reference</th>
         <th>User</th>
         
       </tr>
@@ -26,16 +28,16 @@
         <td>
         	<%= link_to image_tag(photo.photo.url(:small)), photo  %>
         </td>
-        <td><%#= link_to photo.audit.id unless photo.audit_id.nil? %></td>
+        <%#= link_to photo.audit.id unless photo.audit_id.nil? %>
         <td>
         	<%= link_to photo.audit.store.retailer.name unless photo.audit.store.retailer_id.nil?  %><br />
         	<%= link_to photo.audit.store.name unless photo.audit_id.nil?  %>
         </td>
         <td><%= photo.created_at %></td>
         <td>
-          <% photo.categories.each do |cat| %>  
-            <%= cat.name %>
-          <% end %>  
+          <% #photo.categories.each do |cat| %>  
+            <%#= cat.name %>
+          <% #end %>  
         </td>
         <td><%= link_to photo.audit.user.email unless photo.audit_id.nil? %></td>
     	</tr>

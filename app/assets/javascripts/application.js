@@ -21,31 +21,44 @@
 //= require_tree .
 
 $(document).ready(function() {
-  $('#store-audit-select').change(function(){
-    audit_id = $('#store-audit-select').serializeObject();
-    
-    $.ajax({
-      url: '/stores/refresh_store_view_categories',
-      type: "POST",
-      dataType: 'script',
-      data: audit_id
-    })
-  })    
+  
   $('#export-zip').click(function(e){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
     
     if (checkbox_array == undefined) {
-      alert("Please select the image to download");
+      alert("Please select the image");
       return false;
     };
     url = '/photos/generate_zip?photo_ids=' + checkbox_array;
-    
     $(this).attr('href', url);
+
     // $.ajax({
     //     url: $(this).attr('href'),
     //     type: "POST",
     //     data: checkbox_array
     // })
+  })
+
+  $('#export-pdf').click(function(){
+    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+    
+    if (checkbox_array == undefined) {
+      alert("Please select the image");
+      return false;
+    };
+
+    url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
+    $(this).attr('href', url);
+
+  })
+
+  $('#publish_multiple').click(function(){
+    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+    
+    if (checkbox_array == undefined) {
+      alert("Please select the image");
+      return false;
+    };
   })
   
   $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
@@ -55,10 +68,11 @@ $(document).ready(function() {
   // $('.audit_brands').chosen({no_results_text: "No results matched"})
   
 	$('.clear-form').click(function(){
-		$('#search_form input:text').val('');
+		$('#search_form select').val('');
+    $('#search_form input:text').val('');
 		$('#search_form input:checkbox').attr('checked',false);
 		// $('.accordion-heading').find('.labels').remove();
-		
+		return false;
 	});
 
  // $('#search_form input[type=checkbox]').live('click',function(){
@@ -91,13 +105,17 @@ $(document).ready(function() {
     })
   });
 
-  
+  $('#store-audit-select').change(function(){
+    audit_id = $('#store-audit-select').serializeObject();
+    
+    $.ajax({
+      url: '/stores/refresh_store_view_categories',
+      type: "POST",
+      dataType: 'script',
+      data: audit_id
+    })
+  })    
 
-  // $('#export-pdf').click(function(){
-  //  alert("hi");
-  //  return false;
-  // })
-  
 	$('#checkAll').click(function(){
 		$('.table-striped input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
@@ -111,6 +129,7 @@ $(document).ready(function() {
 		})
 		return false;
 	})
+  
   $('.accordion').on('show hide', function(e){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
   })  

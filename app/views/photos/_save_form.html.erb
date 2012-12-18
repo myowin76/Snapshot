@@ -2,6 +2,8 @@
 	<h4>Save Searches</h4>
 
 	<div id = "saved-list">
+		<ul>
+		</ul>
 	  <%#= render @saved_searches unless current_user.save_searches.blank? %>
 	</div> 
 	<%= link_to "Save", new_save_search_path(:params => params[:search]), id: "new_link", :class => "btn btn-primary", remote: true %>

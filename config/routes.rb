@@ -16,8 +16,9 @@ Snapshot::Application.routes.draw do
   resources :promotion_types
 
   devise_for :users
-  
+  match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
+  
   resources :photos do
     collection do
       put :publish_multiple

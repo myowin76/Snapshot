@@ -216,6 +216,20 @@ class PhotosController < ApplicationController
     end
   end
 
+  def generate_pdf
+    # @photo_list = Photo.find(params[:photo_ids])
+    @photo_list = Photo.find_all_by_id(params[:photo_ids].split(','))
+    respond_to do |format|
+      format.pdf do
+        pdf = PhotoListPdf.new(@photo_list)
+        
+        send_data pdf.render, file_name: "photo_list.pdf",
+                      type: "application/pdf",
+                      disposition: "inline"
+      end
+    end  
+  end
+
   def update
     @photo = Photo.find(params[:id])
 
@@ -239,18 +253,6 @@ class PhotosController < ApplicationController
       format.html { redirect_to photos_url }
       format.json { head :no_content }
     end
-  end
-
-  def generate_pdf
-    # @photo_list = Photo.find(params[:photo_ids])
-    @photo_list = Photo.first
-    format.pdf do
-      pdf = PhotoListPdf.new(@photo_list)
-      send_data pdf.render, file_name: "photo_list.pdf",
-                    type: "application/pdf",
-                    disposition: "inline"
-    end
-    
   end
 
   def publish_individual
