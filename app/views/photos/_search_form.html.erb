@@ -37,12 +37,12 @@
             <% if search_sectors && search_sectors.include?(sector.id.to_s) %>
               <%= label_tag "search[sectors][#{sector.id}]" do %>
                 <%= check_box_tag "search[sectors][]", sector.id, true, :id => "search_sectors_#{sector.id}" %>
-                <%= sector.name %>
+                  <p><%= sector.name %></p>
               <% end %>  
             <% else %>  
               <%= label_tag "search[sectors][#{sector.id}]" do %>
                 <%= check_box_tag "search[sectors][]", sector.id, false, :id => "search_sectors_#{sector.id}" %>
-                <%= sector.name %>
+                  <p><%= sector.name %></p>
               <% end %>  
             <% end %>  
           <% end %>  
