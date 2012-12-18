@@ -22,10 +22,10 @@ class Photo < ActiveRecord::Base
   
   attr_accessible :description, :created_at, :audit_id, 
       :theme_ids, :brand_compliant, :display_for_project, :insight, :role_of_comm, :perspective,
-      :additional_brands, :photo_file_name,
+      :additional_brands, :photo_file_name, :data_complete,
   		:promotion_calendar_id, :published, :headline, :photo, 
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids
-      # :brand_id, :category_id, :media_location_id,  :media_vehicle_id, :media_type_id, :promotion_type_id, :theme_id, 
+      
     
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },

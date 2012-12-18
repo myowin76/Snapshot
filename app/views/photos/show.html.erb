@@ -1,5 +1,5 @@
 
-<div class="span6 details">
+<div class="details">
   <%= image_tag(@photo.photo.url(:large))  %><br />
   <%= link_to 'Download Pdf', photo_path(:format => "pdf") %><br />
   <%= link_to 'Edit', edit_photo_path %><br />
@@ -11,7 +11,7 @@
   <br />
 </div>
 
-<div class="span6">
+<div class="">
   <table class="table table-striped">
     <tr>
       <td>Headline</td>

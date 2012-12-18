@@ -6,6 +6,5 @@ class CreateBrands < ActiveRecord::Migration
 
       t.timestamps
     end
-    Brand.create(:name=>'Coca Cola', :owner=>'Unilever')
   end
 end

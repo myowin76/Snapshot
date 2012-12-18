@@ -21,7 +21,7 @@
 //= require_tree .
 
 $(document).ready(function() {
-  
+  $('.audit-created-date').datepicker({ dateFormat: 'dd/mm/yy'});  
   $('#export-zip').click(function(e){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
     

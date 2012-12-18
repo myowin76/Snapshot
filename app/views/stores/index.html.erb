@@ -1,11 +1,15 @@
 
-<div class="span12">
+<div class="">
   <div class="page-header">
     <h1>Stores</h1>
   </div>   
-Download
-<%= link_to "CSV", stores_path(format: "csv") %> |
-<%= link_to "Excel", stores_path(format: "xls") %>
+  <div class="action">
+    Download
+    <%= link_to "CSV", stores_path(format: "csv") %> |
+    <%= link_to "Excel", stores_path(format: "xls") %>
+    <%= link_to 'New Store', new_store_path, :class => 'btn btn-primary pull-right' %>
+  </div>
+
 <table id="tbl-stores" class="table table-striped">
   <thead>
   <tr>
@@ -13,9 +17,6 @@ Download
     <th>Store format</th>
     <th>Retailer</th>
     <th>Address</th>
-    <!--th>Sector</th-->
-    <!--th>Description</th-->
-    <th></th>
     <th></th>
     <th></th>
   </tr>
@@ -38,14 +39,14 @@ Download
     <!--td><%#= store.longitude %></td-->
     <!--td><%#= store.latitude %></td-->
     <!--td><%#= store.description %></td-->
-    <td><%= link_to 'Details', store %></td>
+    <!--td><%#= link_to 'Details', store %></td-->
     <td><%= link_to 'Edit', edit_store_path(store) %></td>
     <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </tbody>
 </table>
-<%= link_to 'New Store', new_store_path, :class => 'btn btn-primary' %>
+
 
 
 

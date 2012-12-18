@@ -11,13 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121206155200) do
+ActiveRecord::Schema.define(:version => 20121218163807) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
     t.integer  "environment_type_id"
     t.integer  "channel_id"
-    t.integer  "retailer_id"
     t.integer  "user_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
@@ -26,7 +25,6 @@ ActiveRecord::Schema.define(:version => 20121206155200) do
 
   add_index "audits", ["channel_id"], :name => "index_audits_on_channel_id"
   add_index "audits", ["environment_type_id"], :name => "index_audits_on_environment_type_id"
-  add_index "audits", ["retailer_id"], :name => "index_audits_on_retailer_id"
   add_index "audits", ["store_id"], :name => "index_audits_on_store_id"
   add_index "audits", ["user_id"], :name => "index_audits_on_user_id"
 
@@ -88,6 +86,23 @@ ActiveRecord::Schema.define(:version => 20121206155200) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
+
+  create_table "media_locations", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "media_types", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -141,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20121206155200) do
     t.string   "insight"
     t.string   "role_of_comm"
     t.string   "perspective"
+    t.boolean  "data_complete"
   end
 
   add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"
@@ -237,8 +253,8 @@ ActiveRecord::Schema.define(:version => 20121206155200) do
   create_table "themings", :force => true do |t|
     t.integer  "photo_id"
     t.integer  "theme_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_types", :force => true do |t|
@@ -249,8 +265,8 @@ ActiveRecord::Schema.define(:version => 20121206155200) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                                 :null => false
+    t.string   "encrypted_password",                    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -259,8 +275,8 @@ ActiveRecord::Schema.define(:version => 20121206155200) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "user_type_id",           :default => 1
   end
 
