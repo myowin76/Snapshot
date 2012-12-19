@@ -6,5 +6,7 @@ class CreateMediavehicles < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :mediavehicles, :photo_id
+    add_index :mediavehicles, :media_vehicle_id
   end
 end

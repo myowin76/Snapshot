@@ -6,6 +6,5 @@ class CreateBrandOwners < ActiveRecord::Migration
 
       t.timestamps
     end
-      BrandOwner.create(:name=>'Aldi Stores')
   end
 end

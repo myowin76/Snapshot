@@ -6,5 +6,7 @@ class CreateThemings < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :themings, :photo_id
+    add_index :themings, :theme_id
   end
 end

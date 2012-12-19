@@ -6,5 +6,7 @@ class CreateBrandings < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :brandings, :photo_id
+    add_index :brandings, :brand_id
   end
 end

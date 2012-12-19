@@ -13,6 +13,5 @@ class CreateAudits < ActiveRecord::Migration
     add_index :audits, :store_id
     add_index :audits, :environment_type_id
     add_index :audits, :channel_id
-    add_index :audits, :retailer_id
   end
 end

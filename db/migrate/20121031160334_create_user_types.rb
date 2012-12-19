@@ -6,7 +6,5 @@ class CreateUserTypes < ActiveRecord::Migration
 
       t.timestamps
     end
-    UserType.create(:name => "Admin")
-    UserType.create(:name => "Subscriber")
   end
 end

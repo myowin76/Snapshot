@@ -6,9 +6,5 @@ class CreateEnvironmentTypes < ActiveRecord::Migration
 
       t.timestamps
     end
-    EnvironmentType.create(:name=>'Retail park')
-	EnvironmentType.create(:name=>'Shopping Street')
-	EnvironmentType.create(:name=>'Pedestrianised area')
-	EnvironmentType.create(:name=>'Online')
   end
 end

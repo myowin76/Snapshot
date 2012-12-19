@@ -6,5 +6,7 @@ class CreateCategorizations < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :categorizations, :photo_id
+    add_index :categorizations, :category_id
   end
 end

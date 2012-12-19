@@ -6,15 +6,6 @@ class CreateThemes < ActiveRecord::Migration
 
       t.timestamps
     end
-    Theme.create(:name => 'Occasional activity')
-    Theme.create(:name => 'Best practice')
-    Theme.create(:name => 'Benefit driven')
-    Theme.create(:name => 'Feature driven')
-    Theme.create(:name => 'Product launch')
-    Theme.create(:name => 'Innovation')
-    Theme.create(:name => 'Luxury')
-    Theme.create(:name => 'Value')
-    Theme.create(:name => 'Quality')
   end
 end
 

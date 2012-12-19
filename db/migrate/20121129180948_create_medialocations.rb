@@ -6,5 +6,7 @@ class CreateMedialocations < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :medialocations, :photo_id
+    add_index :medialocations, :media_location_id
   end
 end

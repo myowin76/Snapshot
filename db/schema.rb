@@ -11,12 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218163807) do
+ActiveRecord::Schema.define(:version => 20121218162634) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
     t.integer  "environment_type_id"
     t.integer  "channel_id"
+    t.integer  "retailer_id"
     t.integer  "user_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
@@ -42,9 +43,11 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "brandings", ["brand_id"], :name => "index_brandings_on_brand_id"
+  add_index "brandings", ["photo_id"], :name => "index_brandings_on_photo_id"
+
   create_table "brands", :force => true do |t|
     t.string   "name"
-    t.string   "owner"
     t.text     "description"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
@@ -64,6 +67,9 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "categorizations", ["category_id"], :name => "index_categorizations_on_category_id"
+  add_index "categorizations", ["photo_id"], :name => "index_categorizations_on_photo_id"
 
   create_table "channels", :force => true do |t|
     t.string   "name"
@@ -85,16 +91,6 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
-
-  create_table "locations", :force => true do |t|
-    t.string   "name"
-    t.integer  "country_id"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
 
   create_table "media_locations", :force => true do |t|
     t.string   "name"
@@ -124,6 +120,9 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.datetime "updated_at",        :null => false
   end
 
+  add_index "medialocations", ["media_location_id"], :name => "index_medialocations_on_media_location_id"
+  add_index "medialocations", ["photo_id"], :name => "index_medialocations_on_photo_id"
+
   create_table "mediatypes", :force => true do |t|
     t.integer  "photo_id"
     t.integer  "media_type_id"
@@ -131,12 +130,18 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.datetime "updated_at",    :null => false
   end
 
+  add_index "mediatypes", ["media_type_id"], :name => "index_mediatypes_on_media_type_id"
+  add_index "mediatypes", ["photo_id"], :name => "index_mediatypes_on_photo_id"
+
   create_table "mediavehicles", :force => true do |t|
     t.integer  "photo_id"
     t.integer  "media_vehicle_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  add_index "mediavehicles", ["media_vehicle_id"], :name => "index_mediavehicles_on_media_vehicle_id"
+  add_index "mediavehicles", ["photo_id"], :name => "index_mediavehicles_on_photo_id"
 
   create_table "photos", :force => true do |t|
     t.integer  "audit_id"
@@ -182,6 +187,9 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "promotiontypes", ["photo_id"], :name => "index_promotiontypes_on_photo_id"
+  add_index "promotiontypes", ["promotion_type_id"], :name => "index_promotiontypes_on_promotion_type_id"
 
   create_table "retailers", :force => true do |t|
     t.string   "name"
@@ -230,8 +238,11 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.text     "description"
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
-    t.integer  "location_id"
   end
+
+  add_index "stores", ["country_id"], :name => "index_stores_on_country_id"
+  add_index "stores", ["retailer_id"], :name => "index_stores_on_retailer_id"
+  add_index "stores", ["store_format_id"], :name => "index_stores_on_store_format_id"
 
   create_table "subscriptions", :force => true do |t|
     t.string   "sub_cats"
@@ -253,9 +264,12 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
   create_table "themings", :force => true do |t|
     t.integer  "photo_id"
     t.integer  "theme_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
+
+  add_index "themings", ["photo_id"], :name => "index_themings_on_photo_id"
+  add_index "themings", ["theme_id"], :name => "index_themings_on_theme_id"
 
   create_table "user_types", :force => true do |t|
     t.string   "name"
@@ -265,8 +279,8 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :null => false
-    t.string   "encrypted_password",                    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -275,8 +289,8 @@ ActiveRecord::Schema.define(:version => 20121218163807) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "user_type_id",           :default => 1
   end
 

@@ -6,5 +6,7 @@ class CreateMediatypes < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :mediatypes, :photo_id
+    add_index :mediatypes, :media_type_id
   end
 end

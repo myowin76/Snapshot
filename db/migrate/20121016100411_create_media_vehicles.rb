@@ -6,9 +6,5 @@ class CreateMediaVehicles < ActiveRecord::Migration
 
       t.timestamps
     end
-    MediaVehicle.create(:name=>'2D (printed message)')
-	MediaVehicle.create(:name=>'Scanning (QR, other)')
-	MediaVehicle.create(:name=>'Projected image (hologram)')
-	MediaVehicle.create(:name=>'Other (name)')
   end
 end

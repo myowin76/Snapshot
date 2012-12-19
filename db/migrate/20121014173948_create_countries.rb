@@ -5,15 +5,6 @@ class CreateCountries < ActiveRecord::Migration
       t.text :desc
       t.timestamps
     end
-    Country.create(:name => 'England')
-    Country.create(:name => 'France')
-    Country.create(:name => 'Germany')
-    Country.create(:name => 'Italy')
-    Country.create(:name => 'Poland')
-    Country.create(:name => 'Scotland')
-    Country.create(:name => 'Spain')
-    Country.create(:name => 'Wales')
-    Country.create(:name => 'United State')
   end
 
   def self.down

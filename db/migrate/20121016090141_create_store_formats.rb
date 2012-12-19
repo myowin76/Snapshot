@@ -6,10 +6,5 @@ class CreateStoreFormats < ActiveRecord::Migration
 
       t.timestamps
     end
-    StoreFormat.create(:name=>'Extra large (hypermarket)')
-	StoreFormat.create(:name=>'Large (large supermarket)')
-	StoreFormat.create(:name=>'Medium (High St shop)')
-	StoreFormat.create(:name=>'Small (Corner shop, kiosk)')
-	StoreFormat.create(:name=>'Online')
   end
 end

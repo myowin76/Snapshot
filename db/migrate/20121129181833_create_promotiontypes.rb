@@ -6,5 +6,7 @@ class CreatePromotiontypes < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :promotiontypes, :photo_id
+    add_index :promotiontypes, :promotion_type_id
   end
 end
