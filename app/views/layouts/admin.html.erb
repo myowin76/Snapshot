@@ -2,192 +2,38 @@
 <html>
   <%= render 'layouts/blocks/head' %>
   <body>
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
+    <div class="container">
       
-      <%= link_to "Snapshot", root_path, :class =>'brand' %>  
-      <div class="nav-collapse">
-        <ul class="nav">
-          <% if user_signed_in? %>
-              <li>
-                <%= link_to "Basket", edit_user_registration_path %>
-              </li>
-              <li>
-                <%= link_to "Admin", admin_path %>
-              </li>
-          <% else %>
-            <li>
-              <%= link_to 'Sign in', new_user_session_path %>
-            </li>
-            <li>
-              <%= link_to 'Register', new_user_registration_path%>
-            </li>
-          <% end %>
-        </ul>
-        <ul class="nav pull-right">
-          <% if user_signed_in? %>
-            <li>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Logged in as: <%= current_user.email  %> <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                <li>
-                  <%= link_to "Account", edit_user_registration_path, :tabindex=>"-1" %>
-                </li>
-                <li><a tabindex="-1" href="#">Settings</a></li>
-                <li><a tabindex="-1" href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
-                </li>
-              </ul>
-            </li>
-            <li>
-                
-              </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>    
-    <div id="wrap">
-    <div class="container-fluid">
-      <div class="row-fluid">
-        
-        <div class="span3"> 
-          <h3>Audits(Uploader Users)</h3>
-          <ul class="nav nav-tabs nav-stacked">
-            <!-- <li>
-              <%= link_to new_audit_path do %>
-              Upload images <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li> -->
-            <li>
-              <%= link_to audits_path do %>
-              Audit List
-              <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-              <li>
-                <%= link_to stores_path do %>
-                Stores <i class="icon-chevron-right"></i>
-                <% end  %>
-              </li>
-          </ul>
+        <%= render 'layouts/blocks/header' %>
 
-          <h3>Manage Setting</h3>
-          <ul class="nav nav-tabs nav-stacked">
-            <li>
-              <%= link_to categories_path do %>
-                Manage Categories <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to retailers_path do %>
-              Manage Retailers <i class="icon-chevron-right"></i>
+        <div id = "main" >
+          <section class="site-content" role="main">
+              
+              <% flash.each do |name, msg| %>
+                <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+                      <%= content_tag :div, msg %>
+                </div>
               <% end %>
-            </li>
-            <li>
-              <%= link_to sectors_path do %>
-              Manage Sectors <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to brands_path do %>
-              Manage Brands
-              <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to brand_owners_path do %>
-              Manage Brand Owners
-              <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to channels_path do%>
-                Manage channels
-                <i class="icon-chevron-right"></i>
-              <% end  %>  
-            </li>
-            <li>
-              <%= link_to countries_path do %>
-                Manage countries  
-                <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to store_formats_path do %>
-                Manage Store Formats
-                <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to media_types_path do %>
-                Manage Media Types
-                <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to media_locations_path do %>
-                Manage Media Locations
-                <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to media_vehicles_path do %>
-                Manage Media Vehicles
-                <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to promotion_calendars_path do %>
-                Manage Promotion Calendars
-                <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-            <li>
-              <%= link_to promotion_types_path do %>
-                Manage Promotion Types
-                <i class="icon-chevron-right"></i>
-              <% end  %>
-            </li>
-          </ul>
-        </div>
-        <div class="span9">
+              <div class="aside">
+                <%= render 'shared/admin/sidebar' %>
+              </div>
+              
+              <div class="content-wrap">
+                <div class="content">
+                  <%= content_tag :h1, yield(:title) if show_title? %>
+                  <%= yield %>
+                </div>
+              </div>    
+              
+          </section>
+      </div>  <!-- /.container -->
 
-          <% flash.each do |name, msg| %>
-            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-              <%= content_tag :div, msg %>
-            </div>
-          <% end %>
-          <%= content_tag :h1, yield(:title) if show_title? %>
-          <%= yield %>
-        </div>
-      </div>
-    <div id="push"></div>
-  </div>      
-  </div>
-  <footer>
-    <div class="container-fluid">
-    <div class="row-fluid">    
-        <div class="span8">
-          &copy; 2012 <a href="#">Snapshot World Wide</a>, all rights reserved.
-        </div>
-        <div id="builtby" class="span4">
-          <a href="http://skyron.co.uk">Powered by Skyron.</a>        
-        </div>   
-      </div>
-    </div>
-    </footer>
-    <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div>      
+  <%= render 'layouts/blocks/footer' %>
+
+  <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div>      
+  </div>  <!-- /.container -->
+
     <%= yield :scripts %>
   </body>
-<%#= debug(params) if Rails.env.development? %>
 </html>

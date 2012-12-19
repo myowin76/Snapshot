@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  
+  layout "admin", :only => :index 
   def index
 
     if user_is_country_and_category_subscriber?
@@ -37,6 +37,7 @@ class StoresController < ApplicationController
     @audits = @store.audits.order('created_at DESC')
 
     @audit = @audits.first
+    
     # @photos = @store.photos #.group_by{ |pc| pc.categories}
 
     # @photo_category = @photos.group(&:categories)

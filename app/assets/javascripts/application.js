@@ -23,6 +23,7 @@
 $(document).ready(function() {
   
   $('#store-view').live('click',function(){
+    // TO DO -- STORE VIEW TO SHOW IN AJAX
     alert("test");
     return false;
   })
