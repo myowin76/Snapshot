@@ -1,19 +1,9 @@
 Snapshot::Application.routes.draw do
-  resources :brand_owners
 
-  resources :user_types
-
-  resources :save_searches
-
-  resources :subscriptions
-
-  resources :locations
-
-  resources :themes
-
-  resources :promotion_calendars
-
-  resources :promotion_types
+  resources :audits, :subscriptions, :save_searches, :user_types
+  resources :media_types, :media_vehicles, :media_locations, :themes
+  resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
+  resources :sectors,:retailers, :countries, :promotion_calendars, :promotion_types
 
   devise_for :users
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
@@ -25,13 +15,8 @@ Snapshot::Application.routes.draw do
       put :publish_individual
       post :refresh_brands
       post :refresh_retailers
-    end
-    
+    end    
   end
-
-  resources :audits
-
-  resources :environment_types
 
   resources :stores do
     collection do
@@ -40,28 +25,12 @@ Snapshot::Application.routes.draw do
   end
 
   get "pages/home"
+  get "pages/about"
+  get "pages/consultancy"
+  get "pages/reports"
+  get "pages/news"
   get "pages/contact"
   get "pages/admin"
-
-  resources :media_types
-
-  resources :media_vehicles
-
-  resources :media_locations
-
-  resources :categories
-
-  resources :brands
-
-  resources :channels
-
-  resources :store_formats
-
-  resources :retailers
-
-  resources :sectors
-
-  resources :countries
 
   match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
   
