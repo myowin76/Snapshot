@@ -1,4 +1,4 @@
-<div class="span9">
+
   <div class="page-header">
     <h1>Listing audits</h1>
   </div>
@@ -6,13 +6,13 @@
   <table class="table table-striped">
     <thead>
     <tr>    
-      <th>Retailer</th>
+      <!--th>Retailer</th-->
+      <th>Reference</th>
       <th>Store</th>
       <th>Channel</th>
       <th>Environment type</th>
-      <th>photos(count)</th>
+      <!--th>photos(count)</th-->
       <th>uploaded by</th>
-      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -20,11 +20,13 @@
 
   <% @audits.each do |audit| %>
     <tr>
-      <td><%= link_to audit.store.retailer.name, audit unless audit.store.retailer_id.nil?%></td>
+      <!--td><%= link_to audit.store.retailer.name, audit unless audit.store.retailer_id.
+      nil?%></td-->
+      <td><%= audit.reference %></td>
       <td><%= audit.store.name %></td>
       <td><%= audit.channel.name %></td>
       <td><%= audit.environment_type.name %></td>
-      <td><%= audit.photos.count %></td>
+      <!--td><%= audit.photos.count %></td-->
       <td><%= audit.user.email %></td>
       
       <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
@@ -35,5 +37,3 @@
   <% end %>
 
   </table>
-
-</div>
