@@ -25,9 +25,6 @@ body {
   padding: 10px 0px;
 }
 
-
-
-
 #loader_cont{
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
@@ -46,7 +43,6 @@ a {
   height: 0;
   overflow: hidden;
 }
-
 
 #flash_notice, #flash_alert {
   padding: 5px 8px;
@@ -152,6 +148,7 @@ ul.ui-autocomplete {
     }
   }
 }
+
 .widget{
   background-color: white;
   overflow: hidden;
@@ -160,6 +157,7 @@ ul.ui-autocomplete {
     clear: both;
   }
 }
+
 .chzn-container-multi .chzn-choices{
   width: 450px;
 }
@@ -226,7 +224,7 @@ ul.ui-autocomplete {
     margin: 0 0 10px;
     border-bottom: 1px solid #eee;
   }
-  .site-content{
+  .site-content, .overlay{
     padding-top: 15px;
   }
   .content-wrap {
@@ -338,4 +336,22 @@ ul.ui-autocomplete {
   float: left;
   font-size: 12px;
   width: 20.40816%;
+}
+
+//### LIST VIEW / GRID VIEW
+
+.photos-grid{
+  ul{
+    padding: 0px;
+    li{
+      float: left;
+      width:195px;
+      .grid{
+        .thumb{
+          margin: 0 auto;
+          width: 165px;
+        }
+      }
+    }
+  }
 }

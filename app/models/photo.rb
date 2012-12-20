@@ -62,9 +62,10 @@ class Photo < ActiveRecord::Base
     scope :published, where(:published => true)
     scope :unpublished, where(:published => false)
 
-    # scope :in_category, lambda { |cat|
-    #   joins(:category).where('audits.channel_id IN (?)',
-    #      channel) }
+    def self.find_between fromdate, todate
+      where(:created_at => fromdate .. todate)
+    end
+
     def self.zip_files photo_ids
       zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
       Zip::ZipOutputStream.open(zip_file) do |zos|
@@ -82,14 +83,6 @@ class Photo < ActiveRecord::Base
     scope :by_audits_in_stores, lambda { |stores, environment, channel|
       joins(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
          stores, environment, channel) }
-
-    # def category_tokens=(ids)
-    #   # self.category_id = Category.ids_from_tokens(tokens)
-    #   self.category_id = ids.split(",")
-      
-    # end
-    
-    # private
 
 
 end

@@ -1,0 +1,29 @@
+<section class="photos-grid">
+  <% unless @photos.nil? %>    
+    <ul>
+    <% @photos.each do |photo| %>
+        <li>
+          <div class="grid">
+            <div class="thumb">
+              <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
+            </div>
+            <%= check_box_tag "photo_ids[]", photo.id %>
+            <%= photo.audit.store.retailer.name %><br />
+            <%  photo.brands.each do |brand| %>
+              <%= brand.name %>
+            <% end %>
+            <br />
+            <%= photo.created_at.strftime('%d/%m/%Y') %><br />
+            <%= photo.audit.store.address2 %>
+            <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
+            <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
+
+            <% #photo.categories.each do |cat| %>
+              <%#=  cat.name %>
+            <% #end  %>
+          </div>
+        </li>
+    <% end %>
+    </ul>
+  <% end %>
+</section>

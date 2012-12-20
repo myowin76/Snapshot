@@ -22,7 +22,13 @@
 
 $(document).ready(function() {
   
-  $('#store-view').live('click',function(){
+  // $('#store-view').live('click',function(){
+  //   // TO DO -- STORE VIEW TO SHOW IN AJAX
+  //   alert("test");
+  //   return false;
+  // })
+
+$('#audit_store_id').change(function(){
     // TO DO -- STORE VIEW TO SHOW IN AJAX
     alert("test");
     return false;
@@ -81,15 +87,15 @@ $(document).ready(function() {
 		return false;
 	});
 
- // $('#search_form input[type=checkbox]').live('click',function(){
- //    sectores_checkboxes = $('#search_form input[type=checkbox]:checked').serializeObject();
- //    $.ajax({
- //      url: '/photos/refresh_results',
- //      type: "POST",
- //      dataType: 'script',
- //      data: sectores_checkboxes
- //    })
- // });
+ $('#search_form input[type=checkbox]').live('click',function(){
+    sectores_checkboxes = $('#search_form input[type=checkbox]:checked').serializeObject();
+    $.ajax({
+      url: '/photos/check_counts',
+      type: "POST",
+      dataType: 'script',
+      data: sectores_checkboxes
+    })
+ });
 
  $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
     sectores_checkboxes = $('#sector-group .accordion-inner input[type=checkbox]:checked').serializeObject();

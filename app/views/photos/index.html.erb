@@ -1,15 +1,9 @@
 
-<!--aside id="sidebar" class="mod-sidebar span4">
-  
-  <%#= render 'search_form' %>
-  <%#= render 'save_form' %>
-
-</aside-->
 <div class="aside">
-  <%= render 'search_form' %>
-  <%= render 'save_form' %>
-
+  <%= render 'photos/shared/search_form' %>
+  <%= render 'photos/shared/save_form' %>
 </div>
+
 <div class="content-wrap">
   <div class="content">
 
@@ -39,7 +33,9 @@
                 <%#= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf'%>
               </li-->
           </div>
-          <%= render 'list_view' %>
+          <%#= render 'list_view' %>
+          
+          <%= render 'grid_view' %>
         <% end  %>   
       </div>
     

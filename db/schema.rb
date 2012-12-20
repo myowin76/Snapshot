@@ -92,6 +92,16 @@ ActiveRecord::Schema.define(:version => 20121218162634) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "locations", :force => true do |t|
+    t.string   "name"
+    t.integer  "country_id"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
+
   create_table "media_locations", :force => true do |t|
     t.string   "name"
     t.text     "description"

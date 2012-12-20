@@ -44,6 +44,7 @@ class StoresController < ApplicationController
         # debugger
     respond_to do |format|
       format.html # show.html.erb
+      format.js
       format.json { render json: @store }
     end
   end

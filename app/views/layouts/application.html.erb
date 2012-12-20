@@ -6,20 +6,16 @@
       
         <%= render 'layouts/blocks/header' %>
         <div id = "main" >
-
+          <section class="overlay"></section>
           <section class="site-content" role="main">
-            <!--div class="row l-side-main" id="content-wrapper"-->
-              
-              <% flash.each do |name, msg| %>
-                <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-                  <%= content_tag :div, msg %>
-                </div>
-              <% end %>
-              
-              <%= content_tag :h1, yield(:title) if show_title? %>
-              <%= yield %>
-              
-            <!--/div-->
+            <% flash.each do |name, msg| %>
+              <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+                <%= content_tag :div, msg %>
+              </div>
+            <% end %>
+            
+            <%= content_tag :h1, yield(:title) if show_title? %>
+            <%= yield %>
           </section>
          
       </div>  <!-- /.container -->

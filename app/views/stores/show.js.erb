@@ -1,0 +1,18 @@
+
+	$('.site-content').hide();
+	$('.overlay').html("<%= j render('stores/shared/show_view') %>");
+	$('.views_view .close').live('click', function(){
+		$('.views_view').remove();
+		// $('.views_view').fadeOut(500, function() { $('.views_view').remove(); });
+		$('.site-content').show();
+	})
+	$('#store-audit-select').live('change', function(){
+		audit_id = $('#store-audit-select').serializeObject();
+    
+    $.ajax({
+      url: '/stores/refresh_store_view_categories',
+      type: "POST",
+      dataType: 'script',
+      data: audit_id
+    })
+	})

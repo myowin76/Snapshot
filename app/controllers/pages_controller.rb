@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  layout "admin"  
+  layout "admin", :only => "admin" 
   def home
 	
   end

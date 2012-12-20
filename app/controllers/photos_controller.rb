@@ -75,8 +75,8 @@ class PhotosController < ApplicationController
           
       else 
         # search action
-          from_date = search_from_date.present? ? search_from_date : DateTime.parse('01/01/1970')
-          to_date = search_to_date.present? ? search_to_date : DateTime.now
+          from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
+          to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           @search_env_type = search_environment_types.present? ? search_environment_types : @env_types.map(&:id)
           @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
 
@@ -114,8 +114,10 @@ class PhotosController < ApplicationController
               @photos = @photos.includes(:categories).where('categories.id IN (?)', search_categories)
             end            
 
-            @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
-              from_date, to_date)
+            # @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
+            #   from_date, to_date)
+            @photos = @photos.find_between(from_date,to_date)
+            
             #.paginate(:page => params[:page], :per_page => 3)
 
             #### need to refactor the queries #####  
@@ -308,6 +310,10 @@ class PhotosController < ApplicationController
         render :partial => 'refresh_brands', :locals => { :brands => @brands }
       }
     end
+  end
+
+  def check_counts
+    
   end
   
 end

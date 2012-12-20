@@ -1,130 +1,95 @@
-
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel"><%= @photo.photo_file_name %></h3>
+<section class="views_view">
+  <div class="page-header">
+    <button type="button" class="close">×</button>
+    <h1 id="myModalLabel"><%= @photo.photo_file_name %></h1>
   </div>
-  <div class="modal-body">
-    
-      <table style="width:100%;">
-        <tr>
-          <td valign="top">
-            <%= image_tag(@photo.photo.url(:large)) %><br />
-          </td>
-          <td>
-            <table class="table table-striped">
-              <tr>
-                <td>Headline</td>
-                <td><%= @photo.headline %></td>
-              </tr>
-              <tr>
-                <td>Brand</td>
-                <td>
-                  <% @photo.brands.each do |brand| %>
-                  <%= brand.name %>
-                  <% end %>
-                </td>  
-              </tr>
-              <tr>
-                <td>Additional Brands</td>
-                <td><%= @photo.additional_brands %></td>
-              </tr>
-              <tr>
-                <td>Date</td>
-                <td><%= @photo.created_at %></td>
-              </tr>
-              <tr>
-                <td>File Size</td>
-                <td><%= number_to_human_size(@photo.photo_file_size, :precision => 2)  %></td>
-              </tr>
-              <tr>
-                <td>File Name</td>
-                <td><%= @photo.photo_file_name  %></td>
-              </tr>
-              <tr>
-                <td>Store</td>
-                <td><%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %></td>
-              </tr>
-              <tr>
-                <td>Category</td>
-                <td>
-                  <% @photo.categories.each do |cat| %>
-                  <%= cat.name %>
-                  <% end %>
-                </td>  
-              </tr>
-              <tr>
-                <td>Store Format</td>
-                <td><%= @photo.audit.store.store_format.name %></td>
-              </tr>
-              <tr>
-                <td>Retailer</td>
-                <td><%= @photo.audit.store.retailer.name %></td>
-              </tr>
-              <tr>
-                <td>Media location</td>
-                <td>
-                  <% @photo.media_locations.each do |ml| %>
-                  <%= ml.name %>
-                  <% end %>
-                </td>  
-              </tr>
-              <tr>
-                <td>Media vehicle</td>
-                <td>
-                  <% @photo.media_vehicles.each do |mv| %>
-                    <%= mv.name %>,
-                  <% end %>
-                </td>
-              </tr>
-              <tr>
-                <td>Media type</td>
-                <td>
-                  <% @photo.media_types.each do |mt| %>
-                    <%= mt.name %>
-                  <% end %>
-                </td>  
-              </tr>
-              <tr>
-                <td>Sector</td>
-                <td><%= @photo.audit.store.retailer.sector.name %></td>
-              </tr>
-              <tr>
-                <td>Environment type:</td>
-                <td><%= @photo.audit.environment_type.name %></td>
-              </tr>
-              <tr>
-                <td>Promotion Calendar:</td>
-                <td><%= @photo.promotion_calendar.name if @photo.promotion_calendar %></td>
-              </tr>
-              <tr>
-                <td>Promotion type:</td>
-                <td>
-                  <% @photo.promotion_types.each do |pt| %>
-                  <%= pt.name %>
-                  <% end %>
-                </td>  
-              </tr>
-              <tr>
-                <td>Country</td>
-                <td><%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %></td>
-              </tr>
-              <tr>
-                <td>Description</td>
-                <td><%= @photo.description %></td>
-              </tr>
-            </table>
-          </td>
+  <div id="photo-details">
+    <div class="left">
+      <%= image_tag(@photo.photo.url(:large)) %>
+    </div>
+    <div class="right">
+      <ul>
 
-        
-      </table>
+        <li>Retailer: 
+          <%= @photo.audit.store.retailer.name %>
+        </li>
+        <li>
+          Sector: <%= @photo.audit.store.retailer.sector.name %>
+        </li>
+        <li>
+          Country: <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
+        </li>
+        <li>
+          Headline: <%= @photo.headline %>
+        </li>
+        <li>Brands: 
+          <% @photo.brands.each do |brand| %>
+            <%= brand.name %>
+          <% end %>
+        </li>
+        <li>
+          Additional Brands:
+          <%= @photo.additional_brands %>
+        </li>
+        <li>
+          Date: 
+          <%= @photo.created_at %>
+        </li> 
+        <li>
+          Store:
+          <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %>
+        </li>
+        <li>
+          Category:
+          <% @photo.categories.each do |cat| %>
+            <%= cat.name %>
+          <% end %>
+        </li>
+        <li>Media Locations:
+          <% @photo.media_locations.each do |ml| %>
+            <%= ml.name %>
+          <% end %>
+        </li>
+        <li>Media Types:
+          <% @photo.media_types.each do |mt| %>
+            <%= mt.name %>
+          <% end %>
+        </li>
+        <li>Media Vehicle:
+          <% @photo.media_vehicles.each do |mv| %>
+            <%= mv.name %>,
+          <% end %>
+        </li>
+        <li>
+          Promotion Calendar:
+          <%= @photo.promotion_calendar.name if @photo.promotion_calendar %>
+        </li>
+        <li>
+          Promotion Type:
+          <% @photo.promotion_types.each do |pt| %>
+          <%= pt.name %>
+          <% end %>
+        </li>
+        <li>
+          Store Format:<%= @photo.audit.store.store_format.name %>
+        </li>
+        <li>Descriptions:
+          <%= @photo.description %>
+        </li>
+        <li>
+          <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" %>
+        </li>
+      </ul>
+    </div>
       <%#= link_to 'back', :back, :id=>'back' %>
       
       <%#= link_to 'Edit', edit_photo_path(@photo) %>
       <%#= link_to 'Back', photos_path %>
 
   </div>
-  <div class="modal-footer">
+  <!--div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" %>
-  </div>
+    
+  </div-->
 
+</section>

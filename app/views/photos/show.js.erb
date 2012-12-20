@@ -1,3 +1,11 @@
 
-$("#photo-detail-model").html("<%= j render("show_view") %>");
-$("#photo-detail-model").modal();
+	$('.site-content').hide();
+	$('.overlay').html("<%= j render("show_view") %>");
+// $("#photo-detail-model").html("<%= j render("show_view") %>");
+// $("#photo-detail-model").modal();
+	$('.views_view .close').live('click', function(){
+		$('.views_view').remove();
+			$('.site-content').show();
+		
+	
+})

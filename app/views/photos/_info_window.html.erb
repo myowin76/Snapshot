@@ -7,4 +7,4 @@
 <p>
 	<%= store.retailer.sector.name unless store.retailer.sector_id.nil? %>
 </p>
-<%= link_to "View Details", store, :id => 'store-view' %>
+<%= link_to "View Details", store, :id => 'store-view', remote: true %>

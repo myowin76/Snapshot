@@ -28,10 +28,22 @@
       <% else %>
         <% store = Store.find_by_name(params[:store]) %>
         <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
-        <%= store.name %>
+        <%= store.name %><br />
+        <%= store.address %><br />
+        <%= store.address2 %>, <%= store.postcode %>
       <% end %>  
     </p>
+    <% unless @audit.new_record? %>
+    <p>
+      <%= @audit.store.country.name %>
+    </p>
+    <% else %>
+      <%= store.country.name if store %>
+    <% end %>
+    <div id="store-info">
       
+    </div>
+
     <%= f.association :channel, :include_blank => false %>
     <%= f.association :environment_type, :include_blank => false %>
     <%= f.input :reference %> 
@@ -82,7 +94,7 @@
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
             <%= photo_fields.association :themes, :input_html => { :class=> 'chosen-theme' } %>
             
-            <label>Description</label>
+            <label>descriptionription</label>
             <%= photo_fields.text_field :description, :as => :text %>
             <%= photo_fields.input :insight %>
             <%= photo_fields.input :role_of_comm, inline_label: 'Role of Communication' %>
