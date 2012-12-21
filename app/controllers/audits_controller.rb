@@ -94,7 +94,7 @@ class AuditsController < ApplicationController
 
     respond_to do |format|
       if @audit.update_attributes(params[:audit])
-        format.html { redirect_to audits_path, notice: 'Audit was successfully updated.' }
+        format.html { redirect_to @audit, notice: 'Successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
