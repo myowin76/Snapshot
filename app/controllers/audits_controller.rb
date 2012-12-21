@@ -60,23 +60,24 @@ class AuditsController < ApplicationController
   # POST /audits.json
   def create
     @audit = Audit.new(params[:audit])
-
-    respond_to do |format|
-      if @audit.save
-        # save user
-        @audit.update_attribute(:user_id, current_user.id)
-         
-        if @audit.photos.blank?
-          format.html { redirect_to new_audit_path, notice: 'Please upload images.' }
-        else
+    if @audit.photos.blank?
+      format.html { redirect_to new_audit_path, notice: 'Please upload images.' }
+    else
+      respond_to do |format|
+        if @audit.save
+          # save user
+          @audit.update_attribute(:user_id, current_user.id)
+          
           format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
+          format.json { render json: @audit, status: :created, location: @audit }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @audit.errors, status: :unprocessable_entity }
         end
-        format.json { render json: @audit, status: :created, location: @audit }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @audit.errors, status: :unprocessable_entity }
-      end
+      end  
     end
+
+    
   end
 
   # PUT /audits/1
