@@ -61,7 +61,9 @@ class AuditsController < ApplicationController
   def create
     @audit = Audit.new(params[:audit])
     if @audit.photos.blank?
-      format.html { redirect_to new_audit_path, notice: 'Please upload images.' }
+      respond_to do |format|
+        format.html { redirect_to new_audit_path, notice: 'Please select one or more images.' }
+      end
     else
       respond_to do |format|
         if @audit.save
