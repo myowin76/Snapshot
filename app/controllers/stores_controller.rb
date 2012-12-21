@@ -34,8 +34,8 @@ class StoresController < ApplicationController
     # @selected_categories = params[categories] from search page
 
     @store = Store.find(params[:id])
+    
     @audits = @store.audits.order('created_at DESC')
-
     @audit = @audits.first
     
     # @photos = @store.photos #.group_by{ |pc| pc.categories}
@@ -122,7 +122,26 @@ class StoresController < ApplicationController
         }
       end
     end  
+  end
+
+  def show_store_with_categories
     
+    categories_chk = params[:search][:categories]
+
+    # @store = Store.find(params[:id])
+    
+    # @audits = @store.audits.order('created_at DESC')
+    # @audit = @audits.first
+    
+    # @photos = @store.photos #.group_by{ |pc| pc.categories}
+
+    # @photo_category = @photos.group(&:categories)
+        # debugger
+    respond_to do |format|
+      format.html # show.html.erb
+      format.js
+      format.json { render json: @store }
+    end    
   end
 
 end

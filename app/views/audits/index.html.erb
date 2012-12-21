@@ -28,7 +28,7 @@
       <td><%= audit.environment_type.name %></td>
       <!--td><%= audit.photos.count %></td-->
       <td><%= audit.user.email %></td>
-      
+      <td><%= link_to 'Details', audit_path(audit) %></td>      
       <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
       <td><%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>

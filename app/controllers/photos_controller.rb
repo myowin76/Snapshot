@@ -118,7 +118,12 @@ class PhotosController < ApplicationController
             #   from_date, to_date)
             @photos = @photos.find_between(from_date,to_date)
             
-            #.paginate(:page => params[:page], :per_page => 3)
+            if params[:page].present?
+              @photos.paginate(:page => params[:page], :per_page => 3)
+            else
+              @photos.paginate(:page => 1, :per_page => 3)
+              
+            end
 
             #### need to refactor the queries #####  
 
@@ -314,6 +319,8 @@ class PhotosController < ApplicationController
 
   def check_counts
     
+
+
   end
   
 end

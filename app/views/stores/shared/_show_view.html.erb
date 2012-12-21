@@ -1,9 +1,8 @@
-<section class="views_view">
+<section class="store_views_view">
   <div class="page-header">
     <button type="button" class="close">×</button>
     <h1><%= @store.name %></h1>
   </div>
-</div>
 <div class="">
   <p>
     <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
@@ -43,4 +42,4 @@
     <% end %>
 </div>  
   <% end %>
-  </section>
+</section>

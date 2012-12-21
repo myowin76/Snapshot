@@ -12,7 +12,7 @@ jQuery ->
     tokenDelimiter: ","
     theme: 'facebook'
     prePopulate: $('.category-tokens').data('load')###
-  $('#audit_store_id').parent().hide()
+  ###$('#audit_store_id').parent().hide()###
   $('form').on 'click', '.remove_field', (event) ->
     $(this).closest('.upload-field').remove()
     event.preventDefault()
@@ -20,7 +20,7 @@ jQuery ->
     $(this).before($(this).closest('.upload-field'))
     event.preventDefault()    ###
   store = $('#audit_store_id').html()
-  $('#audit_retailer_id').change ->
+  ###$('#audit_retailer_id').change ->
     retailer = $('#audit_retailer_id :selected').text()
     escaped_retailer = retailer.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')
     options = $(store).filter("optgroup[label='#{escaped_retailer}']").html()
@@ -31,7 +31,7 @@ jQuery ->
       $('#audit_store_id').parent().show()
       options = "<option>No Stores Found</option>"
       $('#audit_store_id').html(options)
-      
+     ### 
 
   $('.created_at').datepicker({dateFormat: 'dd/mm/yy'})
   

@@ -39,7 +39,7 @@
     </thead>
     <% @audit.photos.each do |photo| %>
       <tr>
-      	<td><%= link_to image_tag(photo.photo.url(:small)), photo, remote: true, "data-toggle" => "modal" %></td>
+      	<td><%= link_to image_tag(photo.photo.url(:small)), photo %></td>
       	<td><%= photo.categories.map(&:name).join(",") %></td>
       	<td><%= photo.created_at %></td>
       </tr>

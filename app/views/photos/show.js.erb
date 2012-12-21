@@ -1,11 +1,23 @@
 
 	$('.site-content').hide();
-	$('.overlay').html("<%= j render("show_view") %>");
-// $("#photo-detail-model").html("<%= j render("show_view") %>");
-// $("#photo-detail-model").modal();
-	$('.views_view .close').live('click', function(){
-		$('.views_view').remove();
-			$('.site-content').show();
-		
 	
-})
+	if ($('.overlay').children().hasClass('store_views_view')){
+		$('.overlay').append("<%= j render('show_view') %>");
+		$('.store_views_view').hide();
+	}	
+	else{
+		$('.overlay').html("<%= j render('show_view') %>");
+	}	
+
+	$('.photo_views_view .close').live('click', function(){
+
+		if ($('.overlay').children().hasClass('store_views_view')){
+			$('.photo_views_view').remove();
+			$('.store_views_view').show();
+		}	
+		else	
+		{	
+			$('.photo_views_view').remove();
+			$('.site-content').show();
+		}
+	})

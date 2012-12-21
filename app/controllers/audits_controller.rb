@@ -100,8 +100,6 @@ class AuditsController < ApplicationController
     end
   end
 
-  # DELETE /audits/1
-  # DELETE /audits/1.json
   def destroy
     @audit = Audit.find(params[:id])
     @audit.destroy
@@ -110,5 +108,16 @@ class AuditsController < ApplicationController
       format.html { redirect_to audits_url }
       format.json { head :no_content }
     end
+  end
+
+  def refresh_store_dropdown
+    @stores = Store.find_all_by_retailer_id(params[:audit_retailer_id])
+    
+    respond_to do |format|
+      format.js {
+        render :partial => 'refresh_store_dropdown', :locals => { :stores => @stores}
+      }
+    end
+    
   end
 end

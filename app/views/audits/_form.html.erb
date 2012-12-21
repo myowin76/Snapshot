@@ -2,6 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <p>
     <% unless params[:retailer].present?  %>
       <%= f.label "Retailer" %>
       
@@ -18,27 +19,31 @@
       <%= retailer.name %>
     <% end  %>
     
-    <p>
-      
-      <% unless params[:store].present?  %>
-        <%= f.label "Store" %>
-        <%= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
-        include_blank: true %>
-        <%= link_to "add new store", new_store_path, :class => "add-store" %>
-      <% else %>
-        <% store = Store.find_by_name(params[:store]) %>
-        <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
-        <%= store.name %><br />
-        <%= store.address %><br />
-        <%= store.address2 %>, <%= store.postcode %>
-      <% end %>  
-    </p>
+   <p>
+  <div class="audits_retailer_dropdown">
+  </div>
+  <div class="audits_store_dropdown">
+    
+  </div>
+   <% unless params[:store].present?  %>
+      <%= f.label "Store" %>
+      <%= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
+      include_blank: true %>
+      <%= link_to "add new store", new_store_path, :class => "add-store" %>
+    <% else %>
+      <% store = Store.find_by_name(params[:store]) %>
+      <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
+      <%= store.name %><br />
+      <%= store.address %><br />
+      <%= store.address2 %>, <%= store.postcode %>
+    <% end %>  
+  </p>
     <% unless @audit.new_record? %>
     <p>
-      <%= @audit.store.country.name %>
+      <%= @audit.store.country.name unless @audit.store.country_id.nil? %>
     </p>
     <% else %>
-      <%= store.country.name if store %>
+      <%#= store.country.name if store %>
     <% end %>
     <div id="store-info">
       
@@ -47,7 +52,8 @@
     <%= f.association :channel, :include_blank => false %>
     <%= f.association :environment_type, :include_blank => false %>
     <%= f.input :reference %> 
-    <%#= f.input :created_at, :input_html => {:class => 'audit-created-date'} %>
+    <%= f.input :created_at, :as => :string, :label => 'Date',
+        :input_html => {:class => 'audit-created-date'} %>
 
     <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
@@ -115,7 +121,7 @@
   </div>
 
     <div class="form-actions">
-      <%= f.button :submit, :class=>"btn btn-primary" %>
+      <%= f.button :submit, "Next", :class=>"btn btn-primary" %>
       <%= link_to 'Cancel', audits_path %>
     </div>
 

@@ -1,6 +1,6 @@
 Snapshot::Application.routes.draw do
 
-  resources :audits, :subscriptions, :save_searches, :user_types
+  resources :subscriptions, :save_searches, :user_types
   resources :media_types, :media_vehicles, :media_locations, :themes
   resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
   resources :sectors,:retailers, :countries, :promotion_calendars, :promotion_types
@@ -8,6 +8,7 @@ Snapshot::Application.routes.draw do
   devise_for :users
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
+  #match '/stores/view/:id' => 'photos#show_store_with_categories', :as => :store_view
   
   resources :photos do
     collection do
@@ -18,9 +19,15 @@ Snapshot::Application.routes.draw do
     end    
   end
 
+  resources :audits do
+    collection do
+      post :refresh_store_dropdown
+    end
+  end
   resources :stores do
     collection do
       post :refresh_store_view_categories
+      #post :show_store_with_categories
     end
   end
 
