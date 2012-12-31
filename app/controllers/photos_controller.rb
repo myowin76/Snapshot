@@ -12,21 +12,22 @@ class PhotosController < ApplicationController
         end  
       end
 
-      # @countries = Country.order(:name)
-      @countries = Country.find(current_user.subscription.sub_country.split(","))
+      @countries = Country.order(:name)
+      #@countries = Country.find(current_user.subscription.sub_country.split(","))
       @categories = Category.order(:name)
       # @categories = Category.find(current_user.subscription.sub_cats.split(","))
       # need to check category and country
       # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
-      @stores = Store.order(:id)
+      @stores = Store.order(:id).includes({:retailer => :sector})
       @sectors = Sector.order(:name)
       @store_formats = StoreFormat.order(:name)
           
       unless params_search.nil?
+
         # Country Search
         if search_country_id.present?
           # for selected country
-          @stores = @stores.where('country_id IN (?)', search_country_id)
+          @stores = @stores.where('country_id = ? ', search_country_id)
         else
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
           
@@ -37,22 +38,25 @@ class PhotosController < ApplicationController
         @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
 
         if search_sectors.present?          
-          @retailers = Retailer.find_all_by_sector_id(search_sectors)
+          @retailers = Retailer.find_all_by_sector_id(search_sectors) #.includes(:sector)
           @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
         else
-          @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
+          @retailers = Retailer.find(:all, :include => :sector)
+          # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
         end
         if search_retailers.present?
           @stores = @stores.where('retailer_id IN (?)', search_retailers)
         else
           @stores = @stores.where('retailer_id IN (?)', @retailers)
         end  
-        
+          
       else
         # page load
         @sectors = Sector.order(:name)
-        @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
-        @stores = @stores.where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
+        @retailers = Retailer.order(:name)
+        # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
+        @stores = @stores.includes(:retailer)
+          .where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
       end
       
       @channels = Channel.order(:name)
@@ -81,6 +85,7 @@ class PhotosController < ApplicationController
           @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
 
           @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+              .includes(:brands)
                     
             if search_promotion_types.present?
               @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types)
@@ -114,17 +119,9 @@ class PhotosController < ApplicationController
               @photos = @photos.includes(:categories).where('categories.id IN (?)', search_categories)
             end            
 
-            # @photos = @photos.where('photos.created_at >= ? AND photos.created_at <= ?', 
-            #   from_date, to_date)
-            @photos = @photos.find_between(from_date,to_date)
-            
-            if params[:page].present?
-              @photos.paginate(:page => params[:page], :per_page => 3)
-            else
-              @photos.paginate(:page => 1, :per_page => 3)
-              
-            end
+            @photos = @photos.find_between(from_date,to_date).paginate(:page => params[:page], :per_page => 20)
 
+            
             #### need to refactor the queries #####  
 
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
@@ -218,7 +215,6 @@ class PhotosController < ApplicationController
     zip_file = Photo.zip_files(params[:photo_ids].split(','))
     if zip_file
       send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"
-      # redirect_to asset.photo.url(:medium)
       zip_file.close
     end
   end

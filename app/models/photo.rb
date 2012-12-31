@@ -18,7 +18,7 @@ class Photo < ActiveRecord::Base
   has_many :themings
   has_many :themes, :through => :themings
   belongs_to :promotion_calendar
-  belongs_to :theme
+  #belongs_to :theme
   
   attr_accessible :description, :created_at, :audit_id, 
       :theme_ids, :brand_compliant, :display_for_project, :insight, :role_of_comm, :perspective,
@@ -59,8 +59,8 @@ class Photo < ActiveRecord::Base
   								   'image/jpg', 'image/png']
 
     acts_as_gmappable :process_geocoding => false
-    scope :published, where(:published => true)
-    scope :unpublished, where(:published => false)
+    scope :published, where(published: true)
+    scope :unpublished, where(published: false)
 
     def self.find_between fromdate, todate
       where(:created_at => fromdate .. todate)
@@ -81,7 +81,7 @@ class Photo < ActiveRecord::Base
     end
     
     scope :by_audits_in_stores, lambda { |stores, environment, channel|
-      joins(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
+      includes(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
          stores, environment, channel) }
 
 

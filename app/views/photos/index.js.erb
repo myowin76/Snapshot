@@ -1,21 +1,23 @@
-$("#map-view").html("<%= j render("map_view") %>");
+// $("#map-view").html("<%= j render("map_view") %>");
 
-	Gmaps.map = new Gmaps4RailsGoogle();
-	Gmaps.load_map = function() {
-    Gmaps.map.map_options.maxZoom = 20;
-    Gmaps.map.map_options.clusterer_gridSize = 100;
-    Gmaps.map.initialize();
-    Gmaps.map.markers = <%=raw @json %>;
-    Gmaps.map.create_markers();
-    Gmaps.map.adjustMapToBounds();
-    Gmaps.map.callback();
-	};
-	Gmaps.loadMaps();
+// 	Gmaps.map = new Gmaps4RailsGoogle();
+// 	Gmaps.load_map = function() {
+//     Gmaps.map.map_options.maxZoom = 20;
+//     Gmaps.map.map_options.clusterer_gridSize = 100;
+//     Gmaps.map.initialize();
+//     Gmaps.map.markers = <%=raw @json %>;
+//     Gmaps.map.create_markers();
+//     Gmaps.map.adjustMapToBounds();
+//     Gmaps.map.callback();
+// 	};
+// 	Gmaps.loadMaps();
 
-$(".loader_cont").show();
-$("aside h4").html("<%= @photos.count %> photos found");
+// $(".loader_cont").show();
+// $("aside h4").html("<%= @photos.count %> photos found");
 
-// $(".span8 h4").html("<%= @photos.count %> photos found");
-$("#list-view").html("<%= j render("list_view") %>");
+// // $(".span8 h4").html("<%= @photos.count %> photos found");
+// $("#list-view").html("<%= j render("list_view") %>");
 
-$(".loader_cont").hide();
+// $(".loader_cont").hide();
+
+$(".photo-view-ajax").html("<%= j render('grid_view') %>");

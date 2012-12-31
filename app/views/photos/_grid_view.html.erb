@@ -1,31 +1,67 @@
-<section class="photos-grid">
+<div class="action">
+  <ul>
+    <li>
+      <a href="#" id="checkAll">Select All</a> |
+    </li>
+    <li>
+      <a href="#" id="uncheckAll">Deselect All</a> | 
+    </li>
+    <li>
+      <%= link_to "Export Zip", download_url, :id => 'export-zip'%>
+    </li>
+    <!--li>
+      <%#= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf'%>
+    </li-->
+  </ul>
+</div>  
+<div class="page-controls">
+  <div class="sort-control">
+    <label for="sort_by" class="sort-control-label">Sort by:</label>
+    <select class="sort_select" id="sort_by" name="sort_by">
+      <option value="sortable_at" selected="selected">Date</option>
+      <option value="username">Author</option>
+      <option value="category">Category</option>
+    </select>
+  </div>
+  <div class="layout-switcher sort-control">
+    <a href="#" class="layout-list active">List View</a>
+    <a href="#" class="layout-grid">Grid View</a>
+  </div>
+<%= page_entries_info @photos %>
+<%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
+</div>
+
+
   <% unless @photos.nil? %>    
-    <ul>
+    <ul class="photo-grid">
     <% @photos.each do |photo| %>
         <li>
-          <div class="grid">
             <div class="thumb">
               <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
             </div>
             <%= check_box_tag "photo_ids[]", photo.id %>
-            <%= photo.audit.store.retailer.name %><br />
-            <%  photo.brands.each do |brand| %>
-              <%= brand.name %>
-            <% end %>
-            <br />
-            <%= photo.created_at.strftime('%d/%m/%Y') %><br />
-            <%= photo.audit.store.address2 %>
+            <div class="retailer">
+              <%= photo.audit.store.retailer.name %><br />
+            </div>  
+            <div class="brand">  
+              <%  photo.brands.each do |brand| %>
+                <%= brand.name %>
+              <% end %>
+            </div>  
+            <div class="date">
+              <%= photo.created_at.strftime('%d/%m/%Y') %><br />
+            </div>
+            <div class="address">
+              <%= photo.audit.store.address2 %>
+            </div>
             <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
             <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
 
             <% #photo.categories.each do |cat| %>
               <%#=  cat.name %>
             <% #end  %>
-          </div>
         </li>
     <% end %>
     </ul>
-    <%#= will_paginate(@photos) %>
   <% end %>
-</section>
-    
+  

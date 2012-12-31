@@ -18,24 +18,13 @@
       <div class="tab-pane" id="list-view">
         <% if params_search %>
           <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->
-          <div class="action">
-            <ul>
-              <li>
-                <a href="#" id="checkAll">Select All</a> |
-              </li>
-              <li>
-                <a href="#" id="uncheckAll">Deselect All</a> | 
-              </li>
-              <li>
-                <%= link_to "Export Zip", download_url, :id => 'export-zip'%>
-              </li>
-              <!--li>
-                <%#= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf'%>
-              </li-->
-          </div>
-          <%#= render 'list_view' %>
           
-          <%= render 'grid_view' %>
+          
+          <%#= render 'list_view' %>
+          <div class="photo-view-ajax">
+            <%= render 'grid_view' %>
+          </div>
+          
         <% end  %>   
       </div>
     

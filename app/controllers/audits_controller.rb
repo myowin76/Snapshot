@@ -6,7 +6,7 @@ class AuditsController < ApplicationController
   def index
     @retailers = Retailer.all
     if admin_user?
-      @audits = Audit.all
+      @audits = Audit.order(:created_at)
     # elsif uploader?
     #   @audits = current_user.audits.all
     # elsif subscriber?

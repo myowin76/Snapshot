@@ -15,6 +15,7 @@
         <th>Date</th>
         <th>Reference</th>
         <th>User</th>
+        <th></th>
         
       </tr>
     </thead>
@@ -40,6 +41,7 @@
           <% #end %>  
         </td>
         <td><%= link_to photo.audit.user.email unless photo.audit_id.nil? %></td>
+        <td><%= link_to "Edit", edit_photo_path(photo) %></td>
     	</tr>
     <% end %>
 

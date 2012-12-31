@@ -16,9 +16,7 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%#= f.label :sector %><br />
     <%= f.association :sector %>
-    <%#= f.collection_select :sector_id, Sector.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :description %><br />

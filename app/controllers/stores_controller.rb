@@ -37,11 +37,11 @@ class StoresController < ApplicationController
     
     @audits = @store.audits.order('created_at DESC')
     @audit = @audits.first
-    
+    # debugger
     # @photos = @store.photos #.group_by{ |pc| pc.categories}
 
     # @photo_category = @photos.group(&:categories)
-        # debugger
+        
     respond_to do |format|
       format.html # show.html.erb
       format.js
@@ -116,6 +116,9 @@ class StoresController < ApplicationController
     if params[:audit_id]
       
       @audit = Audit.find_by_id(params[:audit_id])
+      @categories = Category.find_all_by_id(params[:checked_category_ids])
+
+      debugger
       respond_to do |format|
         format.js {
           render :partial => 'stores/refresh_store_view_categories', :locals => { :audit => @audit }

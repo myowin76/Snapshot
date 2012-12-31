@@ -22,15 +22,24 @@
 
 $(document).ready(function() {
   
+  // TO DO
+  $('.pagination a').live('click',function () {
+
+    $.get(this.href, null, null, 'script');
+    return false;
+  });
+
+  // TO DO
   // $('#store-view').live('click',function(){
-  //   // categories_checkboxes = $('#search_form #category-group input[type=checkbox]:checked').serializeObject()['categories[]'];
+  //   alert("test");
+  //   categories_checkboxes = $('#category-group input[type="checkbox"]:checked').serializeObject()['search[categories][]']; 
     
-  //   // $.ajax({
-  //   //   url: '/stores/show_store_with_categories',
-  //   //   type: "POST",
-  //   //   dataType: 'script',
-  //   //   data: categories_checkboxes
-  //   // })  
+  //   $.ajax({
+  //     url: '/stores/show',
+  //     type: "POST",
+  //     dataType: 'script',
+  //     data: categories_checkboxes
+  //   })  
   // })
 
 // $('#audit_store_id').change(function(){
@@ -138,14 +147,14 @@ $(document).ready(function() {
   })    
 
 	$('#checkAll').click(function(){
-		$('.table-striped input[type="checkbox"]').each(function(){
+		$('.photo-grid input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
 		})
 		return false;
 	})
 
 	$('#uncheckAll').click(function(){
-		$('.table-striped input[type="checkbox"]').each(function(){
+		$('.photo-grid input[type="checkbox"]').each(function(){
 			$(this).attr('checked', false)
 		})
 		return false;

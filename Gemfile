@@ -50,6 +50,11 @@ end
 
 group :test do
   gem "rspec-rails", "~> 2.0"	
+  gem 'capybara'
+  gem 'cucumber-rails'
+  gem 'launchy'
+  gem 'database_cleaner'
+  gem 'factory_girl'
 	#gem "mocha"
 end
 

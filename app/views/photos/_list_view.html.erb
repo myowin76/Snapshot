@@ -1,3 +1,30 @@
+<% unless @photos.nil? %>    
+    <ul class="photo-list">
+    <% @photos.each do |photo| %>
+        <li>
+            <div class="thumb">
+              <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
+            </div>
+            <%= check_box_tag "photo_ids[]", photo.id %>
+            <%= photo.audit.store.retailer.name %><br />
+            <%  photo.brands.each do |brand| %>
+              <%= brand.name %>
+            <% end %>
+            <br />
+            <%= photo.created_at.strftime('%d/%m/%Y') %><br />
+            <%= photo.audit.store.address2 %>
+            <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
+            <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
+
+            <% #photo.categories.each do |cat| %>
+              <%#=  cat.name %>
+            <% #end  %>
+        </li>
+    <% end %>
+    </ul>
+  <% end %>
+  
+<!--
 
 <div id="loader_cont" style="display: none;">
   <img src="/assets/loading_red.gif">
@@ -49,12 +76,12 @@
           
           
               <%# unless photo.promotion_calendar_id.nil? %>
-                <!--strong>Promotion Calendar:</strong> <%#= photo.promotion_calendar.name %><br />
+                <!strong>Promotion Calendar:</strong> <%#= photo.promotion_calendar.name %><br />
               <% #end %>
               <% #unless photo.promotion_type_id.nil? %>
                 <strong>Promotion Type:</strong> <%#= photo.promotion_type.name %><br />
               <% #end %>
-            -->
+            
               <%#= link_to "Details", photo %>
           
               

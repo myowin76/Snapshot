@@ -21,26 +21,7 @@ class ApplicationController < ActionController::Base
   def subscribed_country
     return current_user.sub_country
   end
-  def download_zip(image_list)
-    if !image_list.blank?
-      file_name = "pictures.zip"
-      #debugger
-      t = Tempfile.new("my-temp-filename-#{Time.now}")
-
-      Zip::ZipOutputStream.open(t.path) do |z|
-        image_list.each do |img|
-          title = img.title
-          title += ".jpg" unless title.end_with?(".jpg")
-          z.put_next_entry(title)
-          z.print IO.read(img.path)
-        end
-      end
-      send_file t.path, :type => 'application/zip',
-                             :disposition => 'attachment',
-                             :filename => file_name
-      t.close
-    end
-  end
+  
 
   protected
   

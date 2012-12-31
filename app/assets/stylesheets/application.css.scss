@@ -8,12 +8,15 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require jquery.ui.datepicker
+ *= require reset
  *= require_self
+ *= require jquery.ui.datepicker
  *= require chosen
- *= require token-input-facebook
  *= require dataTables/jquery.dataTables
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *= require gmaps4rails
+ * require_tree .
+ 
  */
 
 
@@ -220,11 +223,14 @@ ul.ui-autocomplete {
     font-size: 150%;
   }
   .page-header{
-    padding-bottom: 9px;
+    padding-bottom: 0px;
     margin: 0 0 10px;
     border-bottom: 1px solid #eee;
+    h1{
+      margin: 0px;
+    }
   }
-  .site-content, .overlay{
+  .site-content{
     padding-top: 15px;
   }
   .content-wrap {
@@ -338,20 +344,88 @@ ul.ui-autocomplete {
   width: 20.40816%;
 }
 
+.page-controls{
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+// pagination
+.pagination {
+  margin: 0px !important;
+  float: right;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  a, span, em{
+    background: none;
+    border: 0;
+    display: inline-block;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 12px;
+    color: #8A6741;
+    padding: 9px 4px;
+    &.disabled{
+      display: none;
+    }
+    &.current{
+      color: #555;
+      font-weight: bold;
+    }
+  }
+}
+// page controls
+.sort-control{
+  float: left;
+  margin-right: 5px;
+  .sort-control-label {
+    margin-right: 5px;
+    float: left;
+    line-height: 30px;
+  }
+  .sort_select{
+    width: auto;
+    float: left;
+  }
+}
+.layout-switcher {
+  border-left: 1px solid #CECECE;
+  padding-left: 10px;
+  a {
+    display: inline-block;
+    height: 30px;
+ //   text-indent: -9999px;
+    width: 24px;
+  }
+  .layout-list{
+    &:hover{}
+    &:focus{}
+    &.active{}
+  }
+  .layout-grid{
+    &:hover{}
+    &:focus{}
+    &.active{} 
+  }
+}
+
+// DATE PICKER
+body .ui-datepicker{
+  width: 14em; 
+}
+body .ui-widget {
+  font-size: 1em;
+}
 //### LIST VIEW / GRID VIEW
 
-.photos-grid{
-  ul{
-    padding: 0px;
-    li{
-      float: left;
-      width:195px;
-      .grid{
-        .thumb{
-          margin: 0 auto;
-          width: 165px;
-        }
-      }
+.photo-grid{
+  padding: 0px; margin: 0px;
+  li{
+    float: left;
+    width:195px;
+    .thumb{
+      margin: 0 auto;
+      width: 165px;
     }
   }
 }

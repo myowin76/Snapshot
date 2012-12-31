@@ -1,3 +1,4 @@
+
 <section class="store_views_view">
   <div class="page-header">
     <button type="button" class="close">×</button>
@@ -35,6 +36,7 @@
     <p>
       <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
     </p>
+    <% #debugger %>
     
     <section class="store_audit_categories">
       <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>

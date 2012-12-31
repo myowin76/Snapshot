@@ -1,18 +1,8 @@
 class Category < ActiveRecord::Base
-  attr_accessible :description, :name
+  attr_accessible :description, :name, :sector_id
 
-  # has_many :photos
   has_many :categorizations
 	has_many :photos, :through => :categorizations
+	belongs_to :sector
 
-	def self.tokens(query)
-	  categories = where("name like ?", "%#{query}%")
-
-	end
-
-	def self.ids_from_tokens(tokens)
-	  tokens.gsub!(/<<<(.+?)>>>/) { create!(name: $1).id }
-	  tokens.split(',')
-	end  
-	
 end
