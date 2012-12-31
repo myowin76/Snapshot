@@ -119,7 +119,7 @@ class PhotosController < ApplicationController
               @photos = @photos.includes(:categories).where('categories.id IN (?)', search_categories)
             end            
 
-            @photos = @photos.find_between(from_date,to_date).paginate(:page => params[:page], :per_page => 20)
+            @photos = @photos.find_between(from_date,to_date)
 
             
             #### need to refactor the queries #####  
@@ -133,6 +133,7 @@ class PhotosController < ApplicationController
             
             @stores = @stores.where('stores.id IN (?)', @store_ids)
             @stores = @stores.where('stores.country_id IS NOT NULL')
+            @photos = @photos.paginate(:page => params[:page], :per_page => 20)
             
       end
 
