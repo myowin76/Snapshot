@@ -146,14 +146,14 @@ $(document).ready(function() {
     })
   })    
 
-	$('#checkAll').click(function(){
+	$('#checkAll').live('click',function(){
 		$('.photo-grid input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
 		})
 		return false;
 	})
 
-	$('#uncheckAll').click(function(){
+	$('#uncheckAll').live('click', function(){
 		$('.photo-grid input[type="checkbox"]').each(function(){
 			$(this).attr('checked', false)
 		})

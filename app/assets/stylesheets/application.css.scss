@@ -27,7 +27,9 @@ body {
   font-size: 100%;
   padding: 10px 0px;
 }
-
+.content .nav{
+  margin-bottom: 10px;
+}
 #loader_cont{
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
@@ -178,7 +180,7 @@ ul.ui-autocomplete {
 #list-view{
   .action{
     overflow: hidden;
-    height: 30px;
+    height: 40px;
     margin-bottom: 15px;
     border-bottom: 1px solid #ddd;
     ul{

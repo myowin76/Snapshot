@@ -37,18 +37,29 @@ class PhotosController < ApplicationController
         # Location Search          
         @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
 
-        if search_sectors.present?          
-          @retailers = Retailer.find_all_by_sector_id(search_sectors) #.includes(:sector)
-          @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
+        if search_sectors.present?
+          @retailers = Retailer.find_all_by_sector_id(search_sectors)
+          
+          unless search_retailers.present?
+            @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
+          else
+            @stores = @stores.where('retailer_id IN (?)', search_retailers)
+          end
+
         else
           @retailers = Retailer.find(:all, :include => :sector)
+          unless search_retailers.present?
+            @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
+          else
+            @stores = @stores.where('retailer_id IN (?)', search_retailers)
+          end
           # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
         end
-        if search_retailers.present?
-          @stores = @stores.where('retailer_id IN (?)', search_retailers)
-        else
-          @stores = @stores.where('retailer_id IN (?)', @retailers)
-        end  
+        # if search_retailers.present?
+        #   @stores = @stores.where('retailer_id IN (?)', search_retailers)
+        # else
+        #   @stores = @stores.where('retailer_id IN (?)', @retailers)
+        # end  
           
       else
         # page load
@@ -116,7 +127,7 @@ class PhotosController < ApplicationController
               @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes)
             end
             if search_categories.present?
-              @photos = @photos.includes(:categories).where('categories.id IN (?)', search_categories)
+              @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories)
             end            
 
             @photos = @photos.find_between(from_date,to_date)

@@ -1,4 +1,16 @@
-<div class="action">
+<div class="page-controls action">
+  <div class="sort-control">
+    <label for="sort_by" class="sort-control-label">Sort by:</label>
+    <select class="sort_select" id="sort_by" name="sort_by">
+      <option value="sortable_at" selected="selected">Date</option>
+      <option value="username">Author</option>
+      <option value="category">Category</option>
+    </select>
+  </div>
+  <div class="layout-switcher sort-control">
+    <a href="#" class="layout-list active">List</a>
+    <a href="#" class="layout-grid">Grid</a>
+  </div>
   <ul>
     <li>
       <a href="#" id="checkAll">Select All</a> |
@@ -15,18 +27,7 @@
   </ul>
 </div>  
 <div class="page-controls">
-  <div class="sort-control">
-    <label for="sort_by" class="sort-control-label">Sort by:</label>
-    <select class="sort_select" id="sort_by" name="sort_by">
-      <option value="sortable_at" selected="selected">Date</option>
-      <option value="username">Author</option>
-      <option value="category">Category</option>
-    </select>
-  </div>
-  <div class="layout-switcher sort-control">
-    <a href="#" class="layout-list active">List View</a>
-    <a href="#" class="layout-grid">Grid View</a>
-  </div>
+  
 <%= page_entries_info @photos %>
 <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
 </div>
