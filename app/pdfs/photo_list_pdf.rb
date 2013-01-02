@@ -18,7 +18,7 @@ class	PhotoListPdf < Prawn::Document
 		logo
 	end
 	def logo
-		image open("#{Rails.root}/app/assets/images/d3c42e08.snapshot-logo.png"), :width => 200	
+		image open("#{Rails.root}/app/assets/images/snapshot-logo.jpg"), :width => 200	
 	end
 	def photo_rows
 		

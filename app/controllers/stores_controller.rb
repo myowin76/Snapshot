@@ -118,7 +118,7 @@ class StoresController < ApplicationController
       @audit = Audit.find_by_id(params[:audit_id])
       @categories = Category.find_all_by_id(params[:checked_category_ids])
 
-      debugger
+      # debugger
       respond_to do |format|
         format.js {
           render :partial => 'stores/refresh_store_view_categories', :locals => { :audit => @audit }

@@ -66,7 +66,33 @@ class Photo < ActiveRecord::Base
       where(:created_at => fromdate .. todate)
     end
 
+
+    def self.generate_csv(photo_ids, options = {})
+      CSV.generate(options) do |csv|
+        column_names = ['Headline','  Sector', 'Retailer', 'Category','Store', 'Date', 'Address','Country', 'Promotion Calendar', 
+              'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
+        csv << column_names
+        
+        photo_ids.each do |photo_id|
+          photo = Photo.find_by_id(photo_id)
+          csv << [photo.headline]
+          
+        end
+      end
+    end
+
     def self.zip_files photo_ids
+      # NEED TO GENERATE CSV FILE WITH RELATED IMAGES INFORMATION 
+      # AND ALSO ADDED TO ZIP FILE
+      # CSV.generate(options) do |csv|
+      #   photo_ids.each do |photo_id|
+      #     column_names = ['Headline','  Sector', 'Retailer', 'Category','Store', 'Date', 'Address','Country', 'Promotion Calendar', 
+      #         'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
+      #     csv << column_names
+
+      #   end
+      # end
+
       zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
       Zip::ZipOutputStream.open(zip_file) do |zos|
         photo_ids.each do |photo_id|

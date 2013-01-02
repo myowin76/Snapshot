@@ -2,7 +2,9 @@ class	PhotoPdf < Prawn::Document
 	def initialize(photo)
 		super()
 		@photo = photo
-		define_grid(:columns => 2, :rows => 8, :gutter => 10)
+		logo
+		move_down(30)
+		#define_grid(:columns => 2, :rows => 8, :gutter => 10)
 		photo_image
 		move_down(30)
 		photo_details
@@ -11,6 +13,9 @@ class	PhotoPdf < Prawn::Document
 
 		move_down(10)
 
+	end
+	def logo
+		image open("#{Rails.root}/app/assets/images/snapshot-logo.jpg"), :width => 200	
 	end
 	def photo_image
 		text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold

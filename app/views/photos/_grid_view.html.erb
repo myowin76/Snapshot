@@ -32,25 +32,25 @@
 <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
 </div>
 
-
   <% unless @photos.nil? %>    
     <ul class="photo-grid">
     <% @photos.each do |photo| %>
         <li>
+            <%= check_box_tag "photo_ids[]", photo.id %>
             <div class="thumb">
               <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
             </div>
-            <%= check_box_tag "photo_ids[]", photo.id %>
+            
             <div class="retailer">
-              <%= photo.audit.store.retailer.name %><br />
+              <%= photo.audit.store.retailer.name %>
             </div>  
-            <div class="brand">  
+            <div class="brand">
               <%  photo.brands.each do |brand| %>
                 <%= brand.name %>
               <% end %>
             </div>  
             <div class="date">
-              <%= photo.created_at.strftime('%d/%m/%Y') %><br />
+              <%= photo.created_at.strftime('%d/%m/%Y') %>
             </div>
             <div class="address">
               <%= photo.audit.store.address2 %>

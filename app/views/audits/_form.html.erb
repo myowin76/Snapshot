@@ -47,7 +47,7 @@
       <%= store.address2 %>, <%= store.postcode %>
       <br />
     <% end %>  
-  
+    
     <% unless @audit.new_record? %>
   
       <%#= @audit.store.country.name unless @audit.store.country_id.nil? %>
@@ -63,19 +63,28 @@
     <div id="store-info">
       
     </div>
-
-    <%= f.association :channel, :include_blank => false %>
-    <%= f.association :environment_type, :include_blank => false %>
-    <%= f.input :reference %> 
-    <%= f.input :created_at, :as => :string, :label => 'Date',
+    <fieldset>
+      <%= f.association :channel, :include_blank => false %>
+    </fieldset>
+    <fieldset>
+      <%= f.association :environment_type, :include_blank => false %>
+    </fieldset>
+    <fieldset>
+      <%= f.input :reference %> 
+    </fieldset>
+    <fieldset>
+      <%= f.input :created_at, :as => :string, :label => 'Date',
         :input_html => {:class => 'audit-created-date'} %>
-
-    
-    <%= f.fields_for :photos do |photo_fields| %>
+    </fieldset>
+    <fieldset>
+      <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
           <%= render "file_upload", :photos => photo_fields %>  
       <% end %>
     <% end %>
+    </fieldset>
+    
+    
     <%#= link_to "Add Image Upload", "#", class: "add_field" %>
 
     <section style="clear:both;overflow:hidden;">
@@ -98,7 +107,7 @@
             <%#= photo_fields.association :brand, :include_blank => false, :input_html => { :class=> 'audit_brands' } %>
             <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
             
-            <label>Additional Brands</label>
+            <label>Brand Owners</label>
             <%= photo_fields.text_field :additional_brands %><br />
             <%#= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
             <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
@@ -116,7 +125,7 @@
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
             <%= photo_fields.association :themes, :input_html => { :class=> 'chosen-theme' } %>
             
-            <label>descriptionription</label>
+            <label>Description</label>
             <%= photo_fields.text_field :description, :as => :text %>
             <%= photo_fields.input :insight %>
             <%= photo_fields.input :role_of_comm, inline_label: 'Role of Communication' %>
