@@ -1,5 +1,7 @@
 <!-- <p id="notice"><%= notice %></p> -->
-
+<p>
+  <%= link_to 'Edit', edit_audit_path(@audit) %>
+</p>
 <p>
   <b>Reference:</b>
   <%= @audit.reference %>
@@ -42,9 +44,10 @@
       	<td><%= link_to image_tag(photo.photo.url(:small)), photo %></td>
       	<td><%= photo.categories.map(&:name).join(",") %></td>
       	<td><%= photo.created_at %></td>
+        <td><%= link_to "Edit", edit_photo_path(photo) %></td>
       </tr>
     <% end %>    
 </table>
 
-<%= link_to 'Edit', edit_audit_path(@audit) %>
+
 <%#= link_to 'Back', audits_path %>

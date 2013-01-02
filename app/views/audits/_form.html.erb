@@ -14,16 +14,17 @@
     <% else  %>  
       
       <% retailer = Retailer.find_by_name(params[:retailer])  %>
+
       
       <%#= f.label "Retailer" %>
+      <strong>Retailer</strong>
       <%= retailer.name %>
     <% end  %>
     
-   <p>
+   
   <div class="audits_retailer_dropdown">
   </div>
   <div class="audits_store_dropdown">
-    
   </div>
    <% unless params[:store].present?  %>
       <%= f.label "Store" %>
@@ -32,18 +33,32 @@
       <%= link_to "add new store", new_store_path, :class => "add-store" %>
     <% else %>
       <% store = Store.find_by_name(params[:store]) %>
+      <strong>Retailer:</strong>
+      <%= store.retailer.name %>
+      <strong>Sector:</strong>
+      <%= store.retailer.sector.name %>
       <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
+      <strong>Store Name:</strong>
       <%= store.name %><br />
+    </p>
+    <p>
+      <strong>Address:</strong><br />
       <%= store.address %><br />
       <%= store.address2 %>, <%= store.postcode %>
+      <br />
     <% end %>  
-  </p>
+  
     <% unless @audit.new_record? %>
-    <p>
-      <%= @audit.store.country.name unless @audit.store.country_id.nil? %>
+  
+      <%#= @audit.store.country.name unless @audit.store.country_id.nil? %>
     </p>
     <% else %>
-      <%#= store.country.name if store %>
+      <%= store.country.name unless store.nil? or store.country_id.nil? %><br />
+      
+    </p>
+    <strong>Store Format:</strong>
+      <%= store.store_format.name unless store.nil? or store.store_format_id.nil? %>
+      <br />
     <% end %>
     <div id="store-info">
       
@@ -55,6 +70,7 @@
     <%= f.input :created_at, :as => :string, :label => 'Date',
         :input_html => {:class => 'audit-created-date'} %>
 
+    
     <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
           <%= render "file_upload", :photos => photo_fields %>  
