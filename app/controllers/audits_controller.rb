@@ -59,12 +59,16 @@ class AuditsController < ApplicationController
   # POST /audits
   # POST /audits.json
   def create
+    
     @audit = Audit.new(params[:audit])
-    if @audit.photos.blank?
-      respond_to do |format|
-        format.html { redirect_to new_audit_path, notice: 'Please select one or more images.' }
-      end
+    if params[:audit_retailer_id].blank? || params[:audit_store_id].blank? ||
+      @audit.photos.blank?
+      redirect_to new_audit_path, notice: 'Please fill require data.'
+      
     else
+
+      
+      
       respond_to do |format|
         if @audit.save
           # save user
@@ -76,10 +80,8 @@ class AuditsController < ApplicationController
           format.html { render action: "new" }
           format.json { render json: @audit.errors, status: :unprocessable_entity }
         end
-      end  
+      end 
     end
-
-    
   end
 
   # PUT /audits/1
@@ -114,13 +116,18 @@ class AuditsController < ApplicationController
   end
 
   def refresh_store_dropdown
-    @stores = Store.find_all_by_retailer_id(params[:audit_retailer_id])
     
+    if params[:audit_retailer_id].present?
+      @stores = Store.find_all_by_retailer_id(params[:audit_retailer_id])  
+    else  
+    
+    end  
+      
     respond_to do |format|
       format.js {
         render :partial => 'refresh_store_dropdown', :locals => { :stores => @stores}
       }
     end
-    
   end
+
 end

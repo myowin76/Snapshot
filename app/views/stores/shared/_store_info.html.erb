@@ -1,11 +1,15 @@
-<strong>Sector:</strong><%= @store.retailer.sector.name %><br />
-<% unless @store.address.blank? or @store.address2.blank? %>
-	<strong>Address:</strong>
-	<%= @store.address %><br>
-	<%= @store.address2 %>,
+<% unless @store.nil? %>
+	<strong>Sector:</strong><%= @store.retailer.sector.name %><br />
+	<% unless @store.address.blank? or @store.address2.blank? %>
+		<strong>Address:</strong>
+		<%= @store.address %><br>
+		<%= @store.address2 %>,
 
-	<%= @store.country.name unless @store.country_id.blank? %><br />
-<% end  %>
-<strong>Store Format:</strong>
-<%= @store.store_format.name unless @store.store_format_id.nil? %>
-<br />
+		<%= @store.country.name unless @store.country_id.blank? %><br />
+	<% end  %>
+	<strong>Store Format:</strong>
+	<%= @store.store_format.name unless @store.store_format_id.nil? %>
+	<br />
+<% else %>	
+
+<% end %>

@@ -1,17 +1,10 @@
 
 <%#= form_tag root_path, :id=>"search_form", remote: true do %>
+<div class="search-form-actions">
+  <%= render 'photos/shared/search_form_actions' %>
+</div>    
 <%= form_tag root_path, :id=>"search_form" do %>
-  <div class="box">
-
-      
-      <fieldset>
-        <button type="submit" class="btn btn-danger clear-form">
-          <i class="icon-refresh icon-white"></i> Clear
-        </button>
-        <button type="submit" class="btn btn-primary">
-          <i class="icon-search icon-white"></i> Search
-        </button>
-      </fieldset>  
+  
       
       <fieldset>
         <%= label_tag "Country" %>
@@ -22,7 +15,7 @@
           <%= collection_select(:search, :country_id, @countries, :id, :name, :prompt => 'All')  %>
         <% end %>  
       </fieldset>
-  </div>    
+      
 
   <div class="accordion" id="accordion2">
     <div class="accordion-group" id="sector-group">

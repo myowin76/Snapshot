@@ -9,13 +9,14 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require reset
- *= require_self
+ *= require_tree ./partials
  *= require jquery.ui.datepicker
  *= require chosen
  *= require dataTables/jquery.dataTables
+ *= require_self
  *= require bootstrap_and_overrides
  *= require gmaps4rails
- *= require_tree ./partials
+ 
  * require_tree .
  
  */
@@ -33,6 +34,11 @@ body {
   h3{
     font-size: 20px;
     line-height: 20px;
+  }
+
+  abbr[title]{
+    border-bottom: none;
+    color: #d92680;
   }
 }
 form textarea{
@@ -226,6 +232,7 @@ ul.ui-autocomplete {
   width: 100%;
   margin: 0 auto 25px;
   position: relative;
+  padding-top: 15px;
   h1{
     font-size: 150%;
   }
@@ -238,11 +245,11 @@ ul.ui-autocomplete {
     }
   }
   .site-content{
-    padding-top: 15px;
+    
   }
   .content-wrap {
     float: right;
-    width: 76.53061%;
+    width: 71.53061%;
   }
 }
 #header{
@@ -302,7 +309,7 @@ ul.ui-autocomplete {
   }
   float: left;
   font-size: 12px;
-  width: 20.40816%;
+  width: 25.40816%;
 }
 
 .page-controls{
@@ -383,7 +390,7 @@ body .ui-widget {
   padding: 0px; margin: 0px;
   li{
     float: left;
-    width:195px;
+    width:183px;
     height: 230px;
     .thumb{
       margin: 0 auto;
@@ -441,4 +448,57 @@ body .ui-widget {
     width: 87%;
   }
 
+}
+
+// save searches
+.saved-list{
+  
+}
+.new_save_search{
+  background-color: #eee;
+  .form-actions{
+    padding: 0;
+    border: 0;
+    background-color: #eee;
+    margin: 5px 0;
+  }
+}
+
+// searrch form action
+.search-form-actions{
+  background-color: #eee;
+  border: 1px solid #E5E5E5;
+  padding: 12px;
+  .btn{
+    border-radius: 0;   
+    &.clear-form{
+      float: left;
+      width: 111px;
+    }
+    &.search{
+      float: right;
+      width: 111px;
+    }  
+    &.small{
+
+    }
+  }
+  .saved-search{
+    margin-top: 8px;
+    ul{
+      li{
+        form{
+          margin: 0 0 6px;
+        }    
+      }
+    } 
+  }
+
+}
+
+.photo_views_view{
+  .photo-store-info{
+    background-color: #eee;
+    padding: 18px;
+  }
 }

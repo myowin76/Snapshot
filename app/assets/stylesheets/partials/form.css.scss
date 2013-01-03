@@ -1,0 +1,12 @@
+// client side validation
+
+form{
+  .control-group.error{
+    input, select, textarea{
+      border-color: #d92680;
+    }
+    label, .help-block, .help-inline{
+      color: #d92680;
+    }
+  }
+}

@@ -22,6 +22,8 @@ gem "wkhtmltopdf-binary"
 gem "prawnto_2", :require => "prawnto"
 gem 'rubyzip', '~> 0.9.4', :require => ['zip/zip', 'zip/zipfilesystem'] 
 gem 'chosen-rails'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 
 group :production do
 	gem "pg"

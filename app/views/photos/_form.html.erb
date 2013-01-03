@@ -6,6 +6,20 @@
   <div id="photo-details">
     <div class="left">
       <%= image_tag(@photo.photo.url(:large)) %><br />
+      <br />
+      <section class="photo-store-info">
+        <strong>Retailer: </strong> 
+        <%= @photo.audit.store.retailer.name %><br /> 
+        <strong>Sector: </strong>
+        <%= @photo.audit.store.retailer.sector.name %><br />
+        <strong>Store: </strong>
+        <%= @photo.audit.store.name %><br />
+        <% unless @photo.audit.store.address.blank? %>
+          <strong>Address: </strong><%= @photo.audit.store.address %>, <%= @photo.audit.store.address2 %>, <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
+        <% end %>
+
+      </section>
+
     </div>
     <div class="right">
       <%= simple_form_for(@photo) do |f| %>
@@ -13,8 +27,9 @@
 
         <div class="form-inputs">
           <label>Audit Id: 
-          <%= link_to @photo.audit_id, audit_path(@photo.audit) %><br />
+            <%= link_to @photo.audit_id, audit_path(@photo.audit) %><br />
           </label>
+
           <label> User:
             <%= @photo.audit.user.email %>
           </label>
@@ -32,6 +47,8 @@
             <%= f.association :promotion_calendar, :input_html => { :class=> 'chosen-promo-cal' } %>
           <%= f.input :display_for_project %>
           <%= f.input :brand_compliant %>
+          <%= f.input :published %>
+          <%= f.input :data_complete %>
           <%= f.input :insight %>
           <%= f.input :role_of_comm %>
           <%= f.input :perspective %>
