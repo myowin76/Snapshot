@@ -10,10 +10,14 @@
       <section class="photo-store-info">
         <strong>Retailer: </strong> 
         <%= @photo.audit.store.retailer.name %><br /> 
+
         <strong>Sector: </strong>
         <%= @photo.audit.store.retailer.sector.name %><br />
+        
         <strong>Store: </strong>
-        <%= @photo.audit.store.name %><br />
+        <%= @photo.audit.store.name %> - 
+        <%= @photo.audit.store.store_format.name %>
+        <br>
         <% unless @photo.audit.store.address.blank? %>
           <strong>Address: </strong><%= @photo.audit.store.address %>, <%= @photo.audit.store.address2 %>, <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
         <% end %>
@@ -26,16 +30,23 @@
         <%= f.error_notification %>
 
         <div class="form-inputs">
-          <label>Audit Id: 
-            <%= link_to @photo.audit_id, audit_path(@photo.audit) %><br />
+          <label><strong>Audit Id: </strong>
+            <%= link_to @photo.audit_id, audit_path(@photo.audit) %>
+            <br />
           </label>
-
-          <label> User:
+          <label>
+            <strong>Environment Type:</strong>
+            <%= @photo.audit.environment_type.name %>
+          </label>
+          <label> 
+            <strong>User:</strong>
             <%= @photo.audit.user.email %>
           </label>
-          <label>Date Created:
-          <%= @photo.created_at %>
+          <label>
+            <strong>Date: </strong>
+            <%= @photo.created_at %>
           </label>
+          <br>
           <%= f.input :headline %>
           <%= f.association :brands, :input_html => { :class=> 'chosen-brand' } %>
           <%= f.association :categories, :input_html => { :class=> 'chosen-category' } %>
