@@ -150,9 +150,9 @@ class StoresController < ApplicationController
   def get_store_details
     # New Audit form
     
-    if params[:audit_store_id]
-      @store = Store.find_by_id(params[:audit_store_id])
-      
+    unless params[:audit][:store_id].nil?
+      @store = Store.find_by_id(params[:audit][:store_id])
+    
       respond_to do |format|
         format.js {
           render :partial => 'stores/show_details', :locals => { :store => @store }

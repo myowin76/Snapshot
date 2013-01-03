@@ -59,7 +59,7 @@ class AuditsController < ApplicationController
   # POST /audits
   # POST /audits.json
   def create
-    debugger
+    
     @audit = Audit.new(params[:audit])
      if params[:audit][:store_id].blank? || @audit.photos.blank?
       
