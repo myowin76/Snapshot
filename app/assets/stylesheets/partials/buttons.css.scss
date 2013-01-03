@@ -1,0 +1,30 @@
+
+$col-pink : #d92680;
+/*
+.btn-primary{
+	text-align: center;
+	color: #ffffff;
+	background: $col-pink;
+
+	&:hover{
+		color: #ffffff;
+		background: darken($col-pink, 10%)
+	}
+}
+*/
+.page-header{
+	.close{
+		background-color: #D92680;
+		color: white;
+		border-radius: 28px;
+		padding: 0 4px 6px 4px;
+		width: 28px;
+		height: 28px;
+		margin-top: 6px;
+		opacity: 100;
+		&:hover{
+			color: #ffffff;
+			background: darken($col-pink, 10%)
+		}
+	}	
+}

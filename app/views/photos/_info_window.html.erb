@@ -7,5 +7,9 @@
 <p>
 	<%= store.retailer.sector.name unless store.retailer.sector_id.nil? %>
 </p>
-<%= link_to "View Details", store, :id => 'store-view', remote: true %>
+<p>
+	<%= store.photos.count %> photos. 
+	<%= link_to "Go to the Store page", store, :id => 'store-view', remote: true %>
+</p>
+
 <%#= link_to "View Details", store_view_url(store.id), :id => 'store-view', remote: true %>

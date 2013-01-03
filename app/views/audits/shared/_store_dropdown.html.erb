@@ -1,1 +1,2 @@
-test
+Stores<br />
+<%= select_tag "audit_store_id", options_from_collection_for_select(@stores, "id", "name",  @stores ), {:prompt => 'Please Select'} %>

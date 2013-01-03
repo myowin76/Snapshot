@@ -2,22 +2,24 @@
   <div class="page-header">
     <h1>Listing audits</h1>
   </div>
-  <%= link_to 'New Audit', new_audit_path, :class=>"btn btn-primary pull-right" %>
-  <table class="table table-striped">
+  <div class="action">
+    <%= link_to 'New Audit', new_audit_path, :class=>"btn btn-primary pull-right" %>
+  </div>  
+  
+<table class="table table-striped" id="tbl-audits">
     <thead>
-    <tr>    
-      <!--th>Retailer</th-->
-      <th>Reference</th>
-      <th>Store</th>
-      <th>Channel</th>
-      <th>Environment type</th>
-      <!--th>photos(count)</th-->
-      <th>uploaded by</th>
-      <th></th>
-      <th></th>
-    </tr>
+      <tr>    
+        <th>Reference</th>
+        <th>Store</th>
+        <th>Channel</th>
+        <th>Environment type</th>
+        <th>uploaded by</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
     </thead>
-
+  <tbody>
   <% @audits.each do |audit| %>
     <tr>
       <!--td><%= link_to audit.store.retailer.name, audit unless audit.store.retailer_id.
@@ -35,6 +37,6 @@
     
 
   <% end %>
-
-  </table>
+  </tbody>
+</table>
     <%#= will_paginate(@audits) %>

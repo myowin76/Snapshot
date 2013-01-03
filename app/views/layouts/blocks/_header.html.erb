@@ -1,14 +1,29 @@
 <div id="header" class="site-header" role="banner">
-	<div id="branding">
-						
+	<div id="branding">						
 		<h1 id="site-title">
 			<a href="/" title="Snapshot Worldwide" rel="Home">
 				<img class="logo" src="http://snapshot-wp.preview.skyron.co.uk/wp-content/uploads/2012/12/snapshot-logo-300x62.png" alt="Snapshot Worldwide">
 			</a>
-		</h1>
-								
-												
+		</h1>		
 	</div>
+	<div id="account">
+		<% if user_signed_in? %>
+		<ul>
+			<li>
+				<%= current_user.email  %>
+			</li>
+			<li>
+        <%= link_to "Account", edit_user_registration_path %>
+      </li>
+			<li>
+				<%= link_to "Logout", destroy_user_session_path %>
+			</li>
+			<li class="last">
+				<a href="#">Feedback</a>
+			</li>
+		</ul>
+	</div>
+	<% end %>
 	<div id="menu-primary" class="menu-container">
 
 		<div class="menu">

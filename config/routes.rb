@@ -27,6 +27,7 @@ Snapshot::Application.routes.draw do
   resources :stores do
     collection do
       post :refresh_store_view_categories
+      post :get_store_details
       #post :show_store_with_categories
     end
   end

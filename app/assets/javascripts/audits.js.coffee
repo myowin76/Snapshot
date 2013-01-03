@@ -8,6 +8,10 @@ jQuery ->
   $('.chosen-promo-cal').chosen()
   $('.chosen-theme').chosen()
 
+  $('#tbl-audits').dataTable
+    "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+    "sPaginationType": 'full_numbers'
+
   ###$('.category-tokens').tokenInput '/categories.json'
     tokenDelimiter: ","
     theme: 'facebook'

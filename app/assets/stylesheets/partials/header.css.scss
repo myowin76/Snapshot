@@ -1,0 +1,16 @@
+#account{
+	float: right;
+	font-size: 13px;
+	ul{
+		li{
+			float: left;
+			margin: 7px 0 0 10px;
+			padding-right: 10px;
+			border-right: 1px solid #ccc;
+			line-height: 18px;
+			&.last{
+				border-right: 0;
+			}
+		}
+	}
+}

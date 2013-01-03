@@ -15,6 +15,7 @@
  *= require dataTables/jquery.dataTables
  *= require bootstrap_and_overrides
  *= require gmaps4rails
+ *= require_tree ./partials
  * require_tree .
  
  */
@@ -26,10 +27,25 @@ body {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 100%;
   padding: 10px 0px;
+  h1, h2, h3, h4, h5, h6{
+    font-weight: normal;
+  }
+  h3{
+    font-size: 20px;
+    line-height: 20px;
+  }
 }
+form textarea{
+  height: 140px;
+}
+body ul{
+  margin: 0;
+}
+
 .content .nav{
   margin-bottom: 10px;
 }
+
 #loader_cont{
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
@@ -103,20 +119,7 @@ form .field, form .actions {
 .table.dataTable tr.even td.sorting_1{
   background-color: #ffffff;
 }
-footer, .push{
-    padding: 10px 40px;
-    background: none;
-    height: 30px;
-    margin: 0;
-    .container-fluid{
-      background: none;
-      box-shadow: none;
-      min-height: 30px;
-    }
-    a{
-      color: #4B7399;
-    }
-}
+
 #builtby{
   text-align: right;
 }
@@ -216,10 +219,12 @@ ul.ui-autocomplete {
   position: relative;
 }
 #main {
+
   clear: both;
+  overflow: hidden;
   font-size: 0.9em;
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 25px;
   position: relative;
   h1{
     font-size: 150%;
@@ -251,53 +256,7 @@ ul.ui-autocomplete {
     overflow: hidden;
   }
 }
-#footer{
-  font-size: 12px;
-  overflow: hidden;
-  clear: both;
-  max-width: 1170px;
-  margin: 0 auto;
-  padding: 1em 1em;
-  background: #D92680;
-  color: white;
-  margin: 0;
-  a {
-    color: white;
-  }
-  p{
-    margin-bottom: 0;
-  }
-}
-#footer-content {
-  float: left;
-  width: 30%;
-}
-#menu-subsidiary {
-  float: right;
-  width: 65%;
-  position: relative;
-  .menu{
-    float: right;
-    ul{
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      
-      li{
-        display: block;
-        float: left;
-        padding-left: 1.5em;
-        background: url(../assets/menu-separator.png) no-repeat left 15%;
-        a {
-          display: block;
-          text-transform: uppercase;
-          border-width: 0;
-        }
-      }
 
-    }
-  }
-}
 
 // NAVIGATION
 #menu-primary {
@@ -476,5 +435,10 @@ body .ui-widget {
   }
   .right{
     float: left;
+    width: 504px;
   }
+  input, textarea{
+    width: 87%;
   }
+
+}

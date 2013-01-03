@@ -223,7 +223,7 @@ class PhotosController < ApplicationController
 
 
   def generate_zip
-
+    
     zip_file = Photo.zip_files(params[:photo_ids].split(','))
     if zip_file
       send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"

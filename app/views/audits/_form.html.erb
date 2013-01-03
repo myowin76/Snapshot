@@ -22,14 +22,14 @@
     <% end  %>
     
    
-  <div class="audits_retailer_dropdown">
-  </div>
+  <!-- <div class="audits_retailer_dropdown">
+  </div> -->
   <div class="audits_store_dropdown">
   </div>
    <% unless params[:store].present?  %>
-      <%= f.label "Store" %>
-      <%= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
-      include_blank: true %>
+      <%#= f.label "Store" %>
+      <%#= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
+       {:prompt => 'Please Select'} %>
       <%= link_to "add new store", new_store_path, :class => "add-store" %>
     <% else %>
       <% store = Store.find_by_name(params[:store]) %>
@@ -53,12 +53,12 @@
       <%#= @audit.store.country.name unless @audit.store.country_id.nil? %>
     </p>
     <% else %>
-      <%= store.country.name unless store.nil? or store.country_id.nil? %><br />
+      <%= store.country.name unless store.nil? or store.country_id.blank? %><br />
       
     </p>
-    <strong>Store Format:</strong>
+    
       <%= store.store_format.name unless store.nil? or store.store_format_id.nil? %>
-      <br />
+      
     <% end %>
     <div id="store-info">
       

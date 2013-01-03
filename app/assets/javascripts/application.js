@@ -41,12 +41,25 @@ $(document).ready(function() {
   //     data: categories_checkboxes
   //   })  
   // })
+$('#audit_store_id').live('change',function(){
+    store_id = $('#audit_store_id').serializeObject();
+    $.ajax({
+      url: '/stores/get_store_details',
+      type: "POST",
+      dataType: 'script',
+      data: store_id,
+    })
+  })
 
-// $('#audit_store_id').change(function(){
-//     // TO DO -- STORE VIEW TO SHOW IN AJAX
-//     alert("test");
-//     return false;
-//   })
+$('#audit_retailer_id').live('change',function(){
+    retailer_id = $('#audit_retailer_id').serializeObject();
+    $.ajax({
+      url: '/audits/refresh_store_dropdown',
+      type: "POST",
+      dataType: 'script',
+      data: retailer_id
+    })
+  })
 
   $('#export-zip').click(function(e){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
@@ -136,15 +149,7 @@ $(document).ready(function() {
     })
   })    
 
-  $('#audit_retailer_id').change(function(){
-    retailer_id = $('#audit_retailer_id').serializeObject();
-    $.ajax({
-      url: '/audits/refresh_store_dropdown',
-      type: "POST",
-      dataType: 'script',
-      data: retailer_id
-    })
-  })    
+  
 
 	$('#checkAll').live('click',function(){
 		$('.photo-grid input[type="checkbox"]').each(function(){

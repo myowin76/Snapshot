@@ -1,0 +1,47 @@
+#footer{
+  font-size: 12px;
+  overflow: hidden;
+  clear: both;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 1em 1em;
+  background: #D92680;
+  color: white;
+  margin: 0;
+  a {
+    color: white;
+  }
+  p{
+    margin-bottom: 0;
+  }
+}
+#footer-content {
+  float: left;
+  width: 30%;
+}
+#menu-subsidiary {
+  float: right;
+  width: 65%;
+  position: relative;
+  .menu{
+    float: right;
+    ul{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      
+      li{
+        display: block;
+        float: left;
+        padding-left: 1.5em;
+        background: url(../assets/menu-separator.png) no-repeat left 15%;
+        a {
+          display: block;
+          text-transform: uppercase;
+          border-width: 0;
+        }
+      }
+
+    }
+  }
+}

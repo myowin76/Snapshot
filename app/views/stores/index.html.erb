@@ -35,10 +35,6 @@
       <%= store.postcode %>,
       <%= store.country.name %>
     </td>
-    <!--td><%= store.retailer.sector.name %></td-->
-    <!--td><%#= store.longitude %></td-->
-    <!--td><%#= store.latitude %></td-->
-    <!--td><%#= store.description %></td-->
     <!--td><%#= link_to 'Details', store %></td-->
     <td><%= link_to 'Edit', edit_store_path(store) %></td>
     <td><%= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' } %></td>
