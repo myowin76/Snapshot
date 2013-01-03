@@ -59,19 +59,18 @@ class AuditsController < ApplicationController
   # POST /audits
   # POST /audits.json
   def create
-    
+    debugger
     @audit = Audit.new(params[:audit])
-     if params[:audit_retailer_id].blank? || params[:audit_store_id].blank? ||
-    @audit.photos.blank?
+     if params[:audit][:store_id].blank? || @audit.photos.blank?
       
-      render action: "new", notice: 'Please fill require data.'
+      redirect_to new_audit_path, notice: 'Please fill require data.'
     else
       
       respond_to do |format|
         if @audit.save
           # save user
           @audit.update_attribute(:user_id, current_user.id)
-          @audit.update_attribute(:store_id, params[:audit_store_id])
+          @audit.update_attribute(:store_id, params[:audit][:store_id])
           
           format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
           format.json { render json: @audit, status: :created, location: @audit }
