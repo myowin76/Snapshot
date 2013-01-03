@@ -15,7 +15,7 @@
         <%= @photo.audit.store.retailer.sector.name %><br />
         
         <strong>Store: </strong>
-        <%= @photo.audit.store.name %> - 
+        <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %> - 
         <%= @photo.audit.store.store_format.name %>
         <br>
         <% unless @photo.audit.store.address.blank? %>
@@ -36,7 +36,11 @@
           </label>
           <label>
             <strong>Environment Type:</strong>
-            <%= @photo.audit.environment_type.name %>
+            <%= @photo.audit.environment_type.name unless @photo.audit.environment_type_id.nil? %>
+          </label>
+          <label>
+            <strong>Channel:</strong>
+            <%= @photo.audit.channel.name unless @photo.audit.channel_id.nil? %>
           </label>
           <label> 
             <strong>User:</strong>

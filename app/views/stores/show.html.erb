@@ -1,6 +1,7 @@
 <div class="">
   <div class="page-header">
     <h1><%= @store.name %></h1>
+    <%= link_to 'Edit', edit_store_path(@store) %>
   </div>
 </div>
 <div class="">
@@ -42,4 +43,3 @@
     <% end %>
 </div>  
   <% end %>
-  

@@ -16,7 +16,7 @@
  *= require_self
  *= require bootstrap_and_overrides
  *= require gmaps4rails
- 
+ *= require jquery.fileupload-ui 
  * require_tree .
  
  */

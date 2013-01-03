@@ -1,5 +1,5 @@
 <div class="upload-field">
-	<%= photos.file_field :photo, :validate => { :presence => true, :uniqueness => false } %>
+	<%= photos.file_field :photo %>
 	<%= link_to "remove", '#', class: "remove_field" %>
 </div>
 

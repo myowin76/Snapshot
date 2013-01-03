@@ -24,6 +24,8 @@
 
 $(document).ready(function() {
   
+  // $('#upload').fileupload();
+
   $('.search-form-actions .search').click(function(){
     $('#search_form').submit();
   })
