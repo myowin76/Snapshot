@@ -5,6 +5,10 @@ Snapshot::Application.routes.draw do
   resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
   resources :sectors,:retailers, :countries, :promotion_calendars, :promotion_types
 
+  # resources :categories do
+  #   resources :photos
+  # end
+
   devise_for :users
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download

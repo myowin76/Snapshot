@@ -53,6 +53,7 @@
           <br>
           <%= f.input :headline %>
           <%= f.association :brands, :input_html => { :class=> 'chosen-brand' } %>
+          <%= f.input :additional_brands %>
           <%= f.association :categories, :input_html => { :class=> 'chosen-category' } %>
           <%= f.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
           <%= f.association :media_vehicles, :input_html => { :class=> 'chosen-media-vehic' } %>

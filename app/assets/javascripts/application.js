@@ -25,11 +25,14 @@
 
 $(document).ready(function() {
 
+  // TO DO ## REFACFOR BY CREATING FUNCTIONS
 
+  
   //## sort by
   $('#sort_by').change(function(){
     $('#search_form').submit();
   });
+
 
   //## list / grid view switcher to do
 
@@ -80,7 +83,7 @@ $(document).ready(function() {
     $('#search_form').submit();
   })
 
-  // TO DO
+  // AJAX PAGINATION
   $('.pagination a').live('click',function () {
 
     $.get(this.href, null, null, 'script');

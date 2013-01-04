@@ -1,4 +1,5 @@
 <div class="page-controls action">
+
   <div class="sort-control">
     <label for="sort_by" class="sort-control-label">Sort by:</label>
     <select class="sort_select" id="sort_by" name="sort_by">
@@ -10,10 +11,12 @@
       <option>Brand Z-A</option>
     </select>
   </div>
+  
   <div class="layout-switcher sort-control">
     <a href="#" class="icon-list layout-list">List</a>
-    <a href="#" class="icon-th-large layout-grid">Grid</a>
+    <a href="#" class="icon-th layout-grid">Grid</a>
   </div>
+
   <ul style="margin-top: 8px;">
     <li>
       <a href="#" id="checkAll">Select All</a> |
@@ -28,44 +31,44 @@
       <%#= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf'%>
     </li-->
   </ul>
-</div>  
-<div class="page-controls">
-  
-<%= page_entries_info @photos %>
-<%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
 </div>
 
-  <% unless @photos.nil? %>    
-    <ul class="photos-viewer">
-    <% @photos.each do |photo| %>
-        <li>
-            <%= check_box_tag "photo_ids[]", photo.id %>
-            <div class="thumb">
-              <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
-            </div>
-            
-            <div class="retailer">
-              <%= photo.audit.store.retailer.name %>
-            </div>  
-            <div class="brand">
-              <%  photo.brands.each do |brand| %>
-                <%= brand.name %>
-              <% end %>
-            </div>  
-            <div class="date">
-              <%= photo.created_at.strftime('%d/%m/%Y') %>
-            </div>
-            <div class="address">
-              <%= photo.audit.store.address2 %>
-            </div>
-            <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
-            <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
+<div class="page-controls">  
+  <%= page_entries_info @photos %>
+  <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
+</div>
 
-            <% #photo.categories.each do |cat| %>
-              <%#=  cat.name %>
-            <% #end  %>
-        </li>
+<% unless @photos.nil? %>    
+  <ul class="photos-viewer">
+    <% @photos.each do |photo| %>
+      <li>
+        <%= check_box_tag "photo_ids[]", photo.id %>
+        <div class="thumb">
+          <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
+        </div>
+        
+        <div class="retailer">
+          <%= photo.audit.store.retailer.name %>
+        </div>  
+        <div class="brand">
+          <%  photo.brands.each do |brand| %>
+            <%= brand.name %>
+          <% end %>
+        </div>  
+        <div class="date">
+          <%= photo.created_at.strftime('%d/%m/%Y') %>
+        </div>
+        <div class="address">
+          <%= photo.audit.store.address2 %>
+        </div>
+        <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
+        <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
+
+        <% #photo.categories.each do |cat| %>
+          <%#=  cat.name %>
+        <% #end  %>
+      </li>
     <% end %>
-    </ul>
-  <% end %>
+  </ul>
+<% end %>
   

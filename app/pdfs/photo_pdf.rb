@@ -1,24 +1,25 @@
 class	PhotoPdf < Prawn::Document
+
 	def initialize(photo)
 		super()
 		@photo = photo
 		logo
 		move_down(30)
 		#define_grid(:columns => 2, :rows => 8, :gutter => 10)
-		photo_image
+		
 		move_down(30)
 		photo_details
-
-		
 
 		move_down(10)
 
 	end
+
 	def logo
 		image open("#{Rails.root}/app/assets/images/snapshot-logo.jpg"), :width => 200	
 	end
+	
 	def photo_image
-		text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold
+		# text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold
 		image open("#{@photo.photo.url(:medium)}") #, :width => 200
 		# image open("#{@photo.photo.url(:medium).to_s.sub!(/\?.+\Z/, '')}")
 
@@ -30,16 +31,19 @@ class	PhotoPdf < Prawn::Document
 		# grid.show_all
 		# grid([3,0], [2,1]).bounding_box do
 		# end	
-			text "Retailer: #{@photo.audit.store.retailer.name}", :size => 12
 			text "Store: #{@photo.audit.store.name}", :size => 12
+			text "Address: #{@photo.audit.store.address}, #{@photo.audit.store.address2}", :size => 12
+			text "#{@photo.audit.store.country.name}" unless @photo.audit.store.country_id.nil?
 			text "Store Format: #{@photo.audit.store.store_format.name}"
-			text "Sector: #{@photo.audit.store.retailer.sector.name}"
 			text "Environment Type: #{@photo.audit.environment_type.name}"
-			text "Country: #{@photo.audit.store.country.name}" unless @photo.audit.store.country_id.nil?
+			move_down(10)
+			photo_image
+			move_down(10)
+			
+			text "Date:#{@photo.created_at}", :size => 12
+			text "Retailer: #{@photo.audit.store.retailer.name}", :size => 12
+			text "Sector: #{@photo.audit.store.retailer.sector.name}"
 		
-		
-		
-
 		if @photo.categories
 			@photo.categories.each do |cat|
 				text "Category: #{cat.name}", :size => 12

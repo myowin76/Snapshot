@@ -486,6 +486,7 @@ body .ui-widget {
   background-color: #eee;
   border: 1px solid #E5E5E5;
   padding: 12px;
+  margin-bottom: 10px;
   .btn{
     border-radius: 0;   
     &.clear-form{
@@ -498,6 +499,7 @@ body .ui-widget {
     }  
     &.small{
       padding: 2px 15px;
+      font-size: 12px;
     }
   }
   .saved-search{

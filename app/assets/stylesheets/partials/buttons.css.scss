@@ -12,6 +12,19 @@ $col-pink : #d92680;
 	}
 }
 */
+body .btn-primary{
+	font-size: 12px;
+	text-transform: uppercase;
+	background-color: $col-pink;
+	background-image: none;
+	border: 1px solid $col-pink;
+	border-radius: 0;
+	&:hover{
+		color: #ffffff;
+		background: darken($col-pink, 10%);
+		border: 1px solid darken($col-pink, 10%)
+	}
+}
 .page-header{
 	.close{
 		background-color: #D92680;
