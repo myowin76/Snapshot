@@ -361,9 +361,11 @@ ul.ui-autocomplete {
   padding-left: 10px;
   a {
     display: inline-block;
-    height: 30px;
- //   text-indent: -9999px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
+    margin-top: 5px;
+    text-indent: -9999px;
+
   }
   .layout-list{
     &:hover{}
