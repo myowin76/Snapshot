@@ -11,7 +11,7 @@
     </select>
   </div>
   <div class="layout-switcher sort-control">
-    <a href="#" class="layout-list active">List</a>
+    <a href="#" class="layout-list">List</a>
     <a href="#" class="layout-grid">Grid</a>
   </div>
   <ul>
@@ -36,7 +36,7 @@
 </div>
 
   <% unless @photos.nil? %>    
-    <ul class="photo-grid">
+    <ul class="photos-viewer">
     <% @photos.each do |photo| %>
         <li>
             <%= check_box_tag "photo_ids[]", photo.id %>

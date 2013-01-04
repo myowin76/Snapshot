@@ -19,6 +19,6 @@ class PagesController < ApplicationController
   end
 
   def admin
-		@unpublished_photos = Photo.unpublished  
+		@unpublished_photos = Photo.order('created_at DESC').unpublished.all
   end
 end

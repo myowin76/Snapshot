@@ -59,6 +59,7 @@ class Photo < ActiveRecord::Base
   								   'image/jpg', 'image/png']
 
     acts_as_gmappable :process_geocoding => false
+    scope :order_date_desc, order("created_at DESC")
     scope :published, where(published: true)
     scope :unpublished, where(published: false)
 

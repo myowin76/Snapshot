@@ -19,17 +19,53 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
-//=require jquery-fileupload/basic
-//=require jquery-fileupload/vendor/tmpl
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require_tree .
 
 $(document).ready(function() {
+
+  //## list / grid view switcher to do
+
+  $('.layout-switcher .layout-list').live('click', function(){
+    parent = $(this).closest('.photo-view');
+    if (!parent.hasClass('list')){
+      if (parent.hasClass('grid')){
+        parent.removeClass('grid');
+      }
+      parent.addClass('list');
+    }
+    
+    if (!$(this).hasClass('active')){
+      $('.layout-switcher .layout-grid').removeClass('active');
+      $(this).addClass('active');    
+    }
+    return false;
+  });
+
+  $('.layout-switcher .layout-grid').live('click', function(){
+    parent = $(this).closest('.photo-view');
+    if (!parent.hasClass('grid')){
+      if (parent.hasClass('list')){
+        parent.removeClass('list');
+      }
+      parent.addClass('grid');
+    }
+
+    if (!$(this).hasClass('active')){
+      $('.layout-switcher .layout-list').removeClass('active');
+      $(this).addClass('active');
+    }
+    return false;
+  });
   
+  // ###################
+
   $('#audit_created_at').datepicker(
       {
         dateFormat: 'dd/mm/yy',
         onClose: function(){
-          $('#audit_created_at').focusout();
+          $('#audit_created_at').blur(); //or .focusout();
         }
       }
     );
@@ -188,7 +224,10 @@ $('#audit_retailer_id').live('change',function(){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
   })  
    
-  // $('#new_audit').fileupload();
+  $('#new_audit').fileupload({
+    dataType: "json"
+  });
+
 
 	// filterUI.init();
 	

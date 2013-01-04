@@ -385,51 +385,55 @@ body .ui-widget {
   font-size: 1em;
 }
 //### LIST VIEW / GRID VIEW
-
-.photo-grid{
-  padding: 0px; margin: 0px;
-  li{
-    float: left;
-    width:183px;
-    height: 230px;
-    .thumb{
-      margin: 0 auto;
-      width: 165px;
-      height: 126px;
+.photo-view.grid{
+  .photos-viewer{
+    padding: 0px; margin: 0px;
+    li{
+      float: left;
+      width:183px;
+      height: 230px;
+      .thumb{
+        margin: 0 auto;
+        width: 165px;
+        height: 126px;
+      }
     }
-  }
+  }  
 }
-.photo-list{
-  padding: 0; margin: 0px;
-  li{
-    padding: 20px;
-    overflow: hidden;
-    border-bottom: 1px solid #e0e0e0;
-    position: relative;
-    .thumb{
-      margin-right: 10px;
-      width: 130px;
-      float: left;
+.photo-view.list{
+  .photos-viewer{
+    padding: 0; margin: 0px;
+    li{
+      padding: 20px;
+      overflow: hidden;
+      border-bottom: 1px solid #e0e0e0;
+      position: relative;
+      .thumb{
+        margin-right: 10px;
+        width: 130px;
+        float: left;
+      }
+      .retailer{
+        width: 130px;
+        float: left;
+      }
+      .brand{
+        width: 130px;
+        float: left;
+      }
+      .date{
+        width: 130px;
+        float: left;
+      }  
+      .address{
+        float: left;
+        width: 130px;
+      }
     }
-    .retailer{
-      width: 130px;
-      float: left;
-    }
-    .brand{
-      width: 130px;
-      float: left;
-    }
-    .date{
-      width: 130px;
-      float: left;
-    }  
-    .address{
-      float: left;
-      width: 130px;
-    }
-  }
 
+  }  
 }
+
 .photo_views_view{
   overflow: hidden;
   margin-bottom: 25px;

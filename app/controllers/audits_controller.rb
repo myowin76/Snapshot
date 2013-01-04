@@ -54,6 +54,7 @@ class AuditsController < ApplicationController
 
     @store = @audit.store
     @retailers = Retailer.all
+    
     # 5.times{@audit.photos.build}
     @audit.photos.build
   end
