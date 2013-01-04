@@ -25,6 +25,15 @@
 
 $(document).ready(function() {
   
+  $('#audit_created_at').datepicker(
+      {
+        dateFormat: 'dd/mm/yy',
+        onClose: function(){
+          $('#audit_created_at').focusout();
+        }
+      }
+    );
+  
   $('.search-form-actions .search').click(function(){
     $('#search_form').submit();
   })
@@ -184,6 +193,7 @@ $('#audit_retailer_id').live('change',function(){
 	// filterUI.init();
 	
  });
+
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
   add: function(element, settings, message) {
     if (element.data('valid') !== false) {

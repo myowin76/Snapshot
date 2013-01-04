@@ -37,5 +37,5 @@ jQuery ->
       $('#audit_store_id').html(options)
   
   $('.created_at').datepicker({dateFormat: 'dd/mm/yy'})
-  $('#audit_created_at').datepicker({dateFormat: 'dd/mm/yy'})
+  ###$('#audit_created_at').datepicker({dateFormat: 'dd/mm/yy'})###
   
