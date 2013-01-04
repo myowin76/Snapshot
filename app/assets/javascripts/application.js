@@ -25,6 +25,12 @@
 
 $(document).ready(function() {
 
+
+  //## sort by
+  $('#sort_by').change(function(){
+    $('#search_form').submit();
+  });
+
   //## list / grid view switcher to do
 
   $('.layout-switcher .layout-list').live('click', function(){
@@ -204,14 +210,14 @@ $('#audit_retailer_id').live('change',function(){
   
 
 	$('#checkAll').live('click',function(){
-		$('.photo-grid input[type="checkbox"]').each(function(){
+		$('.photos-viewer input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
 		})
 		return false;
 	})
 
 	$('#uncheckAll').live('click', function(){
-		$('.photo-grid input[type="checkbox"]').each(function(){
+		$('.photos-viewer input[type="checkbox"]').each(function(){
 			$(this).attr('checked', false)
 		})
 		return false;
@@ -224,12 +230,12 @@ $('#audit_retailer_id').live('change',function(){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
   })  
    
-  $('#new_audit').fileupload({
-    dataType: "json"
-  });
+  // $('#new_audit').fileupload({
+  //   dataType: "json"
+  // });
 
 
-	// filterUI.init();
+	filterUI.init();
 	
  });
 

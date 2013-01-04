@@ -2,9 +2,9 @@ class SectorsController < ApplicationController
   layout "admin"
   def index
   
-      #@sectors = Sector.all
+      @sectors = Sector.all
 
-      @sectors = Sector.search(params[:search])
+      # @sectors = Sector.search(params[:search])
   
   end
   def show

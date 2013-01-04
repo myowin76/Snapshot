@@ -325,29 +325,32 @@ ul.ui-autocomplete {
   position: relative;
   overflow: hidden;
   a, span, em{
-    background: none;
-    border: 0;
+    background: #f9f9f9;
+    border: 1px solid lightGrey;
     display: inline-block;
     font-size: 12px;
     font-style: normal;
     line-height: 12px;
     color: #8A6741;
-    padding: 9px 4px;
+    border-radius: 3px;
+    padding: 4px 7px;
     &.disabled{
       display: none;
     }
     &.current{
-      color: #555;
+      color: #fff;
+      background: #6F6F6F;
       font-weight: bold;
+      box-shadow: 0 1px 2px #545454 inset, 0 1px 0 white;
     }
   }
 }
 // page controls
 .sort-control{
   float: left;
-  margin-right: 5px;
+  margin-right: 12px;
   .sort-control-label {
-    margin-right: 5px;
+    margin-right: 12px;
     float: left;
     line-height: 30px;
   }
@@ -359,6 +362,7 @@ ul.ui-autocomplete {
 .layout-switcher {
   border-left: 1px solid #CECECE;
   padding-left: 10px;
+  margin-top: 2px;
   a {
     display: inline-block;
     height: 20px;
@@ -392,7 +396,7 @@ body .ui-widget {
     padding: 0px; margin: 0px;
     li{
       float: left;
-      width:183px;
+      width:181px;
       height: 230px;
       .thumb{
         margin: 0 auto;
@@ -405,15 +409,22 @@ body .ui-widget {
 .photo-view.list{
   .photos-viewer{
     padding: 0; margin: 0px;
+    input[type="checkbox"]{
+      float: left;
+      width: 30px;
+    }
     li{
-      padding: 20px;
+      padding: 12px 0;
       overflow: hidden;
       border-bottom: 1px solid #e0e0e0;
       position: relative;
       .thumb{
         margin-right: 10px;
+        padding: 1px;
         width: 130px;
         float: left;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 3px #ccc;
       }
       .retailer{
         width: 130px;
