@@ -19,13 +19,12 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
-
+//=require jquery-fileupload/basic
+//=require jquery-fileupload/vendor/tmpl
 //= require_tree .
 
 $(document).ready(function() {
   
-  // $('#upload').fileupload();
-
   $('.search-form-actions .search').click(function(){
     $('#search_form').submit();
   })
@@ -180,6 +179,7 @@ $('#audit_retailer_id').live('change',function(){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
   })  
    
+  // $('#new_audit').fileupload();
 
 	// filterUI.init();
 	

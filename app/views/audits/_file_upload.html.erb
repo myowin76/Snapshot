@@ -1,5 +1,12 @@
 <div class="upload-field">
-	<%= photos.file_field :photo %>
-	<%= link_to "remove", '#', class: "remove_field" %>
+	<%= photos.file_field :photo,
+	multiple: true, :name => 'audit[photos_attributes][][photo]' 
+	%>
+	<%#= link_to "remove", '#', class: "remove_field" %>
 </div>
-
+<script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+  {%=o.name%}
+  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>

@@ -39,7 +39,8 @@ class AuditsController < ApplicationController
     
     # @stores = Store.find_all_by_retailer_id(params[:id])
     # @audit.photos.build
-    5.times{@audit.photos.build}
+    # 5.times{@audit.photos.build}
+    @audit.photos.build
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @audit }
@@ -53,7 +54,8 @@ class AuditsController < ApplicationController
 
     @store = @audit.store
     @retailers = Retailer.all
-    5.times{@audit.photos.build}
+    # 5.times{@audit.photos.build}
+    @audit.photos.build
   end
 
   # POST /audits
