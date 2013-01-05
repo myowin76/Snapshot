@@ -1,8 +1,10 @@
 $('#open_link').hide();
+$('#save_as').hide();
 $('#new_link').hide().after('<%= j render("form") %>');
 $('#new_save_search .cancel').click(function () {
 	$('#new_save_search').remove();
 	$('#new_link').show();
 	$('#open_link').show();
+	$('#save_as').show();
 	return false;
  }); 
