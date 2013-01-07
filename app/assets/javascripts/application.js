@@ -23,52 +23,95 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require_tree .
 
+var snapshot = {
+
+  LayoutSwitcher: function(){
+
+    $('.layout-switcher .layout-list').live('click', function(){
+      parent = $(this).closest('.photo-view');
+      if (!parent.hasClass('list')){
+        if (parent.hasClass('grid')){
+          parent.removeClass('grid');
+        }
+        parent.addClass('list');
+      }
+      
+      if (!$(this).hasClass('active')){
+        $('.layout-switcher .layout-grid').removeClass('active');
+        $(this).addClass('active');    
+      }
+      return false;
+    });
+
+    $('.layout-switcher .layout-grid').live('click', function(){
+      parent = $(this).closest('.photo-view');
+      if (!parent.hasClass('grid')){
+        if (parent.hasClass('list')){
+          parent.removeClass('list');
+        }
+        parent.addClass('grid');
+      }
+
+      if (!$(this).hasClass('active')){
+        $('.layout-switcher .layout-list').removeClass('active');
+        $(this).addClass('active');
+      }
+      return false;
+    });
+  },
+  
+  Pagination: function(){
+    $('.pagination a').live('click',function () {
+      $.get(this.href, null, null, 'script');
+      return false;
+    });
+  }
+
+};
+
+var photos = {
+  generatePDF: function(){
+    
+    $('#export-pdf').click(function(){
+      checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+      if (checkbox_array == undefined) {
+        alert("Please select the image");
+        return false;
+      };
+
+      url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
+      $(this).attr('href', url);
+    })
+  },
+  exportZIP: function(){
+    
+    $('#export-zip').click(function(e){
+      checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+      if (checkbox_array == undefined) {
+        alert("Please select the image");
+        return false;
+      };
+      url = '/photos/generate_zip?photo_ids=' + checkbox_array;
+      $(this).attr('href', url);
+    })
+  }
+};
+
 $(document).ready(function() {
 
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
 
   
+  snapshot.LayoutSwitcher();
+  snapshot.Pagination();
+  photos.generatePDF();
+  photos.exportZIP();
+
   //## sort by
   $('#sort_by').change(function(){
     $('#search_form').submit();
   });
 
-
-  //## list / grid view switcher to do
-
-  $('.layout-switcher .layout-list').live('click', function(){
-    parent = $(this).closest('.photo-view');
-    if (!parent.hasClass('list')){
-      if (parent.hasClass('grid')){
-        parent.removeClass('grid');
-      }
-      parent.addClass('list');
-    }
-    
-    if (!$(this).hasClass('active')){
-      $('.layout-switcher .layout-grid').removeClass('active');
-      $(this).addClass('active');    
-    }
-    return false;
-  });
-
-  $('.layout-switcher .layout-grid').live('click', function(){
-    parent = $(this).closest('.photo-view');
-    if (!parent.hasClass('grid')){
-      if (parent.hasClass('list')){
-        parent.removeClass('list');
-      }
-      parent.addClass('grid');
-    }
-
-    if (!$(this).hasClass('active')){
-      $('.layout-switcher .layout-list').removeClass('active');
-      $(this).addClass('active');
-    }
-    return false;
-  });
-  
-  // ###################
 
   $('#audit_created_at').datepicker(
       {
@@ -82,13 +125,6 @@ $(document).ready(function() {
   $('.search-form-actions .search').click(function(){
     $('#search_form').submit();
   })
-
-  // AJAX PAGINATION
-  $('.pagination a').live('click',function () {
-
-    $.get(this.href, null, null, 'script');
-    return false;
-  });
 
   // TO DO
   // $('#store-view').live('click',function(){
@@ -122,29 +158,8 @@ $('#audit_retailer_id').live('change',function(){
     })
   })
 
-  $('#export-zip').click(function(e){
-    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
-    
-    if (checkbox_array == undefined) {
-      alert("Please select the image");
-      return false;
-    };
-    url = '/photos/generate_zip?photo_ids=' + checkbox_array;
-    $(this).attr('href', url);
-  })
-
-  $('#export-pdf').click(function(){
-    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
-    
-    if (checkbox_array == undefined) {
-      alert("Please select the image");
-      return false;
-    };
-
-    url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
-    $(this).attr('href', url);
-
-  })
+  
+  
 
   $('#publish_multiple').click(function(){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
