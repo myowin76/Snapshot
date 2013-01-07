@@ -36,7 +36,9 @@ class SaveSearchesController < ApplicationController
 
   # GET /save_searches/1/edit
   def edit
+
     @save_search = SaveSearch.find(params[:id])
+
     respond_to do |format|
       format.html # new.html.erb
       format.js
@@ -64,7 +66,8 @@ class SaveSearchesController < ApplicationController
 
     respond_to do |format|
       if @save_search.update_attributes(params[:save_search])
-        format.html { redirect_to @save_search, notice: 'Save search was successfully updated.' }
+        url = "#{root_path}?saved_search_id=#{@save_search.id}"
+        format.html { redirect_to url, notice: 'Save search was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -97,6 +97,8 @@ var photos = {
   }
 };
 
+
+
 $(document).ready(function() {
 
   // TO DO ## REFACFOR BY CREATING FUNCTIONS

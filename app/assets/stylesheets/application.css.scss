@@ -41,7 +41,23 @@ body {
     color: #d92680;
   }
 
+//FORM #### CHOSEN DROPDOWN BOX
+.chzn-container-multi .chzn-choices .search-choice{
+  background-color: #d92680;
+  background-image: none;
+  border-radius: 0;
+  border: none;
+  color: #fff;
+  margin: 2px 0 2px 2px;
+  padding: 4px 20px 6px 5px;
 }
+
+
+
+}
+
+
+
 form textarea{
   height: 140px;
 }
@@ -522,3 +538,5 @@ body .ui-widget {
     padding: 18px;
   }
 }
+
+

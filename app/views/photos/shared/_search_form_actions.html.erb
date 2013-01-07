@@ -11,7 +11,11 @@
 	<ul></ul>
   <%#= render @saved_searches unless current_user.save_searches.blank? %>
 	<%= link_to "Save", new_save_search_path(:params => params[:search]), id: "new_link", :class => "btn small", remote: true %>
-  <%= link_to "Save as", "#", :id => 'save_as', :class => "btn small", remote: true %>
+  <% unless params[:saved_search_id].nil? %>
+    <%= link_to "Save as", edit_save_search_path(params[:saved_search_id]), :id => 'save_as', :class => "btn small", remote: true %>
+  <% else %>    
+    <%= link_to "Save as", "#", :id => 'save_as', :class => "btn small", :disabled => 'true' %>
+  <% end %>  
 	<%= link_to "Open Filters", save_searches_path, id: "open_link", :class => "btn small", remote: true %>
 </div> 
 
