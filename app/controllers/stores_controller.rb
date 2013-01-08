@@ -150,7 +150,7 @@ class StoresController < ApplicationController
         .where("category_id in (?)", @selected_categories.map(&:id))
         .group("category_id");
         # .having("count(photo_id)");
-debugger
+
       @audits = @store.audits.order('created_at DESC')
       @audit = @audits.first
       
