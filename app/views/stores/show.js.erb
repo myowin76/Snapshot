@@ -1,6 +1,7 @@
 
 	$('.site-content').hide();
-	checked_category_ids = $('#category-group input[type="checkbox"]:checked').serializeObject()['search[categories][]'];	
+
+	//show and hide
 
 	$('.overlay').html("<%= j render('stores/shared/show_view') %>");
 
@@ -9,6 +10,7 @@
 		// $('.views_view').fadeOut(500, function() { $('.views_view').remove(); });
 		$('.site-content').show();
 	})
+
 
 	$('#store-audit-select').live('change', function(){
 		audit_id = $('#store-audit-select').serializeObject();

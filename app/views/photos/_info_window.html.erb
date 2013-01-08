@@ -3,13 +3,15 @@
 	<%= store.address %><br />
 	<%= store.address2 %><br />
 	<%= store.postcode %>
+
  </p>
+<input type="hidden" id="hidden" value="<%= store.id %>">
 <p>
 	<%= store.retailer.sector.name unless store.retailer.sector_id.nil? %>
 </p>
 <p>
-	<%= store.photos.count %> photos. 
-	<%= link_to "Go to the Store page", store, :id => 'store-view', remote: true, :class => 'pull-right' %>
+	<%= @photos.count %> photos.
+	<%= link_to "Go to the Store page", "stores/show_store_with_categories"	, :id => 'store-view', remote: true, :class => 'pull-right' %>
 </p>
 
 <%#= link_to "View Details", store_view_url(store.id), :id => 'store-view', remote: true %>

@@ -55,7 +55,27 @@ body {
 
 
 }
+// search form
+.single-group{
+  background-color: #eee;
+  border: 1px solid #E5E5E5;
+  padding: 12px 0 12px 20px;
+  margin-bottom: 2px;
+  label{
+    display: inline;
+  }
 
+  &.date{
+    label{
+      float: left;
+      width: 40px;
+    }
+    input[type="text"]{ 
+      width: 70%;
+    }
+
+  }
+}
 
 
 form textarea{
@@ -195,6 +215,8 @@ ul.ui-autocomplete {
 .gallery_basic {
   list-style: none;
   margin: 0;
+  width: 100%;
+  overflow: hidden;
   >li{
     float: left;
     margin: 10px 7px;
@@ -408,6 +430,19 @@ body .ui-widget {
   font-size: 1em;
 }
 //### LIST VIEW / GRID VIEW
+.photo-view{
+  .length-control{
+    float: left;
+    margin-right: 12px;
+    label{
+      float: left;
+      line-height: 28px;
+    }
+    select{
+      width: auto;
+    }
+  }
+}
 .photo-view.grid{
   .photos-viewer{
     padding: 0px; margin: 0px;

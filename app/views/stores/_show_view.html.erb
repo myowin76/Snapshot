@@ -1,45 +1,49 @@
-<section class="views_view">
-  <div class="page-header">
-    <h1><%= @store.name %></h1>
+<% unless @store.nil? || @store.blank? %>
+  <section class="views_view">
+    <div class="page-header">
+      <h1><%= @store.name %></h1>asdfsaf
+    </div>
   </div>
-</div>
-<div class="">
-  <p>
-    <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
-  </p>
-  <p id="notice"><%= notice %></p>
-
-  <p>
-    <b>Address:</b><br />
-    <%= @store.address %><br />
-    <%= @store.address2 %><br />
-    <%= @store.postcode %><br />
-    <%= @store.country.name unless @store.country_id.nil? %>
-  </p>
-  <p>
-    <b>Sector</b>
-    <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
-  </p>
-  <p>
-    <b>Store format:</b>
-    <%= @store.store_format.name %>
-  </p>
-
-  <p>
-    <b>Retailer:</b>
-    <%= @store.retailer.name %>
-  </p>
-  
-  <% unless @audits.nil? %>
-    <% unless @audit.nil?  %>
+  <div class="">
     <p>
-      <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
+      <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
+    </p>
+    <p id="notice"><%= notice %></p>
+
+    <p>
+      <b>Address:</b><br />
+      <%= @store.address %><br />
+      <%= @store.address2 %><br />
+      <%= @store.postcode %><br />
+      <%= @store.country.name unless @store.country_id.nil? %>
+    </p>
+    <p>
+      <b>Sector</b>
+      <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
+    </p>
+    <p>
+      <b>Store format:</b>
+      <%= @store.store_format.name %>
+    </p>
+
+    <p>
+      <b>Retailer:</b>
+      <%= @store.retailer.name %>
     </p>
     
-    <section class="store_audit_categories">
-      <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
-    </section> 
+    <% unless @audits.nil? %>
+      <% unless @audit.nil?  %>
+      <p>
+        <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
+      </p>
+      
+      <section class="store_audit_categories">
+        <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
+      </section> 
+      <% end %>
+  </div>  
     <% end %>
-</div>  
-  <% end %>
-  </section>
+    </section>
+
+    
+<% end %>

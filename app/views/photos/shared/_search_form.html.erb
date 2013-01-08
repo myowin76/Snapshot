@@ -116,7 +116,7 @@
         </div>
       </div>
     </div>
-    <div class="accordion-group">
+    <!-- <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#dates">
           Dates <i class="icon-plus pull-right"></i>
@@ -142,7 +142,7 @@
           </fieldset>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#channel">
@@ -338,7 +338,7 @@
         </div>
       </div>
     </div>
-    <div class="accordion-group">
+    <!-- <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#geolocation">
           Location Search <i class="icon-plus pull-right"></i>
@@ -358,7 +358,7 @@
           </fieldset>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#themes">
@@ -383,6 +383,48 @@
         </div>
       </div>
     </div>
+
+    <div class="single-group">
+      <% if params[:search] && params[:search][:brand_comp] %>
+        <%= check_box_tag "search[brand_comp]", "Brand Compliance", :check => "checked", :id => "search_brand_comp" %>
+        <p>Brand Compliance</p>
+        <% else %>    
+          <%= check_box_tag "search[brand_comp]", "Brand Compliance", false, :id => "search_brand_comp" %>
+        <label for="search_brand_comp">Brand Compliance</label>  
+        <% end %>
+    </div>
+
+    <div class="single-group date">
+      <fieldset>
+        <%= label_tag "From" %>
+        <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
+          <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>
+        <% else %>
+          <%= text_field_tag "search[fromDate]" %>
+        <% end %>
+      </fieldset>
+      <fieldset>
+        <%= label_tag "To" %>
+        <% if params[:search] && params[:search][:toDate] && params[:search][:toDate] %>
+          <%= text_field_tag "search[toDate]", params[:search][:toDate] %>  
+        <% else %>
+          <%= text_field_tag "search[toDate]" %>
+        <% end %>  
+      </fieldset>
+    </div>
+    <div class="single-group">
+      <fieldset>
+        <%= label_tag "Location (25 miles radius)" %>
+        <% if params[:search] && params[:search][:location] && params[:search][:location] %>
+          <%= text_field_tag 'search[location]', params[:search][:location] %>
+        <% else %>
+          <%= text_field_tag 'search[location]' %>
+          <%#= text_field_tag 'search[location]', '', :autocomplete => photo_autocomplete_store_location_path %>
+        <% end %><br />
+        <span>e.g Edinburgh, EH3, etc</span>
+      </fieldset>
+    </div>
+
 </div> <!-- ACCORDION ENDS HERE -->
 
 <div class="search-form-actions">

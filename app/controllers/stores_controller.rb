@@ -116,7 +116,13 @@ class StoresController < ApplicationController
     if params[:audit_id]
       
       @audit = Audit.find_by_id(params[:audit_id])
-      @categories = Category.find_all_by_id(params[:checked_category_ids])
+      if params[:categories]
+        @selected_categories = Category.find_all_by_id(params[:categories])
+      else
+        @selected_categories = Category.order(:name)  
+      end
+      # @categories = Category.find_all_by_id(params[:checked_category_ids])
+      # @photos_in_category = Photo.where('')
 
       # debugger
       respond_to do |format|
@@ -128,23 +134,39 @@ class StoresController < ApplicationController
   end
 
   def show_store_with_categories
-    
-    categories_chk = params[:search][:categories]
 
-    # @store = Store.find(params[:id])
-    
-    # @audits = @store.audits.order('created_at DESC')
-    # @audit = @audits.first
-    
-    # @photos = @store.photos #.group_by{ |pc| pc.categories}
 
-    # @photo_category = @photos.group(&:categories)
-        # debugger
-    respond_to do |format|
-      format.html # show.html.erb
-      format.js
-      format.json { render json: @store }
-    end    
+
+
+    if params[:store_id]  
+      @store = Store.find_by_id(params[:store_id])
+      if params[:categories]
+        @selected_categories = Category.find_all_by_id(params[:categories])
+      else
+        @selected_categories = Category.order(:name)
+      end
+      @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
+      @photo_catgories = @store.photos.joins(:categories)
+        .where("category_id in (?)", @selected_categories.map(&:id))
+        .group("category_id");
+        # .having("count(photo_id)");
+debugger
+      @audits = @store.audits.order('created_at DESC')
+      @audit = @audits.first
+      
+      # @photos = @store.photos #.group_by{ |pc| pc.categories}
+
+      # @photo_category = @photos.group(&:categories)
+          # debugger
+      respond_to do |format|
+        # format.json { render json: @store }
+        format.js{
+          render 'stores/show_store_with_categories', :locals => { :store => @store }
+        }
+      end
+          
+    end
+
   end
 
   def get_store_details

@@ -28,11 +28,13 @@ Snapshot::Application.routes.draw do
       post :refresh_store_dropdown
     end
   end
+  match '/stores/show_store_with_categories' => 'stores#show_store_with_categories', :as => :store_view
   resources :stores do
     collection do
+      # post :show_store_with_categories
       post :refresh_store_view_categories
       post :get_store_details
-      #post :show_store_with_categories
+      
     end
   end
 

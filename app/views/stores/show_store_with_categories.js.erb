@@ -1,5 +1,6 @@
-
+// @checked_category_ids = $('#category-group input[type="checkbox"]:checked').serializeObject()['search[categories][]'];	
 	$('.site-content').hide();
+	
 	$('.overlay').html("<%= j render('stores/shared/show_view') %>");
 	
 	$('.store_views_view .close').live('click', function(){
@@ -10,12 +11,13 @@
 
 
 	$('#store-audit-select').live('change', function(){
-		audit_id = $('#store-audit-select').serializeObject();
-    
+		var info = {}
+		info['audit_id'] = $('#store-audit-select').serializeObject()['audit_id'];
+    info['store_id'] = <%= store.id %>
     $.ajax({
       url: '/stores/refresh_store_view_categories',
       type: "POST",
       dataType: 'script',
-      data: audit_id
+      data: info
     })
 	})
