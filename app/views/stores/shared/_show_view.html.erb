@@ -5,6 +5,7 @@
     <h1><%= @store.name %></h1>
   </div>
 <div class="">
+  <input type="hidden" id="hidden-cats" name="category_ids[]" value="">
   <p>
     <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
   </p>

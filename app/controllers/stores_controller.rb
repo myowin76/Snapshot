@@ -111,15 +111,36 @@ class StoresController < ApplicationController
   def refresh_store_view_categories
     # When user select between audits in select boxes
     # the categories of the selected audits need to refresh
-    
+    @store = Store.find_by_id(params[:store_id])
     if params[:audit_id]
-      
       @audit = Audit.find_by_id(params[:audit_id])
-      if params[:categories]
-        @selected_categories = Category.find_all_by_id(params[:categories])
+    else
+      @audits = @store.audits.order('created_at DESC')
+      @audit = @audits.first
+    end  
+# debugger
+      unless params[:categories].blank?
+        @selected_categories = Category.find_all_by_id(params[:categories].split(","))
+        @photo_categories = Category.joins(:photos).includes(:categorizations)
+          .where("category_id in (?)", @selected_categories.map(&:id))
+          .group("categories.id");
       else
-        @selected_categories = Category.order(:name)  
+        @selected_categories = Category.joins(:photos).
+          where('photos.audit_id IN (?)', @audit.id)
+        @photo_categories = Category.joins(:photos).includes(:categorizations)
+          .where("category_id in (?)", @selected_categories.map(&:id))
+          .group("categories.id");
       end
+
+    
+    # if params[:audit_id]
+      
+      # @audit = Audit.find_by_id(params[:audit_id])
+      # if params[:categories]
+      #   @selected_categories = Category.find_all_by_id(params[:categories])
+      # else
+      #   @selected_categories = Category.order(:name)  
+      # end
       # @categories = Category.find_all_by_id(params[:checked_category_ids])
       # @photos_in_category = Photo.where('')
 
@@ -129,7 +150,7 @@ class StoresController < ApplicationController
           render :partial => 'stores/refresh_store_view_categories', :locals => { :audit => @audit }
         }
       end
-    end  
+    # end  
   end
 
   def show_store_with_categories
@@ -142,23 +163,17 @@ class StoresController < ApplicationController
       if params[:categories]
         @selected_categories = Category.find_all_by_id(params[:categories])
         @photo_categories = Category.joins(:photos).includes(:categorizations)
+          .where('photos.audit_id IN (?)', @audit.id)
           .where("category_id in (?)", @selected_categories.map(&:id))
           .group("categories.id");
       else
         @selected_categories = Category.joins(:photos).
-          where('photos.audit_id IN (?)', @audits.map(&:id))
+          where('photos.audit_id IN (?)', @audit.id)
         @photo_categories = Category.joins(:photos).includes(:categorizations)
           .where("category_id in (?)", @selected_categories.map(&:id))
           .group("categories.id");
       end
-
-      # @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
-
-      # @photo_categories = @store.photos.select("photos.id, audit_id, photo_file_name")
-      # @photo_categories = Category.joins(:photos).includes(:categorizations)
-      #   .where("category_id in (?)", @selected_categories.map(&:id))
-      #   .group("category_id");
-        # .having("count(photo_id)");
+      # .having("count(photo_id)");
         
       
       
