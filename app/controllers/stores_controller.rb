@@ -118,18 +118,29 @@ class StoresController < ApplicationController
       @audits = @store.audits.order('created_at DESC')
       @audit = @audits.first
     end  
-# debugger
+
       unless params[:categories].blank?
+
         @selected_categories = Category.find_all_by_id(params[:categories].split(","))
+        
+        # @photo_categories = @selected_categories
+
         @photo_categories = Category.joins(:photos).includes(:categorizations)
-          .where("category_id in (?)", @selected_categories.map(&:id))
-          .group("categories.id");
+        .where('photos.audit_id IN (?)', @audit.id)
+        .where("category_id in (?)", @selected_categories.map(&:id))
+        .group("categories.id");
+          
+          
+          
+          
       else
-        @selected_categories = Category.joins(:photos).
-          where('photos.audit_id IN (?)', @audit.id)
+        @selected_categories = Category.joins(:photos)
+        .where('photos.audit_id IN (?)', @audit.id)
+
         @photo_categories = Category.joins(:photos).includes(:categorizations)
           .where("category_id in (?)", @selected_categories.map(&:id))
           .group("categories.id");
+          
       end
 
     
@@ -161,7 +172,7 @@ class StoresController < ApplicationController
       @audit = @audits.first
 
       if params[:categories]
-        @selected_categories = Category.find_all_by_id(params[:categories])
+        @selected_categories = Category.find_all_by_id(params[:categories].split(","))
         @photo_categories = Category.joins(:photos).includes(:categorizations)
           .where('photos.audit_id IN (?)', @audit.id)
           .where("category_id in (?)", @selected_categories.map(&:id))

@@ -12,6 +12,7 @@
 -->
 
 <% @photo_categories.each do |cat| %>
+		<% unless cat.photos.nil? %>
 		<h3><%= cat.name %></h3>
 		<ul class="gallery_basic" id="basicGallery">
 			<% cat.photos.each do |photo| %>
@@ -20,4 +21,5 @@
 				<% end %>
 			<% end %>
 		</ul>
+	<% end %> 	
 <% end %> 
