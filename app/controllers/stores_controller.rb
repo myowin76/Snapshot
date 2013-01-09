@@ -144,9 +144,9 @@ class StoresController < ApplicationController
 
       @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
       @photo_catgories = @store.photos.joins(:categories)
-        .where("category_id in (?)", @selected_categories.map(&:id)).uniq
-        .group("category_id");
-        # .having("count(photo_id)");
+        .where("category_id in (?)", @selected_categories.map(&:id))
+        .group("category_id")
+        .having("count(photo_id)");
 
       @audits = @store.audits.order('created_at DESC')
       @audit = @audits.first
