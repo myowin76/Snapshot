@@ -136,22 +136,31 @@ class StoresController < ApplicationController
 
     if params[:store_id]  
       @store = Store.find_by_id(params[:store_id])
+      @audits = @store.audits.order('created_at DESC')
+      @audit = @audits.first
+
       if params[:categories]
         @selected_categories = Category.find_all_by_id(params[:categories])
+        @photo_categories = Category.joins(:photos).includes(:categorizations)
+          .where("category_id in (?)", @selected_categories.map(&:id))
+          .group("categories.id");
       else
-        @selected_categories = Category.order(:name)
+        @selected_categories = Category.joins(:photos).
+          where('photos.audit_id IN (?)', @audits.map(&:id))
+        @photo_categories = Category.joins(:photos).includes(:categorizations)
+          .where("category_id in (?)", @selected_categories.map(&:id))
+          .group("categories.id");
       end
 
       # @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
 
       # @photo_categories = @store.photos.select("photos.id, audit_id, photo_file_name")
-      @photo_categories = Category.joins(:photos).includes(:categorizations)
-        .where("category_id in (?)", @selected_categories.map(&:id))
-        .group('id');
+      # @photo_categories = Category.joins(:photos).includes(:categorizations)
+      #   .where("category_id in (?)", @selected_categories.map(&:id))
+      #   .group("category_id");
         # .having("count(photo_id)");
-        debugger
-      @audits = @store.audits.order('created_at DESC')
-      @audit = @audits.first
+        
+      
       
       respond_to do |format|
         # format.json { render json: @store }
