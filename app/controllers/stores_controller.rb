@@ -146,10 +146,10 @@ class StoresController < ApplicationController
 
       @photo_categories = @store.photos.select("photos.id, audit_id, photo_file_name")
         .joins(:categories)
-        .where("category_id in (?)", @selected_categories.map(&:id))
-        .group("categorizations.category_id");
+        .where("category_id in (?)", @selected_categories.map(&:id));
+        .group("photo_id");
         # .having("count(photo_id)");
-        debugger
+        
       @audits = @store.audits.order('created_at DESC')
       @audit = @audits.first
       
