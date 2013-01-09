@@ -31,29 +31,20 @@ class StoresController < ApplicationController
   end
 
   def show
-    debugger
-    if params[:store_id]  
-      @store = Store.find_by_id(params[:store_id])
-      
-      if params[:categories]
-        @selected_categories = Category.find_all_by_id(params[:categories])
-      else
-        @selected_categories = Category.order(:name)
-      end
+    # @selected_categories = params[categories] from search page
 
-      @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
-      @photo_catgories = @store.photos.joins(:categories)
-        .where("category_id in (?)", @selected_categories.map(&:id))
-        .group("category_id");
-        # .having("count(photo_id)");
+    @store = Store.find(params[:id])
+    
+    @audits = @store.audits.order('created_at DESC')
+    @audit = @audits.first
+    # debugger
+    # @photos = @store.photos #.group_by{ |pc| pc.categories}
 
-      @audits = @store.audits.order('created_at DESC')
-      @audit = @audits.first
-      
-      respond_to do |format|
-        # format.json { render json: @store }
-        format.js
-      end
+    # @photo_category = @photos.group(&:categories)
+        
+    respond_to do |format|
+      format.html # show.html.erb
+      # format.json { render json: @store }
     end
   end
 
@@ -142,10 +133,9 @@ class StoresController < ApplicationController
   end
 
   def show_store_with_categories
-debugger
+
     if params[:store_id]  
       @store = Store.find_by_id(params[:store_id])
-      
       if params[:categories]
         @selected_categories = Category.find_all_by_id(params[:categories])
       else
@@ -154,7 +144,7 @@ debugger
 
       @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
       @photo_catgories = @store.photos.joins(:categories)
-        .where("category_id in (?)", @selected_categories.map(&:id))
+        .where("category_id in (?)", @selected_categories.map(&:id)).uniq
         .group("category_id");
         # .having("count(photo_id)");
 
