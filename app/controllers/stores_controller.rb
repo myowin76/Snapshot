@@ -142,12 +142,14 @@ class StoresController < ApplicationController
         @selected_categories = Category.order(:name)
       end
 
-      @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
-      @photo_catgories = @store.photos.joins(:categories)
-        .where("category_id in (?)", @selected_categories.map(&:id))
-        .group("category_id")
-        .having("count(photo_id)");
+      # @store.photos.joins(:categories).where('category_id IN (?)', params[:categories])
 
+      @photo_categories = @store.photos.select("photos.id, audit_id, photo_file_name")
+        .joins(:categories)
+        .where("category_id in (?)", @selected_categories.map(&:id))
+        .group("category_id");
+        # .having("count(photo_id)");
+        debugger
       @audits = @store.audits.order('created_at DESC')
       @audit = @audits.first
       

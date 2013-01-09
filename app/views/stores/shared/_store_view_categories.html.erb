@@ -1,4 +1,4 @@
-<% @photo_catgories.map(&:categories).flatten.each do |cat| %>
+<% @photo_categories.map(&:categories).flatten.each do |cat| %>
 	<h3><%= cat.name %></h3>
 	<ul class="gallery_basic" id="basicGallery">
 		<% cat.photos.each do |photo| %>
