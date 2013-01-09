@@ -143,17 +143,17 @@ $(document).ready(function() {
       type: "POST",
       dataType: 'script',
       data: info
-    })  
-  })
+    });
+  });
 $('#audit_store_id').live('change',function(){
     store_id = $('#audit_store_id').serializeObject();
     $.ajax({
       url: '/stores/get_store_details',
       type: "POST",
       dataType: 'script',
-      data: store_id,
+      data: store_id
     })
-  })
+  });
 
 $('#audit_retailer_id').live('change',function(){
     retailer_id = $('#audit_retailer_id').serializeObject();
@@ -163,7 +163,7 @@ $('#audit_retailer_id').live('change',function(){
       dataType: 'script',
       data: retailer_id
     })
-  })
+  });
 
   
   

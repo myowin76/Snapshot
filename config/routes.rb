@@ -12,7 +12,7 @@ Snapshot::Application.routes.draw do
   devise_for :users
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
-  #match '/stores/view/:id' => 'photos#show_store_with_categories', :as => :store_view
+  
   
   resources :photos do
     collection do
@@ -28,13 +28,14 @@ Snapshot::Application.routes.draw do
       post :refresh_store_dropdown
     end
   end
-  # match '/stores/show_store_with_categories' => 'stores#show_store_with_categories', :as => :store_view
+  # # match '/stores/show_store_with_categories' => 'stores#show',
+  #   :as => :store_view, 
+  #   :via => :post
   resources :stores do
     collection do
       post :show_store_with_categories
       post :refresh_store_view_categories
       post :get_store_details
-      
     end
   end
 

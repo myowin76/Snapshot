@@ -10,14 +10,14 @@
 	})
 
 
-	// $('#store-audit-select').live('change', function(){
-	// 	var info = {}
-	// 	info['audit_id'] = $('#store-audit-select').serializeObject()['audit_id'];
- //    info['store_id'] = <%= store.id %>
- //    $.ajax({
- //      url: '/stores/refresh_store_view_categories',
- //      type: "POST",
- //      dataType: 'script',
- //      data: info
- //    })
-	// })
+	$('#store-audit-select').live('change', function(){
+		var info = {}
+		info['audit_id'] = $('#store-audit-select').serializeObject()['audit_id'];
+    info['store_id'] = <%= store.id %>
+    $.ajax({
+      url: '/stores/refresh_store_view_categories',
+      type: "POST",
+      dataType: 'script',
+      data: info
+    })
+	})
