@@ -102,7 +102,6 @@ var photos = {
 $(document).ready(function() {
 
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
-
   
   snapshot.LayoutSwitcher();
   snapshot.Pagination();

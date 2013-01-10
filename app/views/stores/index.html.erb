@@ -27,7 +27,8 @@
 <% #TO DO need to check it is first record? %>
 <% @stores_in_country.each do |store| %>
   <tr>
-    <td><%= link_to store.name, store %></td>
+    <td><%= link_to store.name, store, remote: true %></td>
+    <!-- <td><%= store.name %></td> -->
     <td><%= store.store_format.name %></td>
     <td><%= store.retailer.name %></td>
     <td>

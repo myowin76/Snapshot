@@ -168,7 +168,8 @@
         </li> 
         <li>
           Store:
-          <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %>
+          <%= @photo.audit.store.name %>
+          <%#= link_to @photo.audit.store.name, store_path(@photo.audit.store) %>
         </li>
         <li>
           Category:

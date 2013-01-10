@@ -35,15 +35,31 @@ class StoresController < ApplicationController
 
     @store = Store.find(params[:id])
     
-    @audits = @store.audits.order('created_at DESC')
-    @audit = @audits.first
-    # debugger
-    # @photos = @store.photos #.group_by{ |pc| pc.categories}
+    # @audits = @store.audits.order('created_at DESC')
+    # @audit = @audits.first
+    # @store = Store.find_by_id(params[:store_id])
+      @audits = @store.audits.order('created_at DESC')
+      @audit = @audits.first
 
-    # @photo_category = @photos.group(&:categories)
+      if params[:categories]
+        @selected_categories = Category.find_all_by_id(params[:categories].split(","))
+        @photo_categories = Category.joins(:photos).includes(:categorizations)
+          .where('photos.audit_id IN (?)', @audit.id)
+          .where("category_id in (?)", @selected_categories.map(&:id))
+          .group("categories.id");
+      else
+        @selected_categories = Category.joins(:photos).
+          where('photos.audit_id IN (?)', @audit.id)
+        @photo_categories = Category.joins(:photos).includes(:categorizations)
+          .where("category_id in (?)", @selected_categories.map(&:id))
+          .group("categories.id");
+      end
         
     respond_to do |format|
-      format.html # show.html.erb
+      # format.html # show.html.erb
+      format.js{
+        render :partial => 'show_store_with_categories', :locals => { :store => @store }
+      }
       # format.json { render json: @store }
     end
   end
@@ -185,8 +201,6 @@ class StoresController < ApplicationController
           .group("categories.id");
       end
       # .having("count(photo_id)");
-        
-      
       
       respond_to do |format|
         # format.json { render json: @store }
