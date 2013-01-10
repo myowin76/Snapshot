@@ -34,27 +34,24 @@ class StoresController < ApplicationController
     # @selected_categories = params[categories] from search page
 
     @store = Store.find(params[:id])
-    
-    # @audits = @store.audits.order('created_at DESC')
-    # @audit = @audits.first
-    # @store = Store.find_by_id(params[:store_id])
-      @audits = @store.audits.order('created_at DESC')
-      @audit = @audits.first
+  
+    @audits = @store.audits.order('created_at DESC')
+    @audit = @audits.first
 
-      if params[:categories]
-        @selected_categories = Category.find_all_by_id(params[:categories].split(","))
-        @photo_categories = Category.joins(:photos).includes(:categorizations)
-          .where('photos.audit_id IN (?)', @audit.id)
-          .where("category_id in (?)", @selected_categories.map(&:id))
-          .group("categories.id");
-      else
-        @selected_categories = Category.joins(:photos).
-          where('photos.audit_id IN (?)', @audit.id)
-        @photo_categories = Category.joins(:photos).includes(:categorizations)
-          .where("category_id in (?)", @selected_categories.map(&:id))
-          .group("categories.id");
-      end
-        
+    if params[:categories]
+      @selected_categories = Category.find_all_by_id(params[:categories].split(","))
+      @photo_categories = Category.joins(:photos).includes(:categorizations)
+        .where('photos.audit_id IN (?)', @audit.id)
+        .where("category_id in (?)", @selected_categories.map(&:id))
+        .group("categories.id");
+    else
+      @selected_categories = Category.joins(:photos).
+        where('photos.audit_id IN (?)', @audit.id)
+      @photo_categories = Category.joins(:photos).includes(:categorizations)
+        .where("category_id in (?)", @selected_categories.map(&:id))
+        .group("categories.id");
+    end
+      
     respond_to do |format|
       # format.html # show.html.erb
       format.js{

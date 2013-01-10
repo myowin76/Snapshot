@@ -63,10 +63,11 @@ var snapshot = {
   Pagination: function(){
     $('.pagination a').live('click',function () {
       $.get(this.href, null, null, 'script');
+      // $('#length').val
+      // .attr("selected", "selected");
       return false;
     });
   }
-
 };
 
 var photos = {
@@ -109,9 +110,25 @@ $(document).ready(function() {
   photos.exportZIP();
 
 
-  $('#length').change(function(){
-    
-  });
+  $('#length').live('change',function(){
+    var info = {}
+    info['per_page'] = $(this).val();
+    info[''] = $('#search_form').serializeObject();
+    $.ajax({
+      url: '/',
+      type: "POST",
+      dataType: 'script',
+      data: info,
+      success: function(data){
+        $('#length').val(info['per_page']);
+        $('.pagination a').each(function(){
+          var _href = $(this).attr("href");
+          $(this).attr("href", _href + "&per_page=" + info['per_page']);
+        });
+        
+        }
+      })
+    });
   //## sort by
   $('#sort_by').change(function(){
     $('#search_form').submit();

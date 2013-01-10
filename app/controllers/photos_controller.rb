@@ -144,7 +144,13 @@ class PhotosController < ApplicationController
             
             @stores = @stores.where('stores.id IN (?)', @store_ids)
             @stores = @stores.where('stores.country_id IS NOT NULL')
-            @photos = @photos.paginate(:page => params[:page], :per_page => 20).order('photos.created_at DESC')
+
+            if params[:per_page]
+              @per_page = params[:per_page]
+            else
+              @per_page = 10
+            end
+            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
             
       end
 

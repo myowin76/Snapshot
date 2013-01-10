@@ -1,6 +1,6 @@
 <div class="page-controls action">
 
-  <div class="sort-control">
+  <!-- <div class="sort-control">
     <label for="sort_by" class="sort-control-label">Sort by:</label>
     <select class="sort_select" id="sort_by" name="sort_by">
       <option selected="selected">Date latest first</option>
@@ -10,16 +10,10 @@
       <option>Brand A-Z</option>
       <option>Brand Z-A</option>
     </select>
-  </div>
+  </div> -->
   <div class="length-control">
     <label for="length" class="sort-control-label">Show:</label>
-    <select class="length_select" id="length" name="length">
-      <option selected="selected">10</option>
-      <option>20</option>
-      <option>30</option>
-      <option>50</option>
-      <option>100</option>
-    </select>
+    <%= select_tag :length, options_for_select([20,30,50], params[:per_page]) %>
   </div>
   
   <div class="layout-switcher sort-control">
