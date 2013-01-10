@@ -43,7 +43,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '>= 0.12.2'
   gem 'compass-rails'
-  gem 'compass-susy-plugin'
+  # gem 'compass-susy-plugin'
+  gem 'susy'
 end
 group :development do
   gem "nifty-generators"	

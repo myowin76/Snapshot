@@ -2,32 +2,30 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <p>
-    <% unless params[:retailer].present?  %>
-      <%= f.label "Retailer" %>
-      
-      <% if @audit.new_record? %>
-        <%= select_tag "audit_retailer_id", options_from_collection_for_select(
-        Retailer.all, "id", "name"), {:prompt => 'Please Select' }%>
-      <% else  %>
+    <fieldset>
+      <% unless params[:retailer].present?  %>
+        <%= f.label "Retailer" %>
+        <% if @audit.new_record? %>
+          <%= select_tag "audit_retailer_id", options_from_collection_for_select(
+          Retailer.all, "id", "name"), {:prompt => 'Please Select' }%>
+        <% else  %>
 
-        <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), :validate => { :presence => true } %>
+          <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), :validate => { :presence => true } %>
+        <% end %>
+      <% else  %>  
+        <% retailer = Retailer.find_by_name(params[:retailer])  %>
       <% end %>
-    <% else  %>  
-      <% retailer = Retailer.find_by_name(params[:retailer])  %>
-      <%#= f.input :audit_retailer_id, :as => :hidden, :input_html => {:value => retailer.id} %>
-      <%#= f.label "Retailer" %>
-      <!--strong>Retailer</strong-->
-      <%#= retailer.name %>
-    <% end  %>
+  </fieldset>
+  
+  <fieldset>
+    <div class="audits_store_dropdown"></div>
+  </fieldset>
 
-  <div class="audits_store_dropdown">
-  </div>
-   <% unless params[:store].present?  %>
-      <%#= f.label "Store" %>
-      <%#= f.grouped_collection_select :store_id, Retailer.order(:name), :stores, :name, :id, :name, 
-       {:prompt => 'Please Select'} %>
+  <% unless params[:store].present?  %>
+    <fieldset>
       <%= link_to "add new store", new_store_path, :class => "add-store" %>
+    </fieldset>  
+      
     <% else %>
       <% store = Store.find_by_name(params[:store]) %>
       <strong>Retailer:</strong>
@@ -37,18 +35,14 @@
       <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
       <strong>Store Name:</strong>
       <%= store.name %><br />
-    </p>
-    <p>
-      <strong>Address:</strong><br />
-      <%= store.address %><br />
-      <%= store.address2 %>, <%= store.postcode %>
-      <br />
+      <%= store.address %>, 
+      <%= store.address2 %>, <%= store.postcode %>,
     <% end %>  
     
     <% unless @audit.new_record? %>
   
       <%#= @audit.store.country.name unless @audit.store.country_id.nil? %>
-    </p>
+    
     <% else %>
       <%= store.country.name unless store.nil? or store.country_id.blank? %><br />
       
