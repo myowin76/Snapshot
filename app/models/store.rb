@@ -27,11 +27,22 @@ class Store < ActiveRecord::Base
     [address, address2, postcode].join(',')
   end
   
-  def self.to_csv(options = {})
+  # def self.to_csv(options = {})
+  #   CSV.generate(options) do |csv|
+  #     csv << column_names
+  #     all.each do |store|
+  #       csv << store.attributes.values_at(*column_names)
+  #     end
+  #   end
+  # end
+
+  def self.to_csv(store_ids, options = {})
     CSV.generate(options) do |csv|
+      column_names = ['Name' ,'address', 'Format']
       csv << column_names
-      all.each do |store|
-        csv << store.attributes.values_at(*column_names)
+      store_ids.each do |store_id|
+        store = Store.find_by_id(store_id)
+        csv << [store.name, store.address, store.address2] 
       end
     end
   end

@@ -109,6 +109,11 @@ $(document).ready(function() {
   photos.generatePDF();
   photos.exportZIP();
 
+  //********** TO DO
+  // IF ANY CHECKBOX IN ACCORDION IS CHECKED, THEN
+  // THE ACCORDION SHOULD BE OPEN
+
+
 
   $('#length').live('change',function(){
     var info = {}

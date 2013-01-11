@@ -68,19 +68,52 @@ class Photo < ActiveRecord::Base
     end
 
 
-    def self.generate_csv(photo_ids, options = {})
-      CSV.generate(options) do |csv|
-        column_names = ['Headline','  Sector', 'Retailer', 'Category','Store', 'Date', 'Address','Country', 'Promotion Calendar', 
+    # def self.generate_csv(photo_ids, options = {})
+    def self.generate_csv()
+      
+      CSV.generate() do |csv|
+        column_names = ['Filename', 'Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address','Country', 'Promotion Calendar', 
               'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
         csv << column_names
         
-        photo_ids.each do |photo_id|
+        ['3795','3810'].each do |photo_id|
           photo = Photo.find_by_id(photo_id)
-          csv << [photo.headline]
           
+          
+          @country = photo.audit.store.country.name unless photo.audit.store.country_id.nil?
+          @promo_cal = photo.promotion_calendar.name unless photo.promotion_calendar_id.nil?
+          @promo_type = photo.promotion_types.map(&:name).join(",") unless photo.promotion_types.nil?
+          @media_loc = photo.media_locations.map(&:name).join(",") unless photo.media_locations.nil?
+          @media_types = photo.media_types.map(&:name).join(",") unless photo.media_types.nil?
+          @media_veh = photo.media_vehicles.map(&:name).join(",") unless photo.media_vehicles.nil?
+          @media_themes = photo.themes.map(&:name).join(",") unless photo.themes.nil?
+          @media_brands = photo.brands.map(&:name).join(",") unless photo.brands.nil?
+
+          csv << [
+                  photo.photo_file_name, photo.created_at, photo.headline, 
+                  photo.audit.store.retailer.sector.name,
+                  photo.audit.store.retailer.name, 
+                  photo_category_names(photo),
+                  photo.audit.store.name,
+                  photo.audit.store.address,
+                  photo.audit.store.address2,
+                  @country,
+                  @promo_cal,
+                  @promo_type,
+                  @media_loc,
+                  @media_types,
+                  @media_veh,
+                  @media_themes,
+                  @media_brands,
+                  photo.additional_brands,
+                  photo.description
+                ]
         end
+        # send_file(csv)
       end
     end
+
+
 
     def self.zip_files photo_ids
       # NEED TO GENERATE CSV FILE WITH RELATED IMAGES INFORMATION 
@@ -94,14 +127,19 @@ class Photo < ActiveRecord::Base
       #   end
       # end
 
+      asset = find_all_by_id(photo_ids)
+      csv = generate_csv(photo_ids)
+
       zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
       Zip::ZipOutputStream.open(zip_file) do |zos|
-        photo_ids.each do |photo_id|
-          asset = find_by_id(photo_id)
+        asset.map(&:id).each do |photo_id|
+          # asset = find_by_id(photo_id)
           download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
 
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
+          zos.put_next_entry("data.csv")
+          zos.print IO.read(csv)
         end
       end
       zip_file
@@ -111,5 +149,8 @@ class Photo < ActiveRecord::Base
       includes(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
          stores, environment, channel) }
 
-
+    private
+    def self.photo_category_names(photo)
+      photo.categories.map(&:name).join(",") unless photo.categories.nil?
+    end  
 end
