@@ -21,7 +21,7 @@ class PhotosController < ApplicationController
       @stores = Store.order(:id).includes({:retailer => :sector})
       @sectors = Sector.order(:name)
       @store_formats = StoreFormat.order(:name)
-          debugger
+          
       unless params_search.nil?
 
         # Country Search
@@ -163,7 +163,7 @@ class PhotosController < ApplicationController
     end
 
     # MAP
-    debugger
+    
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({
