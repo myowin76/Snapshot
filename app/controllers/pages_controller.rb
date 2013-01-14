@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  layout "admin", :only => "admin" 
-
+  # layout "admin", :only => "admin" 
+  layout false
   def home
 	
   end
@@ -21,6 +21,7 @@ class PagesController < ApplicationController
   end
 
   def admin
+    layout "admin"
 		@unpublished_photos = Photo.order('created_at DESC').unpublished.all
   end
 
@@ -28,7 +29,12 @@ class PagesController < ApplicationController
     
     # email = params[:email]
     # msg = params[:message]
-    AdminMailer.loginpage_message(params).deliver
+    if params[:email].present? && params[:message].present?
+      AdminMailer.loginpage_message(params).deliver
+        
+    else
+      redirect_to "/users/sign_in?", :notice => "Please fill the required fields."
+    end  
     
   end
 

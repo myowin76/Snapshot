@@ -50,7 +50,11 @@
     </aside>
 
     <section class="site-content" role="main">
-
+      <% flash.each do |name, msg| %>
+        <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+          <%= content_tag :div, msg %>
+        </div>
+      <% end %>
       <div class="carousel">
 
         <div class="carousel-main">
@@ -114,42 +118,57 @@ to Snapshot yet!</h3>
       <div class="control-group">
         <label class="control-label" for="inputEmail">Email</label>
         <div class="controls">
-          <input type="text" id="inputEmail" name="inputEmail" placeholder="Email"class="string required">
+          
+          <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="string required">
+        
         </div>
       </div>
       <div class="control-group">
         <label class="control-label" for="msg">Message</label>
         <div class="controls">
+
           <textarea id="msg" name="msg" rows="7" placeholder="Message"></textarea>
+
         </div>
       </div>
   </div>
 
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <input class="btn btn-primary" type="submit" value="Send">
+    <input class="btn btn-primary" type="submit" value="Send" id="send">
   </div>
 </div>
 </form>
 
 <script type="text/javascript">
 
-      jQuery(document).ready(function($) {
-        // Stuff to do as soon as the DOM is ready. Use $() w/o colliding with other libs;
 
-        // Display
-        if ($('#notLogginInModal')) {
+  jQuery(document).ready(function($) {
 
-          var timeID;
-          timeID = setInterval(function(){
-            $('#notLogginInModal').modal('show');
-            clearInterval(timeID);
-          }, 3000);
-        };
-      });
+    var timeID;
+
+    // Stuff to do as soon as the DOM is ready. Use $() w/o colliding with other libs;
+    //console.log($('#user_email').is(":focus"));
+
+    if ($('#user_email').is(":focus") == false && $('#user_password').is(":focus") == false){
+      
+      timeID = setInterval(function(){
+        $('#notLogginInModal').modal('show');
+        clearInterval(timeID);
+      }, 3000);    
+
+    }
+
+    // Clear Interval if form inputs are focused 
+    $('#new_user').on('focus', '#user_email, #user_password', function(){
+      clearInterval(timeID);
+    });
+    
+    
+  });
 
 
-    </script>
+</script>
 </body>
 </html>
 

@@ -8,12 +8,16 @@ class AdminMailer < ActionMailer::Base
   #
   def loginpage_message params
     
-    @greeting = "Hello Admin,"
+    @greeting = "Hello Admin"
     @email = params['email']
     @msg = params['message']
-    mail to: "aung.win@skyron.co.uk",
+    mail(to: "aung.win@skyron.co.uk",
          from: @email,
-         subject: "Message from Login page"
+         subject: "Message from Login page") do |format|
+        format.text
+        # format.html{ render :layout => false }
+        
+    end  
 
   end
 end

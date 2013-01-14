@@ -102,8 +102,74 @@ var photos = {
 
 $(document).ready(function() {
   
-  // login form modal overlay
+  // login form modal overlay validation
+  
+
+  // $('#notLogginInModal').modal({
+  //     backdrop: true,
+  //     keyboard: true
+  // }).css({
+  //     width: 'auto', 
+  //     'margin-left': 0
+
+  // });
+/*
+  $('#notLogginInModal input[type="submit"]').live('click', function(event){
+    event.preventDefault();
+
+    console.log('start');
+    var info = {}
+    info['email'] = $('#notLogginInModal #inputEmail').val();
+    info['message'] = $('#notLogginInModal #msg').val();
+    
+    $.ajax({
+      url: '/pages/loginpage_message',
+      type: "POST",
+      dataType: 'script',
+      data: info,
+      success: function(data){
+        console.log('success!!!!');
+        // to show sent message on popup form
+        $('#notLogginInModal .modal-header h3').html("Message Sent");
+        $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
+        $('#notLogginInModal input[type="submit"]').remove();
+        
+        }
+      })
+  });
+*/
+
   $('#email-form').validate({
+      debug: true,
+      submitHandler: function(form){
+        // alert("form");
+        // $('#notLogginInModal').on('click', $('#send'), function(event){
+          //event.preventDefault();
+
+          console.log('start');
+          var info = {}
+          info['email'] = $('#notLogginInModal #inputEmail').val();
+          info['message'] = $('#notLogginInModal #msg').val();
+          
+          $.ajax({
+            url: '/pages/loginpage_message',
+            type: "POST",
+            dataType: 'script',
+            data: info,
+            success: function(data){
+              console.log('success!!!!');
+              // to show sent message on popup form
+              $('#notLogginInModal .modal-header h3').html("Message Sent");
+              $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
+              $('#notLogginInModal input[type="submit"]').remove();
+              
+              }
+            })        
+        // });
+
+      },
+
+      onsubmit: true,  
       rules: {
         inputEmail: {
           required: true,
@@ -118,37 +184,15 @@ $(document).ready(function() {
         $(label).closest('.control-group').addClass('error');
       },
       success: function(label){ 
+
+        
+
+
         label
           .text('OK!').addClass('valid')
           .closest('.control-group').addClass('success');
       }
     });
-
-  // $('#notLogginInModal').modal({
-  //     backdrop: true,
-  //     keyboard: true
-  // }).css({
-  //     width: 'auto', 
-  //     'margin-left': 0
-
-  // });
-
-  $('#notLogginInModal input[type="submit"]').click(function(){
-    var info = {}
-    info['email'] = $('#notLogginInModal #inputEmail').val();
-    info['message'] = $('#notLogginInModal #msg').val();
-    $.ajax({
-      url: '/pages/loginpage_message',
-      type: "POST",
-      dataType: 'script',
-      data: info,
-      success: function(data){
-        // to show sent message on popup form
-        }
-      })
-    
-  })
-
 
 
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
