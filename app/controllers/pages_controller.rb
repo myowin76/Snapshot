@@ -21,8 +21,9 @@ class PagesController < ApplicationController
   end
 
   def admin
-    layout "admin"
+    
 		@unpublished_photos = Photo.order('created_at DESC').unpublished.all
+    render :layout => "admin"
   end
 
   def loginpage_message
