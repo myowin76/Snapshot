@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   include PhotosHelper
-
+  before_filter :authenticate_user!
 
   def index
     
@@ -21,7 +21,7 @@ class PhotosController < ApplicationController
       @stores = Store.order(:id).includes({:retailer => :sector})
       @sectors = Sector.order(:name)
       @store_formats = StoreFormat.order(:name)
-          
+          debugger
       unless params_search.nil?
 
         # Country Search
@@ -63,11 +63,13 @@ class PhotosController < ApplicationController
           
       else
         # page load
+
         @sectors = Sector.order(:name)
         @retailers = Retailer.order(:name)
         # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
         @stores = @stores.includes(:retailer)
           .where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
+
       end
       
       @channels = Channel.order(:name)
@@ -161,7 +163,7 @@ class PhotosController < ApplicationController
     end
 
     # MAP
-    # debugger
+    debugger
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({

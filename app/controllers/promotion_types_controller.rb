@@ -1,6 +1,5 @@
 class PromotionTypesController < ApplicationController
-  # GET /promotion_types
-  # GET /promotion_types.json
+  before_filter :authenticate_user!
   layout "admin"
   def index
     @promotion_types = PromotionType.all

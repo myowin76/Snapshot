@@ -1,6 +1,5 @@
 class RetailersController < ApplicationController
-  # GET /retailers
-  # GET /retailers.json
+  before_filter :authenticate_user!
   layout "admin"
   def index
     @retailers = Retailer.all

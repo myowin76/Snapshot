@@ -9,10 +9,10 @@ Time::DATE_FORMATS[:default] = "%d/%m/%Y %l:%M%p"
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-  :address => 'mail.a-okay.net',
-  :port => 26,
-  :domain => 'a-okay.net',
-  :authentication => :login,
-  :user_name => 'myowin76@gmail.com',
-  :password => 'aungmyay242'
+  :address => 'smtp.gmail.com',
+  :port => 587,
+  :domain => 'skyron.co.uk',
+  :authentication => "plain",
+  :user_name => 'aung.win@skyron.co.uk',
+  :password => 'mandalay7'
 }

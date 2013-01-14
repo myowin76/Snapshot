@@ -1,6 +1,5 @@
 class SaveSearchesController < ApplicationController
-  # GET /save_searches
-  # GET /save_searches.json
+  before_filter :authenticate_user!
   def index
     #@save_searches = SaveSearch.all
     @save_searches = current_user.save_searches.all

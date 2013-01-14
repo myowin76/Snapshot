@@ -1,6 +1,5 @@
 class CategoriesController < ApplicationController
-  # GET /categories
-  # GET /categories.json
+  before_filter :authenticate_user!
   layout "admin"
   def index
     @categories = Category.order(:name)

@@ -1,6 +1,5 @@
 class AuditsController < ApplicationController
-  # GET /audits
-  # GET /audits.json
+  before_filter :authenticate_user!
   layout "admin"
 
   def index

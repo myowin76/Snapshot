@@ -101,6 +101,55 @@ var photos = {
 
 
 $(document).ready(function() {
+  
+  // login form modal overlay
+  $('#email-form').validate({
+      rules: {
+        inputEmail: {
+          required: true,
+          email: true
+        },
+        msg: {
+          required: true,
+          minlength: 4
+        }
+      },
+      highlight: function(label){
+        $(label).closest('.control-group').addClass('error');
+      },
+      success: function(label){ 
+        label
+          .text('OK!').addClass('valid')
+          .closest('.control-group').addClass('success');
+      }
+    });
+
+  // $('#notLogginInModal').modal({
+  //     backdrop: true,
+  //     keyboard: true
+  // }).css({
+  //     width: 'auto', 
+  //     'margin-left': 0
+
+  // });
+
+  $('#notLogginInModal input[type="submit"]').click(function(){
+    var info = {}
+    info['email'] = $('#notLogginInModal #inputEmail').val();
+    info['message'] = $('#notLogginInModal #msg').val();
+    $.ajax({
+      url: '/pages/loginpage_message',
+      type: "POST",
+      dataType: 'script',
+      data: info,
+      success: function(data){
+        // to show sent message on popup form
+        }
+      })
+    
+  })
+
+
 
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
   
@@ -270,7 +319,6 @@ $('#audit_retailer_id').live('change',function(){
 	})
   
   
-
 
   $('.accordion').on('show hide', function(e){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');

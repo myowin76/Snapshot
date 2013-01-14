@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   layout "admin", :only => "admin" 
+
   def home
 	
   end
@@ -15,10 +16,20 @@ class PagesController < ApplicationController
   
   def reports
   end
+
   def privacy
   end
 
   def admin
 		@unpublished_photos = Photo.order('created_at DESC').unpublished.all
   end
+
+  def loginpage_message
+    
+    # email = params[:email]
+    # msg = params[:message]
+    AdminMailer.loginpage_message(params).deliver
+    
+  end
+
 end

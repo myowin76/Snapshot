@@ -1,5 +1,6 @@
 class StoresController < ApplicationController
   layout "admin", :only => :index 
+  before_filter :authenticate_user!
   def index
 
     if user_is_country_and_category_subscriber?

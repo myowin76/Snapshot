@@ -1,6 +1,5 @@
 class PromotionCalendarsController < ApplicationController
-  # GET /promotion_calendars
-  # GET /promotion_calendars.json
+  before_filter :authenticate_user!
   layout "admin"
   def index
     @promotion_calendars = PromotionCalendar.all

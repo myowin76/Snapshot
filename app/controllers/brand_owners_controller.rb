@@ -1,6 +1,5 @@
 class BrandOwnersController < ApplicationController
-  # GET /brand_owners
-  # GET /brand_owners.json
+  before_filter :authenticate_user!
   layout 'admin'
   def index
     @brand_owners = BrandOwner.all

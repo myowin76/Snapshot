@@ -1,6 +1,7 @@
 class StoreFormatsController < ApplicationController
   # GET /store_formats
   # GET /store_formats.json
+  before_filter :authenticate_user!
   layout "admin"
   def index
     @store_formats = StoreFormat.all

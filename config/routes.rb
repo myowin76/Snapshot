@@ -48,7 +48,7 @@ Snapshot::Application.routes.draw do
   get "pages/admin"
 
   match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
-  
+  match '/pages/loginpage_message', :controller => 'pages', :action => 'loginpage_message'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,6 +1,5 @@
 class ChannelsController < ApplicationController
-  # GET /channels
-  # GET /channels.json
+  before_filter :authenticate_user!
   layout "admin"
   def index
     @channels = Channel.all

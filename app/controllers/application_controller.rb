@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :subscribed_country, :admin_user?, :uploader?, :admin_or_uploader?
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
 
   layout :layout_by_resource
   def after_sign_in_path_for(resource)                                                                                                                      
