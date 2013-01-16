@@ -69,7 +69,6 @@ class PhotosController < ApplicationController
         # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
         @stores = @stores.includes(:retailer)
           .where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
-
       end
       
       @channels = Channel.order(:name)
@@ -130,8 +129,9 @@ class PhotosController < ApplicationController
             end
             if search_categories.present?
               @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories)
-            end            
+            end
 
+            @photos = @photos.all_brand_compliant if search_brand_compliant?
             @photos = @photos.find_between(from_date,to_date)
 
             
@@ -150,7 +150,7 @@ class PhotosController < ApplicationController
             if params[:per_page]
               @per_page = params[:per_page]
             else
-              @per_page = 10
+              @per_page = 20
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
             
@@ -163,7 +163,7 @@ class PhotosController < ApplicationController
     end
 
     # MAP
-    
+    unless @stores.blank?
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({
@@ -174,8 +174,13 @@ class PhotosController < ApplicationController
         marker.title   store.name
 
         # marker.sidebar "i'm the sidebar"
-        # marker.json({ :id => user.id, :foo => "bar" })
-      end    
+        # marker.json({ :id => store.id, :foo => "bar" })
+      end
+    else 
+      @json = '[
+             {"lng": "-122.1419", "lat": "37.4419" }
+            ]'
+    end      
 
     respond_to do |format|
       format.html  # index.html.erb

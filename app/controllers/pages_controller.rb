@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   # layout "admin", :only => "admin" 
-  layout false
+  # layout false
   def home
 	
   end
@@ -28,8 +28,6 @@ class PagesController < ApplicationController
 
   def loginpage_message
     
-    # email = params[:email]
-    # msg = params[:message]
     if params[:email].present? && params[:message].present?
       AdminMailer.loginpage_message(params).deliver
         

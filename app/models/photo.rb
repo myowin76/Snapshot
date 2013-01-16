@@ -59,17 +59,23 @@ class Photo < ActiveRecord::Base
   								   'image/jpg', 'image/png']
 
     acts_as_gmappable :process_geocoding => false
+    def gmaps4rails_infowindow
+      # add here whatever html content you desire, it will be displayed when users clicks on the marker
+      # "<h4>#{self.title}</h4>"
+      "<h4>Title</h4>"
+    end
+
     scope :order_date_desc, order("created_at DESC")
     scope :published, where(published: true)
     scope :unpublished, where(published: false)
+    scope :all_brand_compliant, where(brand_compliant: true)
 
     def self.find_between fromdate, todate
       where(:created_at => fromdate .. todate)
     end
 
-
-    # def self.generate_csv(photo_ids, options = {})
-    def self.generate_csv()
+    def self.generate_csv(photo_ids, options = {})
+    # def self.generate_csv()
       
       CSV.generate() do |csv|
         column_names = ['Filename', 'Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address','Country', 'Promotion Calendar', 
@@ -78,7 +84,6 @@ class Photo < ActiveRecord::Base
         
         ['3795','3810'].each do |photo_id|
           photo = Photo.find_by_id(photo_id)
-          
           
           @country = photo.audit.store.country.name unless photo.audit.store.country_id.nil?
           @promo_cal = photo.promotion_calendar.name unless photo.promotion_calendar_id.nil?
@@ -127,20 +132,22 @@ class Photo < ActiveRecord::Base
       #   end
       # end
 
-      asset = find_all_by_id(photo_ids)
+      assets = find_all_by_id(photo_ids)
       csv = generate_csv(photo_ids)
 
       zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
       Zip::ZipOutputStream.open(zip_file) do |zos|
-        asset.map(&:id).each do |photo_id|
-          # asset = find_by_id(photo_id)
+        assets.each do |photo_id|
+          asset = find_by_id(photo_id)
           download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
-
+          csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
-          zos.put_next_entry("data.csv")
-          zos.print IO.read(csv)
+          
         end
+        # debugger
+        zos.put_next_entry("data.csv")
+        zos.print IO.read(csv_file)
       end
       zip_file
     end

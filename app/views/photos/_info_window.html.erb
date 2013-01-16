@@ -1,8 +1,8 @@
 <h3><%= store.name %></h3>
 <p>
-	<%= store.address %><br />
-	<%= store.address2 %><br />
-	<%= store.postcode %>
+	<%= store.address %>,
+	<%= store.address2 %>, <%= store.postcode %>
+	<%#= store.country.name unless store.country_id.nil? %>
 
  </p>
 <input type="hidden" id="hidden" value="<%= store.id %>">

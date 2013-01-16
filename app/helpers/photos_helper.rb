@@ -130,5 +130,14 @@ module PhotosHelper
       @saved_params && @saved_params['search[pchannel][]']
     end
   end
+  def search_brand_compliant?
+    if params[:search]
+      true if params[:search][:brand_comp]
+      
+    else
+      @saved_params && @saved_params['search[brand_comp]']
+    end
+  end
+  
 
 end

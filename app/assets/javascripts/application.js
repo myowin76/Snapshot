@@ -205,7 +205,9 @@ $(document).ready(function() {
   //********** TO DO
   // IF ANY CHECKBOX IN ACCORDION IS CHECKED, THEN
   // THE ACCORDION SHOULD BE OPEN
-
+$('.search-form-actions .search').click(function(){
+    $('#search_form').submit();
+  })
 
 
   $('#length').live('change',function(){
@@ -242,9 +244,7 @@ $(document).ready(function() {
       }
     );
   
-  $('.search-form-actions .search').click(function(){
-    $('#search_form').submit();
-  })
+  
 
   // TO DO
   $('#store-view').live('click',function(){

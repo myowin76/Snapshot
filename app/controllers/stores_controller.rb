@@ -54,7 +54,7 @@ class StoresController < ApplicationController
     end
       
     respond_to do |format|
-      # format.html # show.html.erb
+      format.html # show.html.erb
       format.js{
         render :partial => 'show_store_with_categories', :locals => { :store => @store }
       }
@@ -85,7 +85,7 @@ class StoresController < ApplicationController
 
     respond_to do |format|
       if @store.save
-        format.html { redirect_to @store, notice: 'Store was successfully created.' }
+        format.html { redirect_to stores_path, notice: 'Store was successfully created.' }
         format.json { render json: @store, status: :created, location: @store }
       else
         format.html { render action: "new" }
@@ -101,7 +101,7 @@ class StoresController < ApplicationController
 
     respond_to do |format|
       if @store.update_attributes(params[:store])
-        format.html { redirect_to @store, notice: 'Store was successfully updated.' }
+        format.html { redirect_to stores_path, notice: 'Store was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
