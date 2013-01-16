@@ -8,6 +8,7 @@
     <%= f.input :postcode %>
     <%= f.association :store_format, :include_blank => false %>
     <%= f.association :retailer, :include_blank => false %>
+    <%= link_to "Add New Retailer", new_retailer_path %>
     <%= f.association :country, :include_blank => false %>
     <%= f.input :longitude %>
     <%= f.input :latitude %>

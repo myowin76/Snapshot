@@ -1,18 +1,26 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :subscribed_country, :admin_user?, :uploader?, :admin_or_uploader?
+  
   # before_filter :authenticate_user!
 
   layout :layout_by_resource
+
   def after_sign_in_path_for(resource)                                                                                                                      
       root_path                                                                                         
   end                                                                                                                                                     
   
+  def check_return_url
+      store_location
+  end
+
   def store_location
-    session[:return_to] = request.fullpath
+    session[:return_to] = request.env['REQUEST_URI']
+
   end
 
   def redirect_back_or_default(default)
+
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
@@ -50,11 +58,8 @@ class ApplicationController < ActionController::Base
 
   end
 
-  
-
-
   def admin_or_uploader?
-  	if (admin_user? || uploader? )
+  	if ( admin_user? || uploader? )
   		return true
   	else
   		return false

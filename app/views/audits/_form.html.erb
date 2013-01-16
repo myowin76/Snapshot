@@ -45,10 +45,10 @@
     
     <% else %>
       <%= store.country.name unless store.nil? or store.country_id.blank? %><br />
-      
+      <strong>Format:</strong><%= store.store_format.name unless store.nil? or store.store_format_id.nil? %>
     </p>
       
-      <%= store.store_format.name unless store.nil? or store.store_format_id.nil? %>
+      
       
     <% end %>
     <div id="store-info">

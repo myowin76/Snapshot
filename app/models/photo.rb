@@ -74,8 +74,8 @@ class Photo < ActiveRecord::Base
       where(:created_at => fromdate .. todate)
     end
 
-    def self.generate_csv(photo_ids, options = {})
-    # def self.generate_csv()
+    # def self.generate_csv(photo_ids, options = {})
+    def self.generate_csv()
       
       CSV.generate() do |csv|
         column_names = ['Filename', 'Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address','Country', 'Promotion Calendar', 
@@ -114,7 +114,7 @@ class Photo < ActiveRecord::Base
                   photo.description
                 ]
         end
-        # send_file(csv)
+        send_file csv, :type => 'text/csv'
       end
     end
 

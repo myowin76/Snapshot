@@ -1,5 +1,6 @@
 class RetailersController < ApplicationController
   before_filter :authenticate_user!
+  # before_filter :check_return_url, :only => [:create, :edit, :update]
   layout "admin"
   def index
     @retailers = Retailer.all
@@ -26,6 +27,7 @@ class RetailersController < ApplicationController
   def new
     @retailer = Retailer.new
     @sectors = Sector.all
+    # redirect_back_or_default
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @retailer }
@@ -45,6 +47,8 @@ class RetailersController < ApplicationController
 
     respond_to do |format|
       if @retailer.save
+        # debugger
+        # redirect_back_or_default @retailer
         format.html { redirect_to @retailer, notice: 'Retailer was successfully created.' }
         format.json { render json: @retailer, status: :created, location: @retailer }
       else
