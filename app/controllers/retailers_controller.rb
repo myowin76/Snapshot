@@ -30,6 +30,7 @@ class RetailersController < ApplicationController
     # redirect_back_or_default
     respond_to do |format|
       format.html # new.html.erb
+      format.js
       format.json { render json: @retailer }
     end
   end
@@ -49,9 +50,11 @@ class RetailersController < ApplicationController
       if @retailer.save
         # debugger
         # redirect_back_or_default @retailer
+        format.js
         format.html { redirect_to @retailer, notice: 'Retailer was successfully created.' }
         format.json { render json: @retailer, status: :created, location: @retailer }
       else
+        format.js
         format.html { render action: "new" }
         format.json { render json: @retailer.errors, status: :unprocessable_entity }
       end

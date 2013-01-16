@@ -1,0 +1,35 @@
+<div class="page-header">
+    <button type="button" class="close">×</button>
+    <h1>New retailer</h1>
+  </div>
+<%= simple_form_for(@retailer, remote: true) do |f| %>
+  <% if @retailer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@retailer.errors.count, "error") %> prohibited this retailer from being saved:</h2>
+
+      <ul>
+      <% @retailer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :name %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'required' %>
+    </div>
+  </div>
+  <fieldset>
+    <%= f.association :sector %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </fieldset>
+  <div class="actions">
+    <%= f.submit :class => 'btn btn-primary', remote: true %>
+    <%= link_to 'Cancel', '#', :class => 'btn cancel' %>
+  </div>
+<% end %>

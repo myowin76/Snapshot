@@ -1,0 +1,5 @@
+$('.overlay').empty();
+$('.site-content').show();
+// $('.overlay').html('<%= @retailer.id %>');
+$('.retailer-actions').html('<%= j render("/stores/shared/retailer_dropdown") %>');
+$('#store_retailer_id').val('<%= @retailer.id %>');

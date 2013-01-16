@@ -104,7 +104,10 @@ $(document).ready(function() {
   
   // login form modal overlay validation
   
-
+  // $('#store-new-retailer').click(function(){
+  //   alert("test");
+  //   return false;
+  // });
   // $('#notLogginInModal').modal({
   //     backdrop: true,
   //     keyboard: true
@@ -138,6 +141,19 @@ $(document).ready(function() {
       })
   });
 */
+  // $('#new_retailer').validate({
+  // rules: {
+  //       inputEmail: {
+  //         required: true,
+  //         email: true
+  //       },
+  //       msg: {
+  //         required: true,
+  //         minlength: 4
+  //       }
+  //     }
+  //     });
+
 
   $('#email-form').validate({
       debug: true,
