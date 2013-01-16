@@ -1,9 +1,8 @@
-<div class="">
   <div class="page-header">
     <h1><%= @store.name %>asdf</h1>
     <%= link_to 'Edit', edit_store_path(@store) %>
   </div>
-</div>
+
 <div class="">
   <p>
     <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
@@ -30,16 +29,17 @@
     <b>Retailer:</b>
     <%= @store.retailer.name %>
   </p>
-  
+  <!-- 
   <% unless @audits.nil? %>
     <% unless @audit.nil?  %>
     <p>
-      <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
+      <%#= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
     </p>
     
     <section class="store_audit_categories">
-      <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
+      <%#= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
     </section> 
     <% end %>
+
+  <% end %> -->
 </div>  
-  <% end %>

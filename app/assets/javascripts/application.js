@@ -141,18 +141,16 @@ $(document).ready(function() {
       })
   });
 */
-  // $('#new_retailer').validate({
-  // rules: {
-  //       inputEmail: {
-  //         required: true,
-  //         email: true
-  //       },
-  //       msg: {
-  //         required: true,
-  //         minlength: 4
-  //       }
-  //     }
-  //     });
+  $('#new_retailer').validate({
+  rules: {
+        retailer_name: {
+          required: true
+        },
+        retailer_sector_id: {
+          required: true
+        }
+      }
+      });
 
 
   $('#email-form').validate({
