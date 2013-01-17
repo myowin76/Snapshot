@@ -73,7 +73,7 @@ var snapshot = {
 var photos = {
   generatePDF: function(){
     
-    $('#export-pdf').click(function(){
+    $('#export-pdf').on('click',function(){
       checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
       if (checkbox_array == undefined) {
         alert("Please select the image");

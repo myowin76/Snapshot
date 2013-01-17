@@ -245,8 +245,9 @@ class PhotosController < ApplicationController
   end
 
   def generate_pdf
-    # @photo_list = Photo.find(params[:photo_ids])
-    @photo_list = Photo.find_all_by_id(params[:photo_ids].split(','))
+    @photo_list = params[:photo_ids]
+    # @photo_list = Photo.find_all_by_id(params[:photo_ids].split(','))
+
     respond_to do |format|
       format.pdf do
         pdf = PhotoListPdf.new(@photo_list)
@@ -254,6 +255,7 @@ class PhotosController < ApplicationController
         send_data pdf.render, file_name: "photo_list.pdf",
                       type: "application/pdf",
                       disposition: "inline"
+
       end
     end  
   end
