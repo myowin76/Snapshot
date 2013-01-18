@@ -132,7 +132,7 @@ class PhotosController < ApplicationController
             end
 
             @photos = @photos.all_brand_compliant if search_brand_compliant?
-            @photos = @photos.find_between(from_date,to_date)
+            @photos = @photos.find_between(from_date,to_date).published
 
             
             #### need to refactor the queries #####  
