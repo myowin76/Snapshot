@@ -83,7 +83,7 @@ var photos = {
         url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
         $(this).attr('href', url);
       }  
-    });
+    })
   },
   exportZIP: function(){
     
@@ -103,47 +103,85 @@ var photos = {
 
 $(document).ready(function() {
   
-  // TO DO ## REFACFOR BY CREATING FUNCTIONS
+  // login form modal overlay validation
   
-  snapshot.LayoutSwitcher();
-  snapshot.Pagination();
-  photos.generatePDF();
-  photos.exportZIP();
-  filterUI.init();
+  // $('#store-new-retailer').click(function(){
+  //   alert("test");
+  //   return false;
+  // });
+  // $('#notLogginInModal').modal({
+  //     backdrop: true,
+  //     keyboard: true
+  // }).css({
+  //     width: 'auto', 
+  //     'margin-left': 0
 
-  $('#new_retailer').validate({
-    rules: {
-      retailer_name: {
-        required: true
-      },
-      retailer_sector_id: {
-        required: true
-      }
-    }
+  // });
+/*
+  $('#notLogginInModal input[type="submit"]').live('click', function(event){
+    event.preventDefault();
+
+    console.log('start');
+    var info = {}
+    info['email'] = $('#notLogginInModal #inputEmail').val();
+    info['message'] = $('#notLogginInModal #msg').val();
+    
+    $.ajax({
+      url: '/pages/loginpage_message',
+      type: "POST",
+      dataType: 'script',
+      data: info,
+      success: function(data){
+        console.log('success!!!!');
+        // to show sent message on popup form
+        $('#notLogginInModal .modal-header h3').html("Message Sent");
+        $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
+        $('#notLogginInModal input[type="submit"]').remove();
+        
+        }
+      })
   });
+*/
+  $('#new_retailer').validate({
+  rules: {
+        retailer_name: {
+          required: true
+        },
+        retailer_sector_id: {
+          required: true
+        }
+      }
+      });
+
 
   $('#email-form').validate({
       debug: true,
       submitHandler: function(form){
-      
-        console.log('start');
-        var info = {}
-        info['email'] = $('#notLogginInModal #inputEmail').val();
-        info['message'] = $('#notLogginInModal #msg').val();
-        
-        $.ajax({
-          url: '/pages/loginpage_message',
-          type: "POST",
-          dataType: 'script',
-          data: info,
-          success: function(data){
-            console.log('success!!!!');
-            // to show sent message on popup form
-            $('#notLogginInModal .modal-header h3').html("Message Sent");
-            $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
-            $('#notLogginInModal input[type="submit"]').remove();    
-          }
-        })
+        // alert("form");
+        // $('#notLogginInModal').on('click', $('#send'), function(event){
+          //event.preventDefault();
+
+          console.log('start');
+          var info = {}
+          info['email'] = $('#notLogginInModal #inputEmail').val();
+          info['message'] = $('#notLogginInModal #msg').val();
+          
+          $.ajax({
+            url: '/pages/loginpage_message',
+            type: "POST",
+            dataType: 'script',
+            data: info,
+            success: function(data){
+              console.log('success!!!!');
+              // to show sent message on popup form
+              $('#notLogginInModal .modal-header h3').html("Message Sent");
+              $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
+              $('#notLogginInModal input[type="submit"]').remove();
+              
+              }
+            })        
+        // });
+
       },
 
       onsubmit: true,  
@@ -157,19 +195,27 @@ $(document).ready(function() {
           minlength: 4
         }
       },
-
       highlight: function(label){
         $(label).closest('.control-group').addClass('error');
       },
-
       success: function(label){ 
 
+        
+
+
+        label
           .text('OK!').addClass('valid')
           .closest('.control-group').addClass('success');
       }
     });
 
 
+  // TO DO ## REFACFOR BY CREATING FUNCTIONS
+  
+  snapshot.LayoutSwitcher();
+  snapshot.Pagination();
+  photos.generatePDF();
+  photos.exportZIP();
 
   //********** TO DO
   // IF ANY CHECKBOX IN ACCORDION IS CHECKED, THEN
@@ -195,22 +241,26 @@ $('.search-form-actions .search').click(function(){
           $(this).attr("href", _href + "&per_page=" + info['per_page']);
         });
         
-      }
-    })
-  });
-
+        }
+      })
+    });
   //## sort by
   $('#sort_by').change(function(){
     $('#search_form').submit();
   });
 
-  $('#audit_created_at').datepicker({
-      dateFormat: 'dd/mm/yy',
-      onClose: function(){
-        $('#audit_created_at').blur(); //or .focusout();
+
+  $('#audit_created_at').datepicker(
+      {
+        dateFormat: 'dd/mm/yy',
+        onClose: function(){
+          $('#audit_created_at').blur(); //or .focusout();
+        }
       }
-    });
+    );
   
+  
+
   // TO DO
   $('#store-view').live('click',function(){
     var info = {}
@@ -224,7 +274,7 @@ $('.search-form-actions .search').click(function(){
       data: info
     });
   });
-  $('#audit_store_id').live('change',function(){
+$('#audit_store_id').live('change',function(){
     store_id = $('#audit_store_id').serializeObject();
     $.ajax({
       url: '/stores/get_store_details',
@@ -234,7 +284,7 @@ $('.search-form-actions .search').click(function(){
     })
   });
 
-  $('#audit_retailer_id').live('change',function(){
+$('#audit_retailer_id').live('change',function(){
     retailer_id = $('#audit_retailer_id').serializeObject();
     $.ajax({
       url: '/audits/refresh_store_dropdown',
@@ -243,6 +293,9 @@ $('.search-form-actions .search').click(function(){
       data: retailer_id
     })
   });
+
+  
+  
 
   $('#publish_multiple').click(function(){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
@@ -285,7 +338,7 @@ $('.search-form-actions .search').click(function(){
       dataType: 'script',
       data: sectores_checkboxes
     })
-  });
+ });
 
  $('#brand-owners-group .accordion-inner input[type=checkbox]').live('click',function(){
     brand_owners_checkboxes = $('#brand-owners-group .accordion-inner input[type=checkbox]:checked').serializeObject();
@@ -323,11 +376,19 @@ $('.search-form-actions .search').click(function(){
 		})
 		return false;
 	})
+  
+  
 
   $('.accordion').on('show hide', function(e){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
   })  
-  
+   
+  // $('#new_audit').fileupload({
+  //   dataType: "json"
+  // });
+
+
+	filterUI.init();
 	
  });
 
