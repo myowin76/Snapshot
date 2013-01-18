@@ -21,3 +21,28 @@
 // $(".loader_cont").hide();
 
 $(".photo-view").html("<%= j render('grid_view') %>");
+
+
+// duplicate in the application.js
+
+$('#export-pdf').on('click',function(){
+  checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+  if (checkbox_array == undefined) {
+    alert("Please select the image");
+    return false;
+  }
+  else{
+    url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
+    $(this).attr('href', url);
+  }  
+});
+
+$('#export-zip').on('click', function(e){
+  checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+  if (checkbox_array == undefined) {
+    alert("Please select the image");
+    return false;
+  };
+  url = '/photos/generate_zip?photo_ids=' + checkbox_array;
+  $(this).attr('href', url);
+});

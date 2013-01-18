@@ -78,15 +78,16 @@ var photos = {
       if (checkbox_array == undefined) {
         alert("Please select the image");
         return false;
-      };
-
-      url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
-      $(this).attr('href', url);
-    })
+      }
+      else{
+        url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
+        $(this).attr('href', url);
+      }  
+    });
   },
   exportZIP: function(){
     
-    $('#export-zip').click(function(e){
+    $('#export-zip').on('click', function(e){
       checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
       if (checkbox_array == undefined) {
         alert("Please select the image");
