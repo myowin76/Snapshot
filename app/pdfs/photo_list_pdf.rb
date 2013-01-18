@@ -36,7 +36,12 @@ class	PhotoListPdf < Prawn::Document
     # [["Image", "Date"],['test','test'],['row2', 'row2']] +
     [["File Name", "Categories", "Brands", "Retailer", "Store", "Address", "Country", "Media Location"]] + 
     @photo_list.map do |photo|
-    	# p = Photo.find_by_id(photo)
+    	if photo.audit.store.country_id.nil?
+    		country_name = "None"
+    	else	
+    		country_name = photo.audit.store.country.name
+    	end	
+
       [ 
       	# {:image => photo.photo.url(:medium)},
       	photo.photo_file_name,
@@ -45,7 +50,7 @@ class	PhotoListPdf < Prawn::Document
       	photo.audit.store.retailer.name,
       	photo.audit.store.name,
       	photo.audit.store.address,
-      	photo.audit.store.country.name,
+      	country_name,
       	photo.media_locations.map(&:name).join(","),
       	# photo.photo.url(:small)
       	# photo_image(photo)

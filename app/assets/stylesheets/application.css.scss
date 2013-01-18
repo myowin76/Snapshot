@@ -501,6 +501,18 @@ body .ui-widget {
   .right{
     float: left;
     width: 504px;
+    section{
+      h3{
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+      ul{
+        margin-left: 20px;
+        li{
+          list-style: square;
+        }
+      }
+    }
   }
   input, textarea{
     width: 87%;

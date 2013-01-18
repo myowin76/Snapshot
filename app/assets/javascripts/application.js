@@ -99,89 +99,50 @@ var photos = {
   }
 };
 
-
-
 $(document).ready(function() {
-  
-  // login form modal overlay validation
-  
-  // $('#store-new-retailer').click(function(){
-  //   alert("test");
-  //   return false;
-  // });
-  // $('#notLogginInModal').modal({
-  //     backdrop: true,
-  //     keyboard: true
-  // }).css({
-  //     width: 'auto', 
-  //     'margin-left': 0
 
-  // });
-/*
-  $('#notLogginInModal input[type="submit"]').live('click', function(event){
-    event.preventDefault();
-
-    console.log('start');
-    var info = {}
-    info['email'] = $('#notLogginInModal #inputEmail').val();
-    info['message'] = $('#notLogginInModal #msg').val();
-    
-    $.ajax({
-      url: '/pages/loginpage_message',
-      type: "POST",
-      dataType: 'script',
-      data: info,
-      success: function(data){
-        console.log('success!!!!');
-        // to show sent message on popup form
-        $('#notLogginInModal .modal-header h3').html("Message Sent");
-        $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
-        $('#notLogginInModal input[type="submit"]').remove();
-        
-        }
-      })
-  });
-*/
+  // TO DO ## REFACFOR BY CREATING FUNCTIONS
+  
+  snapshot.LayoutSwitcher();
+  snapshot.Pagination();
+  photos.generatePDF();
+  photos.exportZIP();
+  
   $('#new_retailer').validate({
-  rules: {
-        retailer_name: {
-          required: true
-        },
-        retailer_sector_id: {
-          required: true
-        }
+    rules: {
+      retailer_name: {
+        required: true
+      },
+      retailer_sector_id: {
+        required: true
       }
-      });
+    }
+  });
 
 
   $('#email-form').validate({
       debug: true,
       submitHandler: function(form){
-        // alert("form");
-        // $('#notLogginInModal').on('click', $('#send'), function(event){
-          //event.preventDefault();
-
-          console.log('start');
-          var info = {}
-          info['email'] = $('#notLogginInModal #inputEmail').val();
-          info['message'] = $('#notLogginInModal #msg').val();
-          
-          $.ajax({
-            url: '/pages/loginpage_message',
-            type: "POST",
-            dataType: 'script',
-            data: info,
-            success: function(data){
-              console.log('success!!!!');
-              // to show sent message on popup form
-              $('#notLogginInModal .modal-header h3').html("Message Sent");
-              $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
-              $('#notLogginInModal input[type="submit"]').remove();
-              
-              }
-            })        
-        // });
-
+        
+        console.log('start');
+        var info = {}
+        info['email'] = $('#notLogginInModal #inputEmail').val();
+        info['message'] = $('#notLogginInModal #msg').val();
+        
+        $.ajax({
+          url: '/pages/loginpage_message',
+          type: "POST",
+          dataType: 'script',
+          data: info,
+          success: function(data){
+            console.log('success!!!!');
+            // to show sent message on popup form
+            $('#notLogginInModal .modal-header h3').html("Message Sent");
+            $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
+            $('#notLogginInModal input[type="submit"]').remove();
+            
+          }
+        })
       },
 
       onsubmit: true,  
@@ -210,12 +171,7 @@ $(document).ready(function() {
     });
 
 
-  // TO DO ## REFACFOR BY CREATING FUNCTIONS
   
-  snapshot.LayoutSwitcher();
-  snapshot.Pagination();
-  photos.generatePDF();
-  photos.exportZIP();
 
   //********** TO DO
   // IF ANY CHECKBOX IN ACCORDION IS CHECKED, THEN
@@ -274,7 +230,8 @@ $('.search-form-actions .search').click(function(){
       data: info
     });
   });
-$('#audit_store_id').live('change',function(){
+
+  $('#audit_store_id').live('change',function(){
     store_id = $('#audit_store_id').serializeObject();
     $.ajax({
       url: '/stores/get_store_details',
@@ -284,7 +241,7 @@ $('#audit_store_id').live('change',function(){
     })
   });
 
-$('#audit_retailer_id').live('change',function(){
+  $('#audit_retailer_id').live('change',function(){
     retailer_id = $('#audit_retailer_id').serializeObject();
     $.ajax({
       url: '/audits/refresh_store_dropdown',
@@ -293,9 +250,6 @@ $('#audit_retailer_id').live('change',function(){
       data: retailer_id
     })
   });
-
-  
-  
 
   $('#publish_multiple').click(function(){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
@@ -330,7 +284,7 @@ $('#audit_retailer_id').live('change',function(){
  //    })
  // });
 
- $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
+  $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
     sectores_checkboxes = $('#sector-group .accordion-inner input[type=checkbox]:checked').serializeObject();
     $.ajax({
       url: '/photos/refresh_retailers',
@@ -338,9 +292,9 @@ $('#audit_retailer_id').live('change',function(){
       dataType: 'script',
       data: sectores_checkboxes
     })
- });
+  });
 
- $('#brand-owners-group .accordion-inner input[type=checkbox]').live('click',function(){
+  $('#brand-owners-group .accordion-inner input[type=checkbox]').live('click',function(){
     brand_owners_checkboxes = $('#brand-owners-group .accordion-inner input[type=checkbox]:checked').serializeObject();
     $.ajax({
       url: '/photos/refresh_brands',
@@ -376,8 +330,6 @@ $('#audit_retailer_id').live('change',function(){
 		})
 		return false;
 	})
-  
-  
 
   $('.accordion').on('show hide', function(e){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
@@ -391,6 +343,8 @@ $('#audit_retailer_id').live('change',function(){
 	filterUI.init();
 	
  });
+
+
 
 ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
   add: function(element, settings, message) {

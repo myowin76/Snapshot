@@ -8,3 +8,5 @@ Feature: Searching
 		Given I am on the store page
 		Then
 		When
+		and
+		but

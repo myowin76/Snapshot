@@ -4,80 +4,27 @@
   <body>
     <div class="container">
       
-        <%= render 'layouts/blocks/header' %>
-        <div id = "main" >
-          <section class="overlay"></section>
-          <section class="site-content" role="main">
-            <% flash.each do |name, msg| %>
-              <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-                <%= content_tag :div, msg %>
-              </div>
-            <% end %>
-            
-            <%= content_tag :h1, yield(:title) if show_title? %>
-            <%= yield %>
-          </section>
-         
-      </div>  <!-- /.container -->
-  <!--div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      
-      <%= link_to "Snapshot", root_path, :class =>'brand' %>  
-      <div class="nav-collapse">
-        <ul class="nav">
-          <% if user_signed_in? %>
-              <li>
-                <%= link_to "Basket", edit_user_registration_path %>
-              </li>
-              <% if admin_or_uploader? %>
-              <li>
-                <%= link_to "Admin", admin_path %>
-              </li>
-              <% end %>
-            <% else %>
-              <li>
-                <%= link_to 'Sign in', new_user_session_path %>
-              </li>
-              <li>
-                <%= link_to 'Register', new_user_registration_path%>
-              </li>
-            
-            <% end %>
-        </ul>
-        <ul class="nav pull-right">
-          <% if user_signed_in? %>
-            <li>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Logged in as: <%= current_user.email  %> <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                <li>
-                  <%= link_to "Account", edit_user_registration_path, :tabindex=>"-1" %>
-                </li>
-                <li><a tabindex="-1" href="#">Settings</a></li>
-                <li><a tabindex="-1" href="#">Save Searches</a></li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
-                </li>
-              </ul>
-            </li>
+      <%= render 'layouts/blocks/header' %>
+      <div id = "main" >
+     
+        <section class="overlay"></section>
+        <section class="site-content" role="main">
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+              <%= content_tag :div, msg %>
+            </div>
           <% end %>
-        </ul>
-      </div>
-    </div>
-  </div-->    
+          
+          <%#= content_tag :h1, yield(:title) if show_title? %>
+          <%= yield %>
+        </section>
+         
+      </div> 
   
+      <%= render 'layouts/blocks/footer' %>
 
-  <%= render 'layouts/blocks/footer' %>
-
-  <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div>      
+    <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    </div>      
   </div>  <!-- /.container -->
 
     <%= yield :scripts %>

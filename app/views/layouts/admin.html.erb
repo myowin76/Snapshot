@@ -10,28 +10,28 @@
           <section class="overlay"></section>
           <section class="site-content" role="main">
               
-              <% flash.each do |name, msg| %>
-                <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-                      <%= content_tag :div, msg %>
-                </div>
-              <% end %>
-              <div class="aside">
-                <%= render 'shared/admin/sidebar' %>
+            <% flash.each do |name, msg| %>
+              <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+                    <%= content_tag :div, msg %>
               </div>
-              
-              <div class="content-wrap">
-                <div class="content">
-                  <%= content_tag :h1, yield(:title) if show_title? %>
-                  <%= yield %>
-                </div>
-              </div>    
+            <% end %>
+            <div class="aside">
+              <%= render 'shared/admin/sidebar' %>
+            </div>
+            
+            <div class="content-wrap">
+              <div class="content">
+                <%= content_tag :h1, yield(:title) if show_title? %>
+                <%= yield %>
+              </div>
+            </div>    
               
           </section>
-      </div>  <!-- /.container -->
+      </div> 
 
-  <%= render 'layouts/blocks/footer' %>
+    <%= render 'layouts/blocks/footer' %>
 
-  </div>  <!-- /.container -->
+    </div>  <!-- /.container -->
 
     <%= yield :scripts %>
   </body>

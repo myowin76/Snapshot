@@ -6,20 +6,83 @@
   <div id="photo-details">
     <div class="left">
       <%= image_tag(@photo.photo.url(:large)) %>
+      <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "", :target => "_blank" %>
     </div>
     <div class="right">
-      <ul>
+      <section class="photo-info">
+        <h3>Store</h3>
+        <ul>
+          <li><%= @photo.audit.store.name %></li>
+          <li><%= @photo.audit.store.address %>, <%= @photo.audit.store.address2 %>, 
+              <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %></li>
+          <li>
+            Store Format:<%= @photo.audit.store.store_format.name %>
+          </li>
+          <li>Retailer:
+            <%= @photo.audit.store.retailer.name %>
+          </li>
+          <li>
+            Sector: <%= @photo.audit.store.retailer.sector.name %>
+          </li>
+        </ul>
+      </section>
+      <section class="photo-info-details">
+        <h3>Photo Data</h3>
+        <ul>
+          
+          <li>
+            Headline: <%= @photo.headline %>
+          </li>
+          <li>Brands: 
+            <%= @photo.brands.map(&:name).join(",") %>
+          </li>
+          <li>
+            Additional Brands:
+            <%= @photo.additional_brands %>
+          </li>
+          <li>
+            Date: 
+            <%= @photo.created_at %>
+          </li> 
 
-        <li>Retailer: 
+          <li>
+            Category:
+            <%= @photo.categories.map(&:name).join(",") %>
+          </li>
+          <li>Media Locations:
+            <%= @photo.media_locations.map(&:name).join(",") %>
+          </li>
+          <li>Media Types:
+            <%= @photo.media_types.map(&:name).join(",") %>
+          </li>
+          <li>Media Vehicle:
+            <%= @photo.media_vehicles.map(&:name).join(",") %>
+          </li>
+          <li>
+            Promotion Calendar:
+            <%= @photo.promotion_calendar.name if @photo.promotion_calendar %>
+          </li>
+          <li>
+            Promotion Type:
+            <%= @photo.promotion_types.map(&:name).join(",") %>
+          </li>
+          <li>Descriptions:
+            <%= @photo.description %>
+          </li>
+      </ul>
+      </section>
+      <!-- <ul>
+
+        <li>Retailer:
           <%= @photo.audit.store.retailer.name %>
         </li>
         <li>
           Sector: <%= @photo.audit.store.retailer.sector.name %>
-        </li>
-        <li>
+        </li> -->
+        <!-- <li>
           Country: <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
-        </li>
-        <li>
+        </li> -->
+        <!-- <li>
           Headline: <%= @photo.headline %>
         </li>
         <li>Brands: 
@@ -37,7 +100,7 @@
         </li> 
         <li>
           Store:
-          <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %>
+          <%#= link_to @photo.audit.store.name, store_path(@photo.audit.store) %>
         </li>
         <li>
           Category:
@@ -73,13 +136,11 @@
         <li>
           Store Format:<%= @photo.audit.store.store_format.name %>
         </li>
-        <li>Descriptions:
-          <%= @photo.description %>
+         -->
+        <!-- <li>
+          
         </li>
-        <li>
-          <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" %>
-        </li>
-      </ul>
+      </ul> -->
     </div>
       <%#= link_to 'back', :back, :id=>'back' %>
       
@@ -87,9 +148,4 @@
       <%#= link_to 'Back', photos_path %>
 
   </div>
-  <!--div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    
-  </div-->
-
 </section>
