@@ -59,11 +59,11 @@ class Photo < ActiveRecord::Base
   								   'image/jpg', 'image/png']
 
     acts_as_gmappable :process_geocoding => false
-    def gmaps4rails_infowindow
-      # add here whatever html content you desire, it will be displayed when users clicks on the marker
-      # "<h4>#{self.title}</h4>"
-      "<h4>Title</h4>"
-    end
+    # def gmaps4rails_infowindow
+    #   # add here whatever html content you desire, it will be displayed when users clicks on the marker
+    #   # "<h4>#{self.title}</h4>"
+    #   "<h4>Title</h4>"
+    # end
 
     scope :order_date_desc, order("created_at DESC")
     scope :published, where(published: true)

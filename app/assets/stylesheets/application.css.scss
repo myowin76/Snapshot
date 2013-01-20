@@ -488,6 +488,23 @@ body .ui-widget {
   }  
 }
 
+.snapshot-window { 
+  border: 2px solid #666666; 
+  border-radius: 5px; 
+  background: white; padding: 0; 
+  h3 {
+    border: 1px solid #666666; 
+    font-size: 14px;
+    background-color: #666666;
+    color: white;
+    margin: 0px;
+    padding: 5px 10px;
+  }
+  .window{
+    padding: 10px;
+  }
+}
+
 .photo_views_view{
   overflow: hidden;
   margin-bottom: 25px;

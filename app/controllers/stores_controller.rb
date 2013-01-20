@@ -40,25 +40,25 @@ class StoresController < ApplicationController
     @audits = @store.audits.order('created_at DESC')
     @audit = @audits.first
 
-    if params[:categories]
-      @selected_categories = Category.find_all_by_id(params[:categories].split(","))
-      @photo_categories = Category.joins(:photos).includes(:categorizations)
-        .where('photos.audit_id IN (?)', @audit.id)
-        .where("category_id in (?)", @selected_categories.map(&:id))
-        .group("categories.id");
-    else
-      @selected_categories = Category.joins(:photos).
-        where('photos.audit_id IN (?)', @audit.id)
-      @photo_categories = Category.joins(:photos).includes(:categorizations)
-        .where("category_id in (?)", @selected_categories.map(&:id))
-        .group("categories.id");
-    end
+    # if params[:categories]
+    #   @selected_categories = Category.find_all_by_id(params[:categories].split(","))
+    #   @photo_categories = Category.joins(:photos).includes(:categorizations)
+    #     .where('photos.audit_id IN (?)', @audit.id)
+    #     .where("category_id in (?)", @selected_categories.map(&:id))
+    #     .group("categories.id");
+    # else
+    #   @selected_categories = Category.joins(:photos).
+    #     where('photos.audit_id IN (?)', @audit.id)
+    #   @photo_categories = Category.joins(:photos).includes(:categorizations)
+    #     .where("category_id in (?)", @selected_categories.map(&:id))
+    #     .group("categories.id");
+    # end
       
     respond_to do |format|
       format.html # show.html.erb
-      format.js{
-        render :partial => 'show_store_with_categories', :locals => { :store => @store }
-      }
+      # format.js{
+      #   render :partial => 'show_store_with_categories', :locals => { :store => @store }
+      # }
       # format.json { render json: @store }
     end
   end
@@ -88,7 +88,7 @@ class StoresController < ApplicationController
       if @store.save
         @store.update_attribute(:retailer_id, params[:store_retailer_id])
 
-        format.html { redirect_to stores_path, notice: 'Store was successfully created.' }
+        format.html { redirect_to @store, notice: 'Store was successfully created.' }
         format.json { render json: @store, status: :created, location: @store }
       else
         format.html { render action: "new" }

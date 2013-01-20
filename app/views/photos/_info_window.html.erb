@@ -1,15 +1,17 @@
 <h3><%= store.name %></h3>
-<p>
-	<%= store.address %>,
-	<%= store.address2 %>, <%= store.postcode %>
-	<%#= store.country.name unless store.country_id.nil? %>
+<div class="window">
+	<p>
+		<%= store.address %>,
+		<%= store.address2 %>, <%= store.postcode %>
+		<%#= store.country.name unless store.country_id.nil? %>
 
- </p>
-<input type="hidden" id="hidden" value="<%= store.id %>">
-<p>
-	<%= store.retailer.sector.name unless store.retailer.sector_id.nil? %>
-</p>
-<p>
-	<%= store.photos.count %> photos.
-	<%= link_to "Go to the Store page", "#"	, :id => 'store-view', :class => 'pull-right' %>
-</p>
+	 </p>
+	<input type="hidden" id="hidden" value="<%= store.id %>">
+	<p>
+		<%= store.retailer.sector.name unless store.retailer.sector_id.nil? %>
+	</p>
+	<p>
+		<%= store.photos.count %> photos.
+		<%= link_to "Go to the Store page", "#"	, :id => 'store-view', :class => 'pull-right' %>
+	</p>
+</div>
