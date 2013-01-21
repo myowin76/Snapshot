@@ -108,16 +108,19 @@ $(document).ready(function() {
   photos.generatePDF();
   photos.exportZIP();
   
-  $('#new_retailer').validate({
-    rules: {
-      retailer_name: {
-        required: true
-      },
-      retailer_sector_id: {
-        required: true
-      }
-    }
-  });
+  // $('#new_retailer').validate({
+  //   rules: {
+  //     retailer_name: {
+  //       required: true
+  //     },
+  //     retailer_sector_id: {
+  //       required: true
+  //     }
+  //   }
+  // });
+
+  
+  
 
 
   $('#email-form').validate({
@@ -160,10 +163,6 @@ $(document).ready(function() {
         $(label).closest('.control-group').addClass('error');
       },
       success: function(label){ 
-
-        
-
-
         label
           .text('OK!').addClass('valid')
           .closest('.control-group').addClass('success');

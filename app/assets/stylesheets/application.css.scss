@@ -513,11 +513,11 @@ body .ui-widget {
   .left{
     float: left;
     margin-right: 20px;
-    width: 500px;
+    width: 600px;
   }
   .right{
     float: left;
-    width: 504px;
+    width: 404px;
     section{
       h3{
         font-size: 20px;
@@ -541,6 +541,8 @@ body .ui-widget {
 .saved-list{
   
 }
+
+
 .new_save_search{
   background-color: #eee;
   .form-actions{
@@ -549,6 +551,17 @@ body .ui-widget {
     background-color: #eee;
     margin: 5px 0;
   }
+
+}
+
+input{
+  &.required{
+    &.error{
+      border: 1px solid #d92680;
+    }
+
+  }
+
 }
 
 // searrch form action
