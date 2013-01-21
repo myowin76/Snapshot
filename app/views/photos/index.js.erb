@@ -23,6 +23,14 @@
 $(".photo-view").html("<%= j render('grid_view') %>");
 
 
+// duplicate in application.js
+$('.go-top').on('click',function(e){
+  e.preventDefault();
+  $('html, body').animate({
+    scrollTop: $(".tab-content").offset().top
+  }, 500);
+});
+
 // duplicate in the application.js
 
 $('#export-pdf').on('click',function(){

@@ -39,7 +39,7 @@
 
 <div class="page-controls">  
   <%= page_entries_info @photos %>
-  <%#= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
+  <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
 </div>
 
 <% unless @photos.nil? %>    
@@ -55,9 +55,7 @@
           <%= photo.audit.store.retailer.name %>
         </div>  
         <div class="brand">
-          <%  photo.brands.each do |brand| %>
-            <%= brand.name %>
-          <% end %>
+          <%= photo.brands.map(&:name).join(",") %>
         </div>  
         <div class="date">
           <%= photo.created_at.strftime('%d/%m/%Y') %>
@@ -76,7 +74,8 @@
   </ul>
 <% end %>
 <div class="page-controls">  
+  <a href="#" class="go-top pull-right">Top</a>
   <%#= page_entries_info @photos %>
-  <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
+  <%#= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
 </div>
   

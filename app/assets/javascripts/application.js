@@ -119,7 +119,13 @@ $(document).ready(function() {
   //   }
   // });
 
-  
+  $('.go-top').on('click',function(e){
+    e.preventDefault();
+    $('html, body').animate({
+      scrollTop: $(".tab-content").offset().top
+    }, 500);
+  })
+
   
 
 

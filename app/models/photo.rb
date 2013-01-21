@@ -70,6 +70,9 @@ class Photo < ActiveRecord::Base
     scope :unpublished, where(published: false)
     scope :all_brand_compliant, where(brand_compliant: true)
 
+    
+    
+
     def self.find_between fromdate, todate
       where(:created_at => fromdate .. todate)
     end

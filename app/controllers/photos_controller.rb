@@ -23,14 +23,12 @@ class PhotosController < ApplicationController
       @store_formats = StoreFormat.order(:name)
           
       unless params_search.nil?
-
         # Country Search
         if search_country_id.present?
           # for selected country
           @stores = @stores.where('country_id = ? ', search_country_id)
         else
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
-          
         end
 
         @stores = @stores.where('store_format_id IN (?)', search_store_formats) if search_store_formats.present?
@@ -98,24 +96,32 @@ class PhotosController < ApplicationController
 
           @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
               .includes(:brands)
-                    
-            if search_promotion_types.present?
-              @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types)
-            end  
-            unless search_promotion_calendars.present?
-              @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
-            else
-              @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars)
-            end  
+          
+          @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types) if search_promotion_types.present?
+          @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars) if search_promotion_calendars.present?
+          @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types) if search_media_types.present?
+          @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', search_media_vehicles) if search_media_vehicles.present?
+          @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', search_media_locations) if search_media_locations.present?
+            # if search_promotion_types.present?
+            #   @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types)
+            # else  
+            #   @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types)
+            # end  
+            # unless search_promotion_calendars.present?
+            #   @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
+            # else
+            #   @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars)
+            # end  
+
             
-            if search_media_types.present?
-              @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types)
-            end
-            if search_media_vehicles.present?
-              @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', search_media_vehicles)
-            end
+            # if search_media_types.present?
+            #   @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types)
+            # end
+            # if search_media_vehicles.present?
+            #   @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', search_media_vehicles)
+            # end
             
-            @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', search_media_locations) if search_media_locations.present?
+            
             
             if search_brand_owners.present?
               @brands_by_owners = @brands.find_all_by_brand_owner_id(search_brand_owners)
@@ -139,13 +145,14 @@ class PhotosController < ApplicationController
 
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
-            @store_ids = []
-            @audits.each do |s|
-              @store_ids.push(s.store_id)
-            end
-            
-            @stores = @stores.where('stores.id IN (?)', @store_ids)
-            @stores = @stores.where('stores.country_id IS NOT NULL')
+            # @store_ids = []
+            # @audits.each do |s|
+            #   @store_ids.push(s.store_id)
+            # end
+            @store_ids = @audits.map(&:store_id)
+
+            @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
+            # @stores = @stores.where('stores.country_id IS NOT NULL')
 
             if params[:per_page]
               @per_page = params[:per_page]
