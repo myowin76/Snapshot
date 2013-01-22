@@ -63,8 +63,6 @@ var snapshot = {
   Pagination: function(){
     $('.pagination a').live('click',function () {
       $.get(this.href, null, null, 'script');
-      // $('#length').val
-      // .attr("selected", "selected");
       return false;
     });
   }
@@ -119,7 +117,12 @@ $(document).ready(function() {
   //   }
   // });
 
-  
+  $(".photo-view").ajaxStart(function(){
+    $(this).html('<div class="loading"><img src="../assets/snapshot_loading.gif" /></div>');
+  });
+
+
+
   $('.alert').click(function(){
       $(this).fadeOut(1000).remove();;
   });

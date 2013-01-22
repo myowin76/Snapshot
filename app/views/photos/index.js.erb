@@ -17,10 +17,12 @@
 
 // // $(".span8 h4").html("<%= @photos.count %> photos found");
 
-$(".photo-view").html("<%= j render('grid_view') %>");
+  $(".photo-view").fadeIn('slow').html("<%= j render('grid_view') %>");
+  // $(".photo-view").fadeIn(300, function(){
+  //   $(this).html("<%= j render('grid_view') %>");
+  // })
 
 
-$(document).ready(function() {
   // duplicate in application.js
   $('.go-top').on('click',function(e){
     e.preventDefault();
@@ -73,6 +75,5 @@ $(document).ready(function() {
     url = '/photos/generate_zip?photo_ids=' + checkbox_array;
     $(this).attr('href', url);
   });
-});
 
   

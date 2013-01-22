@@ -1,12 +1,14 @@
 	checked_category_ids = $('#category-group input[type="checkbox"]:checked').serializeObject()['search[categories][]'];	
 
-	$('.site-content').hide();
+	$('.site-content').fadeOut(200, function(){
+		$(this).hide();	
+	});
 	
 	$('.overlay').html("<%= j render('stores/shared/show_view') %>");
 	$('#hidden-cats').val(checked_category_ids);
 	
 	$('.store_views_view .close').live('click', function(){
-		$('.store_views_view').fadeOut('slow', function(){
+		$('.store_views_view').fadeOut(200, function(){
 				$(this).remove();
 		});
 		// $('.views_view').fadeOut(500, function() { $('.views_view').remove(); });

@@ -431,6 +431,10 @@ body .ui-widget {
 }
 //### LIST VIEW / GRID VIEW
 .photo-view{
+
+  .loading{
+    text-align: center;
+  }
   .length-control{
     float: left;
     margin-right: 12px;
