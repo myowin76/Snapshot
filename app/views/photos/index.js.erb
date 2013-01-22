@@ -16,27 +16,21 @@
 // $("aside h4").html("<%= @photos.count %> photos found");
 
 // // $(".span8 h4").html("<%= @photos.count %> photos found");
-// $("#list-view").html("<%= j render("list_view") %>");
-
-// $(".loader_cont").hide();
 
 $(".photo-view").html("<%= j render('grid_view') %>");
 
 
-// duplicate in application.js
-$('.go-top').on('click',function(e){
-  e.preventDefault();
-  $('html, body').animate({
-    scrollTop: $(".tab-content").offset().top
-  }, 500);
-});
+$(document).ready(function() {
+  // duplicate in application.js
+  $('.go-top').on('click',function(e){
+    e.preventDefault();
+    $('html, body').animate({
+      scrollTop: $(".tab-content").offset().top
+    }, 500);
+  });
 
-
-
-
-
-// duplicate in application.js // refactor
-$('#reviews').on('click', function(){
+  // duplicate in application.js // refactor
+  $('#reviews').on('click', function(){
     if ($(".photo-view .photos-viewer input[name='photo_ids[]']:checked").length < 1){
       alert("Please select images");
       return false;
@@ -56,26 +50,29 @@ $('#reviews').on('click', function(){
     return false;
   });
 
-// duplicate in the application.js // refactor
+  // duplicate in the application.js // refactor
 
-$('#export-pdf').on('click',function(){
-  checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
-  if (checkbox_array == undefined) {
-    alert("Please select the image");
-    return false;
-  }
-  else{
-    url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
+  $('#export-pdf').on('click',function(){
+    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+    if (checkbox_array == undefined) {
+      alert("Please select the image");
+      return false;
+    }
+    else{
+      url = '/photos/generate_pdf.pdf?photo_ids=' + checkbox_array;
+      $(this).attr('href', url);
+    }  
+  });
+
+  $('#export-zip').on('click', function(e){
+    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+    if (checkbox_array == undefined) {
+      alert("Please select the image");
+      return false;
+    };
+    url = '/photos/generate_zip?photo_ids=' + checkbox_array;
     $(this).attr('href', url);
-  }  
+  });
 });
 
-$('#export-zip').on('click', function(e){
-  checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
-  if (checkbox_array == undefined) {
-    alert("Please select the image");
-    return false;
-  };
-  url = '/photos/generate_zip?photo_ids=' + checkbox_array;
-  $(this).attr('href', url);
-});
+  

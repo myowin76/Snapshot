@@ -136,28 +136,9 @@ $(document).ready(function() {
   // THE ACCORDION SHOULD BE OPEN
   $('.search-form-actions .search').click(function(){
     $('#search_form').submit();
-  })
+  });
 
-  $('#length').live('change',function(){
-    var info = {}
-    info['per_page'] = $(this).val();
-    info[''] = $('#search_form').serializeObject();
-    $.ajax({
-      url: '/',
-      type: "POST",
-      dataType: 'script',
-      data: info,
-      success: function(data){
-        $('#length').val(info['per_page']);
-        $('.pagination a').each(function(){
-          var _href = $(this).attr("href");
-          $(this).attr("href", _href + "&per_page=" + info['per_page']);
-        });
-        
-        }
-      })
-    });
-
+  
   $('#reviews').on('click', function(){
     if ($(".photo-view .photos-viewer input[name='photo_ids[]']:checked").length < 1){
       alert("Please select images");
@@ -178,6 +159,24 @@ $(document).ready(function() {
     return false;
   });
 
+  $('#length').live('change',function(){
+    var info = {}
+    info['per_page'] = $(this).val();
+    info[''] = $('#search_form').serializeObject();
+    $.ajax({
+      url: '/',
+      type: "POST",
+      dataType: 'script',
+      data: info,
+      success: function(data){
+        $('#length').val(info['per_page']);
+        $('.pagination a').each(function(){
+          var _href = $(this).attr("href");
+          $(this).attr("href", _href + "&per_page=" + info['per_page']);
+        });
+      }
+    })
+  });
 
   //## sort by
   $('#sort_by').change(function(){
@@ -185,13 +184,13 @@ $(document).ready(function() {
   });
 
   $('#audit_created_at').datepicker(
-      {
-        dateFormat: 'dd/mm/yy',
-        onClose: function(){
-          $('#audit_created_at').blur(); //or .focusout();
-        }
+    {
+      dateFormat: 'dd/mm/yy',
+      onClose: function(){
+        $('#audit_created_at').blur(); //or .focusout();
       }
-    );
+    }
+  );
   
   // TO DO
   $('#store-view').live('click',function(){
@@ -262,6 +261,7 @@ $(document).ready(function() {
  // });
 
   $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
+    
     sectores_checkboxes = $('#sector-group .accordion-inner input[type=checkbox]:checked').serializeObject();
     $.ajax({
       url: '/photos/refresh_retailers',

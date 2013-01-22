@@ -3,7 +3,7 @@ class PhotosController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    
+        
     if user_is_country_and_category_subscriber?
       if params[:saved_search_id] 
         saved = SaveSearch.find_by_id(params[:saved_search_id])
@@ -136,7 +136,7 @@ class PhotosController < ApplicationController
               @per_page = 20
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-            
+           # debugger 
       end
 
     elsif user_is_country_subscriber?
