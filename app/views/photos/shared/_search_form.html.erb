@@ -368,14 +368,14 @@
       <div id="themes" class="accordion-body collapse">
         <div class="accordion-inner">
           <% for theme in @themes %>
-            <% if params[:search] && params[:search][:theme] && params[:search][:theme].include?(theme.id.to_s) %>
-              <%= label_tag "search[theme][#{theme.id}]" do %>
-                <%= check_box_tag "search[theme][]", theme.id, :check => "checked", :id => "search_theme_#{theme.id}" %>
+            <% if params[:search] && params[:search][:themes] && params[:search][:themes].include?(theme.id.to_s) %>
+              <%= label_tag "search[themes][#{theme.id}]" do %>
+                <%= check_box_tag "search[themes][]", theme.id, :check => "checked", :id => "search_theme_#{theme.id}" %>
                 <%= theme.name %><br />
               <% end %>
             <% else %>  
-              <%= label_tag "search[theme][#{theme.id}]" do %>
-                <%= check_box_tag "search[theme][]", theme.id, false, :id => "search_theme_#{theme.id}" %>
+              <%= label_tag "search[themes][#{theme.id}]" do %>
+                <%= check_box_tag "search[themes][]", theme.id, false, :id => "search_theme_#{theme.id}" %>
                 <%= theme.name %><br />
               <% end %>  
             <% end %>  

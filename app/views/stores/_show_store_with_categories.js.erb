@@ -21,4 +21,18 @@
       dataType: 'script',
       data: info
     })
-	})
+	});
+
+	$('#clear-filter').on('click', function(){
+		var info = {}
+		info['audit_id'] = $('#store-audit-select').serializeObject()['audit_id'];
+    info['store_id'] = <%= store.id %>
+
+    $.ajax({
+      url: '/stores/refresh_store_view_categories',
+      type: "POST",
+      dataType: 'script',
+      data: info
+    })
+    return false;
+	});

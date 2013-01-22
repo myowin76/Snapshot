@@ -167,7 +167,51 @@ to Snapshot yet!</h3>
     
   });
 
+  $('#email-form').validate({
+      debug: true,
+      submitHandler: function(form){
+        
+        console.log('start');
+        var info = {}
+        info['email'] = $('#notLogginInModal #inputEmail').val();
+        info['message'] = $('#notLogginInModal #msg').val();
+        
+        $.ajax({
+          url: '/pages/loginpage_message',
+          type: "POST",
+          dataType: 'script',
+          data: info,
+          success: function(data){
+            console.log('success!!!!');
+            // to show sent message on popup form
+            $('#notLogginInModal .modal-header h3').html("Message Sent");
+            $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
+            $('#notLogginInModal input[type="submit"]').remove();
+            
+          }
+        })
+      },
 
+      onsubmit: true,  
+      rules: {
+        inputEmail: {
+          required: true,
+          email: true
+        },
+        msg: {
+          required: true,
+          minlength: 4
+        }
+      },
+      highlight: function(label){
+        $(label).closest('.control-group').addClass('error');
+      },
+      success: function(label){ 
+        label
+          .text('OK!').addClass('valid')
+          .closest('.control-group').addClass('success');
+      }
+    });
 </script>
 </body>
 </html>

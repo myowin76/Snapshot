@@ -97,50 +97,26 @@ class PhotosController < ApplicationController
           @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
               .includes(:brands)
           
-          @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types) if search_promotion_types.present?
           @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars) if search_promotion_calendars.present?
+          @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types) if search_promotion_types.present?
           @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types) if search_media_types.present?
           @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', search_media_vehicles) if search_media_vehicles.present?
           @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', search_media_locations) if search_media_locations.present?
-            # if search_promotion_types.present?
-            #   @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types)
-            # else  
-            #   @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types)
-            # end  
-            # unless search_promotion_calendars.present?
-            #   @photos = @photos.where('promotion_calendar_id IS NULL OR promotion_calendar_id IN (?)', @promo_calendars.map(&:id)) 
-            # else
-            #   @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars)
-            # end  
+          
+          @photos = @photos.joins(:brands).where('brands.id IN (?)', search_brands) if search_brands.present?
+          @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes) if search_themes.present?
+          @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories) if search_categories.present?
+
 
             
-            # if search_media_types.present?
-            #   @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types)
-            # end
-            # if search_media_vehicles.present?
-            #   @photos = @photos.joins(:media_vehicles).where('media_vehicles.id IN (?)', search_media_vehicles)
-            # end
-            
-            
-            
-            if search_brand_owners.present?
-              @brands_by_owners = @brands.find_all_by_brand_owner_id(search_brand_owners)
-              @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
-            end
-            if search_brands.present?
-              @photos = @photos.joins(:brands).where('brands.id IN (?)', search_brands)
-            end
-            if search_themes.present?
-              @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes)
-            end
-            if search_categories.present?
-              @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories)
-            end
+          if search_brand_owners.present?
+            @brands_by_owners = @brands.find_all_by_brand_owner_id(search_brand_owners)
+            @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
+          end
+          
+          @photos = @photos.all_brand_compliant if search_brand_compliant?
+          @photos = @photos.find_between(from_date,to_date).published
 
-            @photos = @photos.all_brand_compliant if search_brand_compliant?
-            @photos = @photos.find_between(from_date,to_date).published
-
-            
             #### need to refactor the queries #####  
 
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
@@ -192,7 +168,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       format.html  # index.html.erb
       format.json { 
-        #render json: @photos 
+        render json: @photos 
       }
       format.js
     end

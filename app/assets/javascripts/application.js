@@ -119,72 +119,24 @@ $(document).ready(function() {
   //   }
   // });
 
+  
+  $('.alert').click(function(){
+      $(this).fadeOut(1000).remove();;
+  });
+
   $('.go-top').on('click',function(e){
     e.preventDefault();
     $('html, body').animate({
       scrollTop: $(".tab-content").offset().top
     }, 500);
-  })
-
-  
-
-
-  $('#email-form').validate({
-      debug: true,
-      submitHandler: function(form){
-        
-        console.log('start');
-        var info = {}
-        info['email'] = $('#notLogginInModal #inputEmail').val();
-        info['message'] = $('#notLogginInModal #msg').val();
-        
-        $.ajax({
-          url: '/pages/loginpage_message',
-          type: "POST",
-          dataType: 'script',
-          data: info,
-          success: function(data){
-            console.log('success!!!!');
-            // to show sent message on popup form
-            $('#notLogginInModal .modal-header h3').html("Message Sent");
-            $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
-            $('#notLogginInModal input[type="submit"]').remove();
-            
-          }
-        })
-      },
-
-      onsubmit: true,  
-      rules: {
-        inputEmail: {
-          required: true,
-          email: true
-        },
-        msg: {
-          required: true,
-          minlength: 4
-        }
-      },
-      highlight: function(label){
-        $(label).closest('.control-group').addClass('error');
-      },
-      success: function(label){ 
-        label
-          .text('OK!').addClass('valid')
-          .closest('.control-group').addClass('success');
-      }
-    });
-
-
-  
+  });
 
   //********** TO DO
   // IF ANY CHECKBOX IN ACCORDION IS CHECKED, THEN
   // THE ACCORDION SHOULD BE OPEN
-$('.search-form-actions .search').click(function(){
+  $('.search-form-actions .search').click(function(){
     $('#search_form').submit();
   })
-
 
   $('#length').live('change',function(){
     var info = {}
@@ -205,11 +157,11 @@ $('.search-form-actions .search').click(function(){
         }
       })
     });
+
   //## sort by
   $('#sort_by').change(function(){
     $('#search_form').submit();
   });
-
 
   $('#audit_created_at').datepicker(
       {
@@ -220,8 +172,6 @@ $('.search-form-actions .search').click(function(){
       }
     );
   
-  
-
   // TO DO
   $('#store-view').live('click',function(){
     var info = {}
@@ -320,8 +270,6 @@ $('.search-form-actions .search').click(function(){
   //   })
   // })    
 
-  
-
 	$('#checkAll').live('click',function(){
 		$('.photos-viewer input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
@@ -340,11 +288,6 @@ $('.search-form-actions .search').click(function(){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
   })  
    
-  // $('#new_audit').fileupload({
-  //   dataType: "json"
-  // });
-
-
 	filterUI.init();
 	
  });

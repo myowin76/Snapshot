@@ -271,7 +271,16 @@ ul.ui-autocomplete {
     }
   }
   .site-content{
-    
+    .alert{
+      display: block;
+      overflow: hidden;
+      padding-bottom: 0;
+      cursor: pointer;
+      border-radius: 0;
+      div{
+        float: left;
+      }
+    }
   }
   .content-wrap {
     float: right;

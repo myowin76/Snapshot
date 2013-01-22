@@ -1,51 +1,53 @@
-
 <% unless @store.nil? || @store.blank? %>
-<section class="store_views_view">
-  <div class="page-header">
-    <button type="button" class="close">×</button>
-    <h1><%= @store.name %></h1>
-  </div>
-<div class="">
-  <input type="hidden" id="hidden-cats" name="category_ids[]" value="">
-  <p>
-    <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
-  </p>
-  <p id="notice"><%= notice %></p>
+  <section class="store_views_view">
+    <div class="page-header">
+      <button type="button" class="close">×</button>
+      <h1><%= @store.name %></h1>
+    </div>
 
-  <p>
-    <b>Address:</b><br />
-    <%= @store.address %><br />
-    <%= @store.address2 %><br />
-    <%= @store.postcode %><br />
-    <%= @store.country.name unless @store.country_id.nil? %>
-  </p>
-  <p>
-    <b>Sector</b>
-    <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
-  </p>
-  <p>
-    <b>Store format:</b>
-    <%= @store.store_format.name %>
-  </p>
+    <div class="">
+      <input type="hidden" id="hidden-cats" name="category_ids[]" value="">
+      <p>
+        <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
+      </p>
+      <p>
+        <%= link_to 'Clear Filters', clear_filters_path, :id => 'clear-filter' %>
+      </p>
+      <p id="notice"><%= notice %></p>
 
-  <p>
-    <b>Retailer:</b>
-    <%= @store.retailer.name %>
-  </p>
-  
-  <% unless @audits.nil? %>
-    <% unless @audit.nil?  %>
-    <p>
-      <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
-    </p>
-    <% #debugger %>
-    
-    <section class="store_audit_categories">
-      <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
-    </section> 
-    <% end %>
-</div>  
-  <% end %>
-</section>
+      <p>
+        <b>Address:</b><br />
+        <%= @store.address %>, 
+        <%= @store.address2 %>, 
+        <%= @store.postcode %>,
+        <%= @store.country.name unless @store.country_id.nil? %>
+      </p>
+      <p>
+        <b>Sector</b>
+        <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
+      </p>
+      <p>
+        <b>Store format:</b>
+        <%= @store.store_format.name %>
+      </p>
+
+      <p>
+        <b>Retailer:</b>
+        <%= @store.retailer.name %>
+      </p>
+      
+      <% unless @audits.nil? %>
+        <% unless @audit.nil?  %>
+          <p>
+            <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
+          </p>
+          <section class="store_audit_categories">
+            <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
+          </section> 
+        <% end %>
+      <% end %>
+
+    </div>    
+  </section>
 
 <% end %>  

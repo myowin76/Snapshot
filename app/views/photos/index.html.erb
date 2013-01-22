@@ -10,6 +10,31 @@
       <li><a href="#list-view" data-toggle="tab">List</a></li>
     </ul>  
 
+    <!-- 
+    <div id="tabs">
+      <ul>
+        <li>
+          <a href="#map">Map</a>
+        </li>
+        <li>
+          <a href="#list">List</a>
+        </li>
+      </ul>
+      <div id="map">
+        <%#= render 'map_view' %>  
+      </div>
+      <div id="list">
+        <%# if params_search %>
+          <div class="photo-view grid">  
+            <%#= render 'grid_view' %>
+          </div>
+          
+        <%# end  %>   
+      </div>
+    </div> -->
+
+
+
     <div class="tab-content">
       <div class="tab-pane active" id="map-view">
         <%= render 'map_view' %>    
@@ -24,5 +49,6 @@
         <% end  %>   
       </div>
     </div>
+
   </div>  
 </div>  

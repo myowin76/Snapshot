@@ -140,7 +140,9 @@
     </div>
     <div class="right">
       <ul>
-
+        <li>
+          Store Format:<%= @photo.audit.store.store_format.name %>
+        </li>
         <li>Retailer: 
           <%= @photo.audit.store.retailer.name %>
         </li>
@@ -154,9 +156,7 @@
           Headline: <%= @photo.headline %>
         </li>
         <li>Brands: 
-          <% @photo.brands.each do |brand| %>
-            <%= brand.name %>
-          <% end %>
+          <%= @photo.brands.map(&:name).join(",") %>
         </li>
         <li>
           Additional Brands:
@@ -173,24 +173,16 @@
         </li>
         <li>
           Category:
-          <% @photo.categories.each do |cat| %>
-            <%= cat.name %>
-          <% end %>
+          <%= @photo.categories.map(&:name).join(",") %>
         </li>
         <li>Media Locations:
-          <% @photo.media_locations.each do |ml| %>
-            <%= ml.name %>
-          <% end %>
+          <%= @photo.media_locations.map(&:name).join(",") %>
         </li>
         <li>Media Types:
-          <% @photo.media_types.each do |mt| %>
-            <%= mt.name %>
-          <% end %>
+          <%= @photo.media_types.map(&:name).join(",") %>
         </li>
         <li>Media Vehicle:
-          <% @photo.media_vehicles.each do |mv| %>
-            <%= mv.name %>,
-          <% end %>
+          <%= @photo.media_vehicles.map(&:name).join(",") %>
         </li>
         <li>
           Promotion Calendar:
@@ -198,12 +190,11 @@
         </li>
         <li>
           Promotion Type:
-          <% @photo.promotion_types.each do |pt| %>
-          <%= pt.name %>
-          <% end %>
+          <%= @photo.promotion_types.map(&:name).join(",") %>
         </li>
         <li>
-          Store Format:<%= @photo.audit.store.store_format.name %>
+          Themes:
+          <%= @photo.themes.map(&:name).join(",") %>
         </li>
         <li>Descriptions:
           <%= @photo.description %>
