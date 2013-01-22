@@ -10,14 +10,15 @@
 	}	
 
 	$('.photo_views_view .close').live('click', function(){
+		$('.photo_views_view').fadeOut('slow', function(){
+				$(this).remove();
+		});
 
 		if ($('.overlay').children().hasClass('store_views_view')){
-			$('.photo_views_view').remove();
 			$('.store_views_view').show();
 		}	
 		else	
 		{	
-			$('.photo_views_view').remove();
 			$('.site-content').show();
 		}
 	})

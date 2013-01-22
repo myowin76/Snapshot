@@ -32,7 +32,12 @@
       <%= link_to "Export Zip", download_url, :id => 'export-zip'%> |
     </li>
     <li>
-      <%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf'%>
+      <%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf'%> |
+    </li>
+    <li class="reviews">
+      <%= link_to "Filter selected", "#", :id => 'reviews'%>
+      <a href="#" id="show-all" style="display:none;">Show All</a>
+      <%#= link_to "Show All", "#", :id => 'show-all', %>
     </li>
   </ul>
 </div>

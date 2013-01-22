@@ -31,7 +31,32 @@ $('.go-top').on('click',function(e){
   }, 500);
 });
 
-// duplicate in the application.js
+
+
+
+
+// duplicate in application.js // refactor
+$('#reviews').on('click', function(){
+    if ($(".photo-view .photos-viewer input[name='photo_ids[]']:checked").length < 1){
+      alert("Please select images");
+      return false;
+    }
+    $(".photo-view .photos-viewer input[name='photo_ids[]']:not(:checked)").each(function(){
+      $(this).closest('li').hide();
+    });
+    $(this).hide();
+    $('#show-all').show();
+    return false;
+  });
+
+  $('#show-all').on('click', function(){
+    $(".photo-view .photos-viewer input[name='photo_ids[]']").closest('li').show();
+    $(this).hide();
+    $('#reviews').show();
+    return false;
+  });
+
+// duplicate in the application.js // refactor
 
 $('#export-pdf').on('click',function(){
   checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];

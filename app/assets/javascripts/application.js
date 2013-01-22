@@ -158,6 +158,27 @@ $(document).ready(function() {
       })
     });
 
+  $('#reviews').on('click', function(){
+    if ($(".photo-view .photos-viewer input[name='photo_ids[]']:checked").length < 1){
+      alert("Please select images");
+      return false;
+    }
+    $(".photo-view .photos-viewer input[name='photo_ids[]']:not(:checked)").each(function(){
+      $(this).closest('li').hide();
+    });
+    $(this).hide();
+    $('#show-all').show();
+    return false;
+  });
+
+  $('#show-all').on('click', function(){
+    $(".photo-view .photos-viewer input[name='photo_ids[]']").closest('li').show();
+    $(this).hide();
+    $('#reviews').show();
+    return false;
+  });
+
+
   //## sort by
   $('#sort_by').change(function(){
     $('#search_form').submit();
@@ -184,6 +205,7 @@ $(document).ready(function() {
       dataType: 'script',
       data: info
     });
+    return false;
   });
 
   $('#audit_store_id').live('change',function(){
