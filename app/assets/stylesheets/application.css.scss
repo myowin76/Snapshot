@@ -26,6 +26,16 @@ body {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 100%;
   padding: 10px 0px;
+  a{
+    color: #D92680;
+    &:hover{
+      text-decoration: none;
+      color: #333;
+    }
+  }
+  label, input, button, select, textarea {
+    font-size: 13px;
+  }
   h1, h2, h3, h4, h5, h6{
     font-weight: normal;
   }
@@ -621,3 +631,6 @@ input{
 }
 
 
+.cat-link{
+  font-size: 13px;  
+}

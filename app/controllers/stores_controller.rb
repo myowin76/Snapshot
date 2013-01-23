@@ -125,6 +125,29 @@ class StoresController < ApplicationController
     end
   end
 
+  def refresh_category_view_photos
+    
+    @category = Category.find(params[:category_id])
+    @store = Store.find(params[:store_id])
+    
+    if params[:audit_id]
+      @audit = Audit.find(params[:audit_id])
+    else
+      @audits = @store.audits.order('created_at DESC')
+      @audit = @audits.first
+    end
+
+    @photo_audit_cat = @category.photos.where('photos.audit_id IN (?)', @audit.id)
+    # Category.joins(:photos).includes(:categorizations)
+    #     .where('photos.audit_id IN (?)', @audit.id)
+        
+    respond_to do |format|
+      format.js {
+        render :partial => 'stores/refresh_category_view_photos', :locals => { :audit => @audit }
+      }
+    end
+  end
+  
   def refresh_store_view_categories
     # When user select between audits in select boxes
     # the categories of the selected audits need to refresh
@@ -217,13 +240,28 @@ class StoresController < ApplicationController
     
     unless params[:audit][:store_id].nil?
       @store = Store.find_by_id(params[:audit][:store_id])
-    
+      
       respond_to do |format|
         format.js {
           render :partial => 'stores/show_details', :locals => { :store => @store }
         }
       end
     end  
+  end
+
+  def store_category_view
+
+    @category = Category.find(params[:id])
+    @store = Store.find(params[:store_id])
+    @audits = @store.audits.order('created_at DESC')
+    @audit = @audits.first
+    @photo_audit_cat = @category.photos.where('photos.audit_id IN (?)', @audit.id)
+debugger
+    respond_to do |format|
+      format.js {
+        render :partial => 'stores/store_category_view'
+      }
+    end
   end
 
 end

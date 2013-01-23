@@ -1,0 +1,11 @@
+
+	<% unless @category.nil? %>
+		<ul class="gallery_basic" id="basicGallery">
+			<% @photo_audit_cat.each do |photo| %>
+				<% if photo.audit.store_id == @store.id %>
+					<li><%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %></li>
+				<% end %>
+			<% end %>
+		</ul>
+	<% end %> 	
+	

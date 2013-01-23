@@ -1,0 +1,16 @@
+<section class="store_category_view">
+	<div class="page-header">
+    <button type="button" class="close">×</button>
+    <h1><%= @store.name %>: <%= @category.name %></h1>
+  </div>
+	<% unless @audits.nil? %>
+    <% unless @audit.nil?  %>
+      <p>
+        <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'category-audit-select' %>
+      </p>
+      <section class="category_audit_photos">
+        <%= render 'stores/shared/category_view_photos', :locals => {:audits => @audits}%>
+      </section> 
+    <% end %>
+  <% end %>
+</section>

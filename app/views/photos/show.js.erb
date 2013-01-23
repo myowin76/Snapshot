@@ -1,10 +1,15 @@
 
 	$('.site-content').hide();
 	
-	if ($('.overlay').children().hasClass('store_views_view')){
+	if ($('.overlay').children().hasClass('store_category_view')){
+		$('.store_category_view').hide();
 		$('.overlay').append("<%= j render('show_view') %>");
-		$('.store_views_view').hide();
 	}	
+	else if ($('.overlay').children().hasClass('store_views_view')){
+	$('.store_views_view').hide();
+		$('.overlay').append("<%= j render('show_view') %>");
+		
+	}
 	else{
 		$('.overlay').html("<%= j render('show_view') %>");
 	}	
@@ -13,12 +18,13 @@
 		$('.photo_views_view').fadeOut(200, function(){
 				$(this).remove();
 		});
-
-		if ($('.overlay').children().hasClass('store_views_view')){
+		if($('.overlay').children().hasClass('store_category_view')){
+			$('.store_category_view').show();
+		}
+		else if ($('.overlay').children().hasClass('store_views_view')){
 			$('.store_views_view').show();
 		}	
-		else	
-		{	
+		else{	
 			$('.site-content').show();
 		}
 	})

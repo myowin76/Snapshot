@@ -1,19 +1,10 @@
-<!--
-<%# @photo_categories.map(&:categories).flatten.each do |cat| %>
-	<h3><%#= cat.name %></h3>
-	<ul class="gallery_basic" id="basicGallery">
-		<% #cat.photos.each do |photo| %>
-			<%# if photo.audit.store_id == @store.id %>
-				<li><%#= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %></li>
-			<% #end %>
-		<% #end %>
-	</ul>
-<% #end %> 
--->
 
 <% @photo_categories.each do |cat| %>
 		<% unless cat.photos.nil? %>
-		<h3><%= cat.name %></h3>
+		<h4><%= cat.name %> <%= link_to "Category View", category_view_path(@store.id, cat.id), :class => "cat-link", remote: true %></h4>
+		
+		<!-- <a href="store/category_view" class="cat-link">View Category</a> -->
+		<!-- <h3><%= cat.name %></h3> -->
 		<ul class="gallery_basic" id="basicGallery">
 			<% cat.photos.each do |photo| %>
 				<% if photo.audit.store_id == @store.id %>

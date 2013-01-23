@@ -117,10 +117,11 @@ $(document).ready(function() {
   //   }
   // });
 
-  $(".photo-view").ajaxStart(function(){
-    $(this).html('<div class="loading"><img src="../assets/snapshot_loading.gif" /></div>');
-  });
-
+  // $(".photo-view").ajaxStart(function(){
+  //   $(this).html('<div class="loading"><img src="../assets/snapshot_loading.gif" /></div>');
+  // }).ajaxStop(function() {
+  //   $(this).hide();
+  // });
 
 
   $('.alert').click(function(){

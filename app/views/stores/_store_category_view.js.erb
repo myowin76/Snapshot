@@ -1,0 +1,46 @@
+	
+	// alert("I am in store category view");
+	$('.site-content').hide();
+	$('.overlay .store_views_view').hide();
+
+	$('.overlay').append("<%= j render('stores/shared/store_category_view') %>");
+
+
+
+	$('.store_category_view .close').live('click', function(){
+		$('.store_category_view').fadeOut(200, function(){
+				$(this).remove();
+		});
+		
+		if ($('.overlay').children().hasClass('store_views_view')){
+			$('.store_views_view').show();
+		}	
+		else{	
+			$('.site-content').show();
+		}
+	})
+	
+	// audit_id = $('#store-audit-select').val();
+	// $('#category-audit-select').val(audit_id);
+
+
+	$('#category-audit-select').live('change', function(){
+		var info = {}
+		info['audit_id'] = $('#category-audit-select').serializeObject()['audit_id'];
+    info['store_id'] = <%= @store.id %>
+    info['category_id'] = <%= @category.id %>
+    $.ajax({
+      url: '/stores/refresh_category_view_photos',
+      type: "POST",
+      dataType: 'script',
+      data: info
+    })
+	});
+
+
+
+		$(".cat-link").on('click',function(){
+		
+		audit_id = $('#store-audit-select').serializeObject()['audit_id'];
+		$('#category-audit-select').val(audit_id)
+	});

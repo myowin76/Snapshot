@@ -32,11 +32,13 @@ Snapshot::Application.routes.draw do
   #   :as => :store_view, 
   #   :via => :post
   match '/stores/clear_filters' => 'stores#show', :as => :clear_filters
+  match '/store/:store_id/category_view/:id' => 'stores#store_category_view', :as => :category_view
   resources :stores do
     collection do
       post :show_store_with_categories
       post :refresh_store_view_categories
       post :get_store_details
+      post :refresh_category_view_photos
     end
   end
 
