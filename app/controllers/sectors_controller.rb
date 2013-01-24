@@ -6,10 +6,19 @@ class SectorsController < ApplicationController
       @sectors = Sector.all
 
       # @sectors = Sector.search(params[:search])
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @sectors }
+      end
   
   end
   def show
     @sector = Sector.find(params[:id])
+    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @sector }
+    end
   end
 
   def new
@@ -32,9 +41,11 @@ class SectorsController < ApplicationController
   def update
     @sector = Sector.find(params[:id])
     if @sector.update_attributes(params[:sector])
-      redirect_to @sector, :notice  => "Successfully updated sector."
+      format.html { redirect_to @sector, :notice  => "Successfully updated sector." }
+      format.json { head :no_content }
     else
-      render :action => 'edit'
+      format.html { render :action => 'edit' }
+      format.json { render json: @sector.errors, status: :unprocessable_entity }
     end
   end
 

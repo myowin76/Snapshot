@@ -7,6 +7,7 @@ class RetailersController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
+      format.xml { render xml: @retailers }
       format.json { render json: @retailers }
     end
   end

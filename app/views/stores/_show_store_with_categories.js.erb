@@ -52,3 +52,18 @@
 	});
 
 
+	$(".cat-link").on('click',function(){
+		//TO DO		
+		// audit_id = $('#store-audit-select').serializeObject()['audit_id'];
+		// $('#category-audit-select').val(audit_id)
+		var info = {}
+		info['audit_id'] = $('#store-audit-select').serializeObject()['audit_id'];
+    info['store_id'] = <%= store.id %>
+    info['categories'] = $('#hidden-cats').val();
+    $.ajax({
+      url: '/stores/refresh_category_store_photos',
+      type: "POST",
+      dataType: 'script',
+      data: info
+    })
+	});
