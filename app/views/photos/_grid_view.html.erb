@@ -51,23 +51,24 @@
   <ul class="photos-viewer">
     <% @photos.each do |photo| %>
       <li>
-        <%= check_box_tag "photo_ids[]", photo.id %>
         <div class="thumb">
           <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
         </div>
-        
-        <div class="retailer">
-          <%= photo.audit.store.retailer.name %>
-        </div>  
-        <div class="brand">
-          <%= photo.brands.map(&:name).join(",") %>
-        </div>  
-        <div class="date">
-          <%= photo.created_at.strftime('%d/%m/%Y') %>
-        </div>
-        <div class="address">
-          <%= photo.audit.store.address2 %>
-        </div>
+        <section>
+          <%= check_box_tag "photo_ids[]", photo.id %>
+          <div class="retailer">
+            <%= photo.audit.store.retailer.name %>
+          </div>  
+          <div class="brand">
+            <%= photo.brands.map(&:name).join(",") %>
+          </div>  
+          <div class="date">
+            <%= photo.created_at.strftime('%d/%m/%Y') %>
+          </div>
+          <div class="address">
+            <%= photo.audit.store.address2 %>
+          </div>
+        </section>
         <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
         <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
 

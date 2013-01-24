@@ -462,11 +462,16 @@ body .ui-widget {
     li{
       float: left;
       width:181px;
-      height: 230px;
+      height: 238px;
       .thumb{
         margin: 0 auto;
         width: 165px;
         height: 126px;
+      }
+      section{
+        margin: 0 9px;
+        background-color: #eee;
+        padding: 3px 10px;
       }
     }
   }  
@@ -491,21 +496,23 @@ body .ui-widget {
         border: 1px solid #ccc;
         box-shadow: 0 0 3px #ccc;
       }
-      .retailer{
-        width: 130px;
-        float: left;
-      }
-      .brand{
-        width: 130px;
-        float: left;
-      }
-      .date{
-        width: 130px;
-        float: left;
-      }  
-      .address{
-        float: left;
-        width: 130px;
+      section{
+        .retailer{
+          width: 130px;
+          float: left;
+        }
+        .brand{
+          width: 130px;
+          float: left;
+        }
+        .date{
+          width: 130px;
+          float: left;
+        }  
+        .address{
+          float: left;
+          width: 130px;
+        }  
       }
     }
 
@@ -543,8 +550,17 @@ body .ui-widget {
     float: left;
     width: 404px;
     section{
+      margin-bottom: 15px;
+      padding: 12px 12px 20px 12px;
+      background-color: #eee;
       h3{
+        &:before{
+          content: "";
+          border-left: 3px solid #D92680;
+          margin-right: 10px;
+        }
         font-size: 20px;
+        margin-left: 5px;
         text-transform: uppercase;
       }
       ul{
