@@ -256,7 +256,7 @@ class StoresController < ApplicationController
     @audits = @store.audits.order('created_at DESC')
     @audit = @audits.first
     @photo_audit_cat = @category.photos.where('photos.audit_id IN (?)', @audit.id)
-debugger
+# debugger
     respond_to do |format|
       format.js {
         render :partial => 'stores/store_category_view'

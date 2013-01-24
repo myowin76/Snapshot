@@ -117,11 +117,14 @@ $(document).ready(function() {
   //   }
   // });
 
-  // $(".photo-view").ajaxStart(function(){
-  //   $(this).html('<div class="loading"><img src="../assets/snapshot_loading.gif" /></div>');
-  // }).ajaxStop(function() {
-  //   $(this).hide();
-  // });
+  $(".photo-view").ajaxStart(function(){
+    $(this).hide();
+    $('#list-view .loading').show();
+    
+  }).ajaxStop(function() {
+    $('#list-view .loading').hide();
+    $(this).show();
+  });
 
 
   $('.alert').click(function(){

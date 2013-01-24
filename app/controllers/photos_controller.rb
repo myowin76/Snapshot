@@ -136,6 +136,10 @@ class PhotosController < ApplicationController
               @per_page = 20
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
+            # respond_to do |format|
+            #   format.html
+            #   format.json { render json: @photos }
+            # end
            # debugger 
       end
 

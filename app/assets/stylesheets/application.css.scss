@@ -440,11 +440,10 @@ body .ui-widget {
   font-size: 1em;
 }
 //### LIST VIEW / GRID VIEW
-.photo-view{
-
-  .loading{
-    text-align: center;
-  }
+.loading{
+  text-align: center;
+}
+.photo-view{  
   .length-control{
     float: left;
     margin-right: 12px;

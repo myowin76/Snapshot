@@ -35,8 +35,7 @@ class SectorsController < ApplicationController
     respond_to do |format|
       if @sector.save
         format.html { redirect_to @sector, :notice => "Successfully created sector." }
-        format.json { render json: @sector, status: :created, location: @sector }
-
+        format.json { render json: @sector, status: :created, location: @sector }≈
       else
         format.html { render :action => 'new' }
       end

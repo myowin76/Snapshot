@@ -40,6 +40,9 @@
         <%= render 'map_view' %>    
       </div>
       <div class="tab-pane" id="list-view">
+        <div class="loading" style="display:none;">
+          <img src="../assets/snapshot_loading.gif" />
+        </div>
         <% if params_search %>
           <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->  
           <div class="photo-view grid">  
