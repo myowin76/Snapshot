@@ -27,7 +27,7 @@ var snapshot = {
 
   LayoutSwitcher: function(){
 
-    $('.layout-switcher .layout-list').live('click', function(){
+    $('.layout-switcher .layout-list').on('click', function(){
       parent = $(this).closest('.photo-view');
       if (!parent.hasClass('list')){
         if (parent.hasClass('grid')){
@@ -43,7 +43,7 @@ var snapshot = {
       return false;
     });
 
-    $('.layout-switcher .layout-grid').live('click', function(){
+    $('.layout-switcher .layout-grid').on('click', function(){
       parent = $(this).closest('.photo-view');
       if (!parent.hasClass('grid')){
         if (parent.hasClass('list')){
@@ -200,10 +200,9 @@ $(document).ready(function() {
   );
   
   // TO DO
-  $('#store-view').live('click',function(){
+  $('#store-view').on('click',function(){
     var info = {}
     info['categories'] = $('#category-group input[type="checkbox"]:checked').serializeObject()['search[categories][]']; 
-    // categories_checkboxes = $('#category-group input[type="checkbox"]:checked').serializeObject(); 
     info['store_id'] = $('#hidden').val();
     $.ajax({
       url: '/stores/show_store_with_categories',
