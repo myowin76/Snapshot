@@ -5,6 +5,9 @@
 		</header>
 
 		<section>
+			<!-- <fieldset>
+		    <%#= f.input :username, :required => true %>
+		  </fieldset> -->
 		  <fieldset>
 		    <%= f.input :email, :required => true %>
 		  </fieldset>
@@ -24,3 +27,6 @@
 
 		</section>
 	<% end %>
+	<div class="links">
+		<%= render :partial => "devise/shared/links" %>
+	</div>
