@@ -9,7 +9,6 @@ jQuery ->
   $('.chosen-theme').chosen()
 
   $('#tbl-audits').dataTable
-    "sDom": '<"top"fli>rt<"bottom"p><"clear">'
     "sPaginationType": 'full_numbers'
     "aoColumnDefs": [
       { 'bSortable': false, 'aTargets': [ 0 ] },

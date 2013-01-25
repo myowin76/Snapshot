@@ -231,6 +231,16 @@ class PhotosController < ApplicationController
     end
   end
 
+  def zip_all_from_store
+    store = Store.find(params[:id])
+    zip_file = Photo.zip_all_from_store store
+    
+    if zip_file
+      send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "#{store.name}"
+      zip_file.close
+    end
+  end
+
   def generate_pdf
     @photo_list = params[:photo_ids]
     # @photo_list = Photo.find_all_by_id(params[:photo_ids].split(','))

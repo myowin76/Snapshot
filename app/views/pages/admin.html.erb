@@ -24,16 +24,16 @@
           <td>
           	<%= check_box_tag "photo_ids[]", photo.id %>
           </td>
-          <td>
+          <td width='150'>
           	<%= link_to image_tag(photo.photo.url(:small)), photo  %>
           </td>
           <%#= link_to photo.audit.id unless photo.audit_id.nil? %>
           <td>
-          	<%= link_to photo.audit.store.retailer.name unless photo.audit.store.retailer_id.nil?  %><br />
-          	<%= link_to photo.audit.store.name unless photo.audit_id.nil?  %>
+          	<%= photo.audit.store.retailer.name unless photo.audit.store.retailer_id.nil?  %><br />
+          	<%= photo.audit.store.name unless photo.audit_id.nil?  %>
           </td>
           <td><%= photo.created_at %></td>
-          <td><%= link_to photo.audit.user.email unless photo.audit_id.nil? %></td>
+          <td><%= photo.audit.user.email unless photo.audit_id.nil? %></td>
           <td><%= link_to "Details", photo_path(photo) %></td>
           <td><%= link_to "Edit", edit_photo_path(photo) %></td>
       	</tr>

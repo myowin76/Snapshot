@@ -94,6 +94,12 @@ var photos = {
       url = '/photos/generate_zip?photo_ids=' + checkbox_array;
       $(this).attr('href', url);
     })
+  },
+  exportStorePhotos: function(){
+    // $('#map-store-download').live('click',function(){
+    //   alert('downloading');
+    //   return false;
+    // });
   }
 };
 
@@ -105,6 +111,7 @@ $(document).ready(function() {
   snapshot.Pagination();
   photos.generatePDF();
   photos.exportZIP();
+  photos.exportStorePhotos();
   
   // $('#new_retailer').validate({
   //   rules: {

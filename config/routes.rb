@@ -12,7 +12,7 @@ Snapshot::Application.routes.draw do
   devise_for :users
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
-  
+  match '/photos/download/:id' => 'photos#zip_all_from_store', :as => :all_store_photos
   
   resources :photos do
     collection do

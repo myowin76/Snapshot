@@ -121,7 +121,27 @@ class Photo < ActiveRecord::Base
       end
     end
 
+    def self.zip_all_from_store store
+      
+      assets = store.photos
 
+      zip_file = Tempfile.new("#{Rails.root}/public/" << store.name.to_s << ".zip")
+      Zip::ZipOutputStream.open(zip_file) do |zos|
+        assets.each do |asset|
+          
+          download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
+          # csv_file = open(csv)
+          zos.put_next_entry(asset.photo_file_name)
+          zos.print IO.read(download_url)
+          
+        end
+        # debugger
+        # zos.put_next_entry("data.csv")
+        # zos.print IO.read(csv_file)
+      end
+      zip_file
+      
+    end
 
     def self.zip_files photo_ids
       # NEED TO GENERATE CSV FILE WITH RELATED IMAGES INFORMATION 
