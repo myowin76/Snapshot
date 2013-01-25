@@ -24,11 +24,11 @@
         <%= @store.country.name unless @store.country_id.nil? %>
       </section>
       <p>
-        <b>Store format:</b>
+        <strong>Store format: </strong>
         <%= @store.store_format.name %><br>
-        <b>Retailer:</b>
+        <strong>Retailer: </strong>
         <%= @store.retailer.name %><br>
-        <b>Sector</b>
+        <strong>Sector: </strong>
         <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %><br />
       </p>
       

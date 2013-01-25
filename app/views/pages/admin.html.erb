@@ -13,7 +13,6 @@
         <th>Images</th>
         <th>Retailer/Store</th>
         <th>Date</th>
-        <th>Reference</th>
         <th>User</th>
         <th></th>
         
@@ -35,12 +34,8 @@
         	<%= link_to photo.audit.store.name unless photo.audit_id.nil?  %>
         </td>
         <td><%= photo.created_at %></td>
-        <td>
-          <% #photo.categories.each do |cat| %>  
-            <%#= cat.name %>
-          <% #end %>  
-        </td>
         <td><%= link_to photo.audit.user.email unless photo.audit_id.nil? %></td>
+        <td><%= link_to "Details", photo_path(photo) %></td>
         <td><%= link_to "Edit", edit_photo_path(photo) %></td>
     	</tr>
     <% end %>

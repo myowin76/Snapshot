@@ -158,6 +158,11 @@
         <li>Brands: 
           <%= @photo.brands.map(&:name).join(",") %>
         </li>
+        <li>Brand Owner: 
+          <% @photo.brands.each do |b| %>
+              <%= b.brand_owner.name if b.brand_owner_id.present? %>
+          <% end %>
+        </li>
         <li>
           Additional Brands:
           <%= @photo.additional_brands %>

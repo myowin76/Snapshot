@@ -1,5 +1,5 @@
   <div class="page-header">
-    <h1><%= @store.name %>asdf</h1>
+    <h1><%= @store.name %></h1>
     <%= link_to 'Edit', edit_store_path(@store) %>
   </div>
 
@@ -10,14 +10,14 @@
   <p id="notice"><%= notice %></p>
 
   <p>
-    <b>Address:</b><br />
+    <b>Address: </b><br />
     <%= @store.address %><br />
     <%= @store.address2 %><br />
     <%= @store.postcode %><br />
     <%= @store.country.name unless @store.country_id.nil? %>
   </p>
   <p>
-    <b>Sector</b>
+    <b>Sector: </b>
     <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
   </p>
   <p>

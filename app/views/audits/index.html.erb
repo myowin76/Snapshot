@@ -13,6 +13,7 @@
       <th>Channel</th>
       <th>Environment type</th>
       <th>uploaded by</th>
+      <th>Date</th>
       <th></th>
       <th></th>
       <th></th>
@@ -26,6 +27,7 @@
         <td><%= audit.channel.name %></td>
         <td><%= audit.environment_type.name %></td>
         <td><%= audit.user.email %></td>
+        <td><%= audit.created_at %></td>
         <td><%= link_to 'Details', audit_path(audit) %></td>      
         <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
         <td><%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %></td>

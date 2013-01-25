@@ -200,7 +200,7 @@ $(document).ready(function() {
   );
   
   // TO DO
-  $('#store-view').on('click',function(){
+  $('#store-view').live('click',function(){
     var info = {}
     info['categories'] = $('#category-group input[type="checkbox"]:checked').serializeObject()['search[categories][]']; 
     info['store_id'] = $('#hidden').val();
