@@ -20,13 +20,16 @@
           <li><%= @photo.audit.store.address %>, <%= @photo.audit.store.address2 %>, 
               <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %></li>
           <li>
-            Store Format:<%= @photo.audit.store.store_format.name %>
+            <strong>Store Format:</strong>
+            <%= @photo.audit.store.store_format.name %>
           </li>
-          <li>Retailer:
+          <li>
+            <strong>Retailer:</strong>
             <%= @photo.audit.store.retailer.name %>
           </li>
           <li>
-            Sector: <%= @photo.audit.store.retailer.sector.name %>
+            <strong>Retail Sector: </strong>
+            <%= @photo.audit.store.retailer.sector.name %>
           </li>
         </ul>
       </section>
@@ -35,50 +38,57 @@
         <h3>Photo Data</h3>
         <ul>
           <li>
-            Headline: <%= @photo.headline %>
+            <strong>Headline: </strong>
+            <%= @photo.headline %>
           </li>
-          <li>Brands: 
+          <li>
+            <strong>Brands: </strong>
             <%= @photo.brands.map(&:name).join(",") %>
           </li>
-          <li>Brand Owner: 
+          <li>
+            <strong>Brand Owners: </strong>
             <% @photo.brands.each do |b| %>
               <%= b.brand_owner.name if b.brand_owner_id.present? %>
             <% end %>
           </li>
           <li>
-            Additional Brands:
+            <strong>Additional Brands:</strong>
             <%= @photo.additional_brands %>
           </li>
           <li>
-            Date: 
+            <strong>Date: </strong>
             <%= @photo.created_at %>
           </li> 
           <li>
-            Category:
+            <strong>Product Category:</strong>
             <%= @photo.categories.map(&:name).join(",") %>
           </li>
-          <li>Media Locations:
+          <li>
+            <strong>Media Locations:</strong>
             <%= @photo.media_locations.map(&:name).join(",") %>
           </li>
-          <li>Media Types:
+          <li>
+            <strong>Media Types:</strong>
             <%= @photo.media_types.map(&:name).join(",") %>
           </li>
-          <li>Media Vehicle:
+          <li>
+            <strong>Media Vehicle:</strong>
             <%= @photo.media_vehicles.map(&:name).join(",") %>
           </li>
           <li>
-            Promotion Calendar:
+            <strong>Promotion Calendar:</strong>
             <%= @photo.promotion_calendar.name if @photo.promotion_calendar %>
           </li>
           <li>
-            Promotion Type:
+            <strong>Promotion Type:</strong>
             <%= @photo.promotion_types.map(&:name).join(",") %>
           </li>
           <li>
-            Themes:
+            <strong>Themes:</strong>
             <%= @photo.themes.map(&:name).join(",") %>
           </li>
-          <li>Descriptions:
+          <li>
+            <strong>Descriptions:</strong>
             <%= @photo.description %>
           </li>
       </ul>

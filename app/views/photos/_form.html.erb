@@ -43,12 +43,12 @@
             <%= @photo.audit.channel.name unless @photo.audit.channel_id.nil? %>
           </label>
           <label> 
-            <strong>User:</strong>
-            <%= @photo.audit.user.email %>
+            <strong>Uploaded by: </strong>
+            <%= @photo.audit.user.username unless @photo.audit.user.username.nil? %>
           </label>
           <label>
-            <strong>Date: </strong>
-            <%= @photo.created_at %>
+            <strong>Date of Audit: </strong>
+            <%= @photo.audit.created_at %>
           </label>
           <br>
           <%= f.input :headline %>

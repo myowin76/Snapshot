@@ -1,23 +1,27 @@
-<h1>Listing environment_types</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @environment_types.each do |environment_type| %>
-  <tr>
-    <td><%= environment_type.name %></td>
-    <td><%= environment_type.description %></td>
-    <td><%= link_to 'Show', environment_type %></td>
-    <td><%= link_to 'Edit', edit_environment_type_path(environment_type) %></td>
-    <td><%= link_to 'Destroy', environment_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<div class="page-header">
+  <h1>Listing environment_types</h1>
+</div>
+<table class="table table-striped" id="tbl-env-types">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @environment_types.each do |environment_type| %>
+    <tr>
+      <td><%= environment_type.name %></td>
+      <td><%= environment_type.description %></td>
+      <td><%= link_to 'Show', environment_type %></td>
+      <td><%= link_to 'Edit', edit_environment_type_path(environment_type) %></td>
+      <td><%= link_to 'Destroy', environment_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
 </table>
 
 <br />

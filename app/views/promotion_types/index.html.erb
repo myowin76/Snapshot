@@ -1,23 +1,26 @@
-<h1>Listing promotion_types</h1>
+<div class="page-header">
+  <h1>Promotion Types</h1>
+</div>
+<table class="table table-striped" id="tbl-store-formats">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @promotion_types.each do |promotion_type| %>
-  <tr>
-    <td><%= promotion_type.name %></td>
-    <td><%= promotion_type.description %></td>
-    <td><%= link_to 'Edit', edit_promotion_type_path(promotion_type) %></td>
-    <td><%= link_to 'Destroy', promotion_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <tbody>
+    <% @promotion_types.each do |promotion_type| %>
+      <tr>
+        <td><%= promotion_type.name %></td>
+        <td><%= promotion_type.description %></td>
+        <td><%= link_to 'Edit', edit_promotion_type_path(promotion_type) %></td>
+        <td><%= link_to 'Destroy', promotion_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>  
 </table>
-
-<br />
 
 <%= link_to 'New Promotion type', new_promotion_type_path %>

@@ -11,6 +11,11 @@ jQuery ->
   $('#tbl-audits').dataTable
     "sDom": '<"top"fli>rt<"bottom"p><"clear">'
     "sPaginationType": 'full_numbers'
+    "aoColumnDefs": [
+      { 'bSortable': false, 'aTargets': [ 0 ] },
+      { 'bSortable': false, 'aTargets': [ -1 ] },
+      { 'bSortable': false, 'aTargets': [ -2 ] }
+    ]
 
   ###$('.category-tokens').tokenInput '/categories.json'
     tokenDelimiter: ","

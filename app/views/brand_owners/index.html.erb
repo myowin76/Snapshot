@@ -1,23 +1,29 @@
-<h1>Listing brand_owners</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class="page-header">
+  <h1>Listing brand_owners</h1>
+</div>   
 
-<% @brand_owners.each do |brand_owner| %>
-  <tr>
-    <td><%= brand_owner.name %></td>
-    <td><%= brand_owner.description %></td>
-    <td><%= link_to 'Show', brand_owner %></td>
-    <td><%= link_to 'Edit', edit_brand_owner_path(brand_owner) %></td>
-    <td><%= link_to 'Destroy', brand_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table class="table table-striped" id="tbl-brand-owners">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @brand_owners.each do |brand_owner| %>
+      <tr>
+        <td><%= brand_owner.name %></td>
+        <td><%= brand_owner.description %></td>
+        <td><%= link_to 'Show', brand_owner %></td>
+        <td><%= link_to 'Edit', edit_brand_owner_path(brand_owner) %></td>
+        <td><%= link_to 'Destroy', brand_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>  
 </table>
 
 <br />

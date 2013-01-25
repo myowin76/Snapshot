@@ -1,23 +1,28 @@
-<h1>Listing themes</h1>
+<div class="page-header">
+  <h1>Themes</h1>
+</div>
+<table class="table table-striped" id="tbl-store-formats">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @themes.each do |theme| %>
+      <tr>
+        <td><%= theme.name %></td>
+        <td><%= theme.description %></td>
+        <td><%= link_to 'Show', theme %></td>
+        <td><%= link_to 'Edit', edit_theme_path(theme) %></td>
+        <td><%= link_to 'Destroy', theme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @themes.each do |theme| %>
-  <tr>
-    <td><%= theme.name %></td>
-    <td><%= theme.description %></td>
-    <td><%= link_to 'Show', theme %></td>
-    <td><%= link_to 'Edit', edit_theme_path(theme) %></td>
-    <td><%= link_to 'Destroy', theme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
 </table>
 
 <br />

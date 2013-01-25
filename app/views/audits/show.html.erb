@@ -3,32 +3,32 @@
   <%= link_to 'Edit', edit_audit_path(@audit) %>
 </p>
 <p>
-  <b>Reference:</b>
+  <strong>Reference:</strong>
   <%= @audit.reference %>
 </p>
 
 <p>
-  <b>User:</b>
-  <%= @audit.user.email %>
+  <strong>Uploaded by:</strong>
+  <%= @audit.user.username unless @audit.user.username.nil?%>
 </p>
 <p>
-  <b>Date Created:</b>
+  <strong>Date of Audit:</strong>
   <%= @audit.created_at %>
 </p>
 <p>
-  <b>Retailer:</b>
+  <strong>Retailer:</strong>
   <%= @audit.store.retailer.name %>
 </p>
 <p>
-  <b>Store:</b>
+  <strong>Store:</strong>
   <%= @audit.store.name %>
 </p>
 <p>
-  <b>Environment type:</b>
+  <strong>Environment type:</strong>
   <%= @audit.environment_type.name %>
 </p>
 <p>
-  <b>Channel:</b>
+  <strong>Channel:</strong>
   <%= @audit.channel.name %>
 </p>
   <table class="table table-striped">
@@ -36,14 +36,14 @@
     <tr>    
       <th>Image</th>
       <th>Categories</th>
-      <th>Date</th>
+      <th>Audit Date</th>
     </tr>
     </thead>
     <% @audit.photos.each do |photo| %>
       <tr>
       	<td><%= link_to image_tag(photo.photo.url(:small)), photo %></td>
       	<td><%= photo.categories.map(&:name).join(",") %></td>
-      	<td><%= photo.created_at %></td>
+      	<td><%= @audit.created_at %></td>
         <td><%= link_to "Edit", edit_photo_path(photo) %></td>
       </tr>
     <% end %>    
