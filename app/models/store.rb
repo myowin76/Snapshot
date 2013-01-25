@@ -1,5 +1,5 @@
 class Store < ActiveRecord::Base
-  attr_accessible :address, :address2, :description, :latitude, :longitude, :name, 
+  attr_accessible :address, :address2, :address3, :town, :description, :latitude, :longitude, :name, 
   	:postcode, :retailer_id, :store_format_id, :country_id, :created_at, :updated_at, :location_id
 
   belongs_to :store_format
@@ -24,7 +24,7 @@ class Store < ActiveRecord::Base
   # scope :in_countries, lambda{ |c_ids| where('country_id IN (?)', c_ids) }
   
   def full_address
-    [address, address2, postcode].join(',')
+    [address, address2, address3, town, postcode].join(',')
   end
   
   # def self.to_csv(options = {})

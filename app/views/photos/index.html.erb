@@ -5,9 +5,16 @@
 <div class="content-wrap">
   <div class="content">
 
+    <% if params[:search].present?  %>
+      <% @list = 'active'  %>
+      <% @map = ''  %>
+    <% else %>
+      <% @map = 'active'  %>    
+    <% end %>  
+
     <ul class="nav nav-tabs">
-      <li><a href="#map-view" data-toggle="tab">Map</a></li>
-      <li class="active"><a href="#list-view" data-toggle="tab">List</a></li>
+      <li class="<%= @map %>"><a href="#map-view" data-toggle="tab">Map</a></li>
+      <li class="<%= @list %>"><a href="#list-view" data-toggle="tab">List</a></li>
     </ul>  
 
     <!-- 
@@ -33,12 +40,7 @@
       </div>
     </div> -->
 
-    <% if params[:search].present?  %>
-      <% @list = 'active'  %>
-      <% @map = ''  %>
-    <% else %>
-      <% @map = 'active'  %>    
-    <% end %>  
+    
 
     <div class="tab-content">
       <div class="tab-pane <%= @map %>" id="map-view">

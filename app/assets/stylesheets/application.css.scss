@@ -69,7 +69,7 @@ body {
 .single-group{
   background-color: #eee;
   border: 1px solid #E5E5E5;
-  padding: 12px 0 12px 20px;
+  padding: 8px 0 8px 20px;
   margin-bottom: 2px;
   label{
     display: inline;
@@ -469,7 +469,8 @@ body .ui-widget {
         height: 126px;
       }
       section{
-        margin: 0 9px;
+        margin: 0 8px;
+        width: 145px;
         background-color: #eee;
         padding: 3px 10px;
       }
