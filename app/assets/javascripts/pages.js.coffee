@@ -34,6 +34,13 @@ jQuery ->
 	  	{ 'bSortable': false, 'aTargets': [ -2 ] },
 	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
 	  ]
+	$('#tbl-brands').dataTable
+	  "sPaginationType": 'full_numbers'
+	  "aoColumnDefs": [	  	
+	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
+	  	{ 'bSortable': false, 'aTargets': [ -2 ] },
+	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
+	  ]  
 
   $('#tbl-countries').dataTable
 	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
@@ -45,7 +52,6 @@ jQuery ->
 	  ]
 	
 	$('#tbl-store-formats').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },

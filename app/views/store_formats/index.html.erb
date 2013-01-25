@@ -1,11 +1,10 @@
 <%- model_class = StoreFormat -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>Store Formats</h1>
 </div>
 <table class="table table-striped" id="tbl-store-formats">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -15,7 +14,6 @@
   <tbody>
     <% @store_formats.each do |store_format| %>
       <tr>
-        <td><%= link_to store_format.id, store_format_path(store_format) %></td>
         <td><%= store_format.name %></td>
         <td><%= store_format.description %></td>
         <td><%=l store_format.created_at %></td>
@@ -32,7 +30,7 @@
     <% end %>
   </tbody>
 </table>
-
+<br><br>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_store_format_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-primary pull-right'%>
