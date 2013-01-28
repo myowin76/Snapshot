@@ -52,7 +52,11 @@
           </label>
           <br>
           <%= f.input :headline %>
-          <%= f.association :brands, :input_html => { :class=> 'chosen-brand' } %>
+          <div class="brands-actions">
+            <%= render 'brands/shared/photos_brands_dropdown', :f => f %>
+          </div>
+          
+          
           <%= f.input :additional_brands %>
           <%= f.association :categories, :input_html => { :class=> 'chosen-category' } %>
           <%= f.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>

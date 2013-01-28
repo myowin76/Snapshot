@@ -1,8 +1,12 @@
 jQuery ->
+  ###$('.chosen-brand').tokenInput '/brands.json'###
+  $('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add New Brand</a>:"})
   $('.chosen-category').chosen()
-  $('.chosen-brand').chosen()
   $('.chosen-media-local').chosen()
   $('.chosen-media-vehic').chosen()
+  
+  $('.chosen-media-vehic').trigger('liszt:updated');
+
   $('.chosen-media-type').chosen()
   $('.chosen-promo-type').chosen()
   $('.chosen-promo-cal').chosen()

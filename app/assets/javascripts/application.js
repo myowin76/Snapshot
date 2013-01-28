@@ -19,9 +19,11 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
+
+//= require_tree .
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-//= require_tree .
+//= require jquery.tokeninput
 
 var snapshot = {
 

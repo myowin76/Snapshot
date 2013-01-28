@@ -12,11 +12,13 @@
  *= require_tree ./partials
  *= require jquery.ui.datepicker
  *= require chosen
+
  *= require dataTables/jquery.dataTables
  *= require_self
  *= require bootstrap_and_overrides
  *= require gmaps4rails
  *= require jquery.fileupload-ui 
+ *= require token-input
  * require_tree .
  
  */
@@ -35,6 +37,10 @@ body {
   }
   label, input, button, select, textarea {
     font-size: 13px;
+  }
+  input[type='text'], textarea{
+    border-radius: 0;
+    box-shadow: none;
   }
   h1, h2, h3, h4, h5, h6{
     font-weight: normal;
@@ -61,7 +67,10 @@ body {
 }
 .chzn-container-multi .chzn-choices{
   width: 362px;
+  border: 1px solid #ccc;
+  background-image: none;
 }
+
 
 
 }

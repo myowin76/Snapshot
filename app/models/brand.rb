@@ -4,4 +4,11 @@ class Brand < ActiveRecord::Base
   has_many :brandings
   has_many :photos, :through => :brandings
   belongs_to :brand_owner
+
+ #  def self.tokens(query)
+	#   brands = where("name like ?", "#{query}%")
+	#   # if brands.empty?
+	#   #   [{id: "<<<#{query}>>>", name: "New: \"#{query}\""}]
+	#   # end
+	# end
 end

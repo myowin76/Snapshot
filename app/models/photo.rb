@@ -18,14 +18,26 @@ class Photo < ActiveRecord::Base
   has_many :themings
   has_many :themes, :through => :themings
   belongs_to :promotion_calendar
-  #belongs_to :theme
   
   attr_accessible :description, :created_at, :audit_id, 
       :theme_ids, :brand_compliant, :display_for_project, :insight, :role_of_comm, :perspective,
       :additional_brands, :photo_file_name, :data_complete,
   		:promotion_calendar_id, :published, :headline, :photo, 
-      :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids
-      
+      :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids #, :brands_tokens
+
+    
+
+  # START - WORK IN PROGRESS    
+  # attr_reader :brands_tokens    
+  
+  # # def brands_tokens=(ids)
+  #   self.brands = Brand.find_all_by_id(ids)
+  # end
+
+  # END - WORK IN PROGRESS
+
+
+
     
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },

@@ -17,8 +17,10 @@
         <h3>Store</h3>
         <ul>
           <li><%= @photo.audit.store.name %></li>
-          <li><%= @photo.audit.store.address %>, <%= @photo.audit.store.address2 %>, 
-              <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %></li>
+          <li>
+              <%= @photo.audit.store.address %>, <%= @photo.audit.store.address2 %>, 
+              <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
+          </li>
           <li>
             <strong>Store Format:</strong>
             <%= @photo.audit.store.store_format.name %>
@@ -96,9 +98,7 @@
 
     </div>
       <%#= link_to 'back', :back, :id=>'back' %>
-      
       <%#= link_to 'Edit', edit_photo_path(@photo) %>
       <%#= link_to 'Back', photos_path %>
-
   </div>
 </section>

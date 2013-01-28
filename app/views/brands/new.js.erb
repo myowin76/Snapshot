@@ -1,0 +1,11 @@
+// alert("test");
+
+text = $('.no-results').children('span').text();
+$('.site-content').hide();
+$('.overlay').html('<%= j render("form_ajax") %>');
+$('#brand_name').val(text);
+
+$('.page-header .close, #new_brand btn.cancel').click(function () {
+	$('.overlay').empty();
+	$('.site-content').show();
+ });

@@ -1,0 +1,6 @@
+
+$('.overlay').empty();
+$('.site-content').show();
+$('.brands-actions').html('<%= j render("/media_vehicles/shared/photos_mv_dropdown") %>');
+$('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add New Brand</a>:"})
+// $('#photo_brand_ids').chosen('<%= @brand.id %>');

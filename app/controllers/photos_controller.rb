@@ -259,9 +259,10 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
-
+    
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
+
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
         format.json { head :no_content }
       else

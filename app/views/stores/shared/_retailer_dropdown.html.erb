@@ -1,3 +1,3 @@
-<label for='store_retailer_id'>Retailer</label>
-<%= select_tag 'store_retailer_id', options_from_collection_for_select( Retailer.all, "id", "name") %>
-<%#= f.association :retailer, :include_blank => false, :id => 'store_retailer_id' %>  
+<!-- <label for='store_retailer_id'>Retailer</label>
+<%= select_tag 'store_retailer_id', options_from_collection_for_select( Retailer.all, "id", "name") %> -->
+<%= f.association :retailer, :include_blank => false, :id => 'store_retailer_id' %>  

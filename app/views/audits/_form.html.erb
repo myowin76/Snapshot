@@ -15,22 +15,22 @@
       <% else  %>  
         <% retailer = Retailer.find_by_name(params[:retailer])  %>
       <% end %>
-  </fieldset>
+    </fieldset>
   
-  <fieldset>
-    <div class="audits_store_dropdown"></div>
-  </fieldset>
-
-  <% unless params[:store].present?  %>
     <fieldset>
-      <%= link_to "add new store", new_store_path, :class => "add-store" %>
-    </fieldset>  
-      
+      <div class="audits_store_dropdown"></div>
+    </fieldset>
+
+    <% unless params[:store].present?  %>
+      <fieldset>
+        <%= link_to "add new store", new_store_path, :class => "add-store" %>
+      </fieldset>  
+        
     <% else %>
       <% store = Store.find_by_name(params[:store]) %>
       <strong>Retailer:</strong>
       <%= store.retailer.name unless store.retailer_id.nil? %><br />
-      <strong>Retail Sector:</strong>
+      <strong>Retail Sector: </strong>
       <%= store.retailer.sector.name %><br />
       <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
       <strong>Store Name:</strong>
@@ -38,22 +38,16 @@
       <%= store.address %>, 
       <%= store.address2 %>, <%= store.postcode %>,
     <% end %>  
-    
+      
     <% unless @audit.new_record? %>
-  
       <%#= @audit.store.country.name unless @audit.store.country_id.nil? %>
-    
     <% else %>
       <%= store.country.name unless store.nil? or store.country_id.blank? %><br />
-      <strong>Format:</strong><%= store.store_format.name unless store.nil? or store.store_format_id.nil? %>
-    </p>
-      
-      
-      
+      <strong>Format:</strong> <%= store.store_format.name unless store.nil? or store.store_format_id.nil? %>
     <% end %>
-    <div id="store-info">
-      
-    </div>
+    
+    <div id="store-info"></div>
+    
     <fieldset>
       <%= f.association :channel, :include_blank => false %>
     </fieldset>
@@ -97,8 +91,8 @@
             <%= photo_fields.text_field :created_at, :class=>"created_at"%>
             <%#= photo_fields.association :brand, :include_blank => false, :input_html => { :class=> 'audit_brands' } %>
             <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
-            
-            <label>Brand Owners</label>
+            <span class="brand-owners"></span>
+            <label>Additional Brands</label>
             <%= photo_fields.text_field :additional_brands %><br />
             <%#= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
             <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
@@ -136,13 +130,13 @@
     </section>
   </div>
 
-    <div class="form-actions">
-      <% if params[:id] %>
-        <%= f.button :submit, "Save", :class=>"btn btn-primary" %>
-      <% else %>
-      <%= f.button :submit, "Next", :class=>"btn btn-primary" %>
-      <% end %>
-      <%#= link_to 'Cancel', audits_path %>
-    </div>
+  <div class="form-actions">
+    <% if params[:id] %>
+      <%= f.button :submit, "Save", :class=>"btn btn-primary" %>
+    <% else %>
+    <%= f.button :submit, "Next", :class=>"btn btn-primary" %>
+    <% end %>
+    <%#= link_to 'Cancel', audits_path %>
+  </div>
 
 <% end %>
