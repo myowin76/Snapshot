@@ -326,6 +326,7 @@ class PhotosController < ApplicationController
       }
     end
   end
+
   def refresh_brands
     if params[:search].nil?
       @brands = Brand.all
@@ -335,6 +336,16 @@ class PhotosController < ApplicationController
     respond_to do |format|
       format.js {
         render :partial => 'refresh_brands', :locals => { :brands => @brands }
+      }
+    end
+  end
+
+  def refresh_brands_dropdown
+    brand_owner = BrandOwner.find(params[:brand_owner_id])
+    @brands = brand_owner.brands
+    respond_to do |format|
+      format.js {
+        render :partial => 'refresh_brands_dropdown' #, :locals => { :retailers => @retailers }
       }
     end
   end

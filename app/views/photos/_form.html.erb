@@ -8,19 +8,32 @@
       <%= image_tag(@photo.photo.url(:large)) %><br />
       <br />
       <section class="photo-store-info">
+        <strong>Store: </strong>
+        <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %> - 
+        <%= @photo.audit.store.store_format.name %>
+        <br>
+        <% unless @photo.audit.store.address.blank? %>
+          <strong>Address: </strong><%= @photo.audit.store.address %>, 
+        <% end %>
+        <% unless @photo.audit.store.address2.blank? %>  
+          <%= @photo.audit.store.address2 %>,
+        <% end %>      
+        <% unless @photo.audit.store.address3.blank? %>
+          <%= @photo.audit.store.address3 %>,
+        <% end %>
+        <% unless @photo.audit.store.town.blank? %>
+          <%= @photo.audit.store.town %>,
+        <% end %>
+
+        <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
+        
         <strong>Retailer: </strong> 
         <%= @photo.audit.store.retailer.name %><br /> 
 
         <strong>Retail Sector: </strong>
         <%= @photo.audit.store.retailer.sector.name %><br />
         
-        <strong>Store: </strong>
-        <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %> - 
-        <%= @photo.audit.store.store_format.name %>
-        <br>
-        <% unless @photo.audit.store.address.blank? %>
-          <strong>Address: </strong><%= @photo.audit.store.address %>, <%= @photo.audit.store.address2 %>, <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
-        <% end %>
+        
 
       </section>
 
@@ -52,6 +65,9 @@
           </label>
           <br>
           <%= f.input :headline %>
+          <div class="brands-owners-actions">
+            <%= render 'photos/shared/photos_brand_owners_dropdown', :f => f, :collection => @photo %>
+          </div>
           <div class="brands-actions">
             <%= render 'brands/shared/photos_brands_dropdown', :f => f, :collection => @photo %>
           </div>

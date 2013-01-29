@@ -63,17 +63,20 @@
             </li>
           <% end %>
           <% if @photo.brands.present?  %>
+            
             <li>
               <strong>Brands: </strong>
               <%= @photo.brands.map(&:name).join(",") %>
             </li>
-          <% end %>
-          <li>
-            <strong>Brand Owners: </strong>
-            <% @photo.brands.each do |b| %>
-              <%= b.brand_owner.name if b.brand_owner_id.present? %>
-            <% end %>
-          </li>
+            <li>
+              <strong>Brand Owners: </strong>
+              <%# @photo.brands.each do |b| %>
+                <%#= b.brand_owner.name if b.brand_owner_id.present? %>
+              <%# end %>
+              <%= @photo.brands.first.brand_owner.name %>
+            </li>
+
+          <% end %>  
           <% if @photo.additional_brands.present? %>
             <li>
               <strong>Additional Brands:</strong>

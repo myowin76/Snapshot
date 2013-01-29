@@ -1,0 +1,3 @@
+$('.brands-actions').html('<%= j render("/brands/shared/photos_brands_dropdown") %>');
+
+$('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add New Brand</a>:"});

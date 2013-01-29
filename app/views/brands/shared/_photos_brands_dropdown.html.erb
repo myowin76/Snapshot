@@ -8,11 +8,19 @@
 <% else %>			
 	
 	<label for='photo_brand_ids'>Brands</label>
-	<%= select_tag 'photo_brand_ids', 
-			options_from_collection_for_select( Brand.order(:name), "id", "name"), 
-			:multiple => true,
-			:class => 'chosen-brand', 
-			:name => 'photo[brand_ids][]' %> 
 
+	<% unless @brands.nil? %>
+			<%= select_tag 'photo_brand_ids', 
+				options_from_collection_for_select( @brands.order(:name), "id", "name"), 
+				:multiple => true,
+				:class => 'chosen-brand', 
+				:name => 'photo[brand_ids][]' %> 
+	<% else %>			
+		<%= select_tag 'photo_brand_ids', 
+				options_from_collection_for_select( Brand.order(:name), "id", "name"), 
+				:multiple => true,
+				:class => 'chosen-brand', 
+				:name => 'photo[brand_ids][]' %> 
+	<% end %>			
  	
 <% end %>

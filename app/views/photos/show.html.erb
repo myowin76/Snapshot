@@ -42,53 +42,82 @@
       <section class="photo-info-details">
         <h3>Photo Data</h3>
         <ul>
-          <li>
-            Headline: <%= @photo.headline %>
-          </li>
-          <li>Brands: 
-            <%= @photo.brands.map(&:name).join(",") %>
-          </li>
-          <li>Brand Owner: 
-            <% @photo.brands.each do |b| %>
-              <%= b.brand_owner.name if b.brand_owner_id.present? %>
-            <% end %>
-          </li>
-          <li>
-            Additional Brands:
-            <%= @photo.additional_brands %>
-          </li>
-          <li>
-            Date: 
-            <%= @photo.created_at %>
-          </li> 
-          <li>
-            Product Category:
-            <%= @photo.categories.map(&:name).join(",") %>
-          </li>
-          <li>Media Locations:
-            <%= @photo.media_locations.map(&:name).join(",") %>
-          </li>
-          <li>Media Types:
-            <%= @photo.media_types.map(&:name).join(",") %>
-          </li>
-          <li>Media Vehicle:
-            <%= @photo.media_vehicles.map(&:name).join(",") %>
-          </li>
-          <li>
-            Promotion Calendar:
-            <%= @photo.promotion_calendar.name if @photo.promotion_calendar %>
-          </li>
-          <li>
-            Promotion Type:
-            <%= @photo.promotion_types.map(&:name).join(",") %>
-          </li>
-          <li>
-            Themes:
-            <%= @photo.themes.map(&:name).join(",") %>
-          </li>
-          <li>Descriptions:
-            <%= @photo.description %>
-          </li>
+          <% if @photo.headline.present? %>
+            <li>
+              <strong>Headline: </strong>
+              <%= @photo.headline %>
+            </li>
+          <% end %>
+          
+          <% if @photo.brands.present?  %>
+            
+            <li>
+              <strong>Brands: </strong>
+              <%= @photo.brands.map(&:name).join(",") %>
+            </li>
+            <li>
+              <strong>Brand Owners: </strong>
+              <%# @photo.brands.each do |b| %>
+                <%#= b.brand_owner.name if b.brand_owner_id.present? %>
+              <%# end %>
+              <%= @photo.brands.first.brand_owner.name %>
+            </li>
+
+          <% end %>  
+          <% if @photo.additional_brands.present? %>
+            <li>
+              <strong>Additional Brands:</strong>
+              <%= @photo.additional_brands %>
+            </li>
+          <% end %>
+          <% if @photo.categories.present? %>
+            <li>
+              <strong>Product Category:</strong>
+              <%= @photo.categories.map(&:name).join(",") %>
+            </li>
+          <% end %>
+          <% if @photo.media_locations.present? %>
+            <li>
+              <strong>Media Locations:</strong>
+              <%= @photo.media_locations.map(&:name).join(",") %>
+            </li>
+          <% end %>  
+          <% if @photo.media_types.present? %>
+            <li>
+              <strong>Media Types:</strong>
+              <%= @photo.media_types.map(&:name).join(",") %>
+            </li>
+          <% end %>
+          <% if @photo.media_vehicles.present? %>
+            <li>
+              <strong>Media Vehicle:</strong>
+              <%= @photo.media_vehicles.map(&:name).join(",") %>
+            </li>
+          <% end %>
+          <% if @photo.promotion_calendar.present? %>
+            <li>
+              <strong>Promotion Calendar:</strong>
+              <%= @photo.promotion_calendar.name if @photo.promotion_calendar %>
+            </li>
+          <% end %>  
+          <% if @photo.promotion_types.present? %>
+            <li>
+              <strong>Promotion Type:</strong>
+              <%= @photo.promotion_types.map(&:name).join(",") %>
+            </li>
+          <% end %>  
+          <% if @photo.themes.present? %>
+            <li>
+              <strong>Themes:</strong>
+              <%= @photo.themes.map(&:name).join(",") %>
+            </li>
+          <% end %>
+          <% if @photo.description.present? %>
+            <li>
+              <strong>Descriptions:</strong>
+              <%= @photo.description %>
+            </li>
+          <% end %>
       </ul>
     </div>
       <%#= link_to 'back', :back, :id=>'back' %>

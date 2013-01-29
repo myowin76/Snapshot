@@ -3,6 +3,7 @@ jQuery ->
   $('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add</a>:"})
   $('.chosen-category').chosen()
   $('.chosen-media-local').chosen()
+  $('#brand-owner-id').chosen()
 
   $('.chosen-media-vehic').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add</a>:"})
   ###$('.chosen-media-vehic').trigger('liszt:updated');###

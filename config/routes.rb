@@ -20,6 +20,7 @@ Snapshot::Application.routes.draw do
       put :publish_individual
       post :refresh_brands
       post :refresh_retailers
+      post :refresh_brands_dropdown
     end    
   end
 

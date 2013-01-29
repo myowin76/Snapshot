@@ -135,7 +135,6 @@ $(document).ready(function() {
     $(this).show();
   });
 
-
   $('.alert').click(function(){
       $(this).fadeOut(1000).remove();;
   });
@@ -145,6 +144,21 @@ $(document).ready(function() {
     $('html, body').animate({
       scrollTop: $(".tab-content").offset().top
     }, 500);
+  });
+
+  $('#brand_owner_id').on('change',function(e){
+    
+    var info = {}
+    info = $('#brand_owner_id').serializeObject();
+    $.ajax({
+      url: '/photos/refresh_brands_dropdown',
+      type: "POST",
+      dataType: 'script',
+      data: info,
+      success: function(data){
+
+      }
+    });
   });
 
   //********** TO DO
