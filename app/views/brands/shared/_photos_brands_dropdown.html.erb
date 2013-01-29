@@ -1,15 +1,18 @@
-<label for='photo_brand_ids'>Brands</label>
-
 <% unless @photo.nil? %>
-	<%= select_tag 'photo_brand_ids', 
+	<%#= select_tag 'photo_brand_ids', 
 			options_from_collection_for_select( Brand.order(:name), "id", "name", @photo.brands.map(&:id)), 
 			:multiple => true,
 			:class => 'chosen-brand', 
 			:name => 'photo[brand_ids][]' %> 
+			<%= f.association :brands, :input_html => { :class=> 'chosen-brand' } %>
 <% else %>			
+	
+	<label for='photo_brand_ids'>Brands</label>
 	<%= select_tag 'photo_brand_ids', 
 			options_from_collection_for_select( Brand.order(:name), "id", "name"), 
 			:multiple => true,
 			:class => 'chosen-brand', 
 			:name => 'photo[brand_ids][]' %> 
-<% end %>			
+
+ 	
+<% end %>

@@ -53,7 +53,7 @@
           <br>
           <%= f.input :headline %>
           <div class="brands-actions">
-            <%= render 'brands/shared/photos_brands_dropdown', :f => f %>
+            <%= render 'brands/shared/photos_brands_dropdown', :f => f, :collection => @photo %>
           </div>
           
           
@@ -62,7 +62,7 @@
           <%= f.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
           <div class="mv-actions">
             <%#= f.association :media_vehicles, :input_html => { :class=> 'chosen-media-vehic' } %>
-            <%= render 'media_vehicles/shared/photo_mv_dropdown', :f => f %>
+            <%= render 'media_vehicles/shared/photo_mv_dropdown', :f => f, :collection => @photo %>
           </div>
           <%= f.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
           <%= f.association :themes, :input_html => { :class=> 'chosen-theme' } %>
