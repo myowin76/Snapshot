@@ -29,6 +29,7 @@ class MediaVehiclesController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js
       format.json { render json: @media_vehicle }
     end
   end
@@ -46,6 +47,7 @@ class MediaVehiclesController < ApplicationController
     respond_to do |format|
       if @media_vehicle.save
         format.html { redirect_to @media_vehicle, notice: 'Media vehicle was successfully created.' }
+        format.js
         format.json { render json: @media_vehicle, status: :created, location: @media_vehicle }
       else
         format.html { render action: "new" }

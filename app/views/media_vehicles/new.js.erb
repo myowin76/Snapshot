@@ -1,0 +1,11 @@
+// alert("test");
+
+text = $('.no-results').children('span').text();
+$('.site-content').hide();
+$('.overlay').html('<%= j render("form_ajax") %>');
+$('#media_vehicle_name').val(text);
+
+$('.page-header .close, #media_vehicle_name btn.cancel').click(function () {
+	$('.overlay').empty();
+	$('.site-content').show();
+ });

@@ -1,5 +1,9 @@
 module PhotosHelper
-	
+
+
+  
+
+  # search	
 	def params_search
     params[:search] || params[:saved_search_id] 
   end	

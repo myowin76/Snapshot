@@ -1,0 +1,15 @@
+<div class="page-header">
+	<button type="button" class="close">×</button>
+	<h1>New Media Vehicle</h1>
+</div>
+
+<%= simple_form_for @media_vehicle, remote: true, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' , remote: true  %>
+    <%#= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                media_vehicles_path, :class => 'btn' %>
+		<%= link_to 'Cancel', '#', :class => 'btn cancel' %>                
+  </div>
+<% end %>

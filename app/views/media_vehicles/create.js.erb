@@ -1,0 +1,18 @@
+
+
+$('.overlay').empty();
+$('.site-content').show();
+$('.mv-actions').html('<%= j render("/media_vehicles/shared/photo_mv_dropdown") %>');
+
+var cur_val = $('.chosen-media-vehic').val();
+var new_val = <%= @media_vehicle.id %>
+
+if(cur_val){
+  $('.chosen-media-vehic').val([ cur_val + "," + new_val ]).trigger("liszt:updated");
+}
+else{
+  $('.chosen-media-vehic').val(new_val);
+}  
+
+$('.chosen-media-vehic').val('<%= @media_vehicle.id %>').trigger("liszt:updated");
+$('.chosen-media-vehic').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add</a>:"});

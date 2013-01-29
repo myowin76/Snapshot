@@ -191,6 +191,11 @@ class Photo < ActiveRecord::Base
       includes(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
          stores, environment, channel) }
 
+
+
+    def has_address?
+          
+    end  
     private
     def self.photo_category_names(photo)
       photo.categories.map(&:name).join(",") unless photo.categories.nil?

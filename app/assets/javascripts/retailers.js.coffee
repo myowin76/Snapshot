@@ -3,4 +3,10 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
-	$('#retailers').dataTable();
+	$('#retailers').dataTable
+		"aoColumnDefs": [
+    	{ 'bSortable': false, 'aTargets': [ -1 ] },
+    	{ 'bSortable': false, 'aTargets': [ -2 ] },
+    	{ 'bSortable': false, 'aTargets': [ -3 ] },
+    	{ 'bSortable': false, 'aTargets': [ -4 ] }
+    ]
