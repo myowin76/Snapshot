@@ -161,6 +161,19 @@ $(document).ready(function() {
     });
   });
 
+  $("#store_format_help")
+    .popover({
+            offset: 10
+        })
+    .click(function(e) { 
+        e.preventDefault(); 
+    });
+  // $('#store_format_help').click(function(){
+  //   alert("test");
+  // });
+    
+
+
   //********** TO DO
   // IF ANY CHECKBOX IN ACCORDION IS CHECKED, THEN
   // THE ACCORDION SHOULD BE OPEN
