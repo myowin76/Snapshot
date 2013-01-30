@@ -10,23 +10,34 @@
   <p id="notice"><%= notice %></p>
 
   <p>
-    <b>Address: </b><br />
+    <strong>Address: </strong><br />
     <%= @store.address %><br />
     <%= @store.address2 %><br />
     <%= @store.postcode %><br />
     <%= @store.country.name unless @store.country_id.nil? %>
   </p>
   <p>
-    <b>Sector: </b>
+    <strong>Sector: </strong>
     <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
   </p>
   <p>
-    <b>Store format:</b>
+    <strong>Store format:</strong>
     <%= @store.store_format.name %>
   </p>
-
   <p>
-    <b>Retailer:</b>
+    <% if @store.channel_id.present? %>
+      <strong>Environment Type:</strong>
+      <%= @store.environment_type.name %>
+    <% end %>
+  </p>
+  <p>
+    <% if @store.channel_id.present? %>
+      <strong>Channel:</strong>
+      <%= @store.channel.name %>
+    <% end %>
+  </p>      
+
+    <strong>Retailer:</strong>
     <%= @store.retailer.name %>
   </p>
   <!-- 

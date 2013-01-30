@@ -10,3 +10,8 @@ jQuery ->
   	{ 'bSortable': false, 'aTargets': [ -1 ] },
   	{ 'bSortable': false, 'aTargets': [ -2 ] }
   ]
+
+  $('#store_retailer_id').chosen()
+  $('#store_country_id').chosen()
+
+  

@@ -9,6 +9,8 @@
     <%= f.input :town %>
     <%= f.input :postcode %>
     <%= f.association :store_format, :include_blank => false %>
+    <%= f.association :environment_type, :include_blank => false %>
+    <%= f.association :channel, :include_blank => false %>
     
     <div class="retailer-actions">
       <%#= f.association :retailer, :include_blank => false %>  
