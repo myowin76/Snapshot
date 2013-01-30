@@ -73,7 +73,7 @@
               <%# @photo.brands.each do |b| %>
                 <%#= b.brand_owner.name if b.brand_owner_id.present? %>
               <%# end %>
-              <%= @photo.brands.first.brand_owner.name %>
+              <%= @photo.brands.first.brand_owner.name if @photo.brands.first.brand_owner_id.present? %>
             </li>
 
           <% end %>  
