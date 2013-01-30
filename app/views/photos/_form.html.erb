@@ -24,8 +24,9 @@
         <% unless @photo.audit.store.town.blank? %>
           <%= @photo.audit.store.town %>,
         <% end %>
-
-        <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
+        <% if @photo.audit.store.country_id.present?  %>
+          <%= @photo.audit.store.country.name %><br />
+        <% end %>  
         <strong>Environment Type: </strong> 
         <%= @photo.audit.store.environment_type.name unless @photo.audit.store.environment_type.nil? %><br /> 
         
@@ -51,21 +52,21 @@
             <%= link_to @photo.audit_id, audit_path(@photo.audit) %>
             <br />
           </label>
-          <label>
+          <!-- <label>
             <strong>Environment Type:</strong>
-            <%= @photo.audit.environment_type.name unless @photo.audit.environment_type_id.nil? %>
+            <%#= @photo.audit.environment_type.name unless @photo.audit.environment_type_id.nil? %>
           </label>
           <label>
             <strong>Channel:</strong>
-            <%= @photo.audit.channel.name unless @photo.audit.channel_id.nil? %>
+            <%#= @photo.audit.channel.name unless @photo.audit.channel_id.nil? %>
+          </label> -->
+          <label>
+            <strong>Date of Audit: </strong>
+            <%= @photo.audit.created_at %>
           </label>
           <label> 
             <strong>Uploaded by: </strong>
             <%= @photo.audit.user.username unless @photo.audit.user.username.nil? %>
-          </label>
-          <label>
-            <strong>Date of Audit: </strong>
-            <%= @photo.audit.created_at %>
           </label>
           <br>
           <%= f.input :headline %>
