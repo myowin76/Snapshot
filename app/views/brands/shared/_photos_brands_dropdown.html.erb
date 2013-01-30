@@ -4,7 +4,7 @@
 			:multiple => true,
 			:class => 'chosen-brand', 
 			:name => 'photo[brand_ids][]' %> 
-			<%= f.association :brands, :input_html => { :class=> 'chosen-brand' } %>
+			<%= f.association :brands, collection: Brand.all(order: 'name'), :input_html => { :class=> 'chosen-brand' } %>
 <% else %>			
 	
 	<label for='photo_brand_ids'>Brands</label>

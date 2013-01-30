@@ -1,4 +1,5 @@
-<label for='brand_owner_id'>Brand Owners</label>
+<label for='brand_owner_id'>Brand Owner</label>
+
 <%= select_tag 'brand_owner_id', 
 		options_from_collection_for_select( BrandOwner.order(:name), "id", "name" )
 		 %> 
