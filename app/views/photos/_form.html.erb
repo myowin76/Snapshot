@@ -26,12 +26,16 @@
         <% end %>
 
         <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
+        <strong>Environment Type: </strong> 
+        <%= @photo.audit.store.environment_type.name unless @photo.audit.store.environment_type.nil? %><br /> 
         
-        <strong>Retailer: </strong> 
-        <%= @photo.audit.store.retailer.name %><br /> 
+        <strong>Channel: </strong> 
+        <%= @photo.audit.store.channel.name unless @photo.audit.store.channel.nil? %><br /> 
 
         <strong>Retail Sector: </strong>
         <%= @photo.audit.store.retailer.sector.name %><br />
+        <strong>Retailer: </strong> 
+        <%= @photo.audit.store.retailer.name %><br /> 
         
         
 
