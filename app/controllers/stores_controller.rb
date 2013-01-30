@@ -6,10 +6,12 @@ class StoresController < ApplicationController
 
     if user_is_country_and_category_subscriber?
       
-      @countries = Country.find(current_user.subscription.sub_country.split(","))
+      # @countries = Country.find(current_user.subscription.sub_country.split(","))
+      @countries = Country.order(:name)
       # @stores_in_country = Store.find_all_by_country_id(@countries)
       @categories = Category.find(current_user.subscription.sub_cats.split(","))
-      @stores_in_country = Store.order(:name).where('country_id IN (?)', @countries)
+      # @stores_in_country = Store.order(:name).where('country_id IN (?)', @countries)
+      @stores = Store.order(:name)
       # @stores = Store.all
 
     elsif user_is_country_subscriber?

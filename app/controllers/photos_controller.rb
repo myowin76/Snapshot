@@ -21,7 +21,13 @@ class PhotosController < ApplicationController
       @stores = Store.order(:id).includes({:retailer => :sector})
       @sectors = Sector.order(:name)
       @store_formats = StoreFormat.order(:name)
-          
+      # newly added to store
+      @env_types = EnvironmentType.order(:name)
+      @channels = Channel.order(:name)
+
+      # @search_env_type = search_environment_types.present? ? search_environment_types : @env_types.map(&:id)
+      # @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
+      # debugger
       unless params_search.nil?
         # Country Search
         if search_country_id.present?
@@ -30,6 +36,10 @@ class PhotosController < ApplicationController
         else
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
         end
+
+        @stores = @stores.where('environment_type_id IN (?)', search_environment_types) if search_environment_types.present?
+
+        @stores = @stores.where('channel_id IN (?)', search_channels) if search_channels.present?
 
         @stores = @stores.where('store_format_id IN (?)', search_store_formats) if search_store_formats.present?
         # Location Search          
@@ -68,8 +78,8 @@ class PhotosController < ApplicationController
         @stores = @stores.includes(:retailer)
           .where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
       end
-      
-      @channels = Channel.order(:name)
+      # @env_types = EnvironmentType.order(:name)
+      # @channels = Channel.order(:name)
       @promo_calendars = PromotionCalendar.order(:name)
       @brand_owners = BrandOwner.order(:name)
       @brands = Brand.order(:name)
@@ -78,7 +88,7 @@ class PhotosController < ApplicationController
       @media_types = MediaType.order(:name)
       @media_vehicles = MediaVehicle.order(:name)
       @media_locations = MediaLocation.order(:name)
-      @env_types = EnvironmentType.order(:name)
+      
       
       # @audits_in_country = Audit.find_all_by_store_id(@stores.map(&:id))
       @saved_searches = current_user.save_searches.all
@@ -91,10 +101,12 @@ class PhotosController < ApplicationController
         # search action
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
-          @search_env_type = search_environment_types.present? ? search_environment_types : @env_types.map(&:id)
-          @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
+          # @search_env_type = search_environment_types.present? ? search_environment_types : @env_types.map(&:id)
+          # @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
 
-          @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+          # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
+          #     .includes(:brands)
+           @photos = Photo.by_audits_in_stores(@stores)
               .includes(:brands)
           
           @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars) if search_promotion_calendars.present?
