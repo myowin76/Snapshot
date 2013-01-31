@@ -6,7 +6,9 @@ class Retailer < ActiveRecord::Base
   has_many :audits, :through => :stores
   # has_many :photos, :through => :audits
 
-  validates :name, :sector_id, :presence => true
+  validates :name, :presence => true
+  validates :sector_id, :presence => true
+  validates :name, :uniqueness => {:message => "Retailer exist."}
 
   
 end

@@ -8,3 +8,14 @@ $('.page-header .close, btn.cancel').click(function () {
 	$('.overlay').empty();
 	$('.site-content').show();
  }); 
+
+$('.new_retailer').validate({
+  rules: {
+    retailer_name: {
+      required: true
+    },
+    retailer_sector_id: {
+      required: true
+    }
+  }
+});
