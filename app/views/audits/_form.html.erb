@@ -1,3 +1,4 @@
+
 <%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
   <%= f.error_notification %>
 
@@ -23,7 +24,7 @@
 
     <% unless params[:store].present?  %>
       <fieldset>
-        <%= link_to "Add New Store", new_store_path, :class => "add-store" %>
+        <%= link_to "add new store", new_store_path, :class => "add-store" %>
       </fieldset>  
         
     <% else %>
@@ -35,35 +36,20 @@
       <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
       <strong>Store Name:</strong>
       <%= store.name %><br />
-      <% if store.address.present? %>
-        <%= store.address %>, 
-      <% end %>
-      <% if store.address2.present? %>
-        <%= store.address2 %>, 
-      <% end %>  
-      <% if store.address3.present? %>  
-        <%= store.address3 %>, 
-      <% end %>
-      <% if store.town.present? %>  
-        <%= store.town %>, 
-      <% end %>
-      <% if store.address.present? %>
-        <%= store.postcode %>,
-      <% end %>  
+      <%= store.address %>, 
+      <%= store.address2 %>, <%= store.postcode %>,
     <% end %>  
       
     <% unless @audit.new_record? %>
       <%#= @audit.store.country.name unless @audit.store.country_id.nil? %>
     <% else %>
       <%= store.country.name unless store.nil? or store.country_id.blank? %><br />
-      <% unless store.nil? or store.store_format_id.nil? %>
-        <strong>Store Format:</strong> <%= store.store_format.name %>
-      <% end %>
+      <strong>Format:</strong> <%= store.store_format.name unless store.nil? or store.store_format_id.nil? %>
     <% end %>
     
     <div id="store-info"></div>
-    <!-- 
-    <fieldset>
+    
+    <!-- <fieldset>
       <%#= f.association :channel, :include_blank => false %>
     </fieldset>
     <fieldset>
@@ -102,10 +88,15 @@
             <%#= photo_fields.text_field :photo_file_name %>
             <label>Headline</label>
             <%= photo_fields.text_field :headline %>
-            <label>Date Created</label>
-            <%= photo_fields.text_field :created_at, :class=>"created_at"%>
-            <%#= photo_fields.association :brand, :include_blank => false, :input_html => { :class=> 'audit_brands' } %>
-            <%= photo_fields.association :brands, collection: Brand.all(order: 'name'), :input_html => { :class=> 'chosen-brand' } %>
+            <!-- <label>Date Created</label> -->
+            <%#= photo_fields.text_field :created_at, :class=>"created_at"%>
+
+            <div class="brands-owners-actions">
+              <%= render 'photos/shared/uploader_brand_owners_dropdown' %>
+            </div>  
+            <div class="brands-actions">
+              <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
+            </div>  
             <span class="brand-owners"></span>
             <label>Additional Brands</label>
             <%= photo_fields.text_field :additional_brands %><br />
@@ -113,23 +104,17 @@
             <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
             { }, {multiple: true, :include_blank => false } %>
             <%#= photo_fields.input :category_id, :collection => Category.order(:name), :input_html => { multiple: true } %>
-            <%= photo_fields.association :categories, collection: Category.all(order: 'name'),
-                :input_html => { :class=> 'chosen-category' } %>
+            <%= photo_fields.association :categories, :input_html => { :class=> 'chosen-category' } %>
             
             <%#= photo_fields.text_field :category_id, :class => 'category-tokenss'  
                   %>
-            <%= photo_fields.association :media_locations, collection: MediaLocation.all(order: 'name'),
-                :input_html => { :class=> 'chosen-media-local' } %>
-            <%= photo_fields.association :media_vehicles, collection: MediaVehicle.all(order: 'name'),
-                :input_html => { :class=> 'chosen-media-vehic' } %>      
-            <%= photo_fields.association :media_types, collection: MediaType.all(order: 'name'),
-               :input_html => { :class=> 'chosen-media-type' } %>
-            <%= photo_fields.association :promotion_types, collection: PromotionType.all(order: 'name'),
-                :input_html => { :class=> 'chosen-promo-type' } %>            
+            <%= photo_fields.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
+            <%= photo_fields.association :media_vehicles, :input_html => { :class=> 'chosen-mv-uploader' } %>      
+            <%= photo_fields.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
+            <%= photo_fields.association :promotion_types, :input_html => { :class=> 'chosen-promo-type' } %>            
             
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
-            <%= photo_fields.association :themes, collection: Theme.all(order: 'name'),
-                :input_html => { :class=> 'chosen-theme' } %>
+            <%= photo_fields.association :themes, :input_html => { :class=> 'chosen-theme' } %>
             
             <label>Description</label>
             <%= photo_fields.text_field :description, :as => :text %>

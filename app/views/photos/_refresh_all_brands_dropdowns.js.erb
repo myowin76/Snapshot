@@ -1,0 +1,21 @@
+// var id = $('.chosen-brand').attr('id');
+// var name = $('.chosen-brand').attr('name')
+// var html = $('.brands-actions').html();
+
+// $('.brands-actions').html('<%= j render("/brands/shared/uploader_brands_dropdown") %>');
+// $('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add New Brand</a>:"});
+
+
+// $('.chosen-brand').attr('id').val(id);
+// $('.chosen-brand').attr('name').val(name);
+// var brand_owner_id = <%= @select_id  %>
+
+var brand_select = "<%= @select_id %>";
+var selected_brands = "";
+
+<% @brands.each do |brand| %>
+	var selected_brands = selected_brands + "<option value=<%= brand.id %>><%= brand.name %></option>";
+<% end %>
+
+$(brand_select).empty().append(selected_brands);
+$(brand_select).trigger("liszt:updated");

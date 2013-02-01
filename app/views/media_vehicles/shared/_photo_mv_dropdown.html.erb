@@ -8,10 +8,14 @@
 				:name => 'photo[media_vehicle_ids][]' %> 
 	<%= f.association :media_vehicles, collection: MediaVehicle.all(order: 'name'), :input_html => { :class=> 'chosen-media-vehic' } %>
 <% else %>
+
+
 	<label for='photo_media_vehicle_ids'>Media Vehicles</label>
 	<%= select_tag 'photo_media_vehicle_ids', 
 				options_from_collection_for_select( MediaVehicle.order(:name), "id", "name" ), 
 				:multiple => true,
 				:class => 'chosen-media-vehic', 
 				:name => 'photo[media_vehicle_ids][]' %> 
+
+
 <% end %> 

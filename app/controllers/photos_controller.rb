@@ -271,7 +271,7 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
-    
+    # debugger
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
 
@@ -361,6 +361,40 @@ class PhotosController < ApplicationController
       }
     end
   end
+
+  def refresh_all_brands_dropdowns
+    @select_id = params[:select_id]
+    # debugger
+    if params[:brand_owner_id].present?
+      brand_owner = BrandOwner.find(params[:brand_owner_id])
+      @brands = brand_owner.brands
+    else
+      @brands = Brand.order(:name)
+    end  
+    
+    respond_to do |format|
+      format.js {
+        render :partial => 'refresh_all_brands_dropdowns' #, :locals => { :retailers => @retailers }
+      }
+    end
+  end
+
+  # def refresh_uploader_mv_dropdowns
+  #   @select_id = params[:select_id]
+  #   # debugger
+  #   if params[:brand_owner_id].present?
+  #     brand_owner = BrandOwner.find(params[:brand_owner_id])
+  #     @brands = brand_owner.brands
+  #   else
+  #     @brands = Brand.order(:name)
+  #   end  
+    
+  #   respond_to do |format|
+  #     format.js {
+  #       render :partial => 'refresh_all_brands_dropdowns' #, :locals => { :retailers => @retailers }
+  #     }
+  #   end
+  # end
 
   def check_counts
     

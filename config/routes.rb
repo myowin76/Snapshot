@@ -14,6 +14,8 @@ Snapshot::Application.routes.draw do
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
   match '/photos/download/:id' => 'photos#zip_all_from_store', :as => :all_store_photos
   
+  
+
   resources :photos do
     collection do
       put :publish_multiple
@@ -21,13 +23,19 @@ Snapshot::Application.routes.draw do
       post :refresh_brands
       post :refresh_retailers
       post :refresh_brands_dropdown
+      post :refresh_all_brands_dropdowns
     end    
   end
 
+  # match '/media_vehicles/ddl_create' => 'media_vehicles#ddl_create'
+  resources :media_vehicles
+
+  match '/audits/mv_create' => 'audits#mv_create'
   resources :audits do
     collection do
       post :refresh_store_dropdown
     end
+    # resources :photos
   end
   # match '/stores/show_store_with_categories' => 'stores#show',
   #   :as => :store_view, 

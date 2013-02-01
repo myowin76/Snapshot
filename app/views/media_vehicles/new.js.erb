@@ -1,9 +1,11 @@
 // alert("test");
 
 text = $('.no-results').children('span').text();
+audit_id = $('#audit_audit_id').val();
 $('.site-content').hide();
 $('.overlay').html('<%= j render("form_ajax") %>');
 $('#media_vehicle_name').val(text);
+$('#audit_id').val(audit_id);
 
 $('.page-header .close, #media_vehicle_name btn.cancel').click(function () {
 	$('.overlay').empty();
