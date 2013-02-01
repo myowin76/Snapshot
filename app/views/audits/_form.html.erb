@@ -98,13 +98,12 @@
               <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
             </div>  
             <span class="brand-owners"></span>
-            <label>Additional Brands</label>
-            <%= photo_fields.text_field :additional_brands %><br />
+            
             <%#= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
             <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
             { }, {multiple: true, :include_blank => false } %>
             <%#= photo_fields.input :category_id, :collection => Category.order(:name), :input_html => { multiple: true } %>
-            <%= photo_fields.association :categories, :input_html => { :class=> 'chosen-category' } %>
+            <%= photo_fields.association :categories, :input_html => { :class=> 'chosen-category' }, :label => 'Product Categories' %>
             
             <%#= photo_fields.text_field :category_id, :class => 'category-tokenss'  
                   %>

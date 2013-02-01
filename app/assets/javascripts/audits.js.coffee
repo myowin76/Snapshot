@@ -5,7 +5,7 @@ jQuery ->
   $('.chosen-media-local').chosen()
   $('#brand-owner-id').chosen()
 
-  $('.chosen-media-vehic').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add</a>:"})
+  $('.chosen-media-vehic').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add New</a>:"})
   $('.chosen-media-vehic-uploader').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add</a>:"})
   
   $('.chosen-mv-uploader').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add New</a>:"})
