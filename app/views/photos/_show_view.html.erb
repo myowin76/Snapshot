@@ -15,139 +15,147 @@
     <div class="right">
       <section class="photo-info">
         <h3>Store</h3>
-        <ul>
-          <li>
-            <strong>Store Name:</strong>
-            <%= @photo.audit.store.name %>
-          </li>
-          <li>
-            <% if @photo.audit.store.address.present? %>
-              <%= @photo.audit.store.address %>
-            <% end %>
-            <% if @photo.audit.store.address2.present? %>  
-              , <%= @photo.audit.store.address2 %> 
-            <% end %>  
-            <% if @photo.audit.store.address3.present? %>  
-              <%= @photo.audit.store.address3 %> 
-            <% end %>  
-            <% if @photo.audit.store.town.present? %>  
-              ,<%= @photo.audit.store.town %>
-            <% end %>
-            <% if @photo.audit.store.country_id.present? %>
-              <%= @photo.audit.store.country.name %>
-            <% end %>
-          </li>
-          <li>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td width="30%">Store Name:</td>
+              <td width="70%"><%= @photo.audit.store.name %></td>
+            </tr>
+            <tr>
+              <td width="30%">Location:</td>
+              <td width="70%">
+                <% if @photo.audit.store.address.present? %>
+                  <%= @photo.audit.store.address %>
+                <% end %>
+                <% if @photo.audit.store.address2.present? %>  
+                  , <%= @photo.audit.store.address2 %> 
+                <% end %>  
+                <% if @photo.audit.store.address3.present? %>  
+                  <%= @photo.audit.store.address3 %> 
+                <% end %>  
+                <% if @photo.audit.store.town.present? %>  
+                  ,<%= @photo.audit.store.town %>
+                <% end %>
+                <% if @photo.audit.store.country_id.present? %>
+                  <%= @photo.audit.store.country.name %>
+                <% end %>
+              </td>
+            </tr>
             <% if @photo.audit.store.environment_type_id.present? %>
-              <strong>Environment Type</strong>
-              <%= @photo.audit.store.environment_type.name %>
+            <tr>
+              <td width="30%">Environment Type</td>
+              <td width="70%">
+                <%= @photo.audit.store.environment_type.name %>
+              </td>
+            </tr>  
             <% end %>  
-          </li>
-          <li>
+              </td>
+            </tr>
+            <tr>
+              <td width="30%">Store Format</td>
+              <td width="70%"><%= @photo.audit.store.store_format.name %></td>
+            </tr>
             <% if @photo.audit.store.channel_id.present? %>
-              <strong>Channel</strong>
-              <%= @photo.audit.store.channel.name %>
+              <tr>
+                <td width="30%">Channel</td>
+                <td width="70%">
+                  <%= @photo.audit.store.channel.name %>
+                </td>
+              </tr>
             <% end %>    
-          </li>
-          
-          <li>
-            <strong>Store Format:</strong>
-            <%= @photo.audit.store.store_format.name %>
-          </li>
-          <li>
-            <strong>Audit Date: </strong>
-            <%= @photo.audit.created_at %>
-          </li> 
-          <li>
-            <strong>Retailer:</strong>
-            <%= @photo.audit.store.retailer.name %>
-          </li>
-          <li>
-            <strong>Retail Sector: </strong>
-            <%= @photo.audit.store.retailer.sector.name %>
-          </li>
-        </ul>
+            <tr>
+              <td width="40%">Audit Date</td>
+              <td width="60%"><%= @photo.audit.created_at %></td>
+            </tr>
+            <tr>
+              <td width="40%">Retailer</td>
+              <td width="60%"><%= @photo.audit.store.retailer.name %></td>
+            </tr>
+            <tr>
+              <td width="40%">Retail Sector</td>
+              <td width="60%"><%= @photo.audit.store.retailer.sector.name %></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section class="photo-info-details">
         <h3>Photo Data</h3>
-        <ul>
-          <% if @photo.headline.present? %>
-            <li>
-              <strong>Headline: </strong>
-              <%= @photo.headline %>
-            </li>
-          <% end %>
-          <% if @photo.brands.present?  %>
-            
-            <li>
-              <strong>Brands: </strong>
-              <%= @photo.brands.map(&:name).join(",") %>
-            </li>
-            <li>
-              <strong>Brand Owners: </strong>
-              <%# @photo.brands.each do |b| %>
-                <%#= b.brand_owner.name if b.brand_owner_id.present? %>
-              <%# end %>
-              <%= @photo.brands.first.brand_owner.name if @photo.brands.first.brand_owner_id.present? %>
-            </li>
-
-          <% end %>  
-          <% if @photo.additional_brands.present? %>
-            <li>
-              <strong>Additional Brands:</strong>
-              <%= @photo.additional_brands %>
-            </li>
-          <% end %>
-          <% if @photo.categories.present? %>
-            <li>
-              <strong>Product Category:</strong>
-              <%= @photo.categories.map(&:name).join(",") %>
-            </li>
-          <% end %>
-          <% if @photo.media_locations.present? %>
-            <li>
-              <strong>Media Locations:</strong>
-              <%= @photo.media_locations.map(&:name).join(",") %>
-            </li>
-          <% end %>  
-          <% if @photo.media_types.present? %>
-            <li>
-              <strong>Media Types:</strong>
-              <%= @photo.media_types.map(&:name).join(",") %>
-            </li>
-          <% end %>
-          <% if @photo.media_vehicles.present? %>
-            <li>
-              <strong>Media Vehicle:</strong>
-              <%= @photo.media_vehicles.map(&:name).join(",") %>
-            </li>
-          <% end %>
-          <% if @photo.promotion_calendar.present? %>
-            <li>
-              <strong>Promotion Calendar:</strong>
-              <%= @photo.promotion_calendar.name if @photo.promotion_calendar %>
-            </li>
-          <% end %>  
-          <% if @photo.promotion_types.present? %>
-            <li>
-              <strong>Promotion Type:</strong>
-              <%= @photo.promotion_types.map(&:name).join(",") %>
-            </li>
-          <% end %>  
-          <% if @photo.themes.present? %>
-            <li>
-              <strong>Themes:</strong>
-              <%= @photo.themes.map(&:name).join(",") %>
-            </li>
-          <% end %>
-          <% if @photo.description.present? %>
-            <li>
-              <strong>Descriptions:</strong>
-              <%= @photo.description %>
-            </li>
-          <% end %>
-      </ul>
+        <table class="table">
+          <tbody>
+            <% if @photo.headline.present? %>
+              <tr>
+                <td width="40%">Headline</td>
+                <td width="60%"><%= @photo.headline %></td>
+              </tr>
+            <% end %>
+            <% if @photo.brands.present?  %>
+              <tr>
+                <td width="40%">Brands</td>
+                <td width="60%"><%= @photo.brands.map(&:name).join(",") %></td>
+              </tr>
+              <tr>
+                <td width="40%">Brand Owner</td>
+                <td width="60%"><%= @photo.brands.first.brand_owner.name if @photo.brands.first.brand_owner_id.present? %></td>
+              </tr>
+            <% end %>
+            <% if @photo.additional_brands.present? %>
+              <tr>
+                <td width="40%">Additional Brands:</td>
+                <td width="60%"><%= @photo.additional_brands %></td>
+              </tr>
+            <% end %>
+            <% if @photo.categories.present? %>
+              <tr>
+                <td width="40%">Product Category</td>
+                <td width="60%"><%= @photo.categories.map(&:name).join(",") %></td>
+              </tr>
+            <% end %>
+            <% if @photo.media_locations.present? %>
+              <tr>
+                <td width="40%">Media Locations</td>
+                <td width="60%"><%= @photo.media_locations.map(&:name).join(",") %></td>
+              </tr>
+            <% end %>  
+            <% if @photo.media_types.present? %>
+              <tr>
+                <td width="40%">Media Types</td>
+                <td width="60%"><%= @photo.media_types.map(&:name).join(",") %></td>
+              </tr>
+            <% end %>
+            <% if @photo.media_vehicles.present? %>
+              <tr>
+                <td width="40%">Media Vehicle</td>
+                <td width="60%"><%= @photo.media_vehicles.map(&:name).join(",") %></td>
+              </tr>
+            <% end %>
+            <% if @photo.promotion_calendar.present? %>
+              <tr>
+                <td width="40%">Promotion Calendar</td>
+                <td width="60%"><%= @photo.promotion_calendar.name if @photo.promotion_calendar %></td>
+              </tr>
+            <% end %>  
+            <% if @photo.promotion_types.present? %>
+              <tr>
+                <td width="40%">Promotion Type</td>
+                <td width="60%"><%= @photo.promotion_types.map(&:name).join(",") %></td>
+              </tr>
+            <% end %>  
+            <% if @photo.themes.present? %>
+              <tr>
+                <td width="40%">Themes</td>
+                <td width="60%"><%= @photo.themes.map(&:name).join(",") %></td>
+              </tr>
+            <% end %>
+            <% if @photo.description.present? %>
+              <tr>
+                <td width="40%">Descriptions</td>
+                <td width="60%"><%= @photo.description %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        
       </section>
 
     </div>

@@ -17,6 +17,9 @@ class Store < ActiveRecord::Base
   # scope :by_retailer, lambda do |retailer|
   #   joins(:profile).where('profile.age = ?', age) unless age.nil?
   # end  
+  validates :name, :presence => true
+  validates :name, :uniqueness => {:message => "Store exist."}
+  # validates :postcode, :uniqueness => {:message => "Store exist."}
 
   geocoded_by :full_address
   after_validation :geocode, :if => :address_changed?

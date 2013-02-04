@@ -1,9 +1,9 @@
+
 <%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <fieldset>
-      
       <% unless params[:retailer].present?  %>
         <%= f.label "Retailer" %>
         <% if @audit.new_record? %>
@@ -16,15 +16,10 @@
       <% else  %>  
         <% retailer = Retailer.find_by_name(params[:retailer])  %>
       <% end %>
-
     </fieldset>
   
     <fieldset>
-      <div class="audits_store_dropdown">
-        <% unless @audit.nil? %>
-          <% render "/audits/shared/store_dropdown"  %>
-        <% end %>
-      </div>
+      <div class="audits_store_dropdown"></div>
     </fieldset>
 
     <% unless params[:store].present?  %>
@@ -73,11 +68,17 @@
     <fieldset>
       <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
-          <%= render "file_upload", :photos => photo_fields %>  
+          <%#= render "file_upload", :photos => photo_fields %>  
+          <%= photo_fields.file_field  %>
       <% end %>
     <% end %>
     </fieldset>
-    
+    <script id="template-upload" type="text/x-tmpl">
+<div class="upload">
+  {%=o.name%}
+  <div class="progress"><div class="bar" style="width: 0%"></div></div>
+</div>
+</script>
     
     <%#= link_to "Add Image Upload", "#", class: "add_field" %>
 

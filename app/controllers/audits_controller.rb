@@ -50,6 +50,7 @@ class AuditsController < ApplicationController
   def edit
     
     @audit = Audit.find(params[:id])
+    
 
     @store = @audit.store
     @retailers = Retailer.all
@@ -130,22 +131,22 @@ class AuditsController < ApplicationController
     end
   end
 
-  def mv_create
-    # @media_vehicle = MediaVehicle.new
-    # respond_to do |format|
-    #   format.js {
-    #     render :partial => 'create_mv_from_dropdown'
-    #   }
-    # end
-    @media_vehicle = MediaVehicle.new
-    @media_vehicle.build
-    respond_to do |format|
-      if @media_vehicle.save
-        format.js {
-          render :partial => 'create_from_mv_dropdown'
-        }
-      end  
-    end
-  end
+  # def mv_create
+  #   # @media_vehicle = MediaVehicle.new
+  #   # respond_to do |format|
+  #   #   format.js {
+  #   #     render :partial => 'create_mv_from_dropdown'
+  #   #   }
+  #   # end
+  #   @media_vehicle = MediaVehicle.new
+  #   @media_vehicle.build
+  #   respond_to do |format|
+  #     if @media_vehicle.save
+  #       format.js {
+  #         render :partial => 'create_from_mv_dropdown'
+  #       }
+  #     end  
+  #   end
+  # end
 
 end

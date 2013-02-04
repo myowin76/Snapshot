@@ -1,6 +1,7 @@
 jQuery.fn.submitOnCheck = ->
 
-  
+
+
   @find('button[type=submit]').live 'click', (event) ->
     $('#search_form').submit()
   @find('#search_country_id').change ->
@@ -8,6 +9,8 @@ jQuery.fn.submitOnCheck = ->
   this
   
 jQuery ->
+  
+
   $('#photo-list').dataTable
     "sDom": '<"top"fli>rt<"bottom"p><"clear">'
     "sPaginationType": 'full_numbers'

@@ -107,6 +107,8 @@ var photos = {
 
 $(document).ready(function() {
 
+
+  
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
   
   snapshot.LayoutSwitcher();
@@ -115,17 +117,7 @@ $(document).ready(function() {
   photos.exportZIP();
   photos.exportStorePhotos();
   
-  // $('#new_retailer').validate({
-  //   rules: {
-  //     retailer_name: {
-  //       required: true
-  //     },
-  //     retailer_sector_id: {
-  //       required: true
-  //     }
-  //   }
-  // });
-
+  
   $(".photo-view").ajaxStart(function(){
     $(this).hide();
     $('#list-view .loading').show();
@@ -210,10 +202,6 @@ $(document).ready(function() {
     .click(function(e) { 
         e.preventDefault(); 
     });
-  // $('#store_format_help').click(function(){
-  //   alert("test");
-  // });
-    
 
 
   //********** TO DO

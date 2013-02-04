@@ -35,7 +35,7 @@ Snapshot::Application.routes.draw do
     collection do
       post :refresh_store_dropdown
     end
-    # resources :photos
+    resources :photos
   end
   # match '/stores/show_store_with_categories' => 'stores#show',
   #   :as => :store_view, 
