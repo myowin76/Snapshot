@@ -103,7 +103,8 @@
               <%= render 'photos/shared/uploader_brand_owners_dropdown' %>
             </div>  
             <div class="brands-actions">
-              <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
+              <%#= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
+              <%= photo_fields.association :brands, :include_blank => false, :input_html => { :class=> 'chosen-brand' } %>
             </div>  
             <span class="brand-owners"></span>
             

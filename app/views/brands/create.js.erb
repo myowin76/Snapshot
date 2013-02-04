@@ -1,18 +1,13 @@
-// var cur_val = $('.no-results').children('span').text();
+var select_id = "#" + $('.no-results a').closest('.chzn-container').prev().attr('id');
+var values = $(select_id).val();
+var new_brand = "<option value=<%= @brand.id %>><%= @brand.name %></option>";
+
 $('.overlay').empty();
 $('.site-content').show();
-$('.brands-actions').html('<%= j render("/brands/shared/photos_brands_dropdown") %>');
 
-// var cur_val = $('.chosen-brand').val();
-// var new_val = <%= @brand.id %>
+//$('.brands-actions').html('<%= j render("/brands/shared/photos_brands_dropdown") %>');
+ $(select_id).append(new_brand);
+$(select_id).val('<%= @brand.id %>');
+$(select_id).trigger("liszt:updated");
 
-// if(cur_val){
-//   $('.chosen-brand').val([ cur_val + "," + new_val ]).trigger("liszt:updated");
-// }
-// else{
-//   $('.chosen-brand').val(new_val);
-// }  
-
-// $('.chosen-brand').val('<%= @brand.id %>').trigger("liszt:updated");
 $('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add New Brand</a>:"});
-// $('#photo_brand_ids').chosen('<%= @brand.id %>');
