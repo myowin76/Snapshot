@@ -187,10 +187,13 @@ class Photo < ActiveRecord::Base
       zip_file
     end
     
-    scope :by_audits_in_stores, lambda { |stores, environment, channel|
-      includes(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
-         stores, environment, channel) }
-
+    # scope :by_audits_in_stores, lambda { |stores, environment, channel|
+    #   includes(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
+    #      stores, environment, channel) }
+    scope :by_audits_in_stores, lambda { |stores|
+      includes(:audit).where('audits.store_id IN (?)',
+         stores) }
+    
 
 
     def has_address?

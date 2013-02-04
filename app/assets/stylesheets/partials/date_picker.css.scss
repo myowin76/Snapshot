@@ -1,0 +1,32 @@
+.ui-datepicker{
+	width: 14em;
+	border-radius: 0px;
+	.ui-datepicker-next{
+		&.ui-corner-all{
+			&.ui-state-hover{
+				border: none;
+				background-color: none;
+			}
+		}
+	} 
+ .ui-datepicker-header{
+ 		border-radius: 0px;
+		background: #D92680;
+	}
+	.ui-datepicker-title{
+		color: white;
+		font-weight: normal;
+		font-size: 0.9em;
+	}	
+	table{
+		font-size: 0.8em;
+		th{
+			padding: .2em .3em;
+		}
+		td{
+			a{
+				padding: .1em;
+			}
+		}
+	}
+}

@@ -46,7 +46,7 @@ class RetailersController < ApplicationController
   # POST /retailers.json
   def create
     @retailer = Retailer.new(params[:retailer])
-
+    debugger
     respond_to do |format|
       if @retailer.save
         # debugger

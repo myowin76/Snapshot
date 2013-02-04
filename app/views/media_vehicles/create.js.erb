@@ -1,18 +1,19 @@
+	// var audit_id = $('#audit_id').val();
+	var select_id = "#" + $('.no-results a').closest('.chzn-container').prev().attr('id');
+	var values = $(select_id).val();
+	var new_mv = "<option value=<%= @media_vehicle.id %>><%= @media_vehicle.name %></option>";
+	// alert( <%= @media_vehicle.id %>);
+	$('.overlay').empty();
+	$('.site-content').show();
+	
+	
+	
+	$(select_id).append(new_mv);
+	// to do append to existing selected list
+	$(select_id).val('<%= @media_vehicle.id %>');
+	$(select_id).trigger("liszt:updated");
 
+	
+	// $('.chosen-media-vehic').val('<%= @media_vehicle.id %>').trigger("liszt:updated");
 
-$('.overlay').empty();
-$('.site-content').show();
-$('.mv-actions').html('<%= j render("/media_vehicles/shared/photo_mv_dropdown") %>');
-
-var cur_val = $('.chosen-media-vehic').val();
-var new_val = <%= @media_vehicle.id %>
-
-if(cur_val){
-  $('.chosen-media-vehic').val([ cur_val + "," + new_val ]).trigger("liszt:updated");
-}
-else{
-  $('.chosen-media-vehic').val(new_val);
-}  
-
-$('.chosen-media-vehic').val('<%= @media_vehicle.id %>').trigger("liszt:updated");
-$('.chosen-media-vehic').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add</a>:"});
+	$('.chosen-mv-uploader').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add</a>:"});

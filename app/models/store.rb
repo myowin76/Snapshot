@@ -1,16 +1,25 @@
 class Store < ActiveRecord::Base
   attr_accessible :address, :address2, :address3, :town, :description, :latitude, :longitude, :name, 
-  	:postcode, :retailer_id, :store_format_id, :country_id, :created_at, :updated_at, :location_id
+  	:postcode, :retailer_id, :store_format_id, :country_id, :created_at, :updated_at, :location_id,
+    :environment_type_id, :channel_id
 
   belongs_to :store_format
   belongs_to :retailer
   belongs_to :country
   has_many :audits
   has_many :photos, :through => :audits
+
+  ## added after data structure changes
+  belongs_to :environment_type
+  belongs_to :channel
+  ##
   
   # scope :by_retailer, lambda do |retailer|
   #   joins(:profile).where('profile.age = ?', age) unless age.nil?
   # end  
+  validates :name, :presence => true
+  validates :name, :uniqueness => {:message => "Store exist."}
+  # validates :postcode, :uniqueness => {:message => "Store exist."}
 
   geocoded_by :full_address
   after_validation :geocode, :if => :address_changed?

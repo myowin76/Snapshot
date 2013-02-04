@@ -10,3 +10,11 @@ jQuery ->
   	{ 'bSortable': false, 'aTargets': [ -1 ] },
   	{ 'bSortable': false, 'aTargets': [ -2 ] }
   ]
+
+  ###$('#store_retailer_id').chosen()###
+  $('#store_retailer_id').chosen({no_results_text: "<a href='/retailers/new' data-remote='true'>Add</a>:"})
+  $('#store_country_id').chosen()
+
+
+
+  

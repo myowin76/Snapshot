@@ -3,5 +3,5 @@ class Country < ActiveRecord::Base
 
   has_many :stores
   # has_many :retailers, :through => :stores
-  has_many :locations
+  # has_many :locations
 end

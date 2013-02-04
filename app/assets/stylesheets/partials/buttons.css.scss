@@ -16,10 +16,14 @@ body{
 	.btn{
 		font-size: 13px;
 		box-shadow: none;
-	}
-	.btn-primary{
+		text-shadow: none;
+		border-radius: 0;
+		border-color: rgba(0, 0, 0, 0.05) rgba(0, 0, 0, 0.05) rgba(0, 0, 0, 0.15);
+		font-family: Museo500;
 		font-size: 12px;
 		text-transform: uppercase;
+	}
+	.btn-primary{
 		background-color: $col-pink;
 		background-image: none;
 		border: 1px solid $col-pink;

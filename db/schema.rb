@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130125165723) do
+ActiveRecord::Schema.define(:version => 20130130104904) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -234,16 +234,20 @@ ActiveRecord::Schema.define(:version => 20130125165723) do
     t.integer  "store_format_id"
     t.integer  "retailer_id"
     t.integer  "country_id"
-    t.decimal  "longitude",       :precision => 15, :scale => 10
-    t.decimal  "latitude",        :precision => 15, :scale => 10
+    t.decimal  "longitude",           :precision => 15, :scale => 10
+    t.decimal  "latitude",            :precision => 15, :scale => 10
     t.text     "description"
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.string   "address3"
     t.string   "town"
+    t.integer  "environment_type_id"
+    t.integer  "channel_id"
   end
 
+  add_index "stores", ["channel_id"], :name => "index_stores_on_channel_id"
   add_index "stores", ["country_id"], :name => "index_stores_on_country_id"
+  add_index "stores", ["environment_type_id"], :name => "index_stores_on_environment_type_id"
   add_index "stores", ["retailer_id"], :name => "index_stores_on_retailer_id"
   add_index "stores", ["store_format_id"], :name => "index_stores_on_store_format_id"
 
@@ -292,13 +296,27 @@ ActiveRecord::Schema.define(:version => 20130125165723) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+<<<<<<< HEAD
+=======
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
+>>>>>>> 36a8710f1d40efb4797c7c7419b17b126105e0a5
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.integer  "user_type_id",           :default => 1
     t.string   "username"
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
 end

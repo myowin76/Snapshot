@@ -50,6 +50,7 @@ class AuditsController < ApplicationController
   def edit
     
     @audit = Audit.find(params[:id])
+    
 
     @store = @audit.store
     @retailers = Retailer.all
@@ -73,8 +74,8 @@ class AuditsController < ApplicationController
           # save user
           @audit.update_attribute(:user_id, current_user.id)
           @audit.update_attribute(:store_id, params[:audit][:store_id])
-          
-          format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
+          format.html { redirect_to @audit, notice: 'Audit was successfully created.' }
+          # format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
           format.json { render json: @audit, status: :created, location: @audit }
         else
           format.html { render action: "new" }
@@ -129,5 +130,23 @@ class AuditsController < ApplicationController
       }
     end
   end
+
+  # def mv_create
+  #   # @media_vehicle = MediaVehicle.new
+  #   # respond_to do |format|
+  #   #   format.js {
+  #   #     render :partial => 'create_mv_from_dropdown'
+  #   #   }
+  #   # end
+  #   @media_vehicle = MediaVehicle.new
+  #   @media_vehicle.build
+  #   respond_to do |format|
+  #     if @media_vehicle.save
+  #       format.js {
+  #         render :partial => 'create_from_mv_dropdown'
+  #       }
+  #     end  
+  #   end
+  # end
 
 end

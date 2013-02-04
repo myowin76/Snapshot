@@ -9,19 +9,25 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require reset
- *= require_tree ./partials
  *= require jquery.ui.datepicker
  *= require chosen
-
  *= require dataTables/jquery.dataTables
  *= require_self
  *= require bootstrap_and_overrides
+ *= require_tree ./partials
  *= require gmaps4rails
  *= require jquery.fileupload-ui 
- *= require token-input
  * require_tree .
  
  */
+@import "twitter/bootstrap";
+
+@font-face {
+  font-family: Museo500;
+  src: url("../assets/MuseoSans_500.otf");}
+@font-face {
+  font-family: OpenSans;
+  src: url("../assets/OpenSans-Regular.ttf");}
 
 body {
   color: #333;
@@ -44,9 +50,17 @@ body {
   }
   h1, h2, h3, h4, h5, h6{
     font-weight: normal;
+    font-family: Museo500;
+    text-transform: uppercase;
+  }
+  h1{
+    font-size: 140%;
+  }
+  h2{
+    font-size: 135%;
   }
   h3{
-    font-size: 20px;
+    font-size: 130%;
     line-height: 20px;
   }
 
@@ -280,13 +294,11 @@ ul.ui-autocomplete {
 
 #main {
 
-  h1{
-    font-size: 150%;
-  }
+  
   .page-header{
     padding-bottom: 0px;
     margin: 0 0 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
     h1{
       margin: 0px;
     }
@@ -551,6 +563,13 @@ body .ui-widget {
   margin-bottom: 25px;
 }
 #photo-details{
+  table{
+    tr{
+      td{
+        padding: 4px;
+      }
+    }
+  }
   .left{
     float: left;
     margin-right: 20px;
@@ -569,7 +588,6 @@ body .ui-widget {
           border-left: 3px solid #D92680;
           margin-right: 10px;
         }
-        font-size: 20px;
         margin-left: 5px;
         text-transform: uppercase;
       }
@@ -632,7 +650,7 @@ input{
     }  
     &.small{
       padding: 2px 13px;
-      font-size: 12px;
+      font-size: 11px;
     }
   }
   .saved-search{

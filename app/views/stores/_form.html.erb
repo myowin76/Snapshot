@@ -8,15 +8,26 @@
     <%= f.input :address3 %>
     <%= f.input :town %>
     <%= f.input :postcode %>
-    <%= f.association :store_format, :include_blank => false %>
+    <%= f.association :country, :include_blank => false %>
+    
+    <label>Store Format
+      <a href="#" 
+        id="store_format_help" 
+        rel="popover" 
+        data-original-title="Example Formats"
+        data-content="Extra Large is a hypermarket format, for example Tesco Extra">help</a>
+    </label>
+
+    <%= f.association :store_format, :include_blank => false, :label => false %>
+    <%= f.association :environment_type, :include_blank => false %>
+    <%= f.association :channel, :include_blank => false %>
     
     <div class="retailer-actions">
       <%#= f.association :retailer, :include_blank => false %>  
       <%= render 'stores/shared/retailer_dropdown', :f => f %>
     </div>
-    <%= link_to "Add New Retailer", new_retailer_path, :id => 'store-new-retailer', remote: true %>  
+    <%#= link_to "Add New Retailer", new_retailer_path, :id => 'store-new-retailer', remote: true %>  
     
-    <%= f.association :country, :include_blank => false %>
     <%= f.input :longitude %>
     <%= f.input :latitude %>
     <%= f.input :description %>

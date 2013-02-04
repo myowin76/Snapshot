@@ -1,3 +1,6 @@
-<!-- <label for='store_retailer_id'>Retailer</label>
-<%= select_tag 'store_retailer_id', options_from_collection_for_select( Retailer.all, "id", "name") %> -->
-<%= f.association :retailer, :include_blank => false, :id => 'store_retailer_id' %>  
+<% unless @store.nil? %>
+	<%= f.association :retailer, collection: Retailer.all(order: 'name'), :include_blank => false, :id => 'store_retailer_id' %>  
+<% else %>
+	<label for='store_retailer_id'>Retailer</label>
+	<%= select_tag 'store_retailer_id', options_from_collection_for_select( Retailer.order(:name), "id", "name", @retailer) %>
+<% end %>

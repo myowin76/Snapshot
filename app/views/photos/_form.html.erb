@@ -24,14 +24,19 @@
         <% unless @photo.audit.store.town.blank? %>
           <%= @photo.audit.store.town %>,
         <% end %>
-
-        <%= @photo.audit.store.country.name unless @photo.audit.store.country_id.nil? %>
+        <% if @photo.audit.store.country_id.present?  %>
+          <%= @photo.audit.store.country.name %><br />
+        <% end %>  
+        <strong>Environment Type: </strong> 
+        <%= @photo.audit.store.environment_type.name unless @photo.audit.store.environment_type.nil? %><br /> 
         
-        <strong>Retailer: </strong> 
-        <%= @photo.audit.store.retailer.name %><br /> 
+        <strong>Channel: </strong> 
+        <%= @photo.audit.store.channel.name unless @photo.audit.store.channel.nil? %><br /> 
 
         <strong>Retail Sector: </strong>
         <%= @photo.audit.store.retailer.sector.name %><br />
+        <strong>Retailer: </strong> 
+        <%= @photo.audit.store.retailer.name %><br /> 
         
         
 
@@ -47,21 +52,21 @@
             <%= link_to @photo.audit_id, audit_path(@photo.audit) %>
             <br />
           </label>
-          <label>
+          <!-- <label>
             <strong>Environment Type:</strong>
-            <%= @photo.audit.environment_type.name unless @photo.audit.environment_type_id.nil? %>
+            <%#= @photo.audit.environment_type.name unless @photo.audit.environment_type_id.nil? %>
           </label>
           <label>
             <strong>Channel:</strong>
-            <%= @photo.audit.channel.name unless @photo.audit.channel_id.nil? %>
+            <%#= @photo.audit.channel.name unless @photo.audit.channel_id.nil? %>
+          </label> -->
+          <label>
+            <strong>Date of Audit: </strong>
+            <%= @photo.audit.created_at %>
           </label>
           <label> 
             <strong>Uploaded by: </strong>
             <%= @photo.audit.user.username unless @photo.audit.user.username.nil? %>
-          </label>
-          <label>
-            <strong>Date of Audit: </strong>
-            <%= @photo.audit.created_at %>
           </label>
           <br>
           <%= f.input :headline %>
@@ -83,7 +88,8 @@
           <%= f.association :media_types, collection: MediaType.all(order: 'name'), :input_html => { :class=> 'chosen-media-type' } %>
           <%= f.association :themes, collection: Theme.all(order: 'name'), :input_html => { :class=> 'chosen-theme' } %>
           <%= f.association :promotion_types, collection: PromotionType.all(order: 'name'), :input_html => { :class=> 'chosen-promo-type' } %>
-            <%= f.association :promotion_calendar, :input_html => { :class=> 'chosen-promo-cal' } %>
+            <%= f.association :promotion_calendar, collection: PromotionCalendar.all(order: 'name'), 
+              :input_html => { :class=> 'chosen-promo-cal' } %>
           <%= f.input :display_for_project %>
           <%= f.input :brand_compliant %>
           <%= f.input :published %>

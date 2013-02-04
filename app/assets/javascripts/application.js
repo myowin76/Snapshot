@@ -107,6 +107,8 @@ var photos = {
 
 $(document).ready(function() {
 
+
+  
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
   
   snapshot.LayoutSwitcher();
@@ -115,17 +117,7 @@ $(document).ready(function() {
   photos.exportZIP();
   photos.exportStorePhotos();
   
-  // $('#new_retailer').validate({
-  //   rules: {
-  //     retailer_name: {
-  //       required: true
-  //     },
-  //     retailer_sector_id: {
-  //       required: true
-  //     }
-  //   }
-  // });
-
+  
   $(".photo-view").ajaxStart(function(){
     $(this).hide();
     $('#list-view .loading').show();
@@ -146,6 +138,48 @@ $(document).ready(function() {
     }, 500);
   });
 
+  // $('.brand_owner_ddl').each(function(){
+
+    $('.brand_owner_ddl').live('change', function(){
+      var id = "#" + $(this).attr('id');
+      var info = {}
+      info['brand_owner_id'] = $(id).val();
+      info['select_id'] = "#" + $(this).closest(".brands-owners-actions").next(".brands-actions").children().find(".chosen-brand").attr('id');
+      
+      $.ajax({
+        url: '/photos/refresh_all_brands_dropdowns',
+        type: "POST",
+        dataType: 'script',
+        data: info,
+        success: function(data){
+
+        }
+      });
+    });
+
+    
+    // $('.chosen-mv-uploader').next('.chzn-container').find('.chzn-results a').on('click', function(){
+      
+    //   alert($(this)); return false;
+    
+    // });
+  // });
+
+  // $('.brand_owner_ddl').change(function(e){
+    
+  //   var info = {}
+  //   info = $(this).serializeObject();
+  //   $.ajax({
+  //     url: '/photos/refresh_all_brands_dropdowns',
+  //     type: "POST",
+  //     dataType: 'script',
+  //     data: info,
+  //     success: function(data){
+
+  //     }
+  //   });
+  // });
+
   $('#brand_owner_id').on('change',function(e){
     
     var info = {}
@@ -160,6 +194,15 @@ $(document).ready(function() {
       }
     });
   });
+
+  $("#store_format_help")
+    .popover({
+            offset: 10
+        })
+    .click(function(e) { 
+        e.preventDefault(); 
+    });
+
 
   //********** TO DO
   // IF ANY CHECKBOX IN ACCORDION IS CHECKED, THEN
