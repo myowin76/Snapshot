@@ -93,16 +93,6 @@ ActiveRecord::Schema.define(:version => 20130125165723) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "locations", :force => true do |t|
-    t.string   "name"
-    t.integer  "country_id"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "locations", ["country_id"], :name => "index_locations_on_country_id"
-
   create_table "media_locations", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -292,8 +282,8 @@ ActiveRecord::Schema.define(:version => 20130125165723) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :null => false
-    t.string   "encrypted_password",                    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -302,8 +292,8 @@ ActiveRecord::Schema.define(:version => 20130125165723) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "user_type_id",           :default => 1
     t.string   "username"
   end
