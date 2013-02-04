@@ -12,7 +12,4 @@ class Audit < ActiveRecord::Base
   validates :reference, :presence => true  
   validates :created_at, :presence => true  
 
-  def show_date
-    created_at.strftime("%d/%m/%Y")
-  end
 end

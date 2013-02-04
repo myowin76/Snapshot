@@ -83,7 +83,11 @@ class Photo < ActiveRecord::Base
     scope :all_brand_compliant, where(brand_compliant: true)
 
     
-    
+    def photo_attributes=(photo_attributes)
+      photo_attributes.each do |attributes|
+      photos.build(attributes)
+      end
+    end 
 
     def self.find_between fromdate, todate
       where(:created_at => fromdate .. todate)

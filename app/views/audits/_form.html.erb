@@ -73,7 +73,7 @@
     <fieldset>
       <%= f.fields_for :photos do |photo_fields| %>
       <% if photo_fields.object.new_record? %>
-          <%= render "file_upload", :photos => photo_fields %>  
+          <%= render "file_upload", :photo_fields => photo_fields %>  
       <% end %>
     <% end %>
     </fieldset>

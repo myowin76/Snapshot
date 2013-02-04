@@ -78,7 +78,7 @@
           </div>
           
           
-          <%= f.input :additional_brands %>
+          <%#= f.input :additional_brands %>
           <%= f.association :categories, collection: Category.all(order: 'name'), :input_html => { :class=> 'chosen-category' } %>
           <%= f.association :media_locations, collection: MediaLocation.all(order: 'name'), :input_html => { :class=> 'chosen-media-local' } %>
           <div class="mv-actions">
