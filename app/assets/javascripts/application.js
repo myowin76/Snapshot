@@ -278,7 +278,8 @@ $(document).ready(function() {
     });
     return false;
   });
-
+  //$('#audit_store_id').chosen({no_results_text: "<a href='/stores/new'>New Store</a>:"})
+  
   $('#audit_store_id').live('change',function(){
     store_id = $('#audit_store_id').serializeObject();
     $.ajax({
