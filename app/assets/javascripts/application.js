@@ -13,22 +13,18 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-
-//= require jquery.ui.widget
-// require jquery.fileupload
-
 //= require chosen-jquery
 //= require jquery.ui.datepicker
 //= require twitter/bootstrap
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
-
+//= require jquery-fileupload
 //= require_tree .
 
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
-//= require jquery.tokeninput
+
+// require jquery-fileupload/vendor/tmpl
+// require jquery.tokeninput
 
 var snapshot = {
 

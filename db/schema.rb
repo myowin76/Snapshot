@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130104904) do
+ActiveRecord::Schema.define(:version => 20130205125004) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20130130104904) do
     t.string   "role_of_comm"
     t.string   "perspective"
     t.boolean  "data_complete"
+    t.string   "name"
   end
 
   add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"

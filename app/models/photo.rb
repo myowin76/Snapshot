@@ -26,19 +26,6 @@ class Photo < ActiveRecord::Base
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids #, :brands_tokens
 
     
-
-  # START - WORK IN PROGRESS    
-  # attr_reader :brands_tokens    
-  
-  # # def brands_tokens=(ids)
-  #   self.brands = Brand.find_all_by_id(ids)
-  # end
-
-  # END - WORK IN PROGRESS
-
-
-
-    
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
@@ -57,8 +44,8 @@ class Photo < ActiveRecord::Base
     :s3_protocol => 'http',
       :s3_options => {
         :server_side_encryption => 'AES256',
-        :storage_class => :reduced_redundancy,
-        :content_disposition => 'attachment'
+        :storage_class => :reduced_redundancy
+        # :content_disposition => 'attachment'
       },
     :s3_headers => {"Content-Disposition" => "attachment"},
     :bucket => "SnapshotWorldWide"
@@ -71,23 +58,27 @@ class Photo < ActiveRecord::Base
   								   'image/jpg', 'image/png']
 
     acts_as_gmappable :process_geocoding => false
-    # def gmaps4rails_infowindow
-    #   # add here whatever html content you desire, it will be displayed when users clicks on the marker
-    #   # "<h4>#{self.title}</h4>"
-    #   "<h4>Title</h4>"
-    # end
+
 
     scope :order_date_desc, order("created_at DESC")
     scope :published, where(published: true)
     scope :unpublished, where(published: false)
     scope :all_brand_compliant, where(brand_compliant: true)
 
-    
-    def photo_attributes=(photo_attributes)
-      photo_attributes.each do |attributes|
-      photos.build(attributes)
-      end
-    end 
+    def to_jq_upload
+    {
+      "name" => read_attribute(:photo_file_name),
+      "size" => read_attribute(:photo_file_size),
+      "url" => photo.url(:small)
+      # "delete_url" => photo_path(self),
+      # "delete_type" => "DELETE" 
+    }
+    end
+    # def photo_attributes=(photo_attributes)
+    #   photo_attributes.each do |attributes|
+    #   photos.build(attributes)
+    #   end
+    # end 
 
     def self.find_between fromdate, todate
       where(:created_at => fromdate .. todate)

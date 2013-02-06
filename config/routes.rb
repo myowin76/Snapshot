@@ -14,7 +14,12 @@ Snapshot::Application.routes.draw do
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
   match '/photos/download/:id' => 'photos#zip_all_from_store', :as => :all_store_photos
   
-  
+  resources :audits do
+    collection do
+      post :refresh_store_dropdown
+    end
+    resources :photos
+  end
 
   resources :photos do
     collection do
@@ -31,12 +36,7 @@ Snapshot::Application.routes.draw do
   resources :media_vehicles
 
   match '/audits/mv_create' => 'audits#mv_create'
-  resources :audits do
-    collection do
-      post :refresh_store_dropdown
-    end
-    resources :photos
-  end
+  
   # match '/stores/show_store_with_categories' => 'stores#show',
   #   :as => :store_view, 
   #   :via => :post
