@@ -192,7 +192,7 @@
           <td><%= photo.categories.map(&:name).join(",") %></td>
           <!-- <td><%#= link_to "Edit", edit_photo_path(photo) %></td> -->
           <td>
-            <%= link_to photo, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger' do %>
+            <%= link_to audit_photo_path([@audit],[photo]), action: :destroy, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger' do %>
               <i class="icon-trash icon-white"></i>
               <span>Delete</span>
             <% end %>

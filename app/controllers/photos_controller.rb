@@ -295,14 +295,20 @@ class PhotosController < ApplicationController
   end
 
   def destroy
-
+    
     @photo = Photo.find(params[:id])
     @photo.destroy
 
     respond_to do |format|
       # format.html { redirect_to photos_url }
-      format.html { redirect_to admin_url }
-      format.json { head :no_content }
+      if params[:audit_id].present?
+        url = "#{root_path}audits/#{params[:audit_id]}"
+        debugger
+        format.html { redirect_to url }
+      else
+        format.html { redirect_to admin_url }
+      end  
+        format.json { head :no_content }
     end
   end
 
