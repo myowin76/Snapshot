@@ -69,7 +69,8 @@ class Photo < ActiveRecord::Base
     {
       "name" => read_attribute(:photo_file_name),
       "size" => read_attribute(:photo_file_size),
-      "url" => photo.url(:small)
+      "url" => photo.url(:small),
+      "thumbnail_url" => photo.url(:small)
       # "delete_url" => photo_path(self),
       # "delete_type" => "DELETE" 
     }
