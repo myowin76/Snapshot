@@ -29,7 +29,7 @@
           </td>
           <%#= link_to photo.audit.id unless photo.audit_id.nil? %>
           <td>
-          	<%= photo.audit.store.retailer.name unless photo.audit.store.retailer_id.nil?  %><br />
+          	<%= photo.audit.store.retailer.name unless photo.audit_id.nil? || photo.audit.store.retailer_id.nil?  %><br />
           	<%= photo.audit.store.name unless photo.audit_id.nil?  %>
           </td>
           <td><%= photo.created_at %></td>

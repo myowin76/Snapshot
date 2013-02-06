@@ -62,7 +62,7 @@ class Photo < ActiveRecord::Base
 
     scope :order_date_desc, order("created_at DESC")
     scope :published, where(published: true)
-    scope :unpublished, where(published: false)
+    scope :unpublished, where(published: false).includes(:audit)
     scope :all_brand_compliant, where(brand_compliant: true)
 
     def to_jq_upload

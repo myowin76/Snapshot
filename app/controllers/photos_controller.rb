@@ -227,7 +227,7 @@ class PhotosController < ApplicationController
     end
     respond_to do |format|
       if @photo.save
-        # @audit.update_attribute(:audit_id, audit_id)
+        
          format.html {
             render :json => [@photo.to_jq_upload].to_json,
             :content_type => 'text/html',
@@ -242,7 +242,6 @@ class PhotosController < ApplicationController
       end
     end
   end
-
 
   def generate_zip
     
@@ -296,6 +295,7 @@ class PhotosController < ApplicationController
   end
 
   def destroy
+
     @photo = Photo.find(params[:id])
     @photo.destroy
 

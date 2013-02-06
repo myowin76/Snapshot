@@ -1,7 +1,5 @@
-  <h2>Upload file</h2>
-  <%# @audit = Audit.find(1793) %>
+
   <%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
-  <%#= form_for Upload.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 
     <fieldset>
@@ -9,8 +7,8 @@
         <%= f.label "Retailer" %>
         <% if @audit.new_record? %>
           <%= select_tag "audit_retailer_id", options_from_collection_for_select(
-          Retailer.all, "id", "name"), {:prompt => 'Please Select' }%>
-        <% else  %>
+                Retailer.all, "id", "name"), {:prompt => 'Please Select' } %>
+        <% else %>
           <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), 
               :validate => { :presence => true } %>
         <% end %>
@@ -25,9 +23,26 @@
         <% unless @audit.new_record? %>
           Stores<br />
           <%= select_tag 'audit[store_id]', options_from_collection_for_select(Store.order(:name), "id", "name",  @audit.store.id(&:id) ), {:prompt => 'Please Select'} %>
+
+          <% if @audit.store.address.present? %>
+            <%= store.address %>, 
+          <% end %>
+          <% if @audit.store.address2.present? %>
+            <%= @audit.store.address2 %>, 
+          <% end %>
+          <% if @audit.store.address3.present? %>
+            <%= @audit.store.address3 %>, 
+          <% end %>
+          <% if @audit.store.town.present? %>
+            <%= @audit.store.town %>, 
+          <% end %>
+          <% if @audit.store.postcode.present? %>
+            <%= @audit.store.postcode %>
+          <% end %>    
         <% end %>
       </div>
     </fieldset>
+
 
     <% unless params[:store].present?  %>
       <fieldset>

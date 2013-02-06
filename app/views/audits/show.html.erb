@@ -1,7 +1,5 @@
 <!-- <p id="notice"><%= notice %></p> -->
-<p>
-  <%= link_to 'Edit', edit_audit_path(@audit) %>
-</p>
+
 <p>
   <strong>Reference:</strong>
   <%= @audit.reference %>
@@ -24,9 +22,6 @@
   <%= @audit.store.name %>
 </p>
 
-
-<%#= link_to 'Back', audits_path %>
-
 <%= simple_form_for @audit.photos.new, :validate => true, :html => { :multipart => true } do |f| %>
     <%= f.hidden_field :audit_id, :value=> @audit.id %>
     <div class="row fileupload-buttonbar">
@@ -36,16 +31,17 @@
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
           <%= f.file_field :photo, :multiple => true, :name => 'photo[photo]' %>
-          
-          <%#= f.fields_for :photos do |photo_fields| %>
-            <%#= photo_fields.file_field :photo, :multiple => true %>
-          <%# end %>
         </span>
         <button type="submit" class="btn btn-primary start">
           <i class="icon-upload icon-white"></i>
           <span>Start upload</span>
         </button>
-        <button type="reset" class="btn btn-warning cancel">
+        
+        <%= link_to edit_audit_path(@audit), :class => 'btn' do %>
+          <i class="icon-edit"></i>
+          <span>Edit</span>
+        <% end  %>
+        <!-- <button type="reset" class="btn btn-warning cancel">
           <i class="icon-ban-circle icon-white"></i>
           <span>Cancel upload</span>
         </button>
@@ -53,7 +49,7 @@
           <i class="icon-trash icon-white"></i>
           <span>Delete</span>
         </button>
-        <input type="checkbox" class="toggle">
+        <input type="checkbox" class="toggle"> -->
       </div>
       <div class="span5">
         <!-- The global progress bar -->
@@ -71,7 +67,6 @@
 
       </tbody>
     </table>
-
 
   <script>
     var fileUploadErrors = {
@@ -148,8 +143,13 @@
   <script type="text/javascript" charset="utf-8">
     $(function () {
         // Initialize the jQuery File Upload widget:
-        $('#new_photo').fileupload();
-        // 
+        $('#new_photo').fileupload({
+          maxFileSize: 6000000,
+          acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+          previewMaxWidth: 130,
+          previewMaxHeight: 130
+        });
+        
         // Load existing files:
         $.getJSON($('#new_photo').prop('action'), function (files) {
           var fu = $('#new_photo').data('fileupload'), 
@@ -166,28 +166,34 @@
         });
     });
   </script>
+  <style type="text/css">
+    .photo-list tr:last-child{
+        display: none;
+    }
+  </style>
 
 <% end %>
 
-<table class="table table-striped">
+<% unless @audit.photos.empty? %>
+  <table class="table table-striped photo-list">
     <thead>
-    <tr>    
-      <th>Image</th>
-      <th>Categories</th>
-      <th>Audit Date</th>
-      <th></th>
-      <th></th>
-    </tr>
-    </thead>
-    <% @audit.photos.each do |photo| %>
-      <tr>
-        <td><%= link_to image_tag(photo.photo.url(:small)), photo %></td>
-        <td><%= photo.categories.map(&:name).join(",") %></td>
-        <td><%= @audit.created_at %></td>
-        <!-- <td><%#= link_to "Edit", edit_photo_path(photo) %></td> -->
-        <td><%= link_to "Destroy", photo, :confirm => 'Are you sure?', :method => :delete %></td>
-        
+      <tr>    
+        <th>Image</th>
+        <th>Categories</th>
+        <th>Audit Date</th>
+        <th></th>
       </tr>
-    <% end %>    
-</table>
-
+    </thead>
+    <tbody>
+      <% @audit.photos.each do |photo| %>
+        <tr>
+          <td><%= link_to image_tag(photo.photo.url(:small)), photo %></td>
+          <td><%= photo.categories.map(&:name).join(",") %></td>
+          <td><%= @audit.created_at %></td>
+          <!-- <td><%#= link_to "Edit", edit_photo_path(photo) %></td> -->
+          <td><%= link_to "Destroy", photo, :confirm => 'Are you sure?', :method => :delete %></td>
+        </tr>
+      <% end %>    
+    </tbody>
+  </table>
+<% end %>
