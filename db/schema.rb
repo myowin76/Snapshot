@@ -297,6 +297,8 @@ ActiveRecord::Schema.define(:version => 20130205125004) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+<<<<<<< HEAD
+=======
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
@@ -305,6 +307,7 @@ ActiveRecord::Schema.define(:version => 20130205125004) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
+>>>>>>> 36a8710f1d40efb4797c7c7419b17b126105e0a5
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.integer  "user_type_id",           :default => 1
