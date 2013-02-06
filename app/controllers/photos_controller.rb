@@ -303,7 +303,6 @@ class PhotosController < ApplicationController
       # format.html { redirect_to photos_url }
       if params[:audit_id].present?
         url = "#{root_path}audits/#{params[:audit_id]}"
-        debugger
         format.html { redirect_to url }
       else
         format.html { redirect_to admin_url }
