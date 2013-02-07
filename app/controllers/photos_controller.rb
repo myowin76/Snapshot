@@ -95,7 +95,13 @@ class PhotosController < ApplicationController
       
       if params_search.nil?
         # on page load
-        @photos = []
+        if params[:per_page]
+          @per_page = params[:per_page]
+        else
+          @per_page = 20
+        end
+        # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
+        @photos = Photo.published.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
           
       else 
         # search action
