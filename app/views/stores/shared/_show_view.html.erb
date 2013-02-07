@@ -8,11 +8,11 @@
     <div class="">
       <p id="notice"><%= notice %></p>
       <input type="hidden" id="hidden-cats" name="category_ids[]" value="">
-      <p>
-        <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, 
+      <!-- <p>
+        <%#= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, 
             :store => @store.name), 
             :class => 'btn btn-primary pull-right' %>
-      </p>
+      </p> -->
       <p>
         <%= link_to 'Clear Filters', clear_filters_path, :id => 'clear-filter' %>
       </p>

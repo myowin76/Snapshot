@@ -15,7 +15,7 @@ class	PhotoPdf < Prawn::Document
 	end
 
 	def logo
-		image open("#{Rails.root}/app/assets/images/snapshot-logo.jpg"), :width => 200	
+		image open("#{Rails.root}/app/assets/images/SNAPSHOT_logo.jpg"), :width => 200	
 	end
 	
 	def photo_image
@@ -32,10 +32,13 @@ class	PhotoPdf < Prawn::Document
 		# grid([3,0], [2,1]).bounding_box do
 		# end	
 			text "Store: #{@photo.audit.store.name}", :size => 12
-			text "Address: #{@photo.audit.store.address}, #{@photo.audit.store.address2}", :size => 12
+			text "Address: #{@photo.audit.store.address}, #{@photo.audit.store.address2}, #{@photo.audit.store.address3} #{@photo.audit.store.town}
+						#{@photo.audit.store.postcode}", :size => 12
 			text "#{@photo.audit.store.country.name}" unless @photo.audit.store.country_id.nil?
 			text "Store Format: #{@photo.audit.store.store_format.name}"
-			text "Environment Type: #{@photo.audit.environment_type.name}"
+			text "Environment Type: #{@photo.audit.store.environment_type.name}"
+			text "Channel: #{@photo.audit.store.channel.name}"
+			
 			move_down(10)
 			photo_image
 			move_down(10)
