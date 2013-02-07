@@ -139,7 +139,7 @@ class StoresController < ApplicationController
       @audit = @audits.first
     end
 
-    @photo_audit_cat = @category.photos.where('photos.audit_id IN (?)', @audit.id)
+    @photo_audit_cat = @category.photos.where('photos.audit_id IN (?)', @audit.id).order(@audit.created_at)
     # Category.joins(:photos).includes(:categorizations)
     #     .where('photos.audit_id IN (?)', @audit.id)
         

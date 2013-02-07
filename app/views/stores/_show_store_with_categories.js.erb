@@ -44,9 +44,9 @@
       type: "POST",
       dataType: 'script',
       data: info,
-      // success: function(){
-      // 	$('#clear-filter').hide();
-      // }
+      success: function(){
+      	$('.site-content #categories input:checkbox').attr('checked',false);
+      }
     })
     return false;
 	});

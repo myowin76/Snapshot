@@ -118,8 +118,6 @@ $(document).ready(function() {
   photos.exportZIP();
   photos.exportStorePhotos();
   
-  $('#new_save_search').validate();
-  
   $(".photo-view").ajaxStart(function(){
     $(this).hide();
     $('#list-view .loading').show();
