@@ -80,18 +80,17 @@ class Photo < ActiveRecord::Base
       where(:created_at => fromdate .. todate)
     end
 
-    # def self.generate_csv(photo_ids, options = {})
-    def self.generate_csv()
-      
+    def self.generate_csv(photo_ids)
+    
+      @photos = Photo.find_all_by_id(photo_ids)
       # CSV.generate() do |csv|
-      CSV.open('/Users/myowin76/csv4.csv', "w") do |csv|
-        column_names = ['Filename', 'Audit Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address','Country', 'Promotion Calendar', 
+      CSV.open("#{Rails.root}/public/data.csv", "w") do |csv|
+        column_names = ['Filename', 'Audit Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address', 'Address2','Country', 'Promotion Calendar', 
               'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
         csv << column_names
         
-        ['3795','3810'].each do |photo_id|
-          photo = Photo.find_by_id(photo_id)
-          
+        @photos.each do |photo|
+
           @country = photo.audit.store.country.name unless photo.audit.store.country_id.nil?
           @promo_cal = photo.promotion_calendar.name unless photo.promotion_calendar_id.nil?
           @promo_type = photo.promotion_types.map(&:name).join(",") unless photo.promotion_types.nil?
@@ -121,6 +120,7 @@ class Photo < ActiveRecord::Base
             photo.description
           ]
         end
+         csv
       end
     end
 
@@ -129,67 +129,43 @@ class Photo < ActiveRecord::Base
       assets = store.photos
 
       zip_file = Tempfile.new("#{Rails.root}/public/" << store.name.to_s << ".zip")
+      
       Zip::ZipOutputStream.open(zip_file) do |zos|
-        assets.each do |asset|
-          
+        assets.each do |asset|    
           download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
           # csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
-          
         end
-        # debugger
-        # zos.put_next_entry("data.csv")
-        # zos.print IO.read(csv_file)
       end
       zip_file
-      
     end
 
     def self.zip_files photo_ids
-      # NEED TO GENERATE CSV FILE WITH RELATED IMAGES INFORMATION 
-      # AND ALSO ADDED TO ZIP FILE
-      # CSV.generate(options) do |csv|
-      #   photo_ids.each do |photo_id|
-      #     column_names = ['Headline','  Sector', 'Retailer', 'Category','Store', 'Date', 'Address','Country', 'Promotion Calendar', 
-      #         'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
-      #     csv << column_names
-
-      #   end
-      # end
 
       assets = find_all_by_id(photo_ids)
-      # csv = generate_csv(photo_ids)
-
+      csv = generate_csv(photo_ids)
+      
       zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
+      
       Zip::ZipOutputStream.open(zip_file) do |zos|
         assets.each do |photo_id|
           asset = find_by_id(photo_id)
           download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
-          # csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
-          
-        end
-        # debugger
-        # zos.put_next_entry("data.csv")
-        # zos.print IO.read(csv_file)
+        end  
+        zos.put_next_entry("data.csv")
+        zos.print IO.read csv.path
       end
+
       zip_file
     end
     
-    # scope :by_audits_in_stores, lambda { |stores, environment, channel|
-    #   includes(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
-    #      stores, environment, channel) }
     scope :by_audits_in_stores, lambda { |stores|
       includes(:audit).where('audits.store_id IN (?)',
          stores) }
-    
 
-
-    def has_address?
-          
-    end  
     private
     def self.photo_category_names(photo)
       photo.categories.map(&:name).join(",") unless photo.categories.nil?
