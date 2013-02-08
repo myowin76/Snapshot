@@ -11,7 +11,8 @@
 </p>
 <p>
   <strong>Date of Audit:</strong>
-  <%= @audit.audit_date.strftime('%d/%m/%Y') %>
+  <%#= @audit.audit_date.strftime('%d/%m/%Y') %>
+  <%= @audit.audit_date.to_s %>
 </p>
 <p>
   <strong>Retailer:</strong>
