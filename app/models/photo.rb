@@ -83,8 +83,9 @@ class Photo < ActiveRecord::Base
     # def self.generate_csv(photo_ids, options = {})
     def self.generate_csv()
       
-      CSV.generate() do |csv|
-        column_names = ['Filename', 'Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address','Country', 'Promotion Calendar', 
+      # CSV.generate() do |csv|
+      CSV.open('/Users/myowin76/csv4.csv', "w") do |csv|
+        column_names = ['Filename', 'Audit Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address','Country', 'Promotion Calendar', 
               'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
         csv << column_names
         
@@ -101,26 +102,25 @@ class Photo < ActiveRecord::Base
           @media_brands = photo.brands.map(&:name).join(",") unless photo.brands.nil?
 
           csv << [
-                  photo.photo_file_name, photo.created_at, photo.headline, 
-                  photo.audit.store.retailer.sector.name,
-                  photo.audit.store.retailer.name, 
-                  photo_category_names(photo),
-                  photo.audit.store.name,
-                  photo.audit.store.address,
-                  photo.audit.store.address2,
-                  @country,
-                  @promo_cal,
-                  @promo_type,
-                  @media_loc,
-                  @media_types,
-                  @media_veh,
-                  @media_themes,
-                  @media_brands,
-                  photo.additional_brands,
-                  photo.description
-                ]
+            photo.photo_file_name, photo.audit.audit_date, photo.headline, 
+            photo.audit.store.retailer.sector.name,
+            photo.audit.store.retailer.name, 
+            photo_category_names(photo),
+            photo.audit.store.name,
+            photo.audit.store.address,
+            photo.audit.store.address2,
+            @country,
+            @promo_cal,
+            @promo_type,
+            @media_loc,
+            @media_types,
+            @media_veh,
+            @media_themes,
+            @media_brands,
+            photo.additional_brands,
+            photo.description
+          ]
         end
-        send_file csv, :type => 'text/csv'
       end
     end
 
