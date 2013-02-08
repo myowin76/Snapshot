@@ -10,9 +10,6 @@ jQuery ->
   
   $('.chosen-mv-uploader').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add New</a>:"})
   
-  
-  ###$('.chosen-media-vehic').trigger('liszt:updated');###
-
   $('.chosen-media-type').chosen()
   $('.chosen-promo-type').chosen()
   $('.chosen-promo-cal').chosen()
@@ -25,8 +22,6 @@ jQuery ->
       { 'bSortable': false, 'aTargets': [ -1 ] },
       { 'bSortable': false, 'aTargets': [ -2 ] }
     ]
-
-  
 
 
   $('form').on 'click', '.remove_field', (event) ->
@@ -47,5 +42,7 @@ jQuery ->
       $('#audit_store_id').html(options)
   
   $('.created_at').datepicker({dateFormat: 'dd/mm/yy'})
+  $('#audit_audit_date').datepicker({dateFormat: 'dd/mm/yy'})
+
 
   

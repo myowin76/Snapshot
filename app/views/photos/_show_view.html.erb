@@ -2,14 +2,20 @@
   
   <div class="page-header">
     <button type="button" class="close">×</button>
-    <h1 id="myModalLabel"><%= @photo.photo_file_name %></h1>
+    <h1 id="myModalLabel">
+      <%= @photo.audit.store.name %>
+    </h1>
   </div>
   
   <div id="photo-details">
     
     <div class="left">
       <%= image_tag(@photo.photo.url(:large)) %>
-      <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "", :target => "_blank" %>
+
+      <%= link_to photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" do %>
+        <i class="icon-download icon-white"></i>
+        <span>Download Pdf</span>
+      <% end %>
     </div>
     
     <div class="right">

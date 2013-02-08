@@ -11,7 +11,7 @@
 </p>
 <p>
   <strong>Date of Audit:</strong>
-  <%= @audit.created_at %>
+  <%= @audit.audit_date.strftime('%d/%m/%Y') %>
 </p>
 <p>
   <strong>Retailer:</strong>
@@ -22,7 +22,7 @@
   <%= @audit.store.name %>
 </p>
 
-<%= simple_form_for @audit.photos.new, :validate => true, :html => { :multipart => true } do |f| %>
+<%= simple_form_for @audit.photos.new, :html => { :multipart => true } do |f| %>
     <%= f.hidden_field :audit_id, :value=> @audit.id %>
     <div class="row fileupload-buttonbar">
       <div class="span7">
@@ -158,8 +158,8 @@
             template;
           fu._adjustMaxNumberOfFiles(-files.length);
           console.log(files);
-          template = fu._renderDownload(files)
-            .appendTo($('#new_photo .files'));
+          template = fu._renderDownload(files);
+            // .appendTo($('#new_photo .files'));
           // Force reflow:
           fu._reflow = fu._transition && template.length &&
             template[0].offsetWidth;
