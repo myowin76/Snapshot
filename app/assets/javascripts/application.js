@@ -107,11 +107,8 @@ var photos = {
 };
 
 $(document).ready(function() {
-  // google.maps.event.trigger(map, 'resize');
-  // $('a[href="#map-view"]').on('show', function(e) {
-  //     google.maps.event.trigger(map, 'resize');
-  // });
-  // $("#map").css("width", 600).css("height", 600);
+
+
   
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
   
