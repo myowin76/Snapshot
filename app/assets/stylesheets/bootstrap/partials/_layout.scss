@@ -1,0 +1,42 @@
+/*
+    Layout
+*/
+
+$total-columns  : 12;             // a 12-column grid
+$column-width   : 4.5em;            // each column is 4em wide
+$gutter-width   : 2em;            // 1em gutters between columns
+$grid-padding   : $gutter-width;  // grid-padding equal to gutters
+
+
+
+body{
+  
+
+
+}
+
+.container{
+  @include container;
+  //@include debug-vertical-alignment();
+  //@include susy-grid-background;
+
+  // Dont make it responsive
+  min-width: ($total-columns * $column-width) + (($total-columns - 1) * $gutter-width) + $gutter-width * 2 ;  
+}
+
+.site-content{
+
+  //background:purple;
+  @include clearfix;
+
+  .aside{
+    //background:yellow;
+    @include span-columns(3, 12); 
+  }
+
+  .content-wrap{
+    //background: red;
+    @include span-columns(9 omega,12); 
+  }
+
+}

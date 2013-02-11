@@ -8,23 +8,62 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require reset
+ 
+ 
  *= require jquery.ui.datepicker
  *= require chosen
  *= require dataTables/jquery.dataTables
  *= require_self
- *= require bootstrap_and_overrides
- *= require_tree ./partials
+
+ * require_tree ./partials
+
  *= require gmaps4rails
  *= require jquery.fileupload-ui 
  * require_tree .
  
  */
-@import "twitter/bootstrap";
 
+// Vars / Mixins / Functions
+@import "compass";
+@import "susy";
+@import "bootstrap";
+
+// Base
+@import "bootstrap/partials/layout";
+@import "bootstrap/partials/header";
+@import "bootstrap/partials/footer";
+
+
+// Mods
+@import "bootstrap/partials/mod-content-filters";
+
+@import "bootstrap/partials/mod-page-controls";
+@import "bootstrap/partials/mod-photos";
+@import "bootstrap/partials/mod-paging";
+@import "bootstrap/partials/mod-overlay";
+
+
+// Helpers
+@import "bootstrap/partials/helpers";
+
+
+//@import "bootstrap/partials/base";
+//@import "bootstrap/partials/type";
+//@import "bootstrap/partials/layout";
+
+
+//@import "bootstrap/partials/footer";
+
+
+
+// Modules
+
+
+
+/*
 @font-face {
   font-family: Museo500;
-  src: url("../assets/MuseoSans_500.otf");}
+  src: url("/assets/MuseoSans_500.otf");}
 @font-face {
   font-family: OpenSans;
   src: url("../assets/OpenSans-Regular.ttf");}
@@ -683,3 +722,5 @@ input{
     width: auto;
   }
 }
+
+*/

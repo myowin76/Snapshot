@@ -1,65 +1,40 @@
-<div id="header" class="site-header" role="banner">
-	<div id="branding">						
-		<h1 id="site-title">
-			<a href="/" title="Snapshot Worldwide" rel="Home">
+
+<header id="header" class="site-header" role="banner">
+
+	<div class="navbar" role="navigation">
+	  <div class="navbar-inner">
+
+	    
+			<a href="/" class="brand" title="Snapshot Worldwide" rel="Home">
 				<img class="logo" src="<%= asset_path 'SNAPSHOT_logo.png' %>" alt="Snapshot Worldwide">
 			</a>
-		</h1>		
-	</div>
-	<div id="account">
-		<% if user_signed_in? %>
-		<ul>
-			<li>
-				<%= current_user.email  %>
-			</li>
-			<li>
-        <%= link_to "Account", edit_user_registration_path %>
-      </li>
-			<li>
-				<%= link_to "Logout", destroy_user_session_path %>
-			</li>
-			<li class="last">
-				<a href="#">Feedback</a>
-			</li>
-		</ul>
-	</div>
-	<% end %>
-	<div id="menu-primary" class="menu-container">
 
-		<div class="menu">
-			<!--ul>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/">Home</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/about-us/">About us</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/category/news/">News</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/category/reports/">Reports</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/consultancy-research/">Consultancy &amp; Research</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/contact/">Contact</a>
-				</li>
-			</ul-->
-			<ul class="account">
-				<% if user_signed_in? %>
+
+			<% if user_signed_in? %>
+				<ul class="nav pull-right">
+					<!--
+					<li>
+						<a>Hi <%= current_user.username  %>!</a>
+						<a>Hi <%= current_user.email  %></a> 
+					</li>
+					-->
+
+					<li>
+		        <%= link_to "My Account", edit_user_registration_path %>
+		      </li>
+
+				
 					<% if admin_or_uploader? %>
 						<li>
-		          <%= link_to "Admin", admin_path %>
-		        </li>
-	        <% end %>
+				      <%= link_to "Admin", admin_path %>
+				    </li>
+				  <% end %>
 					<li>
-						<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
-					</li>
-				<% end %>
-			</ul>
-		</div>
+						<!-- <%= current_user.email  %> -->
+						<%= link_to "Logout (#{current_user.username})", destroy_user_session_path %>
+					</li>				
+				</ul>
+			<% end %>
+	  </div>
 	</div>
-</div>	
-
+</header>

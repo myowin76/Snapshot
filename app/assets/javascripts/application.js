@@ -26,7 +26,7 @@
 //= require jquery.tokeninput
 
 var snapshot = {
-
+/*
   LayoutSwitcher: function(){
 
     $('.layout-switcher .layout-list').on('click', function(){
@@ -61,13 +61,14 @@ var snapshot = {
       return false;
     });
   },
-  
+*/  
   Pagination: function(){
     $('.pagination a').live('click',function () {
       $.get(this.href, null, null, 'script');
       return false;
     });
   }
+
 };
 
 var photos = {
@@ -111,7 +112,7 @@ $(document).ready(function() {
   
   // TO DO ## REFACFOR BY CREATING FUNCTIONS
   
-  snapshot.LayoutSwitcher();
+  //snapshot.LayoutSwitcher();
   snapshot.Pagination();
   photos.generatePDF();
   photos.exportZIP();
@@ -213,16 +214,20 @@ $(document).ready(function() {
 
   
   $('#reviews').on('click', function(){
+
     if ($(".photo-view .photos-viewer input[name='photo_ids[]']:checked").length < 1){
       alert("Please select images");
       return false;
     }
+
     $(".photo-view .photos-viewer input[name='photo_ids[]']:not(:checked)").each(function(){
       $(this).closest('li').hide();
     });
+
     $(this).hide();
     $('#show-all').show();
     return false;
+
   });
 
   $('#show-all').on('click', function(){
@@ -364,6 +369,7 @@ $(document).ready(function() {
   //   })
   // })    
 
+/*
 	$('#checkAll').live('click',function(){
 		$('.photos-viewer input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
@@ -377,9 +383,13 @@ $(document).ready(function() {
 		})
 		return false;
 	})
+*/
 
   $('.accordion').on('show hide', function(e){
-    $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');
+    $(e.target)
+      .siblings('.accordion-heading')
+      .find('.accordion-toggle i')
+        .toggleClass('icon-plus icon-minus');
   })  
    
 	filterUI.init();
@@ -443,58 +453,214 @@ function fixPosElement(el){
   });
 }
 
+
+
+
+
+
+
+
 //  Filter UI object
 // ============================================
 var filterUI = {
 
-  init : function(){
+  init : function(el){
     "use strict";
 
     var that = this,
-        $filters = $('#search_form');
+        $filter = $(el);
 
-    $filters.on('change', 'input', function(){
+    // Checkboxes
+    that.addLabelsForExistingCheckbox($filter);
+    that.attachEventToCheckbox($filter);
 
-      if ( $(this).attr('checked') !== undefined ){
+    // Selects
+    //that.addLabelsForExistingSelect($filter);
+    //that.attachEventToSelect($filter);
+
+
+    // Set Height
+    //that.setHeight($filter);
+
+  },
+
+
+  /*
+  el:
+  */
+  addLabelsForExistingCheckbox : function(el){
+
+    var that = this,
+        $checkedCheckboxes = $(el).find('input:checked');
+
+    $checkedCheckboxes.each(function(){
+      that.addLabel($(this));
+    });
+
+  },
+
+  //addLabelsForExistingTextInput : function(){},
+  //attachEventToTextInput : function(el){},
+
+
+  addLabelsForExistingSelect : function(el){
+    var that = this,
+        $selectedOption = $(el).find(':selected');
+
+    $selectedOption.each(function(){
+      that.addLabel($(this).parent());
+    });
+  },
+
+  /*
+  el: jQ obj containing all selects
+  */
+  attachEventToSelect : function(el){
+    var that = this,
+        $filter = el;
+
+    //Set event listener
+    $filter.on('change', 'select', function(){
+
+      that.removeLabel(this); // Remove previous label because you can only select one value
+
+      if (($(this).val() !== undefined) || ($(this).val() !== 0)) {
+        that.addLabel(this);
+      }
+
+    });// filter
+
+  },
+
+
+  /*
+  el: expect #filter - jQ obj
+  */
+  attachEventToCheckbox : function(el){
+
+    var that = this,
+        $filter = el;
+
+    //Set event listener
+    $filter.on('change', 'input[type="checkbox"]', function(){
+
+      if ($(this).attr('checked') !== undefined ){
         that.addLabel(this);
       }
       else{
         that.removeLabel(this);
       }
+    });// filter
 
-    });
   },
 
+  /*
+  * setHeight - make height of $filter the same height asthe window
+  * $filter: expect jQuery object of #filter
+  */
+  /*
+  setHeight : function($filter){
+    "use strict";
+
+    var $win = $(window);
+
+    $filter.css({
+      'height': (parseInt( $win.height(),10) ) + 'px',
+      'overflow-y': 'auto'
+    });
+
+  },
+  */
+
+
+  /*
+  el : expect input
+  return : location desc
+  */
+  getLabelDesc : function(el){
+
+    console.log('dil', el);
+
+    var elType = el.prop("tagName").toLowerCase();
+
+    console.log(' elType',  elType);
+
+    // If el === input, what is the type
+    if (elType === "input") {
+      elType = el.attr('type');
+    };
+
+    console.log(' elType',  elType);
+
+    switch (elType) {
+      case "select":
+        //console.log('This is a select', el.find(':selected').attr('data-desc') );
+        return $(el).find(':selected').attr('data-desc');
+        break;
+      case "checkbox":
+        console.log('This is a checkbox', $(el).attr('data-desc'));
+        return $(el).attr('data-desc');
+        break;
+      case "text":
+        //console.log('This is a textbox', el);
+        return $(el).val();
+        break;
+      default:
+        console.log('No element type found.');
+    }// switch
+
+  },
+
+
+  /*
+  el: expect input[type=check] ***:DA TODO check for input type = checkbox
+  */
   addLabel : function(el){
     "use strict";
 
-    var $el = $(el);
+    console.log('el', el);
 
-   //console.log($el.parents('.accordion-group').find('.accordion-heading').find('.accordion-toggle') );
-   //console.log($el.parent().text());
-    if (! $el.parents('.accordion-group').find('.accordion-heading').find('.labels').length ) {
+    var that = this,
+        $el = $(el),
+        $labels = $el.parents('.accordion-group')
+                  .find('.accordion-heading')
+                  .find('.filter-tag-wrapper');
+
+    console.log('test ', $el.parents('.accordion-group').find('.accordion-heading').find('.filter-tag-wrapper') );
+
+    var dataDesc = that.getLabelDesc($el);
+
+    console.log('dataDesc', dataDesc);
+    console.log('dataDesc2', that.getLabelDesc($el) );
+
+    //console.log('addlabel desc', dataDesc );
+
+    // Add labels wrapper if it doesnt exist. ***TODO: Append only once fool
+    if (! $labels.length ) {
       $el.parents('.accordion-group').find('.accordion-heading')
-      .append('<div class="labels" />');
+      .append('<div class="filter-tag-wrapper" />');
     };
 
-
-    $el.parents('.accordion-group').find('.accordion-heading').find('.labels')
-    .append('<a data-id="' +
-            $el.attr('id') +
-            '" title="' + jQuery.trim($el.parent().text()) +'" class="label"><i class="icon-white icon-remove"></i>' +
-            $el.parent().text() +
-            '</a>');
-
+    // Append label to labels
+    $el.parents('.accordion-group')
+      .find('.accordion-heading')
+      .find('.filter-tag-wrapper')
+      .append('<a data-id="' +
+              $el.attr('id') +
+              '" title="' + dataDesc +'" class="filter-tag"><i class="icon-white icon-remove"></i>' +
+              dataDesc +
+              '</a>');
 
       var $label = $el.parents('.accordion-group').find('.accordion-heading')
                   .find('[data-id="'+ $el.attr('id')  +'"]');
 
-      console.log('label', $label);
-
       this.attachEventToLabel($label);
-
   },
 
+  /*
+    except:
+    el:
+  */
   removeLabel : function(el){
     "use strict";
 
@@ -503,32 +669,40 @@ var filterUI = {
     $el.parents('.accordion-group')
     .find('.accordion-heading')
       .find('[data-id="'+ $el.attr('id')  +'"]')
-      .remove();
-
+      .fadeOut(300, function(){
+        $(this).remove();
+      });
 
   },
 
+
   attachEventToLabel : function(el){
+    "use strict";
+
     var that = this,
         $el = $(el);
 
-    console.log('attach',$el);
+    //console.log('attach',$el);
 
     $el.parent().delegate("a", "click", function() {
       that.removeLabel( '#' + $(this).attr('data-id') );
       that.uncheckCheckbox( '#' + $(this).attr('data-id') );
-      
     });
 
   },
 
   uncheckCheckbox : function(el){
+    "use strict";
 
     var $el = $(el);
     $el.attr('checked', false);
 
   }
 
+  // uncheck
 
 };
 
+jQuery(document).ready(function($) {
+  filterUI.init('#search_form');
+});

@@ -1,29 +1,31 @@
-<fieldset>
-  <button type="submit" class="btn clear-form">
-    <!--i class="icon-refresh icon-white"></i--> Clear
-  </button>
-  <button type="submit" class="btn btn-primary search">
-    <!--i class="icon-search icon-white"></i--> Search
-  </button>
-</fieldset>  
+<div class="content-filter-actions">
 
-<div class="saved-search">
-	<ul></ul>
-  <%#= render @saved_searches unless current_user.save_searches.blank? %>
-	<%= link_to "Save", new_save_search_path(:params => params[:search]), id: "new_link", :class => "btn small", remote: true %>
-  
-  <% unless params[:saved_search_id].nil? %>
-    <%= link_to "Save as", edit_save_search_path(params[:saved_search_id]), :id => 'save_as', :class => "btn small", remote: true %>
-  <% else %>    
-    <%= link_to "Save as", "#", :id => 'save_as', :class => "btn small", :disabled => 'true' %>
-  <% end %>  
-	
-  <% unless current_user.save_searches.blank? %>
-    <%= link_to "Open Filters", save_searches_path, id: "open_link", :class => "btn small", remote: true %>
-  <% else %>  
-    <%= link_to "Open Filters", "#", :id => 'open_link', :class => "btn small", :disabled => 'true' %>
-  <% end %>
-</div> 
+  <fieldset class="content-filter-search">
+    <button type="submit" class="btn clear-form  btn-danger">Clear</button>
+    <button type="submit" class="btn btn-primary search">Search</button>
+  </fieldset>  
+
+
+  <div class="saved-search">	
+    <%#= render @saved_searches unless current_user.save_searches.blank? %>
+  	<%= link_to "Save", new_save_search_path(:params => params[:search]), id: "new_link", :class => "btn btn-small btn-success", remote: true %>
+    
+    <% unless params[:saved_search_id].nil? %>
+      <%= link_to "Save as", edit_save_search_path(params[:saved_search_id]), :id => 'save_as', :class => "btn btn-small", remote: true %>
+    <% else %>    
+      <%= link_to "Save as", "#", :id => 'save_as', :class => "btn btn-small btn-success", :disabled => 'true' %>
+    <% end %>  
+  	
+    <% unless current_user.save_searches.blank? %>
+      <%= link_to "Open Filters", save_searches_path, id: "open_link", :class => "btn btn-small btn-primary", remote: true %>
+    <% else %>  
+      <%= link_to "Open Filters", "#", :id => 'open_link', :class => "btn btn-small btn-primary", :disabled => 'true' %>
+    <% end %>
+
+  </div> 
+
+</div><!-- /.content-filter-actions -->
+
 
 	<!--div id = "new-save">
 	  <%#= render @new_save_search %>

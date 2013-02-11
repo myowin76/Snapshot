@@ -1,5 +1,6 @@
 
 	$('.site-content').hide();
+
 	
 	if ($('.overlay').children().hasClass('store_category_view')){
 		$('.store_category_view').hide();
@@ -13,6 +14,9 @@
 	else{
 		$('.overlay').html("<%= j render('show_view') %>");
 	}	
+
+
+	// Close photo details popup
 
 	$('.photo_views_view .close').live('click', function(){
 		$('.photo_views_view').fadeOut(200, function(){

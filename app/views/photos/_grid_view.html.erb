@@ -1,84 +1,134 @@
-<div class="page-controls action">
+<div id="pageControls" class="mod mod-page-controls">
 
-  <!-- <div class="sort-control">
-    <label for="sort_by" class="sort-control-label">Sort by:</label>
-    <select class="sort_select" id="sort_by" name="sort_by">
-      <option selected="selected">Date latest first</option>
-      <option>Date latest last</option>
-      <option>Retailer A-Z</option>
-      <option>Retailer Z-A</option>
-      <option>Brand A-Z</option>
-      <option>Brand Z-A</option>
-    </select>
-  </div> -->
-  <div class="length-control">
-    <label for="length" class="sort-control-label">Show:</label>
-    <%= select_tag :length, options_for_select([20,30,50], params[:per_page]) %>
-  </div>
+  <div class="page-filters">
+
+
+    <div class="filter-items">
+      
+      <b class="filter-label">Show:</b>
+
+      <%= select_tag :length , options_for_select([20,30,50], params[:per_page] ), :class => 'input-mini items-to-display' %>
+    </div><!-- /.filter-items -->
+
+    <div class="filter-layout">
+
+      <b class="filter-label">View:</b>
+
+      <a href="#" id="viewGrid" data-layout="grid" class="layout-type selected" title="Grid View"><i class="icon-white icon-th"></i></a>
+
+      <a href="#" id="viewList" data-layout="list" class="layout-type" title="List View"><i class="icon-white icon-list"></i></a>
+      
+    </div><!-- /.filter-layout -->
+
+  </div><!-- /.page-filters -->
+
+  <div class="page-actions">
+
+    <ul>
+
+      <li><a href="#" id="checkAll" data-select-all="false">Select All</a></li>
+      <!-- <li><a href="#" id="uncheckAll">Deselect All</a></li> -->
+      <li><%= link_to "Export Zip", download_url, :id => 'export-zip'%></li>
+      <li><%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf' %></li>
+      <li class="reviews">
+        <%= link_to "Filter selected", "#", :id => 'reviews'%>
+        <a href="#" id="show-all" style="display:none;">Show All</a>
+        <%#= link_to "Show All", "#", :id => 'show-all', %>
+      </li>
+    </ul>
+    
+  </div><!-- /.page-actions -->
+
   
-  <div class="layout-switcher sort-control">
-    <a href="#" class="icon-list layout-list">List</a>
-    <a href="#" class="icon-th layout-grid">Grid</a>
-  </div>
 
-  <ul style="margin-top: 8px;">
-    <li>
-      <a href="#" id="checkAll">Select All</a> |
-    </li>
-    <li>
-      <a href="#" id="uncheckAll">Deselect All</a> | 
-    </li>
-    <li>
-      <%= link_to "Export Zip", download_url, :id => 'export-zip'%> |
-    </li>
-    <li>
-      <%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf' %> |
-    </li>
-    <li class="reviews">
-      <%= link_to "Filter selected", "#", :id => 'reviews'%>
-      <a href="#" id="show-all" style="display:none;">Show All</a>
-      <%#= link_to "Show All", "#", :id => 'show-all', %>
-    </li>
-  </ul>
-</div>
 
-<div class="page-controls">  
-  <%= page_entries_info @photos %>
-  <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
-</div>
+
+</div><!-- /.mod-page-controls -->
+
 
 <% unless @photos.nil? %>    
-  <ul class="photos-viewer">
-    <% @photos.each do |photo| %>
-      <li>
-        <div class="thumb">
-          <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
-        </div>
-        <section>
-          <%= check_box_tag "photo_ids[]", photo.id %>
-          <div class="retailer">
-            <%= photo.audit.store.retailer.name %>
-          </div>  
-          <div class="brand">
-            <%= photo.brands.map(&:name).join(",") %>
-          </div>  
-          <div class="date">
-            <%= photo.audit.created_at %>
-          </div>
-          <div class="address">
-            <%= photo.audit.store.address2 %>
-          </div>
-        </section>
-        <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
-        <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
 
-      </li>
-    <% end %>
-  </ul>
+  <div class="mod-photos">
+
+    <ul data-layout="grid" class="photos-wrapper grid">
+      
+      <% @photos.each do |photo| %>
+
+        <li class="photo-item">
+
+          <div class="photo-inner">
+            <%#= link_to photo, :class => 'photo-inner', remote: true do %> 
+            <%#= end %>
+
+            <div class="item-selected">
+              <i class="icon-ok icon-white"></i>
+            </div>
+
+            <figure class="thumb-wrapper">
+              <%= image_tag(photo.photo.url(:medium) , :class => 'thumb')  %>
+            </figure>
+
+            <section class="meta">
+
+              <div class="meta-inner">
+
+                <div class="meta-set retailer">
+                  <b class="meta-label">Retailer:</b>
+                  <b class="meta-data"><%= photo.audit.store.retailer.name %></b>
+                </div>  
+
+                <div class="meta-set brand">
+                  <b class="meta-label">Brand:</b>
+                  <b class="meta-data"><%= photo.brands.map(&:name).join(",") %></b>
+                </div>  
+
+                <div class="meta-set date">
+                  <b class="meta-label">Date:</b>
+                  <b class="meta-data"><%= photo.audit.created_at %></b>
+                </div>
+
+                <div class="meta-set address">
+                  <b class="meta-label">Address:</b>
+                  <b class="meta-data"><%= photo.audit.store.address2 %></b>
+                </div>
+
+              </div><!-- /.meta-inner -->
+
+            </section><!-- /.meta -->
+
+            <footer class="photo-actions">
+
+              <div class="view-item">
+                <%= link_to "Photo Details", photo, :class => 'btn btn-mini btn-primary', remote: true  %> 
+              </div>
+
+              <div class="check-item">
+                <%= check_box_tag "photo_ids[]", photo.id %>  
+              </div>
+
+            </footer>
+
+          </div><!-- /.photo-inner -->
+
+
+
+        </li>
+      <% end %>
+
+    </ul><!-- /.photos-viewer -->
+    
+  </div><!-- /.mod-photos -->
+
 <% end %>
+
+
+<div class="pagination-wrapper">  
+  <%= page_entries_info @photos %>
+  <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>
+</div><!-- /.pagination-wrapper -->
+
+
 <div class="page-controls">  
   <a href="#" class="go-top pull-right">Top</a>
-  <%#= page_entries_info @photos %>
-  <%#= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
 </div>
   

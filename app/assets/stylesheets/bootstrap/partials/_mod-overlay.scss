@@ -1,0 +1,38 @@
+/*
+    Overlay
+
+    TODO - Sort class names out
+*/
+
+.overlay{
+  //background:red;
+  @include clearfix;
+
+  .left{
+    @include span-columns(7, 12);
+    //float:left;
+    ///width:50%;
+    //margin-right: 10%;
+  }
+
+  .right{
+    @include span-columns(5 omega, 12);
+    /*float:left;
+    width:40%;*/
+    table{
+      margin:0;
+    }
+
+    .photo-info,
+    .photo-info-details{
+      background:$grayLighter;
+      padding: 1em;
+      margin-bottom:1em;
+    }
+
+
+  }
+
+}
+
+

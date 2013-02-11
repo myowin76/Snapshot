@@ -1,0 +1,13 @@
+/*
+    Header
+*/
+
+.site-header{
+  //background:pink;
+  border-bottom: 1px solid $navbarBorder; 
+  margin-bottom: 20px;
+
+  .nav a{
+    font-size: 13px;
+  }
+}

@@ -2,13 +2,19 @@
 <html>
   <%= render 'layouts/blocks/head' %>
   <body>
+
+
     <div class="container">
       
       <%= render 'layouts/blocks/header' %>
-      <div id = "main" >
+
+
+      <div id="main">
      
         <section class="overlay"></section>
+
         <section class="site-content" role="main">
+          
           <% flash.each do |name, msg| %>
             <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
               <%= content_tag :div, msg %>
@@ -19,17 +25,24 @@
           
           <%#= content_tag :h1, yield(:title) if show_title? %>
           <%= yield %>
-        </section>
+
+        </section><!-- /.site-content -->
          
-      </div> 
+      </div><!-- /#main -->
   
       <%= render 'layouts/blocks/footer' %>
 
-    <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    </div>      
-  </div>  <!-- /.container -->
+      <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      </div><!-- /#photo-detail-model -->
+
+
+    </div><!-- /.container -->
 
     <%= yield :scripts %>
 
   </body>
+
+
+
+  
 </html>

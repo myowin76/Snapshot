@@ -1,4 +1,4 @@
-<div class="aside">
+<div class="aside mod-content-filters">
   <%= render 'photos/shared/search_form' %>
 </div>
 
@@ -43,22 +43,27 @@
     
 
     <div class="tab-content">
+
       <div class="tab-pane <%= @map %>" id="map-view">
         <%= render 'map_view' %>    
-      </div>
+      </div><!-- /#map-view -->
+
       <div class="tab-pane <%= @list %>" id="list-view">
         <div class="loading" style="display:none;">
           <img src="../assets/snapshot_loading.gif" />
         </div>
+
         <% if params_search %>
           <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->  
-          <div class="photo-view grid">  
+          
+          <div class="photo-view">  
             <%= render 'grid_view' %>
           </div>
-          
+
         <% end  %>   
-      </div>
-    </div>
+      </div><!-- /#list-view -->
+
+    </div><!-- /.tab-content -->
 
   </div>  
 </div>  

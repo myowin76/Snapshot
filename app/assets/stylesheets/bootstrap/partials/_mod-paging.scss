@@ -1,0 +1,25 @@
+/*
+    Paging
+*/
+.pagination-wrapper{
+  margin-top: 1em;
+  //background:$grayLight;
+  //text-align: center;
+}
+.pagination{
+  
+  span, em, a{
+    background: $grayLighter;
+    padding:0.5em 1em;
+    font-style: normal;
+    @include border-radius(3px);
+  }
+
+  .current,
+  :hover{
+    background: $pink;
+    color: #fff;
+    text-decoration: none;
+  }
+
+}

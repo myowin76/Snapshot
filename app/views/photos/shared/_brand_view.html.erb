@@ -1,12 +1,12 @@
 <% for brand in @brands %>
   <% if params[:search] && params[:search][:brands] && params[:search][:brands].include?(brand.id.to_s) %>
-    <%= label_tag "search[brands][#{brand.id}]" do %>
-      <%= check_box_tag "search[brands][]", brand.id, :check => "checked", :id => "search_brands_#{brand.id}" %>
+    <%= label_tag "search[brands][#{brand.id}]", :class => "checkbox" do %>
+      <%= check_box_tag "search[brands][]", brand.id, :check => "checked", :id => "search_brands_#{brand.id}", :"data-desc" => "#{brand.name}" %>
       <%= brand.name %><br />
     <% end %>  
   <% else %>  
-    <%= label_tag "search[brands][#{brand.id}]" do %>
-      <%= check_box_tag "search[brands][]", brand.id, false, :id => "search_brands_#{brand.id}" %>
+    <%= label_tag "search[brands][#{brand.id}]", :class => "checkbox" do %>
+      <%= check_box_tag "search[brands][]", brand.id, false, :id => "search_brands_#{brand.id}", :"data-desc" => "#{brand.name}" %>
       <%= brand.name %><br />
     <% end %>  
   <% end %>  
