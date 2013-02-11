@@ -1,85 +1,104 @@
+require 'csv'    
 
-# require 'smarter_csv'
-# desc "Upload task from the csv file"
 namespace :stores do
   task :import_stores => :environment do
-    
-		require 'csv'    
-#     @rows = SmarterCSV.process(File.join(Rails.root, 'bin', 'stores.csv'))
-# print @rows
-    CSV.foreach(File.join(Rails.root, 'bin', 'stores.csv'), :headers => true) do |row|
-		  unless row.join.blank?
-			  # row = row.to_hash
-				# next if n == 1 or row.join.blank?
 
-		   	################ retailer and sector start ###########################
-				unless row[1].blank?
-		   		@retailer = Retailer.find_by_name(row[1]) #rescue nil#unless row[5].blank?
+    CSV.foreach(File.join(Rails.root, 'bin', 'stores.csv')) do |row|
+		  unless row.join.blank?
+			  # cells map
+			  retailer_cell = row[2]
+			  sector_cell = row[2]
+			  store_format_cell = row[2]
+			  env_type_cell = row[2]
+			  channel_cell = row[2]
+			  store_name_cell = row[2]
+			  country_cell = row[3]
+			  address_cell = row[2]
+			  address2_cell = row[2]
+			  address3_cell = row[2]
+			  town_cell = row[2]
+			  postcode_cell = row[2]
+			  desc_cell = row[4]
+
+		   	################ Retailer and Sector Process ###########################
+				unless retailer_cell.blank?
+		   		@retailer = Retailer.find_by_name(retailer_cell) #rescue nil#unless row[5].blank?
 		   		
 		   		unless @retailer.nil?
 		   			@sector = @retailer.sector
 
 		   		else
-		   			@sector = Sector.find_by_name(row[2])
+		   			@sector = Sector.find_by_name(sector_cell)
 		   			if @sector.nil?
-		   				@sector = Sector.new(:name => row[2])
+		   				@sector = Sector.new(:name => sector_cell)
 		   				@sector.save
 		   			end
 		   		end
 		   		# create retailer with sector	
-		   		@retailer = Retailer.new(:name => row[1], :sector_id => @sector.id)
+		   		@retailer = Retailer.new(:name => retailer_cell, :sector_id => @sector.id)
 		   		@retailer.save
 		   		
 		   	end 
-		   	################ retailer and sector end ###########################
+		   	################ Store Format Process ###########################
 
-		   	#check that store name already exist
-
-				unless row[5].blank?
-		   		@store_format = StoreFormat.find_by_name(row[5]) #rescue nil#unless row[5].blank?
+				unless store_format_cell.blank?
+		   		@store_format = StoreFormat.find_by_name(store_format_cell))
 		   		if @store_format.nil?
-		   			@store_format = StoreFormat.new(row[5])
+		   			@store_format = StoreFormat.new(:name => store_format_cell)
 		   		end
 		   	end
 
-		   	unless row[6].blank?
-		   		@retailer = Retailer.find_by_name(row[6]) #rescue nil#unless row[5].blank?
-		   		if @retailer.nil?
-		   			@retailer = Retailer.new(row[6])
+		   	################ Environment Type Process ###########################
+
+				unless env_type_cell.blank?
+		   		@env_type = EnvironmentType.find_by_name(env_type_cell)
+
+		   		if @env_type.nil?
+		   			@env_type = EnvironmentType.new(:name => env_type_cell)
 		   		end
 		   	end
 
-		   	unless row[7].blank?
-		   		@country = Country.find_by_name(row[7]) #rescue nil#unless row[5].blank?
+		   	################ Channel Process ###########################
+
+				unless channel_cell.blank?
+		   		@channel = Channel.find_by_name(channel_cell) #rescue nil#unless row[5].blank?
+		   		if @channel.nil?
+		   			@channel = Channel.new(:name => channel_cell)
+		   		end
+		   	end
+
+		   	################ Country Process ###########################
+		   	unless country_cell.blank?
+		   		@country = Country.find_by_name(country_cell) 
 		   		if @country.nil?
-		   			@country = Country.new(row[7])
+		   			@country = Country.new(:name => country_cell)
 		   		end
 		   	end
 
-
-
-			  unless row[4].blank?
-		   		@store = Store.find_by_name(row[4])
+			  
+		   	#####  CHECK IF NEW STORE RECORD ######
+			  unless store_name_cell.blank?
+		   		@store = Store.find_by_name(store_name_cell)
 		   		
-		   		if @store.nil?
-
+		   		unless @store.present?
 
 		   				# @store = Store.new(:name => row[4])
 		   				Store.create(
 						  	#:id => row[0],
 						  	:retailer_id => @retailer.id,
-						  	:name => row[1],
-						  	:address => row[2],
-						  	:address2 => row[3],
-						  	:address3 => row[2],
-						  	:town => row[3],
-						  	:postcode => row[4],
+						  	:name => name_cell,
+						  	:address => address_cell,
+						  	:address2 => address2_cell,
+						  	:address3 => address3_cell,
+						  	:town => town_cell,
+						  	:postcode => postcode_cell,
 						  	:store_format_id => @store_format.id,
-						  	
+						  	:environment_type_id => @env_type.id,
+						  	:channel_id => @channel.id,
 						  	:country_id => @country.id,
 						  	:longitude => row[8],
 						  	:latitude => row[9],
-						  	:description => row[10],
+						  	:description => desc_cell,
 						  	:created_at => Time.now,
 						  	:updated_at => Time.now,
 						  	:location_id => 1
@@ -88,16 +107,22 @@ namespace :stores do
 		   		else
 
 		   		end
+
+
+
+
+
+
 		   	end
 
 
 		   	# photos table
-		   	unless row[14].blank?
-		   		@photo = Photo.find_by_photo_file_name(row[14]) #rescue nil#unless row[5].blank?
-		   		if @photo.nil?
-		   			@photo = Photo.new(:photo_file_name => row[13])
-		   		end
-		   	end
+		   	# unless row[14].blank?
+		   	# 	@photo = Photo.find_by_photo_file_name(row[14]) #rescue nil#unless row[5].blank?
+		   	# 	if @photo.nil?
+		   	# 		@photo = Photo.new(:photo_file_name => row[13])
+		   	# 	end
+		   	# end
 
 
 
