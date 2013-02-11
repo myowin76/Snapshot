@@ -12,33 +12,99 @@ namespace :stores do
 			  # row = row.to_hash
 				# next if n == 1 or row.join.blank?
 
-			# # working copy don't delete
-		   	@store_format = StoreFormat.find_by_name(row[5]) rescue nil#unless row[5].blank?
-			  @retailer = Retailer.find_by_name(row[6]) rescue nil #unless row[6].blank?
-			  @country = Country.find_by_name(row[7]) rescue nil #unless row[7].blank?
-			  
-			  # Store.create!(row.to_hash)
-			  Store.create(
-			  	#:id => row[0],
-			  	:name => row[1],
-			  	:address => row[2],
-			  	:address2 => row[3],
-			  	:postcode => row[4],
-			  	:store_format_id => @store_format.id,
-			  	:retailer_id => @retailer.id,
-			  	:country_id => @country.id,
-			  	:longitude => row[8],
-			  	:latitude => row[9],
-			  	:description => row[10],
-			  	:created_at => Time.now,
-			  	:updated_at => Time.now,
-			  	:location_id => 1
-			  	)
-			# 	# working copy don't delete		  
-			end
-		end
-  end
-end
+		   	################ retailer and sector start ###########################
+				unless row[1].blank?
+		   		@retailer = Retailer.find_by_name(row[1]) #rescue nil#unless row[5].blank?
+		   		
+		   		unless @retailer.nil?
+		   			@sector = @retailer.sector
+
+		   		else
+		   			@sector = Sector.find_by_name(row[2])
+		   			if @sector.nil?
+		   				@sector = Sector.new(:name => row[2])
+		   				@sector.save
+		   			end
+		   		end
+		   		# create retailer with sector	
+		   		@retailer = Retailer.new(:name => row[1], :sector_id => @sector.id)
+		   		@retailer.save
+		   		
+		   	end 
+		   	################ retailer and sector end ###########################
+
+		   	#check that store name already exist
+
+				unless row[5].blank?
+		   		@store_format = StoreFormat.find_by_name(row[5]) #rescue nil#unless row[5].blank?
+		   		if @store_format.nil?
+		   			@store_format = StoreFormat.new(row[5])
+		   		end
+		   	end
+
+		   	unless row[6].blank?
+		   		@retailer = Retailer.find_by_name(row[6]) #rescue nil#unless row[5].blank?
+		   		if @retailer.nil?
+		   			@retailer = Retailer.new(row[6])
+		   		end
+		   	end
+
+		   	unless row[7].blank?
+		   		@country = Country.find_by_name(row[7]) #rescue nil#unless row[5].blank?
+		   		if @country.nil?
+		   			@country = Country.new(row[7])
+		   		end
+		   	end
+
+
+
+			  unless row[4].blank?
+		   		@store = Store.find_by_name(row[4])
+		   		
+		   		if @store.nil?
+
+
+		   				# @store = Store.new(:name => row[4])
+		   				Store.create(
+						  	#:id => row[0],
+						  	:retailer_id => @retailer.id,
+						  	:name => row[1],
+						  	:address => row[2],
+						  	:address2 => row[3],
+						  	:address3 => row[2],
+						  	:town => row[3],
+						  	:postcode => row[4],
+						  	:store_format_id => @store_format.id,
+						  	
+						  	:country_id => @country.id,
+						  	:longitude => row[8],
+						  	:latitude => row[9],
+						  	:description => row[10],
+						  	:created_at => Time.now,
+						  	:updated_at => Time.now,
+						  	:location_id => 1
+					  	)
+
+		   		else
+
+		   		end
+		   	end
+
+
+		   	# photos table
+		   	unless row[14].blank?
+		   		@photo = Photo.find_by_photo_file_name(row[14]) #rescue nil#unless row[5].blank?
+		   		if @photo.nil?
+		   			@photo = Photo.new(:photo_file_name => row[13])
+		   		end
+		   	end
+
+
+
+			end # one row end
+		end # csv end
+  end # task end
+end # namespace end
 
 
 # CSV.parse(File.join(Rails.root, 'bin', 'stores.csv')) do |row|

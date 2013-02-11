@@ -15,7 +15,11 @@
           <%= link_to 'Publish', publish_individual_photos_path(:id => @photo.id), :method => :put, :class => "btn" %>
         <% end %> 
         <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" %>
-        <%= link_to 'Edit', edit_photo_path, :class => "btn" %>
+        <% unless params[:audit_id] %>
+          <%= link_to 'Edit', edit_photo_path, :class => "btn" %>
+        <% else %>
+          <%= link_to 'Edit', edit_audit_photo_path, :class => "btn" %>
+        <% end %> 
         <%= link_to 'Delete', @photo, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
       <%#= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "", :target => "_blank" %>
     </div>

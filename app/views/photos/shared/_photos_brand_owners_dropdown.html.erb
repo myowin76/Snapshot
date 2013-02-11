@@ -1,6 +1,16 @@
 <label for='brand_owner_id'>Brand Owner</label>
 <!-- to check photo is new record -->
-<%= select_tag 'brand_owner_id', 
-		options_from_collection_for_select( BrandOwner.order(:name), "id", "name"),
-		:class => 'brand_owner_ddl'
-		 %> 
+
+	<% unless @photo.brands.empty? %>
+		<%= select_tag 'brand_owner_id', 
+			options_from_collection_for_select( BrandOwner.order(:name), "id", "name", @photo.brands.first.brand_owner.id),
+			{:class => 'brand_owner_ddl'}
+			 %> 
+	<% else %>
+		<%= select_tag 'brand_owner_id', 
+			options_from_collection_for_select( BrandOwner.order(:name), "id", "name"),
+			{:class => 'brand_owner_ddl',
+			:prompt => 'UNKNOWN'}
+			 %> 
+		
+	<% end %>		 

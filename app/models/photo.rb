@@ -149,8 +149,7 @@ class Photo < ActiveRecord::Base
       zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
       
       Zip::ZipOutputStream.open(zip_file) do |zos|
-        assets.each do |photo_id|
-          asset = find_by_id(photo_id)
+        assets.each do |asset|
           download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
@@ -158,7 +157,6 @@ class Photo < ActiveRecord::Base
         zos.put_next_entry("data.csv")
         zos.print IO.read csv.path
       end
-
       zip_file
     end
     

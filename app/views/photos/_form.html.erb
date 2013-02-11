@@ -52,6 +52,7 @@
             <%= link_to @photo.audit_id, audit_path(@photo.audit) %>
             <br />
           </label>
+          <%= f.hidden_field "audit_id", :value=> @photo.audit.id %>
           <!-- <label>
             <strong>Environment Type:</strong>
             <%#= @photo.audit.environment_type.name unless @photo.audit.environment_type_id.nil? %>

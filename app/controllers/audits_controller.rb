@@ -47,7 +47,7 @@ class AuditsController < ApplicationController
     
     @audit = Audit.find(params[:id])
     @store = @audit.store
-    @retailers = Retailer.all
+    @retailers = Retailer.order(:name).all
     
     # @audit.photos.build
   end

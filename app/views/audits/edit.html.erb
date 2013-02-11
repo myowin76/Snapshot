@@ -17,7 +17,7 @@
         <%= f.label "Retailer" %>
         <% if @audit.new_record? %>
           <%= select_tag "audit_retailer_id", options_from_collection_for_select(
-          Retailer.all, "id", "name"), {:prompt => 'Please Select' }%>
+          Retailer.all.order(:name), "id", "name"), {:prompt => 'Please Select' }%>
         <% else  %>
 
           <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), :validate => { :presence => true } %>
@@ -32,7 +32,7 @@
         <% unless @audit.new_record? %>
           Stores<br />
           <%= select_tag 'audit[store_id]', 
-          		options_from_collection_for_select(Store.order(:name), "id", "name",  
+          		options_from_collection_for_select(@audit.store.retailer.stores, "id", "name",  
           		@audit.store.id(&:id)), {:prompt => 'Please Select'} %>
         <% end %>
       </div>
@@ -99,17 +99,24 @@
             </div>  
             
             <div class="brands-actions">
-              <%= photo_fields.association :brands, :include_blank => false, :input_html => { :class=> 'chosen-brand' } %>
+              <%= photo_fields.association :brands, collection: Brand.all(order: 'name'),
+                :include_blank => false, :input_html => { :class=> 'chosen-brand' } %>
             </div>  
             
-            <%= photo_fields.association :categories, :input_html => { :class=> 'chosen-category' }, :label => 'Product Categories' %>
-            <%= photo_fields.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
-            <%= photo_fields.association :media_vehicles, :input_html => { :class=> 'chosen-mv-uploader' } %>      
-            <%= photo_fields.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
-            <%= photo_fields.association :promotion_types, :input_html => { :class=> 'chosen-promo-type' } %>            
+            <%= photo_fields.association :categories, collection: Category.all(order: 'name'),
+                :input_html => { :class=> 'chosen-category' }, :label => 'Product Categories' %>
+            <%= photo_fields.association :media_locations, collection: MediaLocation.all(order: 'name'),
+                :input_html => { :class=> 'chosen-media-local' } %>
+            <%= photo_fields.association :media_vehicles, collection: MediaVehicle.all(order: 'name'),
+                :input_html => { :class=> 'chosen-mv-uploader' } %>      
+            <%= photo_fields.association :media_types, collection: MediaType.all(order: 'name'),
+                :input_html => { :class=> 'chosen-media-type' } %>
+            <%= photo_fields.association :promotion_types, collection: PromotionType.all(order: 'name'),
+                :input_html => { :class=> 'chosen-promo-type' } %>            
             
             <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
-            <%= photo_fields.association :themes, :input_html => { :class=> 'chosen-theme' } %>
+            <%= photo_fields.association :themes, collection: Theme.all(order: 'name'),
+                :input_html => { :class=> 'chosen-theme' } %>
             
             <label>Description</label>
             <%= photo_fields.text_field :description, :as => :text %>

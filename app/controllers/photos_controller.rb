@@ -154,10 +154,13 @@ class PhotosController < ApplicationController
               @per_page = 20
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-            # respond_to do |format|
-            #   format.html
-            #   format.json { render json: @photos }
-            # end
+            respond_to do |format|
+              format.html  # index.html.erb
+              format.json { 
+                render json: @photos 
+              }
+              format.js
+            end
            # debugger 
       end
 
@@ -172,10 +175,10 @@ class PhotosController < ApplicationController
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
         marker.picture({
-                        #:picture => "http://www.blankdots.com/img/github-32x32.png",
-                        #:width   => 32,
-                        #:height  => 32
-                       })
+            #:picture => "http://www.blankdots.com/img/github-32x32.png",
+            #:width   => 32,
+            #:height  => 32
+           })
         marker.title   store.name
 
         # marker.sidebar "i'm the sidebar"
@@ -187,18 +190,13 @@ class PhotosController < ApplicationController
             ]'
     end      
 
-    respond_to do |format|
-      format.html  # index.html.erb
-      format.json { 
-        render json: @photos 
-      }
-      format.js
-    end
+    
   end
 
   def show
-    @photo = Photo.find(params[:id])
 
+    @photo = Photo.find(params[:id])
+    
     respond_to do |format|
       format.html # show.html.erb
       format.pdf do
@@ -222,7 +220,13 @@ class PhotosController < ApplicationController
   end
 
   def edit
+
     @photo = Photo.find(params[:id])
+    unless @photo.brands.empty?
+      @brands = @photo.brands
+      @brand_owner = @brands.first.brand_owner.name
+    end
+
   end
 
   def create
@@ -286,11 +290,15 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
-    # debugger
+    @audit = Audit.find_by_id(params[:photo][:audit_id])
+    
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
-
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
+        unless @audit.nil?
+          format.html { redirect_to @audit, notice: 'Photo was successfully updated.' }            
+        else
+          format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
+        end  
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -374,8 +382,13 @@ class PhotosController < ApplicationController
   end
 
   def refresh_brands_dropdown
-    brand_owner = BrandOwner.find(params[:brand_owner_id])
-    @brands = brand_owner.brands
+    
+    if params[:brand_owner_id].present?
+      brand_owner = BrandOwner.find(params[:brand_owner_id])
+      @brands = brand_owner.brands
+    else
+      @brands = Brand.order(:name).all
+    end
     respond_to do |format|
       format.js {
         render :partial => 'refresh_brands_dropdown' #, :locals => { :retailers => @retailers }
@@ -385,12 +398,12 @@ class PhotosController < ApplicationController
 
   def refresh_all_brands_dropdowns
     @select_id = params[:select_id]
-    # debugger
+    
     if params[:brand_owner_id].present?
       brand_owner = BrandOwner.find(params[:brand_owner_id])
       @brands = brand_owner.brands
     else
-      @brands = Brand.order(:name)
+      @brands = Brand.order(:name).all
     end  
     
     respond_to do |format|
