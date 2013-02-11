@@ -26,19 +26,6 @@ class Photo < ActiveRecord::Base
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids #, :brands_tokens
 
     
-
-  # START - WORK IN PROGRESS    
-  # attr_reader :brands_tokens    
-  
-  # # def brands_tokens=(ids)
-  #   self.brands = Brand.find_all_by_id(ids)
-  # end
-
-  # END - WORK IN PROGRESS
-
-
-
-    
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
@@ -57,8 +44,8 @@ class Photo < ActiveRecord::Base
     :s3_protocol => 'http',
       :s3_options => {
         :server_side_encryption => 'AES256',
-        :storage_class => :reduced_redundancy,
-        :content_disposition => 'attachment'
+        :storage_class => :reduced_redundancy
+        # :content_disposition => 'attachment'
       },
     :s3_headers => {"Content-Disposition" => "attachment"},
     :bucket => "SnapshotWorldWide"
@@ -71,35 +58,39 @@ class Photo < ActiveRecord::Base
   								   'image/jpg', 'image/png']
 
     acts_as_gmappable :process_geocoding => false
-    # def gmaps4rails_infowindow
-    #   # add here whatever html content you desire, it will be displayed when users clicks on the marker
-    #   # "<h4>#{self.title}</h4>"
-    #   "<h4>Title</h4>"
-    # end
+
 
     scope :order_date_desc, order("created_at DESC")
     scope :published, where(published: true)
-    scope :unpublished, where(published: false)
+    scope :unpublished, where(published: false).includes(:audit)
     scope :all_brand_compliant, where(brand_compliant: true)
 
-    
-    
+    def to_jq_upload
+    {
+      "name" => read_attribute(:photo_file_name),
+      "size" => read_attribute(:photo_file_size),
+      "url" => photo.url(:small),
+      "thumbnail_url" => photo.url(:small)
+      # "delete_url" => photo_path(self),
+      # "delete_type" => "DELETE" 
+    }
+    end
 
     def self.find_between fromdate, todate
       where(:created_at => fromdate .. todate)
     end
 
-    # def self.generate_csv(photo_ids, options = {})
-    def self.generate_csv()
-      
-      CSV.generate() do |csv|
-        column_names = ['Filename', 'Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address','Country', 'Promotion Calendar', 
+    def self.generate_csv(photo_ids)
+    
+      @photos = Photo.find_all_by_id(photo_ids)
+      # CSV.generate() do |csv|
+      CSV.open("#{Rails.root}/public/data.csv", "w") do |csv|
+        column_names = ['Filename', 'Audit Date', 'Headline', 'Sector', 'Retailer', 'Category','Store', 'Address', 'Address2','Country', 'Promotion Calendar', 
               'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
         csv << column_names
         
-        ['3795','3810'].each do |photo_id|
-          photo = Photo.find_by_id(photo_id)
-          
+        @photos.each do |photo|
+
           @country = photo.audit.store.country.name unless photo.audit.store.country_id.nil?
           @promo_cal = photo.promotion_calendar.name unless photo.promotion_calendar_id.nil?
           @promo_type = photo.promotion_types.map(&:name).join(",") unless photo.promotion_types.nil?
@@ -110,26 +101,26 @@ class Photo < ActiveRecord::Base
           @media_brands = photo.brands.map(&:name).join(",") unless photo.brands.nil?
 
           csv << [
-                  photo.photo_file_name, photo.created_at, photo.headline, 
-                  photo.audit.store.retailer.sector.name,
-                  photo.audit.store.retailer.name, 
-                  photo_category_names(photo),
-                  photo.audit.store.name,
-                  photo.audit.store.address,
-                  photo.audit.store.address2,
-                  @country,
-                  @promo_cal,
-                  @promo_type,
-                  @media_loc,
-                  @media_types,
-                  @media_veh,
-                  @media_themes,
-                  @media_brands,
-                  photo.additional_brands,
-                  photo.description
-                ]
+            photo.photo_file_name, photo.audit.audit_date, photo.headline, 
+            photo.audit.store.retailer.sector.name,
+            photo.audit.store.retailer.name, 
+            photo_category_names(photo),
+            photo.audit.store.name,
+            photo.audit.store.address,
+            photo.audit.store.address2,
+            @country,
+            @promo_cal,
+            @promo_type,
+            @media_loc,
+            @media_types,
+            @media_veh,
+            @media_themes,
+            @media_brands,
+            photo.additional_brands,
+            photo.description
+          ]
         end
-        send_file csv, :type => 'text/csv'
+         csv
       end
     end
 
@@ -138,67 +129,41 @@ class Photo < ActiveRecord::Base
       assets = store.photos
 
       zip_file = Tempfile.new("#{Rails.root}/public/" << store.name.to_s << ".zip")
+      
       Zip::ZipOutputStream.open(zip_file) do |zos|
-        assets.each do |asset|
-          
+        assets.each do |asset|    
           download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
           # csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
-          
         end
-        # debugger
-        # zos.put_next_entry("data.csv")
-        # zos.print IO.read(csv_file)
       end
       zip_file
-      
     end
 
     def self.zip_files photo_ids
-      # NEED TO GENERATE CSV FILE WITH RELATED IMAGES INFORMATION 
-      # AND ALSO ADDED TO ZIP FILE
-      # CSV.generate(options) do |csv|
-      #   photo_ids.each do |photo_id|
-      #     column_names = ['Headline','  Sector', 'Retailer', 'Category','Store', 'Date', 'Address','Country', 'Promotion Calendar', 
-      #         'Promotion Type', 'Media Location', 'Media Type', 'Media Vehicle', 'Theme', 'Brand', 'Additional Brands', 'Description']
-      #     csv << column_names
-
-      #   end
-      # end
 
       assets = find_all_by_id(photo_ids)
-      # csv = generate_csv(photo_ids)
-
+      csv = generate_csv(photo_ids)
+      
       zip_file = Tempfile.new("#{Rails.root}/public/" << "export".to_s << ".zip")
+      
       Zip::ZipOutputStream.open(zip_file) do |zos|
-        assets.each do |photo_id|
-          asset = find_by_id(photo_id)
+        assets.each do |asset|
           download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
-          # csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
-          
-        end
-        # debugger
-        # zos.put_next_entry("data.csv")
-        # zos.print IO.read(csv_file)
+        end  
+        zos.put_next_entry("data.csv")
+        zos.print IO.read csv.path
       end
       zip_file
     end
     
-    # scope :by_audits_in_stores, lambda { |stores, environment, channel|
-    #   includes(:audit).where('audits.store_id IN (?) AND audits.environment_type_id IN (?) AND audits.channel_id IN (?)',
-    #      stores, environment, channel) }
     scope :by_audits_in_stores, lambda { |stores|
       includes(:audit).where('audits.store_id IN (?)',
          stores) }
-    
 
-
-    def has_address?
-          
-    end  
     private
     def self.photo_category_names(photo)
       photo.categories.map(&:name).join(",") unless photo.categories.nil?

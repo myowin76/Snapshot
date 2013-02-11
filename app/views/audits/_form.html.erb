@@ -1,31 +1,48 @@
-<%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs">
+  <%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+
     <fieldset>
-      
       <% unless params[:retailer].present?  %>
         <%= f.label "Retailer" %>
         <% if @audit.new_record? %>
           <%= select_tag "audit_retailer_id", options_from_collection_for_select(
-          Retailer.all, "id", "name"), {:prompt => 'Please Select' }%>
-        <% else  %>
-
-          <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), :validate => { :presence => true } %>
+                Retailer.all, "id", "name"), {:prompt => 'Please Select' } %>
+        <% else %>
+          <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), 
+              :validate => { :presence => true } %>
         <% end %>
-      <% else  %>  
-        <% retailer = Retailer.find_by_name(params[:retailer])  %>
-      <% end %>
 
+      <% else  %>  
+        <%# retailer = Retailer.find_by_name(params[:retailer])  %>
+      <% end %>
     </fieldset>
   
     <fieldset>
       <div class="audits_store_dropdown">
-        <% unless @audit.nil? %>
-          <% render "/audits/shared/store_dropdown"  %>
+        <% unless @audit.new_record? %>
+          Stores<br />
+          <%= select_tag 'audit[store_id]', options_from_collection_for_select(Store.order(:name), "id", "name",  @audit.store.id(&:id) ), {:prompt => 'Please Select'} %>
+
+          <% if @audit.store.address.present? %>
+            <%= store.address %>, 
+          <% end %>
+          <% if @audit.store.address2.present? %>
+            <%= @audit.store.address2 %>, 
+          <% end %>
+          <% if @audit.store.address3.present? %>
+            <%= @audit.store.address3 %>, 
+          <% end %>
+          <% if @audit.store.town.present? %>
+            <%= @audit.store.town %>, 
+          <% end %>
+          <% if @audit.store.postcode.present? %>
+            <%= @audit.store.postcode %>
+          <% end %>    
         <% end %>
       </div>
     </fieldset>
+
 
     <% unless params[:store].present?  %>
       <fieldset>
@@ -56,100 +73,21 @@
     <% end %>
     
     <div id="store-info"></div>
-    
-    <!-- <fieldset>
-      <%#= f.association :channel, :include_blank => false %>
-    </fieldset>
-    <fieldset>
-      <%#= f.association :environment_type, :include_blank => false %>
-    </fieldset> -->
+
     <fieldset>
       <%= f.input :reference, :input_label => "test" %> 
     </fieldset>
     <fieldset>
-      <%= f.input :created_at, :as => :string, :label => 'Date of Audit',
+      <%= f.input :audit_date, :as => :string, :label => 'Date of Audit',
         :input_html => {:class => 'audit-created-date'} %>
     </fieldset>
-    <fieldset>
-      <%= f.fields_for :photos do |photo_fields| %>
-      <% if photo_fields.object.new_record? %>
-          <%= render "file_upload", :photos => photo_fields %>  
-      <% end %>
-    <% end %>
-    </fieldset>
-    
-    
-    <%#= link_to "Add Image Upload", "#", class: "add_field" %>
 
-    <section style="clear:both;overflow:hidden;">
-    <%= f.fields_for :photos do |photo_fields| %>      
-      <% unless photo_fields.object.new_record? %>
-        
-        <div class="thumb" style="border-top: 1px solid #ddd;overflow:hidden;padding: 20px 0;">
-          <div class="span2">
-            <%#= link_to image_tag(photo_fields.object.photo.url(:small)), photo_fields.object.photo.url(:original) %>
-            <%= image_tag(photo_fields.object.photo.url(:small)) %>
-          </div>
-          <div class="span6">  
-
-            <!-- <label>Filename</label> -->
-            <%#= photo_fields.text_field :photo_file_name %>
-            <label>Headline</label>
-            <%= photo_fields.text_field :headline %>
-            <!-- <label>Date Created</label> -->
-            <%#= photo_fields.text_field :created_at, :class=>"created_at"%>
-
-            <div class="brands-owners-actions">
-              <%= render 'photos/shared/uploader_brand_owners_dropdown' %>
-            </div>  
-            <div class="brands-actions">
-              <%= photo_fields.association :brands, :input_html => { :class=> 'chosen-brand' } %>
-            </div>  
-            <span class="brand-owners"></span>
-            
-            <%#= photo_fields.association :category, :include_blank => false, :input_html => { :class=> 'audit_categories' } %>
-            <%#= photo_fields.collection_select :category_id, Category.order(:name), :id, :name, 
-            { }, {multiple: true, :include_blank => false } %>
-            <%#= photo_fields.input :category_id, :collection => Category.order(:name), :input_html => { multiple: true } %>
-            <%= photo_fields.association :categories, :input_html => { :class=> 'chosen-category' }, :label => 'Product Categories' %>
-            
-            <%#= photo_fields.text_field :category_id, :class => 'category-tokenss'  
-                  %>
-            <%= photo_fields.association :media_locations, :input_html => { :class=> 'chosen-media-local' } %>
-            <%= photo_fields.association :media_vehicles, :input_html => { :class=> 'chosen-mv-uploader' } %>      
-            <%= photo_fields.association :media_types, :input_html => { :class=> 'chosen-media-type' } %>
-            <%= photo_fields.association :promotion_types, :input_html => { :class=> 'chosen-promo-type' } %>            
-            
-            <%= photo_fields.association :promotion_calendar, {:include_blank => "None"} %>
-            <%= photo_fields.association :themes, :input_html => { :class=> 'chosen-theme' } %>
-            
-            <label>Description</label>
-            <%= photo_fields.text_field :description, :as => :text %>
-            <%= photo_fields.input :insight %>
-            <%= photo_fields.input :role_of_comm, inline_label: 'Role of Communication' %>
-            <%= photo_fields.input :perspective, inline_label: 'Shopper Perspective' %>
-            
-            <%= photo_fields.input_field :brand_compliant, :as => :boolean, inline_label: 'Brand Compliant' %>   
-            <%= photo_fields.input_field :display_for_project, :as => :boolean, inline_label: 'Only display for project' %>   
-            <%= photo_fields.input_field :published, :as => :boolean, inline_label: 'Publish' %>
-            <%= photo_fields.input_field :data_complete, :as => :boolean, inline_label: 'Data Complete' %>   
-            <%= photo_fields.input_field :_destroy, :as => :boolean, inline_label: 'Destroy' %>   
-            
-          </div>
-        </div>  
-      <% end %>
-    <% end %>
-
-    </section>
-  </div>
-
-  <div class="form-actions">
-    <% if params[:id] %>
-      <%= f.button :submit, "Save", :class=>"btn btn-primary" %>
-    <% else %>
-    <%= f.button :submit, "Next", :class=>"btn btn-primary" %>
-    <% end %>
-    <%#= link_to 'Cancel', audits_path %>
-  </div>
-
-<% end %>
+      <div class="form-actions">
+        <% if params[:id] %>
+          <%= f.button :submit, "Save", :class=>"btn btn-primary" %>
+        <% else %>
+        <%= f.button :submit, "Next", :class=>"btn btn-primary" %>
+        <% end %>
+        <%#= link_to 'Cancel', audits_path %>
+      </div>
+  <% end %>

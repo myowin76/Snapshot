@@ -1,8 +1,5 @@
 <!-- <p id="notice"><%= notice %></p> -->
 <p>
-  <%= link_to 'Edit', edit_audit_path(@audit) %>
-</p>
-<p>
   <strong>Reference:</strong>
   <%= @audit.reference %>
 </p>
@@ -13,7 +10,8 @@
 </p>
 <p>
   <strong>Date of Audit:</strong>
-  <%= @audit.created_at %>
+  <%#= @audit.audit_date.strftime('%d/%m/%Y') %>
+  <%= @audit.audit_date.to_s %>
 </p>
 <p>
   <strong>Retailer:</strong>
@@ -23,31 +21,188 @@
   <strong>Store:</strong>
   <%= @audit.store.name %>
 </p>
-<!-- <p>
-  <strong>Environment type:</strong>
-  <%#= @audit.environment_type.name %>
-</p>
-<p>
-  <strong>Channel:</strong>
-  <%#= @audit.channel.name %>
-</p> -->
-  <table class="table table-striped">
-    <thead>
-    <tr>    
-      <th>Image</th>
-      <th>Categories</th>
-      <th>Audit Date</th>
+
+<%= simple_form_for @audit.photos.new, :html => { :multipart => true } do |f| %>
+    <%= f.hidden_field :audit_id, :value=> @audit.id %>
+    <div class="row fileupload-buttonbar">
+      <div class="span7">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-success fileinput-button">
+          <i class="icon-plus icon-white"></i>
+          <span>Add files...</span>
+          <%= f.file_field :photo, :multiple => true, :name => 'photo[photo]' %>
+        </span>
+        <button type="submit" class="btn btn-primary start">
+          <i class="icon-upload icon-white"></i>
+          <span>Start upload</span>
+        </button>
+        
+        <%= link_to edit_audit_path(@audit), :class => 'btn' do %>
+          <i class="icon-edit"></i>
+          <span>Edit</span>
+        <% end  %>
+        <%= link_to audit_path, :class => 'btn' do %>
+          <i class="icon-refresh"></i>
+          <span>Refresh</span>
+        <% end  %>
+        <!-- <button type="reset" class="btn btn-warning cancel">
+          <i class="icon-ban-circle icon-white"></i>
+          <span>Cancel upload</span>
+        </button>
+        <button type="button" class="btn btn-danger delete">
+          <i class="icon-trash icon-white"></i>
+          <span>Delete</span>
+        </button>
+        <input type="checkbox" class="toggle"> -->
+      </div>
+      <div class="span5">
+        <!-- The global progress bar -->
+        <div class="progress progress-success progress-striped active fade">
+          <div class="bar" style="width:0%;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- The loading indicator is shown during image processing -->
+    <div class="fileupload-loading"></div>
+    <br>
+    <!-- The table listing the files available for upload/download -->
+    <table class="table table-striped">
+      <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery">
+
+      </tbody>
+    </table>
+
+  <script>
+    var fileUploadErrors = {
+    maxFileSize: 'File is too big',
+    minFileSize: 'File is too small',
+    acceptFileTypes: 'Filetype not allowed',
+    maxNumberOfFiles: 'Max number of files exceeded',
+    uploadedBytes: 'Uploaded bytes exceed file size',
+    emptyResult: 'Empty file upload result'
+    };
+  </script>
+
+  <!-- The template to display files available for upload -->
+  <script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+      <td class="preview"><span class="fade"></span></td>
+      <td class="name"><span>{%=file.name%}</span></td>
+      <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+      {% if (file.error) { %}
+      <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+      {% } else if (o.files.valid && !i) { %}
+      <td>
+        <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+      </td>
+      <td class="start">{% if (!o.options.autoUpload) { %}
+        <button class="btn btn-primary">
+          <i class="icon-upload icon-white"></i>
+          <span>{%=locale.fileupload.start%}</span>
+        </button>
+        {% } %}</td>
+      {% } else { %}
+      <td colspan="2"></td>
+      {% } %}
+      <td class="cancel">{% if (!i) { %}
+        <button class="btn btn-warning">
+          <i class="icon-ban-circle icon-white"></i>
+          <span>{%=locale.fileupload.cancel%}</span>
+        </button>
+        {% } %}</td>
     </tr>
-    </thead>
-    <% @audit.photos.each do |photo| %>
-      <tr>
-      	<td><%= link_to image_tag(photo.photo.url(:small)), photo %></td>
-      	<td><%= photo.categories.map(&:name).join(",") %></td>
-      	<td><%= @audit.created_at %></td>
-        <td><%= link_to "Edit", edit_photo_path(photo) %></td>
+    {% } %}
+  </script>
+  <!-- The template to display files available for download -->
+  <script id="template-download" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+      <tr class="template-download fade">
+        {% if (file.error) { %}
+          <td></td>
+          <td class="name"><span>{%=file.name%}</span></td>
+          <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+          <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+          {% } else { %}
+          <td class="preview">{% if (file.thumbnail_url) { %}
+            <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+            {% } %}</td>
+          <td class="name">
+            {%=file.name%}
+          </td>
+          <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+          <td colspan="2"></td>
+          {% } %}
+        <td class="delete">
+          <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+            <i class="icon-trash icon-white"></i>
+            <span>{%=locale.fileupload.destroy%}</span>
+          </button>
+        </td>
       </tr>
-    <% end %>    
-</table>
+      {% } %}
+  </script>
 
+  <script type="text/javascript" charset="utf-8">
+    $(function () {
+        // Initialize the jQuery File Upload widget:
+        $('#new_photo').fileupload({
+          maxFileSize: 6000000,
+          acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+          previewMaxWidth: 100
+        });
+        
+        // Load existing files:
+        $.getJSON($('#new_photo').prop('action'), function (files) {
+          var fu = $('#new_photo').data('fileupload'), 
+            template;
+          fu._adjustMaxNumberOfFiles(-files.length);
+          console.log(files);
+          template = fu._renderDownload(files);
+            // .appendTo($('#new_photo .files'));
+          // Force reflow:
+          fu._reflow = fu._transition && template.length &&
+            template[0].offsetWidth;
+          template.addClass('in');
+          $('#loading').remove();
+        });
+    });
+  </script>
+  <style type="text/css">
+    .photo-list tr:last-child{
+        display: none;
+    }
+  </style>
 
-<%#= link_to 'Back', audits_path %>
+<% end %>
+
+<% unless @audit.photos.empty? %>
+  <table class="table table-striped photo-list">
+    <thead>
+      <tr>    
+        <th>Image</th>
+        <th>File Name</th>
+        <th>Audit Date</th>
+        <th>Categories</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @audit.photos.each do |photo| %>
+        <tr>
+          <td><%= link_to image_tag(photo.photo.url(:small)), audit_photo_path([@audit],[photo]) %></td>
+          <td><%= photo.photo_file_name %></td>
+          <td><%= number_to_human_size(photo.photo_file_size, :precision => 2)  %></td>
+          <td><%= photo.categories.map(&:name).join(",") %></td>
+          <td><%= link_to "Edit", edit_audit_photo_path([@audit],[photo]) %></td>
+          <td>
+            <%= link_to audit_photo_path([@audit],[photo]), action: :destroy, :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger' do %>
+              <i class="icon-trash icon-white"></i>
+              <span>Delete</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>    
+    </tbody>
+  </table>
+<% end %>

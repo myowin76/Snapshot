@@ -2,18 +2,14 @@ $('#open_link').hide();
 $('#save_as').hide();
 $('#new_link').hide().after('<%= j render("form") %>');
 
-$('#new_save_search').validate({
-  rules: {
-    save_search_name: {
-      required: true
-    }
-  }
-});
 
-$('#new_save_search .cancel').click(function () {
-	$('#new_save_search').remove();
-	$('#new_link').show();
-	$('#open_link').show();
-	$('#save_as').show();
-	return false;
- }); 
+	$('#new_save_search').validate();
+
+	$('#new_save_search .cancel').click(function () {
+		$('#new_save_search').remove();
+		$('#new_link').show();
+		$('#open_link').show();
+		$('#save_as').show();
+		return false;
+	 }); 
+

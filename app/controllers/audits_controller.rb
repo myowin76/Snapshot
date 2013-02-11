@@ -15,7 +15,7 @@ class AuditsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @audits }
+      # format.json { render json: @audits }
     end
   end
 
@@ -36,10 +36,6 @@ class AuditsController < ApplicationController
     @audit = Audit.new
     @retailers = Retailer.all
     
-    # @stores = Store.find_all_by_retailer_id(params[:id])
-    # @audit.photos.build
-    # 5.times{@audit.photos.build}
-    @audit.photos.build
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @audit }
@@ -50,13 +46,10 @@ class AuditsController < ApplicationController
   def edit
     
     @audit = Audit.find(params[:id])
-    
-
     @store = @audit.store
-    @retailers = Retailer.all
+    @retailers = Retailer.order(:name).all
     
-    # 5.times{@audit.photos.build}
-    @audit.photos.build
+    # @audit.photos.build
   end
 
   # POST /audits
@@ -64,22 +57,21 @@ class AuditsController < ApplicationController
   def create
     
     @audit = Audit.new(params[:audit])
-     if params[:audit][:store_id].blank? || @audit.photos.blank?
-      
+    
+    if params[:audit][:store_id].blank?
       redirect_to new_audit_path, notice: 'Please fill require data.'
     else
-      
       respond_to do |format|
         if @audit.save
-          # save user
+          
           @audit.update_attribute(:user_id, current_user.id)
           @audit.update_attribute(:store_id, params[:audit][:store_id])
+          
           format.html { redirect_to @audit, notice: 'Audit was successfully created.' }
-          # format.html { redirect_to edit_audit_path(@audit), notice: 'Audit was successfully created.' }
-          format.json { render json: @audit, status: :created, location: @audit }
+          # format.json { render json: @audit, status: :created, location: @audit }
         else
           format.html { render action: "new" }
-          format.json { render json: @audit.errors, status: :unprocessable_entity }
+          # format.json { render json: @audit.errors, status: :unprocessable_entity }
         end
       end 
     end
@@ -130,23 +122,5 @@ class AuditsController < ApplicationController
       }
     end
   end
-
-  # def mv_create
-  #   # @media_vehicle = MediaVehicle.new
-  #   # respond_to do |format|
-  #   #   format.js {
-  #   #     render :partial => 'create_mv_from_dropdown'
-  #   #   }
-  #   # end
-  #   @media_vehicle = MediaVehicle.new
-  #   @media_vehicle.build
-  #   respond_to do |format|
-  #     if @media_vehicle.save
-  #       format.js {
-  #         render :partial => 'create_from_mv_dropdown'
-  #       }
-  #     end  
-  #   end
-  # end
 
 end

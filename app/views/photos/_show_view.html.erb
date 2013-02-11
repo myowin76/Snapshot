@@ -3,15 +3,19 @@
   <div class="page-header">
 
     <button type="button" class="close">×</button>
+
     <h2 id="myModalLabel"><%= @photo.photo_file_name %></h2>
+
 
   </div>
   
   <div id="photo-details">
     
     <div class="left">
+
       <p><%= image_tag(@photo.photo.url(:large)) %></p>
       <p><%= link_to 'Download PDF', photo_path(:format => "pdf"), :class => "", :target => "_blank", :class => "btn btn-success" %></p>
+
     </div>
     
     <div class="right">

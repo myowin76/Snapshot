@@ -5,10 +5,15 @@
 	<% if params[:brand_owner_id].present? %>
 		<label>Brands</label>
 		<%= select_tag nil, 
-				options_from_collection_for_select( @brands.order(:name), "id", "name"), 
+				options_from_collection_for_select( @brands, "id", "name"), 
 				:multiple => true,
 				:class => 'chosen-brand', 
 				:name => '' %> 
 	<% else %>
-		<%= photo_fields.association :brands, :include_blank => false, :input_html => { :class=> 'chosen-brand' } %>
+		<%#= photo_fields.association :brands, :include_blank => false, :input_html => { :class=> 'chosen-brand' } %>
+		<%= select_tag nil, 
+				options_from_collection_for_select( @brands, "id", "name"), 
+				:multiple => true,
+				:class => 'chosen-brand', 
+				:name => '' %> 
 	<% end %>

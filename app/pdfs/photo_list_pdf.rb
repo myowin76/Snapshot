@@ -24,13 +24,14 @@ class	PhotoListPdf < Prawn::Document
 		
 	end
 
-
 	def header
 		logo
 	end
+	
 	def logo
-		image open("#{Rails.root}/app/assets/images/snapshot-logo.jpg"), :width => 200	
+		image open("#{Rails.root}/app/assets/images/SNAPSHOT_logo.jpg"), :width => 200	
 	end
+
 	def photo_rows
 		
     # [["Image", "Date"],['test','test'],['row2', 'row2']] +

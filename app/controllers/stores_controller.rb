@@ -88,7 +88,7 @@ class StoresController < ApplicationController
 
     respond_to do |format|
       if @store.save
-        @store.update_attribute(:retailer_id, params[:store_retailer_id])
+        # @store.update_attribute(:retailer_id, params[:store_retailer_id])
 
         format.html { redirect_to @store, notice: 'Store was successfully created.' }
         format.json { render json: @store, status: :created, location: @store }
@@ -139,7 +139,7 @@ class StoresController < ApplicationController
       @audit = @audits.first
     end
 
-    @photo_audit_cat = @category.photos.where('photos.audit_id IN (?)', @audit.id)
+    @photo_audit_cat = @category.photos.where('photos.audit_id IN (?)', @audit.id).order(@audit.created_at)
     # Category.joins(:photos).includes(:categorizations)
     #     .where('photos.audit_id IN (?)', @audit.id)
         

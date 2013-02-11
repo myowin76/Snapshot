@@ -19,11 +19,12 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
-
+//= require jquery-fileupload
 //= require_tree .
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
-//= require jquery.tokeninput
+
+
+// require jquery-fileupload/vendor/tmpl
+// require jquery.tokeninput
 
 var snapshot = {
 /*
@@ -117,7 +118,6 @@ $(document).ready(function() {
   photos.generatePDF();
   photos.exportZIP();
   photos.exportStorePhotos();
-  
   
   $(".photo-view").ajaxStart(function(){
     $(this).hide();
@@ -283,7 +283,8 @@ $(document).ready(function() {
     });
     return false;
   });
-
+  // $('#audit_store_id').chosen({no_results_text: "<a href='/stores/new'>New Store</a>:"})
+  
   $('#audit_store_id').live('change',function(){
     store_id = $('#audit_store_id').serializeObject();
     $.ajax({

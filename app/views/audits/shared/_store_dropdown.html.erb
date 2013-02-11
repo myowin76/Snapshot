@@ -1,3 +1,3 @@
 Stores<br />
 <%#= select_tag 'audit[store_id]', options_from_collection_for_select(@stores, "id", "name",  @stores ), {:prompt => 'Please Select'} %>
-<%= select_tag 'audit[store_id]', options_from_collection_for_select(Store.order(:name), "id", "name",  @stores ), {:prompt => 'Please Select'} %>
+<%= select_tag 'audit[store_id]', options_from_collection_for_select(@stores, "id", "name",  @stores ), {:prompt => 'Please Select'} %>

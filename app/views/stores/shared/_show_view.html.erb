@@ -8,11 +8,11 @@
     <div class="">
       <p id="notice"><%= notice %></p>
       <input type="hidden" id="hidden-cats" name="category_ids[]" value="">
-      <p>
-        <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, 
+      <!-- <p>
+        <%#= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, 
             :store => @store.name), 
             :class => 'btn btn-primary pull-right' %>
-      </p>
+      </p> -->
       <p>
         <%= link_to 'Clear Filters', clear_filters_path, :id => 'clear-filter' %>
       </p>
@@ -26,10 +26,18 @@
       <p>
         <strong>Store format: </strong>
         <%= @store.store_format.name %><br>
+        
         <strong>Retailer: </strong>
         <%= @store.retailer.name %><br>
-        <strong>Sector: </strong>
+        
+        <strong>Retail Sector: </strong>
         <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %><br />
+        
+        <strong>Environment Type: </strong>
+        <%= @store.environment_type.name unless @store.environment_type_id.nil? %><br />
+        
+        <strong>Channel: </strong>
+        <%= @store.channel.name unless @store.channel_id.nil? %><br />
       </p>
       
       <% unless @audits.nil? %>

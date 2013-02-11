@@ -9,7 +9,7 @@ gem 'mysql2'
 gem 'simple_form'
 gem 'thin'
 gem 'jquery-rails'
-gem "paperclip", "~> 3.1"
+gem "paperclip", "~> 3.4.0"
 gem 'taps'
 gem 'geocoder'
 gem 'devise'
@@ -32,7 +32,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'jquery-fileupload-rails'
+  gem 'jquery-fileupload-rails', "~> 0.4"
   gem 'sass-rails',   '~> 3.2.3'
   gem 'bootstrap-sass-rails'
 
