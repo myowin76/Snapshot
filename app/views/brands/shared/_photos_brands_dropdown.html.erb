@@ -1,6 +1,6 @@
 <% unless @photo.nil? %>
 
-	<% unless @photo.brands.nil? %>
+	<% unless @photo.brands.first.nil? || @photo.brands.first.brand_owner.nil? %>
 		<%= f.association :brands, collection: @photo.brands.first.brand_owner.brands, :input_html => { :class=> 'chosen-brand' } %>
 	<% else %>
 		<%= f.association :brands, collection: Brand.all(order: 'name'), :input_html => { :class=> 'chosen-brand' } %>
