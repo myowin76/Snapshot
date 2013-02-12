@@ -2,5 +2,8 @@
 <!-- to check photo is new record -->
 <%= select_tag nil, 
 		options_from_collection_for_select( BrandOwner.order(:name), "id", "name"),
-		{:class => 'brand_owner_ddl',
-		:prompt => 'UNKNOWN' } %> 
+		{
+			:multiple => true,
+			:class => 'brand_owner_ddl',
+			:prompt => 'UNKNOWN' } 
+		%> 

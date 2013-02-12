@@ -138,7 +138,9 @@ $(document).ready(function() {
     }, 500);
   });
 
-  // $('.brand_owner_ddl').each(function(){
+  // $('.brand_owner_ddl').change(function(event){
+  //   console.log('brand owner change', event, $(event.target).val())
+  // })
 
     $('.brand_owner_ddl').live('change', function(){
       var id = "#" + $(this).attr('id');

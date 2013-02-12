@@ -26,9 +26,10 @@ class StoresController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.xml { render xml: @stores }
       format.csv { send_data @stores_in_country.to_csv }
       format.xls  { send_data @stores_in_country.to_csv(col_sep: "\t") }
-      format.json { render json: @stores_in_country }
+      format.json { render json: @stores }
       # format.csv { render text: @stores_in_country.to_csv }
       
     end
@@ -88,7 +89,9 @@ class StoresController < ApplicationController
 
     respond_to do |format|
       if @store.save
-        # @store.update_attribute(:retailer_id, params[:store_retailer_id])
+        if params[:store_retailer_id].present?
+          @store.update_attribute(:retailer_id, params[:store_retailer_id])
+        end
 
         format.html { redirect_to @store, notice: 'Store was successfully created.' }
         format.json { render json: @store, status: :created, location: @store }

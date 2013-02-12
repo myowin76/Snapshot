@@ -18,6 +18,8 @@ gem 'gmaps4rails'
 gem 'aws-sdk'
 gem 'jquery-datatables-rails'
 gem 'prawn'
+gem 'jbuilder'
+#gem 'rabl'
 gem "wkhtmltopdf-binary"
 gem "prawnto_2", :require => "prawnto"
 gem 'rubyzip', '~> 0.9.4', :require => ['zip/zip', 'zip/zipfilesystem'] 
@@ -35,9 +37,7 @@ group :assets do
   gem 'jquery-fileupload-rails', "~> 0.4"
   gem 'sass-rails',   '~> 3.2.3'
   gem 'bootstrap-sass-rails'
-
   gem 'coffee-rails', '~> 3.2.1'
-  #gem "twitter-bootstrap-rails", "~> 2.0rc0"
   gem 'jquery-ui-rails'
  
   # gem 'therubyracer', :platforms => :ruby
@@ -45,7 +45,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'compass', '>= 0.12.2'
   gem 'compass-rails'
-  # gem 'compass-susy-plugin'
   gem 'susy'
 end
 group :development do
@@ -65,9 +64,6 @@ end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-gem 'jbuilder'
 
 # Use unicorn as the app server
 # gem 'unicorn'

@@ -101,7 +101,8 @@ class PhotosController < ApplicationController
           @per_page = 20
         end
         # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-        @photos = Photo.published.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
+        @photos = Photo.published.paginate(:page => params[:page], 
+          :per_page => @per_page).order('photos.created_at DESC')
           
       else 
         # search action
@@ -397,11 +398,13 @@ class PhotosController < ApplicationController
   end
 
   def refresh_all_brands_dropdowns
+    debugger
     @select_id = params[:select_id]
     
     if params[:brand_owner_id].present?
-      brand_owner = BrandOwner.find(params[:brand_owner_id])
-      @brands = brand_owner.brands
+      brand_owner = BrandOwner.find_all_by_id(params[:brand_owner_id])
+      # @brands = brand_owner.brands
+      @brands = Brand.find_all_by_brand_owner_id(params[:brand_owner_id])
     else
       @brands = Brand.order(:name).all
     end  

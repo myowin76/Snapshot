@@ -3,8 +3,9 @@
 
 	<% unless @photo.brands.empty? %>
 		<%= select_tag 'brand_owner_id', 
-			options_from_collection_for_select( BrandOwner.order(:name), "id", "name", @photo.brands.first.brand_owner.id),
-			{:class => 'brand_owner_ddl'}
+			options_from_collection_for_select( BrandOwner.order(:name), "id", "name", @photo.brands.map(&:brand_owner_id)),
+			{:class => 'brand_owner_ddl',
+				:multiple => true }
 			 %> 
 	<% else %>
 		<%= select_tag 'brand_owner_id', 

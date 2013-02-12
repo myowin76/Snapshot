@@ -75,7 +75,9 @@
             <%= render 'photos/shared/photos_brand_owners_dropdown', :f => f, :collection => @photo %>
           </div>
           <div class="brands-actions">
-            <%= render 'brands/shared/photos_brands_dropdown', :f => f, :collection => @photo %>
+            <%#= render 'brands/shared/photos_brands_dropdown', :f => f, :collection => @photo %>
+            <%= f.association :brands, collection: Brand.all(order: 'name'),
+                :include_blank => false, :input_html => { :class=> 'chosen-brand' } %>
           </div>
           
           
