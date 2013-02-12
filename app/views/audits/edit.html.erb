@@ -77,14 +77,15 @@
     </fieldset>
     
     <section style="clear:both;overflow:hidden;">
-    <%#= simple_fields_for "photo", @photo do |photo_fields| %>      
-    <%= f.fields_for :photos do |photo_fields| %>
+    <%#= f.simple_fields_for "photo", @photo do |photo_fields| %>      
+    <%= f.fields_for :photos, @photos do |photo_fields| %>
       <% unless photo_fields.object.new_record? %>
         
         <div class="thumb" style="border-top: 1px solid #ddd;overflow:hidden;padding: 20px 0;">
           <div class="span2">
             <%#= link_to image_tag(photo_fields.object.photo.url(:small)), photo_fields.object.photo.url(:original) %>
             <%= image_tag(photo_fields.object.photo.url(:small)) %>
+            
           </div>
           <div class="span6">  
             

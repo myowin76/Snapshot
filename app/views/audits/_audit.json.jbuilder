@@ -1,0 +1,1 @@
+json.(audit, :id, :reference, :audit_date)

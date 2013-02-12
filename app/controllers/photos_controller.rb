@@ -398,11 +398,11 @@ class PhotosController < ApplicationController
   end
 
   def refresh_all_brands_dropdowns
-    debugger
+    # debugger
     @select_id = params[:select_id]
     
     if params[:brand_owner_id].present?
-      brand_owner = BrandOwner.find_all_by_id(params[:brand_owner_id])
+      # brand_owner = BrandOwner.find_all_by_id(params[:brand_owner_id])
       # @brands = brand_owner.brands
       @brands = Brand.find_all_by_brand_owner_id(params[:brand_owner_id])
     else

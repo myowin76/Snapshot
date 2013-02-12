@@ -24,10 +24,10 @@ class AuditsController < ApplicationController
   def show
     @audit = Audit.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @audit }
-    end
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.json { render json: @audit }
+    # end
   end
 
   # GET /audits/new

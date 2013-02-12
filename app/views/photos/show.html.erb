@@ -109,8 +109,7 @@
               <tr>
                 <td width="40%">Brand Owner</td>
                 <td width="60%">
-                  <%= BrandOwner.find_all_by_id(@photo.brands.map(&:brand_owner_id)).map(&:name).join(",") 
-                      if @photo.brands.first.brand_owner_id.present? %>
+                  <%= BrandOwner.find_all_by_id(@photo.brands.map(&:brand_owner_id)).map(&:name).join(",") if @photo.brands.first.brand_owner_id.present? %>
                 </td>
               </tr>
             <% end %>

@@ -29,7 +29,7 @@ class StoresController < ApplicationController
       format.xml { render xml: @stores }
       format.csv { send_data @stores_in_country.to_csv }
       format.xls  { send_data @stores_in_country.to_csv(col_sep: "\t") }
-      format.json { render json: @stores }
+      # format.json { render json: @stores }
       # format.csv { render text: @stores_in_country.to_csv }
       
     end
@@ -57,13 +57,13 @@ class StoresController < ApplicationController
     #     .group("categories.id");
     # end
       
-    respond_to do |format|
-      format.html # show.html.erb
-      # format.js{
-      #   render :partial => 'show_store_with_categories', :locals => { :store => @store }
-      # }
-      # format.json { render json: @store }
-    end
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   # format.js{
+    #   #   render :partial => 'show_store_with_categories', :locals => { :store => @store }
+    #   # }
+    #   # format.json { render json: @store }
+    # end
   end
 
   # GET /stores/new
