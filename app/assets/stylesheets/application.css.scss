@@ -325,7 +325,7 @@ ul.ui-autocomplete {
   clear: both;
   width: 100%;
   float: left;
-  padding: 40px 0 0 0;
+  padding: 10px 0 0 0;
   #branding {
     float: left;
     width: 45%;
@@ -386,6 +386,7 @@ ul.ui-autocomplete {
   display: block;
   width: 100%;
   overflow: hidden;
+  margin-bottom: 12px;
 }
 // pagination
 .pagination {
@@ -482,16 +483,16 @@ body .ui-widget {
     padding: 0px; margin: 0px;
     li{
       float: left;
-      width:181px;
-      height: 238px;
+      width:226px;
+      //height: 238px;
+      margin-bottom: 12px;
       .thumb{
         margin: 0 auto;
-        width: 165px;
-        height: 126px;
+        width: 90%;
       }
       section{
-        margin: 0 8px;
-        width: 145px;
+        margin: 0 11px 0 12px;
+        
         background-color: #eee;
         padding: 3px 10px;
       }
@@ -573,11 +574,11 @@ body .ui-widget {
   .left{
     float: left;
     margin-right: 20px;
-    width: 600px;
+    width: 550px;
   }
   .right{
     float: left;
-    width: 404px;
+    width: 390px;
     section{
       margin-bottom: 15px;
       padding: 12px 12px 20px 12px;
@@ -642,14 +643,14 @@ input{
     border-radius: 0;   
     &.clear-form{
       float: left;
-      width: 111px;
+      width: 48%;
     }
     &.search{
       float: right;
-      width: 111px;
+      width: 48%;
     }  
     &.small{
-      padding: 2px 13px;
+      padding: 2px 10px;
       font-size: 11px;
     }
   }

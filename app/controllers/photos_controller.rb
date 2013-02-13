@@ -398,9 +398,13 @@ class PhotosController < ApplicationController
   end
 
   def refresh_all_brands_dropdowns
-    # debugger
-    @select_id = params[:select_id]
     
+    @select_id = params[:select_id]
+    unless params[:pre_selected_brand_ids].nil?
+      @pre_select_brands = params[:pre_selected_brand_ids]
+      @pre_select_brands = @pre_select_brands.join(",")
+    end
+
     if params[:brand_owner_id].present?
       # brand_owner = BrandOwner.find_all_by_id(params[:brand_owner_id])
       # @brands = brand_owner.brands
@@ -412,6 +416,42 @@ class PhotosController < ApplicationController
     respond_to do |format|
       format.js {
         render :partial => 'refresh_all_brands_dropdowns' #, :locals => { :retailers => @retailers }
+      }
+    end
+  end
+
+  def update_brand_owners_dropdown
+    # debugger
+    @brand_owner_ddl_id = params[:brand_owner_ddl_id]
+    if params[:brand_ids].present?
+      @brands =  Brand.find_all_by_id(params[:brand_ids])
+      @brand_owner_ids = @brands.map(&:brand_owner_id).join(",")
+    else  
+    end
+    
+    respond_to do |format|
+      format.js {
+        render :partial => 'update_brand_owners_dropdown'
+      }
+    end
+  end
+
+  def preselect_brand_owners
+    unless params[:brands_ddl_id].empty?
+      @brands_ddl_id = params[:brands_ddl_id]
+    end
+    unless params[:brand_owners_ddl_id].nil?
+      @brand_owners_ddl_id = params[:brand_owners_ddl_id]
+    end
+    unless params[:brand_ids].nil?
+      @brands = Brand.find_all_by_id(params[:brand_ids])
+      @brand_owners_ids = @brands.map(&:brand_owner_id).join(",")
+    end  
+    
+
+    respond_to do |format|
+      format.js {
+        render :partial => 'preselect_brand_owners'
       }
     end
   end

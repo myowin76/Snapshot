@@ -3,9 +3,12 @@
 
 .container {
   
-  width: 1024px;
+  width: 960px;
+  //width: 1024px;
   margin: 0 auto;
   position: relative;
+  //@include container(16);
+  //@include susy-grid-background;
 }
 
 #main{

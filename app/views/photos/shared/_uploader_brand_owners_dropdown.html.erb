@@ -1,9 +1,10 @@
-<label for='brand_owner_id'>Brand Owner</label>
+<label for='brand_owner_id'>Brand Owners</label>
 <!-- to check photo is new record -->
 <%= select_tag nil, 
 		options_from_collection_for_select( BrandOwner.order(:name), "id", "name"),
 		{
 			:multiple => true,
-			:class => 'brand_owner_ddl',
-			:prompt => 'UNKNOWN' } 
+			:class => 'brand_owner_ddl'
+			#:prompt => 'UNKNOWN' 
+		} 
 		%> 

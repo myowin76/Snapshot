@@ -2,7 +2,10 @@
 	<div id="branding">						
 		<h1 id="site-title">
 			<a href="/" title="Snapshot Worldwide" rel="Home">
-				<img class="logo" src="<%= asset_path 'SNAPSHOT_logo.png' %>" alt="Snapshot Worldwide">
+				<!-- <img class="logo" src="<%= asset_path 'SNAPSHOT_logo.png' %>" alt="Snapshot Worldwide"> -->
+				<img class="logo" src="http://snapshotworldwide.com/wp-content/uploads/2013/02/snapshot-logo-300x622.png" 
+						alt="Snapshot Worldwide">
+				
 			</a>
 		</h1>		
 	</div>
@@ -27,26 +30,7 @@
 	<div id="menu-primary" class="menu-container">
 
 		<div class="menu">
-			<!--ul>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/">Home</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/about-us/">About us</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/category/news/">News</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/category/reports/">Reports</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/consultancy-research/">Consultancy &amp; Research</a>
-				</li>
-				<li>
-					<a href="http://snapshot-wp.preview.skyron.co.uk/contact/">Contact</a>
-				</li>
-			</ul-->
+			
 			<ul class="account">
 				<% if user_signed_in? %>
 					<% if admin_or_uploader? %>

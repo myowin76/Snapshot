@@ -1,0 +1,9 @@
+$(document).ready(function() {
+
+		var brand_owners_ddl_id = "#<%= @brand_owners_ddl_id %>";
+		var bos = "<%= @brand_owners_ids %>"
+		// alert(brand_owners_ddl_id);
+		// alert(bos);
+		$(brand_owners_ddl_id).val(bos.split(","));
+		$(brand_owners_ddl_id).trigger("liszt:updated");
+});		

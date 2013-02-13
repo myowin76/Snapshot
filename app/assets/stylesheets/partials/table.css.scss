@@ -1,0 +1,21 @@
+.table.dataTable {
+	font-family: OpenSans;
+	font-size: 12px;
+	
+	thead{
+		th{
+			border-bottom: 1px solid #f1cbcb;
+			font-weight: bold;
+		}
+	} 
+	tr.odd{
+		td{
+			background-color: #fbefef;
+			&.sorting_1{
+				background-color: #fbefef;
+			}	
+		}
+		
+	}
+}
+	

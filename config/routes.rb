@@ -29,6 +29,8 @@ Snapshot::Application.routes.draw do
       post :refresh_retailers
       post :refresh_brands_dropdown
       post :refresh_all_brands_dropdowns
+      post :update_brand_owners_dropdown
+      post :preselect_brand_owners
     end    
   end
 

@@ -141,11 +141,44 @@ $(document).ready(function() {
   // $('.brand_owner_ddl').change(function(event){
   //   console.log('brand owner change', event, $(event.target).val())
   // })
+    // $('.brand_owner_ddl').each(function(){
+    //   $(this).prepend("<option value='0'>Unknown</option>");
+    // });
+    $('.content .edit_audit .brands-actions .chosen-brand').each(function(){
+        var brands_ddl_id = "#" + $(this).attr('id');
+        var brand_ids = new Array();
+        
+        $(brands_ddl_id).find('option:selected').each(function(){
+          brand_ids.push($(this).val());  
+        });
+        
+        var info = {}
+        info['brand_owners_ddl_id'] = $(this).closest(".brands-actions").prev(".brands-owners-actions").children(".brand_owner_ddl").attr("id");
+        info['brands_ddl_id'] = brands_ddl_id;
+        info['brand_ids'] = brand_ids;
+
+        $.ajax({
+          url: '/photos/preselect_brand_owners',
+          type: "POST",
+          dataType: 'script',
+          data: info,
+          success: function(data){
+
+          }
+        });
+    });
 
     $('.brand_owner_ddl').live('change', function(){
       var id = "#" + $(this).attr('id');
+      var pre_selected_brand_ids = new Array();
+      var brand_dropdown_id = "#" + $(this).closest(".brands-owners-actions").next(".brands-actions").children().find(".chosen-brand").attr('id');
       var info = {}
+      $(brand_dropdown_id).find('option:selected').each(function(){
+          pre_selected_brand_ids.push($(this).val());  
+        });
+      // alert(brand_dropdown_id);
       info['brand_owner_id'] = $(id).val();
+      info['pre_selected_brand_ids'] = pre_selected_brand_ids;
       info['select_id'] = "#" + $(this).closest(".brands-owners-actions").next(".brands-actions").children().find(".chosen-brand").attr('id');
       
       $.ajax({
@@ -158,7 +191,24 @@ $(document).ready(function() {
         }
       });
     });
+    $('.chosen-brand').live('change', function(){
+      var id = "#" + $(this).attr('id');
+      var info = {}
+      info['brand_ids'] = $(id).val();
+      info["brand_owner_ddl_id"] = $(this).closest(".brands-actions").prev(".brands-owners-actions").children(".brand_owner_ddl").attr("id");
+      
+      $.ajax({
+        url: '/photos/update_brand_owners_dropdown',
+        type: "POST",
+        dataType: 'script',
+        data: info,
+        success: function(data){
 
+        }
+      });
+      
+    })
+    
     
     // $('.chosen-mv-uploader').next('.chzn-container').find('.chzn-results a').on('click', function(){
       

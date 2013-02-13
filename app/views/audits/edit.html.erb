@@ -2,12 +2,6 @@
 	<h1>Edit Audit</h1>
 </div>	
 
-	<%#= render 'form' %>
-
-	<%#= link_to 'Show', @audit %>
-	<%#= link_to 'Back', audits_path %>
-
-
 <%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
   <%= f.error_notification %>
 
@@ -88,13 +82,9 @@
             
           </div>
           <div class="span6">  
-            
-            <!-- <label>Filename</label> -->
-            <%#= photo_fields.text_field :photo_file_name %>
+
             <label>Headline</label>
             <%= photo_fields.text_field :headline %>
-            <!-- <label>Date Created</label> -->
-            <%#= photo_fields.text_field :created_at, :class=>"created_at"%>
 
             <div class="brands-owners-actions">
               <%= render 'photos/shared/uploader_brand_owners_dropdown' %>
