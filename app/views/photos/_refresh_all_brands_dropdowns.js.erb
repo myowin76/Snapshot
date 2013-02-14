@@ -2,13 +2,13 @@
 
 var brand_select = "<%= @select_id %>";
 var preselected = "<%= @pre_select_brands %>";
-var selected_brands = "";
+var added_brands = "";
 // alert(preselected);
 
 
 <% @brands.each do |brand| %>
-	selected_brands =  selected_brands + "<option value=<%= brand.id %>><%= brand.name %></option>";
+	added_brands =  added_brands + "<option value=<%= brand.id %>><%= brand.name %></option>";
 <% end %>
 
-$(brand_select).empty().append(selected_brands);
-$(brand_select).val(preselected).trigger("liszt:updated");
+$(brand_select).empty().append(added_brands);
+$(brand_select).val(preselected.split(",")).trigger("liszt:updated");

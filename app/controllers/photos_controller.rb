@@ -412,7 +412,7 @@ class PhotosController < ApplicationController
     else
       @brands = Brand.order(:name).all
     end  
-    
+    debugger    
     respond_to do |format|
       format.js {
         render :partial => 'refresh_all_brands_dropdowns' #, :locals => { :retailers => @retailers }
@@ -437,6 +437,7 @@ class PhotosController < ApplicationController
   end
 
   def preselect_brand_owners
+    
     unless params[:brands_ddl_id].empty?
       @brands_ddl_id = params[:brands_ddl_id]
     end
@@ -448,7 +449,6 @@ class PhotosController < ApplicationController
       @brand_owners_ids = @brands.map(&:brand_owner_id).join(",")
     end  
     
-
     respond_to do |format|
       format.js {
         render :partial => 'preselect_brand_owners'

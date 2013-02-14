@@ -168,7 +168,7 @@ $(document).ready(function() {
         });
     });
 
-    $('.brand_owner_ddl').live('change', function(){
+    $('#main .brand_owner_ddl').live('change', function(){
       var id = "#" + $(this).attr('id');
       var pre_selected_brand_ids = new Array();
       var brand_dropdown_id = "#" + $(this).closest(".brands-owners-actions").next(".brands-actions").children().find(".chosen-brand").attr('id');
@@ -179,8 +179,8 @@ $(document).ready(function() {
       // alert(brand_dropdown_id);
       info['brand_owner_id'] = $(id).val();
       info['pre_selected_brand_ids'] = pre_selected_brand_ids;
-      info['select_id'] = "#" + $(this).closest(".brands-owners-actions").next(".brands-actions").children().find(".chosen-brand").attr('id');
-      
+      //info['select_id'] = "#" + $(this).closest(".brands-owners-actions").next(".brands-actions").children().find(".chosen-brand").attr('id');
+      info['select_id'] = brand_dropdown_id;
       $.ajax({
         url: '/photos/refresh_all_brands_dropdowns',
         type: "POST",
@@ -191,7 +191,9 @@ $(document).ready(function() {
         }
       });
     });
+
     $('.chosen-brand').live('change', function(){
+
       var id = "#" + $(this).attr('id');
       var info = {}
       info['brand_ids'] = $(id).val();
@@ -206,7 +208,6 @@ $(document).ready(function() {
 
         }
       });
-      
     })
     
     
@@ -232,20 +233,20 @@ $(document).ready(function() {
   //   });
   // });
 
-  $('#brand_owner_id').on('change',function(e){
+  // $('#brand_owner_id').on('change',function(e){
     
-    var info = {}
-    info = $('#brand_owner_id').serializeObject();
-    $.ajax({
-      url: '/photos/refresh_brands_dropdown',
-      type: "POST",
-      dataType: 'script',
-      data: info,
-      success: function(data){
+  //   var info = {}
+  //   info = $('#brand_owner_id').serializeObject();
+  //   $.ajax({
+  //     url: '/photos/refresh_brands_dropdown',
+  //     type: "POST",
+  //     dataType: 'script',
+  //     data: info,
+  //     success: function(data){
 
-      }
-    });
-  });
+  //     }
+  //   });
+  // });
 
   $("#store_format_help")
     .popover({
