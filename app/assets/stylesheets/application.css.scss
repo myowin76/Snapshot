@@ -323,9 +323,10 @@ ul.ui-autocomplete {
 }
 #header{
   clear: both;
-  width: 100%;
-  float: left;
+  width: 960px;
   padding: 10px 0 0 0;
+  margin: 0 auto;
+  min-height: 60px;
   #branding {
     float: left;
     width: 45%;
@@ -338,12 +339,12 @@ ul.ui-autocomplete {
 #menu-primary {
   font-size: 1em;
   width: 100%;
-  margin: 1.5em 0 0 0;
+  margin: 0.9em 0 0 0;
   float: left;
   clear: left;
   position: relative;
   z-index: 99;
-  border-bottom: 1px solid #CCC;
+  //border-bottom: 1px solid #CCC;
   ul{
     padding-left: 0;
     &.account{

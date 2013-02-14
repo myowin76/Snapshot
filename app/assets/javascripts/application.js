@@ -30,36 +30,56 @@ var snapshot = {
 
   LayoutSwitcher: function(){
 
-    $('.layout-switcher .layout-list').on('click', function(){
-      parent = $(this).closest('.photo-view');
-      if (!parent.hasClass('list')){
-        if (parent.hasClass('grid')){
-          parent.removeClass('grid');
-        }
-        parent.addClass('list');
-      }
+    $('#main .content-wrap .layout-switcher .layout-list').live('click', function(){
       
-      if (!$(this).hasClass('active')){
-        $('.layout-switcher .layout-grid').removeClass('active');
-        $(this).addClass('active');    
-      }
-      return false;
+      if($('.map-view:visible')){
+        $('.map-view').hide();
+        $('.page-controls').show();  
+        $('ul.photos-viewer').show();
+        parent = $(this).closest('.photo-view');
+          if (!parent.hasClass('list')){
+            if (parent.hasClass('grid')){
+              parent.removeClass('grid');
+            }
+            parent.addClass('list');
+          }
+          
+          if (!$(this).hasClass('active')){
+            $('.layout-switcher .layout-grid').removeClass('active');
+            $(this).addClass('active');    
+          }
+          return false;
+        } 
     });
 
-    $('.layout-switcher .layout-grid').on('click', function(){
-      parent = $(this).closest('.photo-view');
-      if (!parent.hasClass('grid')){
-        if (parent.hasClass('list')){
-          parent.removeClass('list');
-        }
-        parent.addClass('grid');
-      }
+    $('#main .content-wrap .layout-switcher .layout-map').live('click', function(){
+      $('ul.photos-viewer').hide();
+      $('.page-controls').hide();
+      $('.map-view').show();
+      Gmaps.loadMaps();
+    });
 
-      if (!$(this).hasClass('active')){
-        $('.layout-switcher .layout-list').removeClass('active');
-        $(this).addClass('active');
-      }
-      return false;
+    $('#main .content-wrap .layout-switcher .layout-grid').live('click', function(){
+
+      if($('.map-view:visible')){
+        $('.map-view').hide();
+        $('.page-controls').show();  
+        $('ul.photos-viewer').show();
+        parent = $(this).closest('.photo-view');
+        if (!parent.hasClass('grid')){
+          if (parent.hasClass('list')){
+            parent.removeClass('list');
+          }
+          parent.addClass('grid');
+        }
+
+        if (!$(this).hasClass('active')){
+          $('.layout-switcher .layout-list').removeClass('active');
+          $(this).addClass('active');
+        }
+        return false;
+
+      }  
     });
   },
   
@@ -109,9 +129,28 @@ var photos = {
 $(document).ready(function() {
 
 
+  $('.nav-tabs li a').live('click', function (e) {
+        google.maps.event.trigger(map, 'resize');
+
+    });
+
+  // $('.layout-map').live('click', function () {
+  //   $('.test-map').show();
+  //   google.maps.event.trigger(map, 'resize');
+  //   Gmaps.loadMaps();
+
+  // });
+  $('.nav-tabs li a').live('click', function () {
+    // $('.test-map').show();
+    // google.maps.event.trigger(map, 'resize');
+    Gmaps.loadMaps();
+
+  });
+
   
-  // TO DO ## REFACFOR BY CREATING FUNCTIONS
-  
+
+
+
   snapshot.LayoutSwitcher();
   snapshot.Pagination();
   photos.generatePDF();

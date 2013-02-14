@@ -6,53 +6,31 @@
   <div class="content">
 
     
-    <ul class="nav nav-tabs">
+<!--    <ul class="nav nav-tabs">
       <li><a href="#map-view" data-toggle="tab">Map</a></li>
       <li class="active"><a href="#list-view" data-toggle="tab">List</a></li>
-    </ul>  
+    </ul> 
 
-    <!-- 
-    <div id="tabs">
-      <ul>
-        <li>
-          <a href="#map">Map</a>
-        </li>
-        <li>
-          <a href="#list">List</a>
-        </li>
-      </ul>
-      <div id="map">
-        <%#= render 'map_view' %>  
-      </div>
-      <div id="list">
-        <%# if params_search %>
-          <div class="photo-view grid">  
-            <%#= render 'grid_view' %>
-          </div>
-          
-        <%# end  %>   
-      </div>
-    </div> -->
+ -->
 
-    
-
-    <div class="tab-content">
-      <div class="tab-pane" id="map-view">
-        <%= render 'map_view' %>    
-      </div>
+     <div class="tab-content">
+      
       <div class="tab-pane active" id="list-view">
         <div class="loading" style="display:none;">
           <img src="../assets/snapshot_loading.gif" />
         </div>
         <%# if params_search %>
-          <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->  
+          <!--h4><%#= pluralize(@photos.count, 'photo') %> found</h4-->
           <div class="photo-view grid">  
-            <%= render 'grid_view' %>
+              <%= render 'grid_view' %>
           </div>
+          <div class="map-view" style="display:none;">
+            <%= render 'map_view' %>  
+          </div>  
           
         <% #end  %>   
       </div>
-    </div>
+    </div> 
 
   </div>  
 </div>  

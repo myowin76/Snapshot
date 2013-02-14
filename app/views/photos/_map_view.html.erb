@@ -8,7 +8,9 @@
 	) %>
 
 <%#= gmaps4rails(@json, true, false) %>
-
+ <style type="text/css">
+    .map_container img{max-width: none;}
+    </style>
     <script type="text/javascript">
 
     $(document).ready(function () {
@@ -34,6 +36,9 @@
         enableEventPropagation: true
      }};
        
+
+
+
     });
       
     </script>

@@ -1,49 +1,53 @@
-<div id="header" class="site-header" role="banner">
-	<div id="branding">						
-		<h1 id="site-title">
-			<a href="/" title="Snapshot Worldwide" rel="Home">
-				<!-- <img class="logo" src="<%= asset_path 'SNAPSHOT_logo.png' %>" alt="Snapshot Worldwide"> -->
-				<img class="logo" src="http://snapshotworldwide.com/wp-content/uploads/2013/02/snapshot-logo-300x622.png" 
-						alt="Snapshot Worldwide">
-				
-			</a>
-		</h1>		
-	</div>
-	<div id="account">
-		<% if user_signed_in? %>
-		<ul>
-			<li>
-				<%= current_user.email  %>
-			</li>
-			<li>
-        <%= link_to "Account", edit_user_registration_path %>
-      </li>
-			<li>
-				<%= link_to "Logout", destroy_user_session_path %>
-			</li>
-			<li class="last">
-				<a href="#">Feedback</a>
-			</li>
-		</ul>
-	</div>
-	<% end %>
-	<div id="menu-primary" class="menu-container">
+<div class="mainnav_full">
 
-		<div class="menu">
-			
-			<ul class="account">
-				<% if user_signed_in? %>
-					<% if admin_or_uploader? %>
-						<li>
-		          <%= link_to "Admin", admin_path %>
-		        </li>
-	        <% end %>
-					<li>
-						<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
-					</li>
-				<% end %>
+
+	<div id="header" class="site-header" role="banner">
+		<div id="branding">						
+			<h1 id="site-title">
+				<a href="/" title="Snapshot Worldwide" rel="Home">
+					<!-- <img class="logo" src="<%= asset_path 'SNAPSHOT_logo.png' %>" alt="Snapshot Worldwide"> -->
+					<img class="logo" src="http://snapshotworldwide.com/wp-content/uploads/2013/02/snapshot-logo-300x622.png" 
+							alt="Snapshot Worldwide">
+					
+				</a>
+			</h1>		
+		</div>
+		<div id="account">
+			<% if user_signed_in? %>
+			<ul>
+				<li>
+					<%= current_user.email  %>
+				</li>
+				<li>
+	        <%= link_to "Account", edit_user_registration_path %>
+	      </li>
+				<!-- <li>
+					<%#= link_to "Logout", destroy_user_session_path %>
+				</li> -->
+				<li class="last">
+					<a href="#">Feedback</a>
+				</li>
 			</ul>
 		</div>
-	</div>
-</div>	
+		<% end %>
+		<div id="menu-primary" class="menu-container">
 
+			<div class="menu">
+				
+				<ul class="account">
+					<% if user_signed_in? %>
+						<% if admin_or_uploader? %>
+							<li>
+			          <%= link_to "Admin", admin_path %>
+			        </li>
+		        <% end %>
+						<li>
+							<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
+						</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>	
+
+</div>

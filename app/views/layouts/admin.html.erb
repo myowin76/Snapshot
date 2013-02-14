@@ -2,10 +2,10 @@
 <html>
   <%= render 'layouts/blocks/head' %>
   <body>
+    
+    <%= render 'layouts/blocks/header' %>
     <div class="container">
       
-        <%= render 'layouts/blocks/header' %>
-
         <div id = "main" >
           <section class="overlay"></section>
           <section class="site-content" role="main">
@@ -29,9 +29,9 @@
           </section>
       </div> 
 
-    <%= render 'layouts/blocks/footer' %>
-
+      <%= render 'layouts/blocks/footer' %>
     </div>  <!-- /.container -->
+
 
     <%= yield :scripts %>
   </body>
