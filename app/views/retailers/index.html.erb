@@ -17,7 +17,7 @@
     <% @retailers.each do |retailer| %>
       <tr>
         <td><%= retailer.name %></td>
-        <td><%= retailer.sector.name %></td>
+        <td><%= retailer.sector.name unless retailer.sector.nil? %></td>
         <td><%= retailer.description %></td>
         <td><%= link_to 'Show', retailer %></td>
         <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
