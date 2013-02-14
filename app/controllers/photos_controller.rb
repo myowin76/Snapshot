@@ -412,7 +412,7 @@ class PhotosController < ApplicationController
     else
       @brands = Brand.order(:name).all
     end  
-    debugger    
+        
     respond_to do |format|
       format.js {
         render :partial => 'refresh_all_brands_dropdowns' #, :locals => { :retailers => @retailers }
