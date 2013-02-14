@@ -6,10 +6,10 @@
 		<%#= store.country.name unless store.country_id.nil? %>
 
 	 </p>
-	<input type="hidden" id="hidden" value="<%= store.id %>">
-	<p>
-		<%= store.retailer.sector.name unless store.retailer.sector_id.nil? %>
-	</p>
+	<input type="hidden" id="hidden_store" value="<%= store.id %>">
+	<!-- <p>
+		<%#= store.retailer.sector.name unless store.retailer.nil? && store.retailer.sector_id.nil? %>
+	</p> -->
 	<p>
 		<%= store.photos.count %> photos.
 		<%= link_to "Download Photos", all_store_photos_path(store.id)	, :id => 'map-store-download', :class => 'pull-right' %><br />

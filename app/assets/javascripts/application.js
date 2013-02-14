@@ -361,7 +361,7 @@ $(document).ready(function() {
   $('#store-view').live('click',function(){
     var info = {}
     info['categories'] = $('#category-group input[type="checkbox"]:checked').serializeObject()['search[categories][]']; 
-    info['store_id'] = $('#hidden').val();
+    info['store_id'] = $('#hidden_store').val();
     $.ajax({
       url: '/stores/show_store_with_categories',
       type: "POST",
