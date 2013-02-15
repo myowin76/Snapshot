@@ -1,6 +1,6 @@
 jQuery ->
 	$('#tbl-categories').dataTable
-		"sDom": '<"top"fli>rt<"bottom"p><"clear">'
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 		"sPaginationType": 'full_numbers'
 		"aoColumnDefs": [
     	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -8,7 +8,7 @@ jQuery ->
     ]
 
   $('#tbl-unpublished').dataTable
-  	"sDom": '<"top"fli>rt<"bottom"p><"clear">'
+  	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   	"sPaginationType": 'full_numbers'
   	"aoColumnDefs": [
   		{ 'bSortable': false, 'aTargets': [ 0 ] },
@@ -18,7 +18,7 @@ jQuery ->
     ]
 
   $('#tbl-sectors').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -27,7 +27,7 @@ jQuery ->
 	  ]
 
   $('#tbl-brand-owners').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -35,6 +35,7 @@ jQuery ->
 	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
 	  ]
 	$('#tbl-brands').dataTable
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -43,7 +44,7 @@ jQuery ->
 	  ]  
 
   $('#tbl-countries').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -52,6 +53,7 @@ jQuery ->
 	  ]
 	
 	$('#tbl-store-formats').dataTable
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -59,7 +61,7 @@ jQuery ->
 	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
 	  ]
 	$('#tbl-env-types').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -68,7 +70,7 @@ jQuery ->
 	  ]
 
 	$('#tbl-media-types').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -76,7 +78,7 @@ jQuery ->
 	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
 	  ]
 	$('#tbl-media-locs').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -84,7 +86,7 @@ jQuery ->
 	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
 	  ]
 	$('#tbl-media-vehicles').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -92,7 +94,7 @@ jQuery ->
 	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
 	  ]
 	$('#tbl-promo-cals').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
@@ -100,7 +102,7 @@ jQuery ->
 	  	{ 'bSortable': false, 'aTargets': [ -3 ] }
 	  ]
 	$('#tbl-promo-types').dataTable
-	  "sDom": '<"top"fli>rt<"bottom"p><"clear">'
+	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
 	  "sPaginationType": 'full_numbers'
 	  "aoColumnDefs": [	  	
 	  	{ 'bSortable': false, 'aTargets': [ -1 ] },
