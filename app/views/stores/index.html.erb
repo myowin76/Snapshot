@@ -2,12 +2,15 @@
   <div class="page-header">
     <h1>Store List</h1>
   </div>   
-  <!-- <div class="action">
-    Download
-    <%#= link_to "CSV", stores_path(format: "csv") %> |
+  <div class="action">
+    
+    <%#= link_to "CSV", stores_path(format: "csv") %>
     <%#= link_to "Excel", stores_path(format: "xls") %>
-    <%= link_to 'New Store', new_store_path, :class => 'btn btn-primary pull-right' %>
-  </div> -->
+    <%= link_to new_store_path, :class => 'btn btn-primary pull-right' do %>
+    <i class="icon-plus icon-white"></i>
+    <span>New Store</span>
+    <% end %>
+  </div>
 
 <table id="tbl-stores" class="table table-striped">
   <thead>

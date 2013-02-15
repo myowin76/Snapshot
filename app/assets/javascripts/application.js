@@ -82,9 +82,20 @@ var snapshot = {
       }  
     });
   },
+  // GoTop: function(){
+  //   e.preventDefault();
+  //   $('html, body').animate({
+  //     scrollTop: $(".tab-content").offset().top
+  //   }, 500);
+  // }
   
   Pagination: function(){
-    $('.pagination a').live('click',function () {
+    $('.pagination a').live('click',function (e) {
+      // e.preventDefault();
+      $('html, body').animate({
+        scrollTop: $("body").offset().top
+      }, 500);
+
       $.get(this.href, null, null, 'script');
       return false;
     });

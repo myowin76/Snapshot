@@ -1,7 +1,14 @@
+  <%#= link_to 'New Retailer', new_retailer_path, :class => "btn btn-primary" %>
+
   <div class="page-header">
     <h1>Retailer List</h1>
   </div>
-  
+  <div class="action">
+    <%= link_to new_retailer_path, :class => 'btn btn-primary pull-right' do %>
+    <i class="icon-plus icon-white"></i>
+    <span>New Retailer</span>
+    <% end %>
+  </div>  
   <table id="retailers" class="table table-striped" >
     <thead>
     <tr>
@@ -10,18 +17,16 @@
       <th>Description</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @retailers.each do |retailer| %>
       <tr>
-        <td><%= retailer.name %></td>
+        <td><%= link_to retailer.name, retailer %></td>
         <td><%= retailer.sector.name unless retailer.sector.nil? %></td>
         <td><%= retailer.description %></td>
-        <td><%= link_to 'Show', retailer %></td>
-        <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
-        <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_retailer_path(retailer), :class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +35,3 @@
 
   <br />
 
-  <%= link_to 'New Retailer', new_retailer_path, :class => "btn btn-primary" %>

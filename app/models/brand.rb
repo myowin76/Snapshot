@@ -5,6 +5,9 @@ class Brand < ActiveRecord::Base
   has_many :photos, :through => :brandings
   belongs_to :brand_owner
 
+
+  validates :name, :presence => true
+  validates :name, :uniqueness => {:message => "Brand exist."}
  #  def self.tokens(query)
 	#   brands = where("name like ?", "#{query}%")
 	#   # if brands.empty?

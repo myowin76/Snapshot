@@ -45,7 +45,6 @@
 
 <div class="page-controls">  
   <%= page_entries_info @photos %>
-  <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
 </div>
 
 <% unless @photos.nil? %>    
@@ -78,8 +77,12 @@
   </ul>
 <% end %>
 <div class="page-controls">  
-  <a href="#" class="go-top pull-right">Top</a>
+  <!-- <a href="#" class="go-top pull-right">Top</a> -->
   <%#= page_entries_info @photos %>
-  <%#= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :params => {:search => params_search} %>    
+  <div class="will-page">
+    <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :link_separator => '',
+    :params => {:search => params_search} %>    
+  </div>
+  
 </div>
   

@@ -2,7 +2,12 @@
 <div class="page-header">
   <h1>Brand Owner List</h1>
 </div>   
-
+<div class="action">
+  <%= link_to new_brand_owner_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>New Brand Owner</span>
+  <% end %>
+</div>  
 <table class="table table-striped" id="tbl-brand-owners">
   <thead>
     <tr>
@@ -10,22 +15,16 @@
       <th>Description</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @brand_owners.each do |brand_owner| %>
       <tr>
-        <td><%= brand_owner.name %></td>
+        <td><%= link_to brand_owner.name, brand_owner %></td>
         <td><%= brand_owner.description %></td>
-        <td><%= link_to 'Show', brand_owner %></td>
-        <td><%= link_to 'Edit', edit_brand_owner_path(brand_owner) %></td>
-        <td><%= link_to 'Destroy', brand_owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_brand_owner_path(brand_owner), :class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Destroy', brand_owner, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>  
 </table>
-
-<br />
-
-<%= link_to 'New Brand owner', new_brand_owner_path %>
