@@ -18,19 +18,19 @@
   </div>
   
   <p>
-    <% unless @store.address.empty? %>
+    <% if @store.address.present? %>
       <%= @store.address %>,
     <% end %>
-    <% unless @store.address.empty? %>
+    <% if @store.address.present? %>
       <%= @store.address2 %>,
     <% end %>
-    <% unless @store.address3.empty? %>
+    <% if @store.address3.present? %>
       <%= @store.address3 %><br />
     <% end %>
-    <% unless @store.town.empty? %>
+    <% if @store.town.present? %>
       <%= @store.town %>
     <% end %>
-    <% unless @store.postcode.empty? %>
+    <% if @store.postcode.present? %>
       <%= @store.postcode %>,
     <% end %>
     <%= @store.country.name unless @store.country_id.nil? %>
