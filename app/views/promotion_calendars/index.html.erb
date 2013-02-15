@@ -2,6 +2,12 @@
 <div class="page-header">
   <h1>Promotion Calendar List</h1>
 </div>
+<div class="action">
+  <%= link_to new_promotion_calendar_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>Add New</span>
+  <% end %>
+</div>
 <table class="table table-striped" id="tbl-promo-cals">
   <thead>
     <tr>
@@ -33,6 +39,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%#= link_to t('.new', :default => t("helpers.links.new")),
             new_promotion_calendar_path,
             :class => 'btn btn-primary' %>

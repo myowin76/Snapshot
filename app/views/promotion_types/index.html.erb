@@ -1,6 +1,13 @@
 <div class="page-header">
   <h1>Promotion Type List</h1>
 </div>
+<div class="action">
+  <%= link_to new_promotion_type_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>Add New</span>
+  <% end %>
+</div>
+
 <table class="table table-striped" id="tbl-store-formats">
   <thead>
     <tr>
@@ -16,11 +23,10 @@
       <tr>
         <td><%= promotion_type.name %></td>
         <td><%= promotion_type.description %></td>
-        <td><%= link_to 'Edit', edit_promotion_type_path(promotion_type) %></td>
-        <td><%= link_to 'Destroy', promotion_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_promotion_type_path(promotion_type),:class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Destroy', promotion_type, method: :delete, data: { confirm: 'Are you sure?' },
+          :class => 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>  
 </table>
-
-<%= link_to 'New Promotion type', new_promotion_type_path %>

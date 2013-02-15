@@ -1,6 +1,13 @@
 <div class="page-header">
-  <h1>Listing environment_types</h1>
+  <h1>Environment Types List</h1>
 </div>
+<div class="action">
+  <%= link_to new_environment_type_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>Add New</span>
+  <% end %>
+</div>
+
 <table class="table table-striped" id="tbl-env-types">
   <thead>
     <tr>
@@ -8,17 +15,16 @@
       <th>Description</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @environment_types.each do |environment_type| %>
     <tr>
-      <td><%= environment_type.name %></td>
+      <td><%= link_to environment_type.name, environment_type %></td>
       <td><%= environment_type.description %></td>
-      <td><%= link_to 'Show', environment_type %></td>
-      <td><%= link_to 'Edit', edit_environment_type_path(environment_type) %></td>
-      <td><%= link_to 'Destroy', environment_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Edit', edit_environment_type_path(environment_type), :class => 'btn btn-mini' %></td>
+      <td><%= link_to 'Destroy', environment_type, method: :delete, data: { confirm: 'Are you sure?' },
+          :class => 'btn btn-mini btn-danger' %></td>
     </tr>
   <% end %>
   </tbody>
@@ -26,4 +32,4 @@
 
 <br />
 
-<%= link_to 'New Environment type', new_environment_type_path %>
+<%#= link_to 'New Environment type', new_environment_type_path %>

@@ -44,7 +44,7 @@ class PromotionTypesController < ApplicationController
 
     respond_to do |format|
       if @promotion_type.save
-        format.html { redirect_to @promotion_type, notice: 'Promotion type was successfully created.' }
+        format.html { redirect_to promotion_types_path, notice: 'Promotion type was successfully created.' }
         format.json { render json: @promotion_type, status: :created, location: @promotion_type }
       else
         format.html { render action: "new" }

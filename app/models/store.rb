@@ -12,7 +12,7 @@ class Store < ActiveRecord::Base
   ## added after data structure changes
   belongs_to :environment_type
   belongs_to :channel
-  ##
+
   
   # scope :by_retailer, lambda do |retailer|
   #   joins(:profile).where('profile.age = ?', age) unless age.nil?
@@ -31,9 +31,13 @@ class Store < ActiveRecord::Base
   # validates :postcode, :presence => true, :uniqueness => true
 
   # scope :in_countries, lambda{ |c_ids| where('country_id IN (?)', c_ids) }
+
+  def country_name(id)
+    Country.find_by_id(id).name unless id.nil?
+  end
   
   def full_address
-    [address, address2, address3, town, postcode].join(',')
+    [address, address2, address3, town, postcode, country_name(country_id)].compact.join(', ')
   end
   
   # def self.to_csv(options = {})

@@ -5,4 +5,7 @@ class Category < ActiveRecord::Base
 	has_many :photos, :through => :categorizations
 	belongs_to :sector
 
+	validates :name, :presence => true
+  validates :name, :uniqueness => {:message => "Category exist."}
+
 end

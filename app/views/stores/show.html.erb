@@ -1,19 +1,38 @@
   <div class="page-header">
     <h1><%= @store.name %></h1>
-    <%= link_to 'Edit', edit_store_path(@store) %>
+    
   </div>
 
 <div class="">
-  <p>
-    <%= link_to 'Upload Images', new_audit_path(:retailer => @store.retailer.name, :store => @store.name) %>
-  </p>
   <p id="notice"><%= notice %></p>
-
+  <div class="action pull-right">
+    <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
+        :class => 'btn btn-primary' do %>
+        <i class="icon-upload icon-white"></i>
+        <span>Upload Images</span>
+    <% end %>    
+    <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
+        <i class="icon-edit icon-white"></i>
+        <span>Edit</span>
+    <% end %>    
+  </div>
+  
   <p>
-    <strong>Address: </strong><br />
-    <%= @store.address %><br />
-    <%= @store.address2 %><br />
-    <%= @store.postcode %><br />
+    <% unless @store.address.empty? %>
+      <%= @store.address %>,
+    <% end %>
+    <% unless @store.address.empty? %>
+      <%= @store.address2 %>,
+    <% end %>
+    <% unless @store.address3.empty? %>
+      <%= @store.address3 %><br />
+    <% end %>
+    <% unless @store.town.empty? %>
+      <%= @store.town %>
+    <% end %>
+    <% unless @store.postcode.empty? %>
+      <%= @store.postcode %>,
+    <% end %>
     <%= @store.country.name unless @store.country_id.nil? %>
   </p>
   <p>

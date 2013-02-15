@@ -2,10 +2,16 @@
 <div class="page-header">
   <h1>Media Vehicle List</h1>
 </div>
+<div class="action">
+  <%= link_to new_media_vehicle_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>Add New</span>
+  <% end %>
+</div>
+
 <table class="table table-striped" id="tbl-media-vehicles">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -15,8 +21,7 @@
   <tbody>
     <% @media_vehicles.each do |media_vehicle| %>
       <tr>
-        <td><%= link_to media_vehicle.id, media_vehicle_path(media_vehicle) %></td>
-        <td><%= media_vehicle.name %></td>
+        <td><%= link_to media_vehicle.name, media_vehicle %></td>
         <td><%= media_vehicle.description %></td>
         <td><%=l media_vehicle.created_at %></td>
         <td>
@@ -32,7 +37,3 @@
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_media_vehicle_path,
-            :class => 'btn btn-primary' %>

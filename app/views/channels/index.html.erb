@@ -2,10 +2,16 @@
 <div class="page-header">
   <h1>Channel List</h1>
 </div>
+<div class="action">
+  <%= link_to new_channel_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>New Channel</span>
+  <% end %>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -15,8 +21,8 @@
   <tbody>
     <% @channels.each do |channel| %>
       <tr>
-        <td><%= link_to channel.id, channel_path(channel) %></td>
-        <td><%= channel.name %></td>
+
+        <td><%= link_to channel.name, channel %></td>
         <td><%= channel.description %></td>
         <td><%=l channel.created_at %></td>
         <td>
@@ -33,6 +39,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%#= link_to t('.new', :default => t("helpers.links.new")),
             new_channel_path,
             :class => 'btn btn-primary' %>

@@ -92,19 +92,24 @@ class PhotosController < ApplicationController
       
       # @audits_in_country = Audit.find_all_by_store_id(@stores.map(&:id))
       @saved_searches = current_user.save_searches.all
-      
-      if params_search.nil?
-        # on page load
-        if params[:per_page]
+
+      if params[:per_page]
           @per_page = params[:per_page]
         else
           @per_page = 20
         end
-        # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
         @photos = Photo.published.paginate(:page => params[:page], 
-          :per_page => @per_page).order('photos.created_at DESC')
+          :per_page => @per_page).order('audits.created_at DESC').includes([:audit, :brands])
+
+      if params_search.nil?
+        # on page load
+        
+        # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
+        # @photos = Photo.published.paginate(:page => params[:page], 
+        #   :per_page => @per_page).order('photos.created_at DESC')
           
       else 
+        
         # search action
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
@@ -113,9 +118,10 @@ class PhotosController < ApplicationController
 
           # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
           #     .includes(:brands)
-           @photos = Photo.by_audits_in_stores(@stores)
+           # @photos = Photo.by_audits_in_stores(@stores)
+           #    .includes(:brands)
+          @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
-          
           @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars) if search_promotion_calendars.present?
           @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types) if search_promotion_types.present?
           @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types) if search_media_types.present?

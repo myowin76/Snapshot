@@ -2,6 +2,15 @@
 <div class="page-header">
   <h1>Store Formats</h1>
 </div>
+
+<div class="action">
+  <%= link_to new_store_format_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>New Format</span>
+  <% end %>
+</div>
+
+
 <table class="table table-striped" id="tbl-store-formats">
   <thead>
     <tr>
@@ -14,7 +23,7 @@
   <tbody>
     <% @store_formats.each do |store_format| %>
       <tr>
-        <td><%= store_format.name %></td>
+        <td><%= link_to store_format.name, store_format %></td>
         <td><%= store_format.description %></td>
         <td><%=l store_format.created_at %></td>
         <td>
@@ -30,7 +39,3 @@
     <% end %>
   </tbody>
 </table>
-<br><br>
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_store_format_path,
-            :class => 'btn btn-primary pull-right'%>

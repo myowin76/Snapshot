@@ -5,4 +5,6 @@ class Channel < ActiveRecord::Base
 
   #added after datastructure changes
   has_many :stores
+  validates :name, :presence => true
+  validates :name, :uniqueness => {:message => "Channel exist."}
 end

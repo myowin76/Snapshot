@@ -400,37 +400,7 @@ ul.ui-autocomplete {
     overflow: hidden;
   }
 }
-// pagination
-.pagination {
-  font-family: OpenSans;
-  margin: 0px !important;
-  padding: 0;
-  position: relative;
-  overflow: hidden;
-  a, span, em{
-    background: #fff;
-    border: 1px solid #F1CBCB;
-    border-left: none;
-    display: inline-block;
-    font-size: 12px;
-    font-style: normal;
-    line-height: 12px;
-    color: #8A6741;
-    padding: 4px 7px;
-    &.disabled{
-      display: none;
-    }
-    &.previous_page{
-      border-left: 1px solid #F1CBCB;
-    }
-    &.current{
-      color: #fff;
-      background: #d92680;
-      border: 1px solid #d92680;
-      font-weight: bold;
-    }
-  }
-}
+
 // page controls
 .sort-control{
   float: left;

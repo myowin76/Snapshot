@@ -1,8 +1,14 @@
 
   <div class="page-header">
     <h1>Category List</h1>
+  </div>
+  <div class="action">
+    <%= link_to new_category_path, :class => 'btn btn-primary pull-right' do %>
+    <i class="icon-plus icon-white"></i>
+    <span>New Category</span>
+    <% end %>
   </div>  
-  <%= link_to 'New Category', new_category_path, :class=>"btn btn-primary pull-right" %>
+    
   
   <table id="tbl-categories" class="table table-striped">
     <thead>
@@ -16,10 +22,11 @@
     <tbody> 
       <% @categories.each do |category| %>
         <tr>
-          <td><%= category.name %></td>
+          <td><%= link_to category.name, category %></td>
           <td><%= category.description %></td>
-          <td><%= link_to 'Edit', edit_category_path(category) %></td>
-          <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Edit', edit_category_path(category), :class => 'btn btn-mini' %></td>
+          <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' },
+            :class => 'btn btn-mini btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>

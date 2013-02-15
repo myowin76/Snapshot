@@ -44,7 +44,7 @@ class PromotionCalendarsController < ApplicationController
 
     respond_to do |format|
       if @promotion_calendar.save
-        format.html { redirect_to @promotion_calendar, notice: 'Promotion calendar was successfully created.' }
+        format.html { redirect_to promotion_calendars_path, notice: 'Promotion calendar was successfully created.' }
         format.json { render json: @promotion_calendar, status: :created, location: @promotion_calendar }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class PromotionCalendarsController < ApplicationController
 
     respond_to do |format|
       if @promotion_calendar.update_attributes(params[:promotion_calendar])
-        format.html { redirect_to @promotion_calendar, notice: 'Promotion calendar was successfully updated.' }
+        format.html { redirect_to promotion_calendars_path, notice: 'Promotion calendar was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

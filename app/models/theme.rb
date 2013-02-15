@@ -3,4 +3,6 @@ class Theme < ActiveRecord::Base
   
   has_many :themings
   has_many :photos, :through => :themings
+  validates :name, :presence => true
+  validates :name, :uniqueness => {:message => "Theme exist."}
 end

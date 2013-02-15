@@ -1,0 +1,68 @@
+// client side pagination
+.pagination {
+  font-family: OpenSans;
+  margin: 0px !important;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  a, span, em{
+    background: #fff;
+    border: 1px solid #F1CBCB;
+    border-left: none;
+    display: inline-block;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 12px;
+    color: #8A6741;
+    padding: 4px 7px;
+    &.disabled{
+      display: none;
+    }
+    &.previous_page{
+      border-left: 1px solid #F1CBCB;
+    }
+    &.current{
+      color: #fff;
+      background: #d92680;
+      border: 1px solid #d92680;
+      font-weight: bold;
+    }
+  }
+}
+
+
+// datatable paginations
+.content .dataTables_paginate{
+  .first{
+    border-left: #F1CBCB !important;
+  }
+}
+.paging_full_numbers{
+  font-family: OpenSans, Arial;
+  a{
+
+    &.paginate_button{
+      background-color: #fff;
+      &:hover{
+        background-color: #d92680;
+        color: #fff !important;  
+      }
+    }
+    &.paginate_active{
+      background-color: #d92680;
+      color: #fff !important;
+      //border: 1px solid #d92680;
+      font-weight: bold;
+    }
+  }
+
+  a.paginate_active, a.paginate_button{
+    border-top: 1px solid #F1CBCB;
+    border-bottom: 1px solid #F1CBCB;
+    border-right: 1px solid #F1CBCB;
+    border-left: 0;
+    border-radius: 0;
+    margin: 0;
+  }
+  
+} 
