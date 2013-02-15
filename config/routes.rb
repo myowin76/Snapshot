@@ -1,5 +1,8 @@
 Snapshot::Application.routes.draw do
 
+
+  devise_for :users
+
   resources :subscriptions, :save_searches, :user_types
   resources :media_types, :media_vehicles, :media_locations, :themes
   resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
@@ -9,7 +12,7 @@ Snapshot::Application.routes.draw do
   #   resources :photos
   # end
 
-  devise_for :users
+  
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
   match '/photos/download/:id' => 'photos#zip_all_from_store', :as => :all_store_photos
