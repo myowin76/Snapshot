@@ -1,37 +1,104 @@
 <!DOCTYPE html>
-<html>
-  <%= render 'layouts/blocks/head' %>
-  <body>
-    <%= render 'layouts/blocks/auth_header' %>
-    <div class="container">
-      
-      <div id = "main" >
-     
-        <section class="overlay"></section>
-        <section class="site-content" role="main">
-          <% flash.each do |name, msg| %>
-            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-              <%= content_tag :div, msg %>
-              <p class="pull-right">close</p>
-            </div>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
 
-          <% end %>
-          
-          <%#= content_tag :h1, yield(:title) if show_title? %>
-          <%= yield %>
+  <%= javascript_include_tag "application" %>  
+  <%= stylesheet_link_tag "reset","bootstrap_and_overrides","sign_in" %>
+  <!--link rel="stylesheet" href="/stylesheets/main.css"-->
+  <!--script src="/javascripts/cf69c6f2.modernizr.min.js"></script-->
+</head>
+
+<body class="login">
+
+<div class="container">
+
+  <header class="site-header" role="banner">
+    <a class="logo" href="/"><img src="/assets/d3c42e08.snapshot-logo.png" alt="Snapshot"></a>
+  </header>
+
+  <div class="main-wrapper" >
+
+    <aside class="site-sidebar">
+
+      <%= yield %>
+      <div class="widget welcome">
+        <header>
+          <h3>Welcome</h3>
+        </header>
+        <section>
+          <p>Snapshotworldwide.com, is a new retail intelligence tool that enables you to <b>‘see what the shopper sees’</b>:</p>
+          <ul>
+            <li>Retail intelligence</li>
+            <li>Fully searchable</li>
+            <li>Real time</li>
+            <li>Historical perspective</li>
+            <li>International</li>
+            <li>Brands &amp; retailers</li>
+            <li>Online, in-store &amp; mobile</li>
+          </ul>
         </section>
-         
-      </div> 
-  
-      <%= render 'layouts/blocks/footer' %>
+      </div><!-- /.widget.welcome -->
 
-    <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    </div>      
-  </div>  <!-- /.container -->
+    </aside>
 
-    <%= yield :scripts %>
+    <section class="site-content" role="main">
+      <% flash.each do |name, msg| %>
+        <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+          <%= content_tag :div, msg %>
+        </div>
+      <% end %>
+      <div class="carousel">
 
-    
+        <div class="carousel-main">
+          <img src="/assets/ebf6c488.img1.jpg" alt="">
+          <div class="carousel-meta">
+            <h4>Tesco Extra, Wembley, Christmas aisle</h4>
+            <h5>Wednesday 5th December 2012</h5>
+          </div>
+        </div><!-- /.carousel-main -->
+
+        <div class="carousel-thumbs">
+          <a><img src="/assets/03828176.img-t2.jpg" alt=""></a>
+          <a><img src="/assets/c26e83d6.img-t3.jpg" alt=""></a>
+          <a><img src="/assets/28aa0844.img-t4.jpg" alt=""></a>
+          <a><img src="/assets/4e8a8c96.img-t5.jpg" alt=""></a>
+          <a><img src="/assets/b8684eab.img-t6.jpg" alt=""></a>
+          <a><img src="/assets/173769f9.img-t7.jpg" alt=""></a>
+        </div>
+      </div><!-- .carousel -->
+    </section>
+
+  </div>
+
+  <footer class="site-footer">
+
+    <ul class="footer-links">
+      <li>Copyright &copy; 2012 SnapShot Worldwide,  All Rights Reserved</li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Cookies</a></li>
+    </ul>
+
+    <p class="vcard">Powered by <a href="http://skyron.co.uk" target="_blank">Skyron</a><!--  - 989 Main ST - London - WC1 8UH - UK --></p>
+
+  </footer>
+
+</div><!-- /.container -->
+
+
+<!--[if lt IE 7]>
+    <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+<![endif]-->
+
+
 <form class="form-horizontal" id="email-form">
 
 
@@ -146,6 +213,6 @@ to Snapshot yet!</h3>
       }
     });
 </script>
-
-  </body>
+</body>
 </html>
+
