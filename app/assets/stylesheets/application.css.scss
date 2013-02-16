@@ -672,3 +672,20 @@ input{
     width: auto;
   }
 }
+
+// sign in page
+.header_full{
+  background-color: #d92680;
+  min-height: 399px;
+  @include box-shadow(#555 -1px 2px 15px inset);
+  padding: 30px 0;
+}
+.devise{
+  margin: 0 auto;
+  width: 380px;
+  padding: 20px;
+  background-color: #fff;
+  .links{
+    padding: 10px 18px;
+  }
+}
