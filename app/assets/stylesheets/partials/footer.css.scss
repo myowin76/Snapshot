@@ -2,7 +2,7 @@
   font-size: 12px;
   overflow: hidden;
   clear: both;
-  max-width: 1170px;
+  width: 100%;
   margin: 0 auto;
   padding: 1em 1em;
   background: #D92680;
@@ -15,9 +15,13 @@
     margin-bottom: 0;
   }
 }
-#footer-content {
+#footer-content{
+  width: 960px;
+  margin: 0 auto;
+}
+.copyright {
   float: left;
-  width: 30%;
+  width: auto;
 }
 #menu-subsidiary {
   float: right;

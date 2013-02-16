@@ -4,9 +4,11 @@
 .container {
   
   width: 960px;
-  //width: 1024px;
+  background-color: white;
+  padding: 18px;
   margin: 0 auto;
   position: relative;
+  min-height: 400px;
   //@include container(16);
   //@include susy-grid-background;
 }

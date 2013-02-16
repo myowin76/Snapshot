@@ -33,7 +33,13 @@
           	<%= photo.audit.store.name unless photo.audit_id.nil?  %>
           </td>
           <td><%= photo.audit.audit_date %></td>
-          <td><%= photo.audit.user.email unless photo.audit_id.nil? %></td>
+          <td>
+            <% unless photo.audit.user.username.nil? %>
+              <%= photo.audit.user.username unless photo.audit_id.nil? %>
+            <% else %>
+              <%= photo.audit.user.email unless photo.audit_id.nil? %>
+            <% end %>
+          </td>
           <td><%= link_to "Details", photo_path(photo) %></td>
           <td><%= link_to "Edit", edit_photo_path(photo) %></td>
       	</tr>

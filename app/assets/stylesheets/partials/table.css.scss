@@ -1,8 +1,11 @@
 .table.table-striped {
 	//font-family: OpenSans;
+	border-bottom:1px solid #ddd;
 	font-size: 13px;
 	margin-bottom: 20px;
-	
+	td{
+		border-top: none;
+	}
 	thead{
 		th{
 			border-bottom: 1px solid #f1cbcb;

@@ -11,11 +11,15 @@
     <%= f.association :country, :include_blank => false %>
     
     <label>Store Format
-      <a href="#" 
+      <a
+        href="#"
+        style ="color: #da4c4a;"
         id="store_format_help" 
         rel="popover" 
         data-original-title="Example Formats"
-        data-content="Extra Large is a hypermarket format, for example Tesco Extra">help</a>
+        data-content="Extra Large is a hypermarket format, for example Tesco Extra">
+        <i class="btn-action single icon-question-sign" ></i>
+      </a>
     </label>
 
     <%= f.association :store_format, :include_blank => false, :label => false %>

@@ -1,21 +1,10 @@
+
   <div class="page-header">
     <h1><%= @store.name %></h1>
     
   </div>
 
-<div class="">
-  <p id="notice"><%= notice %></p>
-  <div class="action pull-right">
-    <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
-        :class => 'btn btn-primary' do %>
-        <i class="icon-upload icon-white"></i>
-        <span>Upload Images</span>
-    <% end %>    
-    <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
-        <i class="icon-edit icon-white"></i>
-        <span>Edit</span>
-    <% end %>    
-  </div>
+<div class="span9">
   
   <p>
     <% if @store.address.present? %>
@@ -73,3 +62,32 @@
 
   <% end %> -->
 </div>  
+<div class="span3">
+<!--   <% unless @store.audits.nil? %>
+    <% @store.audits.each do |audit| %>
+      
+      <div class="widget">
+        <h2>Audits</h2>
+        <ul>
+          <li>
+            <%= link_to audit.audit_date, audit %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  <% end %> -->
+  <div class="action pull-right">
+    <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
+        :class => 'btn btn-primary' do %>
+        <i class="icon-upload icon-white"></i>
+        <span>Upload Images</span>
+    <% end %>    
+    <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
+        <i class="icon-edit icon-white"></i>
+        <span>Edit</span>
+    <% end %>    
+  </div>
+
+
+
+</div>
