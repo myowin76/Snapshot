@@ -9,8 +9,10 @@
         <div class="devise" role="main">
           <% flash.each do |name, msg| %>
             <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-              <%= content_tag :div, msg %>
-              <p class="pull-right">close</p>
+              <%= content_tag :div do %>
+              <span><%= msg %></span>
+              <i class="pull-right">x</i>
+              <% end %>
             </div>
 
           <% end %>
