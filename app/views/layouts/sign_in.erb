@@ -3,12 +3,10 @@
   <%= render 'layouts/blocks/head' %>
   <body>
     <%= render 'layouts/blocks/auth_header' %>
-    <div class="container">
-      
-      <div id = "main" >
-     
-        <section class="overlay"></section>
-        <section class="site-content" role="main">
+    <div class="header_full">
+
+        <!-- <section class="overlay"></section> -->
+        <div class="devise" role="main">
           <% flash.each do |name, msg| %>
             <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
               <%= content_tag :div, msg %>
@@ -16,18 +14,14 @@
             </div>
 
           <% end %>
-          
-          <%#= content_tag :h1, yield(:title) if show_title? %>
           <%= yield %>
-        </section>
+        </div>
          
-      </div> 
-  
-      <%= render 'layouts/blocks/footer' %>
-
-    <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+  </div> 
+  <%#= render 'layouts/blocks/footer' %>
+  <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     </div>      
-  </div>  <!-- /.container -->
 
     <%= yield :scripts %>
 
@@ -39,8 +33,8 @@
 
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">So sorry, but it seems you're not a subscriber
-to Snapshot yet!</h3>
+    <h5 id="myModalLabel">So sorry, but it seems you're not a subscriber
+to Snapshot yet!</h5>
 
   </div>
 
