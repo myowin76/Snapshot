@@ -64,7 +64,7 @@
             <%= photo.brands.map(&:name).join(",") %>
           </div>  
           <div class="date">
-            <%= photo.audit.created_at %>
+            <%= photo.audit.audit_date %>
           </div>
           <div class="address">
             <%= photo.audit.store.address2 %>
