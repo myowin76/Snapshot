@@ -98,20 +98,28 @@ body {
   input[type="text"]{
     padding: 2px 6px;
   }
+  .add-on{
+    padding: 2px 5px;
+    &:last-child{
+      border-radius: 0px;
+    }
+  }
   #search_location{
     width: 85%;
   }
   label{
     display: inline;
   }
-
+  #search_brand_comp{
+    margin-top: -2px;
+  }
   &.date{
     label{
       float: left;
       width: 40px;
     }
     input[type="text"]{ 
-      width: 70%;
+      width: 55%;
     }
 
   }
