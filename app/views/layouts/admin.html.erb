@@ -4,6 +4,7 @@
   <body>
     
     <%= render 'layouts/blocks/header' %>
+    <div class="header_small">
     <div class="container">
       
         <div id = "main" >
@@ -25,14 +26,11 @@
                 <%= yield %>
               </div>
             </div>    
-              
           </section>
       </div> 
-
+    </div>
       <%= render 'layouts/blocks/footer' %>
     </div>  <!-- /.container -->
-
-
     <%= yield :scripts %>
   </body>
 </html>
