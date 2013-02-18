@@ -31,7 +31,7 @@ var snapshot = {
   LayoutSwitcher: function(){
 
     $('#main .content-wrap .layout-switcher .layout-list').live('click', function(){
-      
+      $('.list-header').show();
       if($('.map-view:visible')){
         $('.map-view').hide();
         $('.page-controls').show();  
@@ -56,11 +56,16 @@ var snapshot = {
       $('ul.photos-viewer').hide();
       $('.page-controls').hide();
       $('.map-view').show();
+      if($('.list-header:visible')){
+        $('.list-header').hide();
+      }
       Gmaps.loadMaps();
     });
 
     $('#main .content-wrap .layout-switcher .layout-grid').live('click', function(){
-
+      if($('.list-header:visible')){
+        $('.list-header').hide();
+      }
       if($('.map-view:visible')){
         $('.map-view').hide();
         $('.page-controls').show();  

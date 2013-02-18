@@ -48,7 +48,15 @@
 </div>
 
 <% unless @photos.nil? %>    
+  <ul class="list-header" style="display: none;">
+    <li style="width: 143px;">&nbsp;</li>
+    <li style="width: 132px;">Retailer</li>
+    <li style="width: 130px;">Date</li>
+    <li style="width: 143px;">Location</li>
+    
+  </ul>
   <ul class="photos-viewer row-fluid">
+    
     <% @photos.each do |photo| %>
       <li>
         <div class="viewer-inner">

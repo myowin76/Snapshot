@@ -45,6 +45,7 @@ body {
   label, input, button, select, textarea {
     font-size: 13px;
   }
+
   input[type='text'], textarea{
     border-radius: 0;
     box-shadow: none;
@@ -686,6 +687,7 @@ input{
   .photo-store-info{
     background-color: #eee;
     padding: 18px;
+    text-align: left;
   }
 }
 
@@ -722,5 +724,18 @@ input{
   
   .links{
     padding: 10px 18px;
+  }
+}
+
+
+// list view header
+.list-header{
+  border-bottom: 1px solid #f1cbcb;
+  width: 100%;
+  overflow: hidden;
+  padding: 3px 0;
+  li{
+    float: left;
+    
   }
 }

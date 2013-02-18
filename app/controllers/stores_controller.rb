@@ -29,7 +29,7 @@ class StoresController < ApplicationController
       format.xml { render xml: @stores }
       format.csv { send_data @stores_in_country.to_csv }
       format.xls  { send_data @stores_in_country.to_csv(col_sep: "\t") }
-      # format.json { render json: @stores }
+      format.json { render json: @stores }
       # format.csv { render text: @stores_in_country.to_csv }
       
     end
