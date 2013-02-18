@@ -476,27 +476,43 @@ body .ui-widget {
 .photo-view.grid{
   .photos-viewer{
     padding: 0px; margin: 0px;
+
     li{
       float: left;
-      width:226px;
+      @include box-sizing(border-box);      
+      margin-left: 2.12766%;
+      //margin-right:18px;
+      //width:216px;
+      width: 31.9149%;
+      display: block;
       min-height: 260px;
       margin-bottom: 12px;
-      .thumb{
-        margin: 0 auto;
-        width: 90%;
+      &:first-child{
+        margin-left: 0;
       }
-      &:nth-child(3n){
-        //background-color: red;
-      }
-      section{
-        margin: 0 11px 0 12px;
-        
-        background-color: #eee;
-        padding: 3px 10px;
+      .viewer-inner{
+        box-sizing: border-box;
+        border: 3px solid transparent;
+        overflow: hidden;
+        &:hover{
+          border-color: #efbeda;
+        }
+        .thumb{
+          margin: 0 auto;
+        }
+        &:nth-child(3n){
+          margin-right: 0px;
+        }
+        section{
+          margin: 0;
+          background-color: #eee;
+          padding: 3px 10px 10px;
+        }
       }
     }
   }  
 }
+
 .photo-view.list{
   .photos-viewer{
     padding: 0; margin: 0px;
@@ -571,6 +587,7 @@ body .ui-widget {
   }
   .left{
     float: left;
+    text-align: center;
     margin-right: 20px;
     width: 550px;
   }

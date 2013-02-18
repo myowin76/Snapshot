@@ -22,8 +22,7 @@
     
   </div> 
   <%#= render 'layouts/blocks/footer' %>
-  <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    </div>      
+  <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>     
 
     <%= yield :scripts %>
 
@@ -31,43 +30,35 @@
     <form class="form-horizontal" id="email-form">
 
 
-<div id="notLogginInModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-left:0; width: auto;">
+      <div id="notLogginInModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-left:0; width: auto;">
 
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h5 id="myModalLabel">So sorry, but it seems you're not a subscriber
-to Snapshot yet!</h5>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h5 id="myModalLabel">So sorry, but it seems you're not a subscriber to Snapshot yet!</h5>
+        </div>
 
-  </div>
+        <div class="modal-body">
+            <p>Don't worry, send us a message and we’ll get back to you.</p>
+            <div class="control-group">
+              <label class="control-label" for="inputEmail">Email</label>
+              <div class="controls">
+                <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="string required">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="msg">Message</label>
+              <div class="controls">
+                <textarea id="msg" name="msg" rows="7" placeholder="Message"></textarea>
+              </div>
+            </div>
+        </div>
 
-  <div class="modal-body">
-
-
-      <p>Don't worry, send us a message and we’ll get back to you.</p>
-      <div class="control-group">
-        <label class="control-label" for="inputEmail">Email</label>
-        <div class="controls">
-          
-          <input type="text" id="inputEmail" name="inputEmail" placeholder="Email" class="string required">
-        
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+          <input class="btn btn-primary" type="submit" value="Send" id="send">
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="msg">Message</label>
-        <div class="controls">
-
-          <textarea id="msg" name="msg" rows="7" placeholder="Message"></textarea>
-
-        </div>
-      </div>
-  </div>
-
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <input class="btn btn-primary" type="submit" value="Send" id="send">
-  </div>
-</div>
-</form>
+    </form>
 
 <script type="text/javascript">
 

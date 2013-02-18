@@ -6,7 +6,7 @@
 		<!-- <a href="store/category_view" class="cat-link">View Category</a> -->
 		<!-- <h3><%= cat.name %></h3> -->
 		<ul class="gallery_basic" id="basicGallery">
-			<% cat.photos.each do |photo| %>
+			<% cat.photos.published.each do |photo| %>
 				<% if photo.audit.store_id == @store.id %>
 					<li><%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %></li>
 				<% end %>

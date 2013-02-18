@@ -172,7 +172,7 @@ class StoresController < ApplicationController
 
         @photo_categories = Category.joins(:photos).includes(:categorizations)
         .where('photos.audit_id IN (?)', @audit.id)
-        .where("category_id in (?)", @selected_categories.map(&:id))
+        .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
         .group("categories.id");
           
           
@@ -183,7 +183,7 @@ class StoresController < ApplicationController
         .where('photos.audit_id IN (?)', @audit.id)
 
         @photo_categories = Category.joins(:photos).includes(:categorizations)
-          .where("category_id in (?)", @selected_categories.map(&:id))
+          .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
           .group("categories.id");
           
       end
@@ -222,14 +222,15 @@ class StoresController < ApplicationController
           @selected_categories = Category.find_all_by_id(params[:categories].split(","))
           @photo_categories = Category.joins(:photos).includes(:categorizations)
             .where('photos.audit_id IN (?)', @audit.id)
-            .where("category_id in (?)", @selected_categories.map(&:id))
+            .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
             .group("categories.id");
         else
           @selected_categories = Category.joins(:photos).
             where('photos.audit_id IN (?)', @audit.id)
-          @photo_categories = Category.joins(:photos).includes(:categorizations)
-            .where("category_id in (?)", @selected_categories.map(&:id))
+          @photo_categories = Category.joins(:photos).includes(:categorizations)            
+            .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
             .group("categories.id");
+            
         end
         # .having("count(photo_id)");
       end
