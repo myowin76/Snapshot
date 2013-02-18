@@ -503,12 +503,18 @@ body .ui-widget {
         }
         .thumb{
           margin: 0 auto;
+          height: 160px;
+          position: relative;
+          img{
+            position: absolute;
+            bottom: 0;
+          }
         }
-        
         section{
           margin: 0;
           background-color: #eee;
           padding: 3px 10px 10px;
+          height: 100px;
         }
       }
     }

@@ -9,7 +9,8 @@ class StoresController < ApplicationController
       # @countries = Country.find(current_user.subscription.sub_country.split(","))
       @countries = Country.order(:name)
       # @stores_in_country = Store.find_all_by_country_id(@countries)
-      @categories = Category.find(current_user.subscription.sub_cats.split(","))
+      #@categories = Category.find(current_user.subscription.sub_cats.split(","))
+      @categories = Category.order(:name)
       # @stores_in_country = Store.order(:name).where('country_id IN (?)', @countries)
       @stores = Store.order(:name)
       # @stores = Store.all
