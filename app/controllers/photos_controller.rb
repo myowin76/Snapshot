@@ -96,7 +96,7 @@ class PhotosController < ApplicationController
       if params[:per_page]
           @per_page = params[:per_page]
         else
-          @per_page = 20
+          @per_page = 30
         end
         @photos = Photo.published.paginate(:page => params[:page], 
           :per_page => @per_page).order('audits.created_at DESC').includes([:audit, :brands])
@@ -158,7 +158,7 @@ class PhotosController < ApplicationController
             if params[:per_page]
               @per_page = params[:per_page]
             else
-              @per_page = 20
+              @per_page = 30
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
             respond_to do |format|
