@@ -29,10 +29,12 @@ jQuery ->
     event.preventDefault()
 
   store = $('#audit_store_id').html()
+  $('.add-store').hide()
   $('#audit_retailer_id').change ->
     retailer = $('#audit_retailer_id :selected').text()
     escaped_retailer = retailer.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')
     options = $(store).filter("optgroup[label='#{escaped_retailer}']").html()
+    $('.add-store').show()
     if options
       $('#audit_store_id').html(options)
       $('#audit_store_id').parent().show()

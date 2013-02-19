@@ -1,6 +1,5 @@
 
   <%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
-    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 
     <fieldset>
       <% unless params[:retailer].present?  %>
@@ -46,7 +45,7 @@
 
     <% unless params[:store].present?  %>
       <fieldset>
-        <%= link_to "add new store", new_store_path, :class => "add-store" %>
+        <%= link_to "Add new store", new_store_path, :class => "add-store" %>
       </fieldset>  
         
     <% else %>

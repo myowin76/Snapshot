@@ -21,8 +21,6 @@
 //= require rails.validations
 //= require jquery-fileupload
 //= require_tree .
-
-
 // require jquery-fileupload/vendor/tmpl
 // require jquery.tokeninput
 
@@ -144,28 +142,13 @@ var photos = {
 
 $(document).ready(function() {
 
-
   $('.nav-tabs li a').live('click', function (e) {
-        google.maps.event.trigger(map, 'resize');
-
-    });
-
-  // $('.layout-map').live('click', function () {
-  //   $('.test-map').show();
-  //   google.maps.event.trigger(map, 'resize');
-  //   Gmaps.loadMaps();
-
-  // });
-  $('.nav-tabs li a').live('click', function () {
-    // $('.test-map').show();
-    // google.maps.event.trigger(map, 'resize');
-    Gmaps.loadMaps();
-
+    google.maps.event.trigger(map, 'resize');
   });
 
-  
-
-
+  $('.nav-tabs li a').live('click', function () {
+    Gmaps.loadMaps();
+  });
 
   snapshot.LayoutSwitcher();
   snapshot.Pagination();
@@ -193,12 +176,7 @@ $(document).ready(function() {
     }, 500);
   });
 
-  // $('.brand_owner_ddl').change(function(event){
-  //   console.log('brand owner change', event, $(event.target).val())
-  // })
-    // $('.brand_owner_ddl').each(function(){
-    //   $(this).prepend("<option value='0'>Unknown</option>");
-    // });
+
     $('.content .edit_audit .brands-actions .chosen-brand').each(function(){
         var brands_ddl_id = "#" + $(this).attr('id');
         var brand_ids = new Array();
@@ -264,44 +242,7 @@ $(document).ready(function() {
         }
       });
     })
-    
-    
-    // $('.chosen-mv-uploader').next('.chzn-container').find('.chzn-results a').on('click', function(){
-      
-    //   alert($(this)); return false;
-    
-    // });
-  // });
-
-  // $('.brand_owner_ddl').change(function(e){
-    
-  //   var info = {}
-  //   info = $(this).serializeObject();
-  //   $.ajax({
-  //     url: '/photos/refresh_all_brands_dropdowns',
-  //     type: "POST",
-  //     dataType: 'script',
-  //     data: info,
-  //     success: function(data){
-
-  //     }
-  //   });
-  // });
-
-  // $('#brand_owner_id').on('change',function(e){
-    
-  //   var info = {}
-  //   info = $('#brand_owner_id').serializeObject();
-  //   $.ajax({
-  //     url: '/photos/refresh_brands_dropdown',
-  //     type: "POST",
-  //     dataType: 'script',
-  //     data: info,
-  //     success: function(data){
-
-  //     }
-  //   });
-  // });
+  
 
   $("#store_format_help")
     .popover({
@@ -364,11 +305,11 @@ $(document).ready(function() {
     $('#search_form').submit();
   });
 
-  $('#audit_created_at').datepicker(
+  $('#audit_audit_date').datepicker(
     {
       dateFormat: 'dd/mm/yy',
       onClose: function(){
-        $('#audit_created_at').blur(); //or .focusout();
+        $('#audit_audit_date').blur(); //or .focusout();
       }
     }
   );
