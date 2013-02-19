@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   include PhotosHelper
   before_filter :authenticate_user!
-
+  respond_to :html, :js, :json
   def index
         
     if user_is_country_and_category_subscriber?
@@ -25,9 +25,6 @@ class PhotosController < ApplicationController
       @env_types = EnvironmentType.order(:name)
       @channels = Channel.order(:name)
 
-      # @search_env_type = search_environment_types.present? ? search_environment_types : @env_types.map(&:id)
-      # @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
-      # debugger
       unless params_search.nil?
         # Country Search
         if search_country_id.present?
@@ -78,8 +75,7 @@ class PhotosController < ApplicationController
         @stores = @stores.includes(:retailer)
           .where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
       end
-      # @env_types = EnvironmentType.order(:name)
-      # @channels = Channel.order(:name)
+
       @promo_calendars = PromotionCalendar.order(:name)
       @brand_owners = BrandOwner.order(:name)
       @brands = Brand.order(:name)
@@ -89,8 +85,7 @@ class PhotosController < ApplicationController
       @media_vehicles = MediaVehicle.order(:name)
       @media_locations = MediaLocation.order(:name)
       
-      
-      # @audits_in_country = Audit.find_all_by_store_id(@stores.map(&:id))
+
       @saved_searches = current_user.save_searches.all
 
       if params[:per_page]
@@ -101,25 +96,20 @@ class PhotosController < ApplicationController
         @photos = Photo.published.paginate(:page => params[:page], 
           :per_page => @per_page).order('audits.created_at DESC').includes([:audit, :brands])
 
-      if params_search.nil?
-        # on page load
+      # if params_search.nil?
+      #   # on page load
         
-        # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-        # @photos = Photo.published.paginate(:page => params[:page], 
-        #   :per_page => @per_page).order('photos.created_at DESC')
+      #   # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
+      #   # @photos = Photo.published.paginate(:page => params[:page], 
+      #   #   :per_page => @per_page).order('photos.created_at DESC')
           
-      else 
+      # else 
+       unless params_search.nil?
         
         # search action
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
-          # @search_env_type = search_environment_types.present? ? search_environment_types : @env_types.map(&:id)
-          # @search_channel = search_channels.present? ? search_channels : @channels.map(&:id)
-
-          # @photos = Photo.by_audits_in_stores(@stores, @search_env_type, @search_channel)
-          #     .includes(:brands)
-           # @photos = Photo.by_audits_in_stores(@stores)
-           #    .includes(:brands)
+       
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
           @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars) if search_promotion_calendars.present?
@@ -131,9 +121,7 @@ class PhotosController < ApplicationController
           @photos = @photos.joins(:brands).where('brands.id IN (?)', search_brands) if search_brands.present?
           @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes) if search_themes.present?
           @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories) if search_categories.present?
-
-
-            
+        
           if search_brand_owners.present?
             @brands_by_owners = @brands.find_all_by_brand_owner_id(search_brand_owners)
             @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
@@ -142,33 +130,20 @@ class PhotosController < ApplicationController
           @photos = @photos.all_brand_compliant if search_brand_compliant?
           @photos = @photos.find_between(from_date,to_date).published
 
-            #### need to refactor the queries #####  
-
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
-            # @store_ids = []
-            # @audits.each do |s|
-            #   @store_ids.push(s.store_id)
-            # end
+          
             @store_ids = @audits.map(&:store_id)
 
             @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
-            # @stores = @stores.where('stores.country_id IS NOT NULL')
-
+            
             if params[:per_page]
               @per_page = params[:per_page]
             else
               @per_page = 30
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-            respond_to do |format|
-              format.html  # index.html.erb
-              format.json { 
-                render json: @photos 
-              }
-              format.js
-            end
-           # debugger 
+           
       end
 
     elsif user_is_country_subscriber?
@@ -198,6 +173,11 @@ class PhotosController < ApplicationController
     end      
 
     
+    # respond_to do |format|
+    #  format.json { render json: @photos.as_json(
+    #     only: [:id, :audit_id, :photo_file_name, :photo_content_type,:promotion_calendar_id]
+    #     )}
+    # end
   end
 
   def show
@@ -213,7 +193,7 @@ class PhotosController < ApplicationController
                       disposition: "inline"
       end
       format.js
-      format.json { render json: @photo }
+      format.json { render json: @photo}
     end
   end
 
