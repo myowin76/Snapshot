@@ -1,7 +1,7 @@
 class PhotosController < ApplicationController
   include PhotosHelper
   before_filter :authenticate_user!
-  respond_to :html, :js, :json
+  # respond_to :html, :js, :json
   def index
         
     if user_is_country_and_category_subscriber?
@@ -211,7 +211,8 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     unless @photo.brands.empty?
       @brands = @photo.brands
-      @brand_owner = @brands.first.brand_owner.name
+      @brand_owner = @brands.first.brand_owner.name unless @brands.first.brand_owner.nil?
+
     end
 
   end
