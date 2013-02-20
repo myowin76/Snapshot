@@ -29,64 +29,66 @@
         <h3>Store</h3>
         <table class="table">
           <tbody>
-            <tr>
-              <td width="30%">Store Name:</td>
-              <td width="70%"><%= @photo.audit.store.name %></td>
-            </tr>
-            <tr>
-              <td width="30%">Location:</td>
-              <td width="70%">
-                <% if @photo.audit.store.address.present? %>
-                  <%= @photo.audit.store.address %>
-                <% end %>
-                <% if @photo.audit.store.address2.present? %>  
-                  , <%= @photo.audit.store.address2 %> 
-                <% end %>  
-                <% if @photo.audit.store.address3.present? %>  
-                  <%= @photo.audit.store.address3 %> 
-                <% end %>  
-                <% if @photo.audit.store.town.present? %>  
-                  ,<%= @photo.audit.store.town %>
-                <% end %>
-                <% if @photo.audit.store.country_id.present? %>
-                  <%= @photo.audit.store.country.name %>
-                <% end %>
-              </td>
-            </tr>
-            <% if @photo.audit.store.environment_type_id.present? %>
-            <tr>
-              <td width="30%">Environment Type</td>
-              <td width="70%">
-                <%= @photo.audit.store.environment_type.name %>
-              </td>
-            </tr>  
-            <% end %>  
-              </td>
-            </tr>
-            <tr>
-              <td width="30%">Store Format</td>
-              <td width="70%"><%= @photo.audit.store.store_format.name %></td>
-            </tr>
-            <% if @photo.audit.store.channel_id.present? %>
+            <% unless @photo.audit.nil? %>
               <tr>
-                <td width="30%">Channel</td>
+                <td width="30%">Store Name:</td>
+                <td width="70%"><%= @photo.audit.store.name %></td>
+              </tr>
+              <tr>
+                <td width="30%">Location:</td>
                 <td width="70%">
-                  <%= @photo.audit.store.channel.name %>
+                  <% if @photo.audit.store.address.present? %>
+                    <%= @photo.audit.store.address %>
+                  <% end %>
+                  <% if @photo.audit.store.address2.present? %>  
+                    , <%= @photo.audit.store.address2 %> 
+                  <% end %>  
+                  <% if @photo.audit.store.address3.present? %>  
+                    <%= @photo.audit.store.address3 %> 
+                  <% end %>  
+                  <% if @photo.audit.store.town.present? %>  
+                    ,<%= @photo.audit.store.town %>
+                  <% end %>
+                  <% if @photo.audit.store.country_id.present? %>
+                    <%= @photo.audit.store.country.name %>
+                  <% end %>
                 </td>
               </tr>
-            <% end %>    
-            <tr>
-              <td width="40%">Audit Date</td>
-              <td width="60%"><%= @photo.audit.created_at %></td>
-            </tr>
-            <tr>
-              <td width="40%">Retailer</td>
-              <td width="60%"><%= @photo.audit.store.retailer.name %></td>
-            </tr>
-            <tr>
-              <td width="40%">Retail Sector</td>
-              <td width="60%"><%= @photo.audit.store.retailer.sector.name %></td>
-            </tr>
+              <% if @photo.audit.store.environment_type_id.present? %>
+              <tr>
+                <td width="30%">Environment Type</td>
+                <td width="70%">
+                  <%= @photo.audit.store.environment_type.name %>
+                </td>
+              </tr>  
+              <% end %>  
+                </td>
+              </tr>
+              <tr>
+                <td width="30%">Store Format</td>
+                <td width="70%"><%= @photo.audit.store.store_format.name %></td>
+              </tr>
+              <% if @photo.audit.store.channel_id.present? %>
+                <tr>
+                  <td width="30%">Channel</td>
+                  <td width="70%">
+                    <%= @photo.audit.store.channel.name %>
+                  </td>
+                </tr>
+              <% end %>    
+              <tr>
+                <td width="40%">Audit Date</td>
+                <td width="60%"><%= @photo.audit.created_at %></td>
+              </tr>
+              <tr>
+                <td width="40%">Retailer</td>
+                <td width="60%"><%= @photo.audit.store.retailer.name %></td>
+              </tr>
+              <tr>
+                <td width="40%">Retail Sector</td>
+                <td width="60%"><%= @photo.audit.store.retailer.sector.name %></td>
+              </tr>
+              <% end %>
           </tbody>
         </table>
       </section>

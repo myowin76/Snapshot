@@ -1,7 +1,6 @@
 # require 'open-uri'
 class Photo < ActiveRecord::Base
   
-  
   belongs_to :audit
   has_many :categorizations
   has_many :categories, :through => :categorizations
@@ -25,7 +24,6 @@ class Photo < ActiveRecord::Base
   		:promotion_calendar_id, :published, :headline, :photo, 
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids #, :brands_tokens
 
-    
   has_attached_file :photo, 
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
@@ -51,14 +49,12 @@ class Photo < ActiveRecord::Base
     :bucket => "SnapshotWorldWide"
 		
     validates_attachment_presence :photo
-
   	validates_attachment_content_type :photo, 
     #validates_attachment_size :photo, :less_than => 5.megabytes
       :content_type => ['image/jpeg', 'image/pjpeg', 
   								   'image/jpg', 'image/png']
 
     acts_as_gmappable :process_geocoding => false
-
 
     scope :order_date_desc, order("created_at DESC")
     scope :published, where(published: true)
@@ -69,7 +65,7 @@ class Photo < ActiveRecord::Base
       Jbuilder.encode do |json|
         json.(self, :id, :audit_id, :headline, :brand_compliant, :published, :data_complete, :display_for_project,
               :role_of_comm, :insight, :perspective, :photo_file_name)
-        json.url self.photo.url
+        json.photo_url self.photo.url
         json.promotion_calendar(self.promotion_calendar, :id, :name) unless self.promotion_calendar.nil?
         json.brands(self.brands, :id, :name)
         json.categories(self.brands, :id, :name)
@@ -94,8 +90,12 @@ class Photo < ActiveRecord::Base
     end
 
     def self.find_between fromdate, todate
-      where(:created_at => fromdate .. todate)
+      # where(:created_at => fromdate .. todate)
+      # where(audit.audit_date => fromdate .. todate).includes(:audits)
+      where('audits.audit_date between ? AND ?', fromdate, todate).includes(:audit)
+
     end
+
 
     def self.generate_csv(photo_ids)
     

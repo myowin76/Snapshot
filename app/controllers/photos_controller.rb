@@ -3,6 +3,8 @@ class PhotosController < ApplicationController
   before_filter :authenticate_user!
   respond_to :html, :js, :json
   respond_to :pdf, :only => :show
+
+  skip_before_filter  :verify_authenticity_token
   
   def index
         
@@ -91,22 +93,24 @@ class PhotosController < ApplicationController
       @saved_searches = current_user.save_searches.all
 
       if params[:per_page]
-          @per_page = params[:per_page]
-        else
-          @per_page = 30
-        end
-        @photos = Photo.published.paginate(:page => params[:page], 
-          :per_page => @per_page).order('audits.created_at DESC').includes([:audit, :brands])
+        @per_page = params[:per_page]
+      else
+        @per_page = 30
+      end
+    
+        @photos = Photo.published
+      if params_search.nil?
 
-      # if params_search.nil?
+          @photos = @photos.paginate(:page => params[:page], 
+          :per_page => @per_page).order('audits.created_at DESC').includes([:audit, :brands])
       #   # on page load
         
       #   # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
       #   # @photos = Photo.published.paginate(:page => params[:page], 
       #   #   :per_page => @per_page).order('photos.created_at DESC')
           
-      # else 
-       unless params_search.nil?
+      else 
+       # unless params_search.nil?
         
         # search action
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
@@ -223,7 +227,7 @@ class PhotosController < ApplicationController
   def create
     
     @photo = Photo.new(params[:photo])
-    if params[:photo][:audit_id].present?
+    if params[:photo] && params[:photo][:audit_id].present?
       audit_id = params[:photo][:audit_id]
     end
     respond_to do |format|
