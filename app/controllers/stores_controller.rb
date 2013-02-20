@@ -4,32 +4,32 @@ class StoresController < ApplicationController
   # before_filter :check_return_url, :only => [:new, :edit, :update]
   def index
 
-    if user_is_country_and_category_subscriber?
+    # if user_is_country_and_category_subscriber?
       
       # @countries = Country.find(current_user.subscription.sub_country.split(","))
-      @countries = Country.order(:name)
-      # @stores_in_country = Store.find_all_by_country_id(@countries)
-      #@categories = Category.find(current_user.subscription.sub_cats.split(","))
-      @categories = Category.order(:name)
+      # @countries = Country.order(:name)
+      # # @stores_in_country = Store.find_all_by_country_id(@countries)
+      # #@categories = Category.find(current_user.subscription.sub_cats.split(","))
+      # @categories = Category.order(:name)
       # @stores_in_country = Store.order(:name).where('country_id IN (?)', @countries)
-      @stores = Store.order(:name)
+      @stores = Store.order(:name).includes([:store_format, :retailer, :country])
       # @stores = Store.all
 
-    elsif user_is_country_subscriber?
+    # elsif user_is_country_subscriber?
       
 
-    elsif user_is_category_subscriber?
+    # elsif user_is_category_subscriber?
       
-    else 
-      # SOMETHING ELSE
-      # @subscribed_country = "none"
-    end
+    # else 
+    #   # SOMETHING ELSE
+    #   # @subscribed_country = "none"
+    # end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml { render xml: @stores }
-      format.csv { send_data @stores_in_country.to_csv }
-      format.xls  { send_data @stores_in_country.to_csv(col_sep: "\t") }
+      format.csv { send_data @stores.to_csv }
+      format.xls  { send_data @stores.to_csv(col_sep: "\t") }
       format.json { render json: @stores }
       # format.csv { render text: @stores_in_country.to_csv }
       
