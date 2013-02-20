@@ -29,10 +29,12 @@
   <% #TO DO need to check it is first record? %>
   <% @stores.each do |store| %>
     <tr>
-      <td><%= link_to store.name, store %></td>
+      <% if store.name.present? %>
+        <td><%= link_to store.name, store %></td>
+      <% end %>
       <!-- <td><%= store.name %></td> -->
-      <td><%= store.store_format.name %></td>
-      <td><%= store.retailer.name %></td>
+      <td><%= store.store_format.name unless store.store_format.nil? %></td>
+      <td><%= store.retailer.name unless store.retailer.nil? %></td>
       <td>
         <% if store.address.present? %>
           <%= store.address %>,
