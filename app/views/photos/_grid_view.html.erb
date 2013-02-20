@@ -58,30 +58,32 @@
   <ul class="photos-viewer row-fluid">
     
     <% @photos.each do |photo| %>
-      <li>
-        <div class="viewer-inner">
-          <figure class="thumb">
-            <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
-          </figure>
-          <section>
-            <%= check_box_tag "photo_ids[]", photo.id %>
-            <div class="retailer">
-              <%= photo.audit.store.retailer.name %>
-            </div>  
-            <div class="brand">
-              <%= photo.brands.map(&:name).join(",") %>
-            </div>  
-            <div class="date">
-              <%= photo.audit.audit_date %>
-            </div>
-            <div class="address">
-              <%= photo.audit.store.address2 %>
-            </div>
-          </section>
-        <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
-        <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
-        </div>
-      </li>
+      <% unless photo.audit.nil? %>
+        <li>
+          <div class="viewer-inner">
+            <figure class="thumb">
+              <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
+            </figure>
+            <section>
+              <%= check_box_tag "photo_ids[]", photo.id %>
+              <div class="retailer">
+                <%= photo.audit.store.retailer.name unless photo.audit.store.nil? %>
+              </div>  
+              <div class="brand">
+                <%= photo.brands.map(&:name).join(",") %>
+              </div>  
+              <div class="date">
+                <%= photo.audit.audit_date %>
+              </div>
+              <div class="address">
+                <%= photo.audit.store.address2 unless photo.audit.store.nil? %>
+              </div>
+            </section>
+          <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
+          <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>
+          </div>
+        </li>
+       <% end %> 
     <% end %>
   </ul>
 <% end %>

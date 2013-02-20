@@ -1,7 +1,9 @@
 class PhotosController < ApplicationController
   include PhotosHelper
   before_filter :authenticate_user!
-  # respond_to :html, :js, :json
+  respond_to :html, :js, :json
+  respond_to :pdf, :only => :show
+  
   def index
         
     if user_is_country_and_category_subscriber?
@@ -178,6 +180,7 @@ class PhotosController < ApplicationController
     #     only: [:id, :audit_id, :photo_file_name, :photo_content_type,:promotion_calendar_id]
     #     )}
     # end
+    # respond_with @photos
   end
 
   def show
@@ -193,7 +196,7 @@ class PhotosController < ApplicationController
                       disposition: "inline"
       end
       format.js
-      format.json { render json: @photo}
+      format.json { render json: @photo.to_jbuilder}
     end
   end
 

@@ -65,6 +65,23 @@ class Photo < ActiveRecord::Base
     scope :unpublished, where(published: false).includes(:audit)
     scope :all_brand_compliant, where(brand_compliant: true)
 
+    def to_jbuilder
+      Jbuilder.encode do |json|
+        json.(self, :id, :audit_id, :headline, :brand_compliant, :published, :data_complete, :display_for_project,
+              :role_of_comm, :insight, :perspective, :photo_file_name)
+        json.url self.photo.url
+        json.promotion_calendar(self.promotion_calendar, :id, :name) unless self.promotion_calendar.nil?
+        json.brands(self.brands, :id, :name)
+        json.categories(self.brands, :id, :name)
+        json.promotion_types(self.promotion_types, :id, :name)
+        json.media_types(self.media_types, :id, :name)
+        json.media_vehicles(self.media_vehicles, :id, :name)
+        json.media_locations(self.media_locations, :id, :name)
+        json.store(self.audit.store, :id, :name)
+
+      end
+    end
+
     def to_jq_upload
     {
       "name" => read_attribute(:photo_file_name),

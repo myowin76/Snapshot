@@ -20,6 +20,7 @@
     </thead>
     <tbody>
       <% @unpublished_photos.each do |photo| %>
+        <% if photo.audit.present? %>
       	<tr>
           <td>
           	<%= check_box_tag "photo_ids[]", photo.id %>
@@ -29,8 +30,12 @@
           </td>
           <%#= link_to photo.audit.id unless photo.audit_id.nil? %>
           <td>
-          	<%= photo.audit.store.retailer.name unless photo.audit_id.nil? || photo.audit.store.retailer_id.nil?  %><br />
-          	<%= photo.audit.store.name unless photo.audit_id.nil?  %>
+            
+            	<%= photo.audit.store.retailer.name photo.audit.store.retailer_id.nil?  %><br />
+            	<%= photo.audit.store.name %>
+            
+
+
           </td>
           <td><%= photo.audit.audit_date %></td>
           <td>
@@ -43,6 +48,7 @@
           <td><%= link_to "Details", photo_path(photo) %></td>
           <td><%= link_to "Edit", edit_photo_path(photo) %></td>
       	</tr>
+        <% end %>  
       <% end %>
     </tbody>
   </table>

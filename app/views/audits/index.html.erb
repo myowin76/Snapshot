@@ -28,9 +28,21 @@
         <td><%#= audit.environment_type.name %></td> -->
         <td><%= audit.user.username %></td>
         <td><%= audit.audit_date %></td>
-        <td><%= link_to 'Details', audit_path(audit) %></td>      
-        <td><%= link_to 'Edit', edit_audit_path(audit) %></td>
-        <td><%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if (current_user == audit.user) %>
+            <%= link_to 'Details', audit_path(audit) %>
+          <% end %>  
+        </td>  
+        <td>
+          <% if (current_user == audit.user) %>
+            <%= link_to 'Edit', edit_audit_path(audit) %>
+          <% end %>  
+        </td>
+        <td>
+          <% if (current_user == audit.user) %>
+            <%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>  
       </tr>
     <% end %>
   </tbody>
