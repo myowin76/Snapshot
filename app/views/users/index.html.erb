@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h1>User List</h1>
+</div>
+
+<div class="action">
+  <%= link_to new_user_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>Add New</span>
+  <% end %>
+</div>
+
+<table class="table table-striped" id="tbl-users">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Created at</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.username, user %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+        <td><%= link_to 'Edit', edit_user_path(user), :class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Remove', user, method: :delete, data: { confirm: 'Are you sure?' },
+            :class => 'btn btn-mini btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>

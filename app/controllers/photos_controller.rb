@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
   respond_to :html, :js, :json
   respond_to :pdf, :only => :show
 
-  skip_before_filter  :verify_authenticity_token
+  # skip_before_filter  :verify_authenticity_token
   
   def index
         

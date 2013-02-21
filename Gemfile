@@ -27,6 +27,7 @@ gem 'rubyzip', '~> 0.9.4', :require => ['zip/zip', 'zip/zipfilesystem']
 gem 'chosen-rails'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
+gem 'cancan'
 
 group :production do
 	gem "pg"

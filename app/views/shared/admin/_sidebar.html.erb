@@ -17,6 +17,13 @@
         Stores <i class="icon-chevron-right"></i>
       <% end  %>
     </li>
+    <% if can? :read, @users %>
+      <li>
+        <%= link_to users_path do %>
+          Users <i class="icon-chevron-right"></i>
+        <% end  %>
+      </li>
+    <% end %>
     <li>
       <%= link_to admin_path do %>
         Unpublished Images <i class="icon-chevron-right"></i>

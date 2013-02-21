@@ -6,6 +6,30 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+
+
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = exception.message
+    redirect_to root_url
+  end
+
+
+  def accessible_roles
+    @accessible_roles = Role.accessible_by(current_ability,:read)
+  end
+ 
+  # Make the current user object available to views
+  #----------------------------------------
+  def get_user
+    @current_user = current_user
+  end
+
+
+
+
+
+
   def after_sign_in_path_for(resource)                                                                                                                      
       root_path                                                                                         
   end                                                                                                                                                     
