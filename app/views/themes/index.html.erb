@@ -1,6 +1,12 @@
 <div class="page-header">
   <h1>Theme List</h1>
 </div>
+<div class="action">
+  <%= link_to new_theme_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>Add New</span>
+  <% end %>
+</div>
 <table class="table table-striped" id="tbl-store-formats">
   <thead>
     <tr>
@@ -8,23 +14,18 @@
       <th>Description</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @themes.each do |theme| %>
       <tr>
-        <td><%= theme.name %></td>
+        <td><%= link_to theme.name, theme %></td>
         <td><%= theme.description %></td>
-        <td><%= link_to 'Show', theme %></td>
-        <td><%= link_to 'Edit', edit_theme_path(theme) %></td>
-        <td><%= link_to 'Destroy', theme, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_theme_path(theme), :class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Destroy', theme, method: :delete, data: { confirm: 'Are you sure?' },
+                      :class => 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 
 </table>
-
-<br />
-
-<%= link_to 'New Theme', new_theme_path %>

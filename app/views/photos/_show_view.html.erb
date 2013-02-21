@@ -100,13 +100,13 @@
             <% if @photo.brands.present?  %>
               <tr>
                 <td width="40%">Brands</td>
-                <td width="60%"><%= @photo.brands.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.brands.map(&:name).join(", ") %></td>
               </tr>
               <tr>
                 <td width="40%">Brand Owner</td>
                 <td width="60%">
                   <%#= @photo.brands.first.brand_owner.name if @photo.brands.first.brand_owner_id.present? %>
-                  <%= BrandOwner.find_all_by_id(@photo.brands.map(&:brand_owner_id)).map(&:name).join(",") if @photo.brands.first.brand_owner_id.present? %>
+                  <%= BrandOwner.find_all_by_id(@photo.brands.map(&:brand_owner_id)).map(&:name).join(", ") if @photo.brands.first.brand_owner_id.present? %>
                 </td>
               </tr>
             <% end %>
@@ -119,25 +119,25 @@
             <% if @photo.categories.present? %>
               <tr>
                 <td width="40%">Product Category</td>
-                <td width="60%"><%= @photo.categories.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.categories.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.media_locations.present? %>
               <tr>
                 <td width="40%">Media Locations</td>
-                <td width="60%"><%= @photo.media_locations.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.media_locations.map(&:name).join(", ") %></td>
               </tr>
             <% end %>  
             <% if @photo.media_types.present? %>
               <tr>
                 <td width="40%">Media Types</td>
-                <td width="60%"><%= @photo.media_types.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.media_types.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.media_vehicles.present? %>
               <tr>
                 <td width="40%">Media Vehicle</td>
-                <td width="60%"><%= @photo.media_vehicles.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.media_vehicles.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.promotion_calendar.present? %>
@@ -149,13 +149,13 @@
             <% if @photo.promotion_types.present? %>
               <tr>
                 <td width="40%">Promotion Type</td>
-                <td width="60%"><%= @photo.promotion_types.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.promotion_types.map(&:name).join(", ") %></td>
               </tr>
             <% end %>  
             <% if @photo.themes.present? %>
               <tr>
                 <td width="40%">Themes</td>
-                <td width="60%"><%= @photo.themes.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.themes.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.description.present? %>

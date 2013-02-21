@@ -70,7 +70,7 @@
                 <%= photo.audit.store.retailer.name unless photo.audit.store.nil? %>
               </div>  
               <div class="brand">
-                <%= photo.brands.map(&:name).join(",") %>
+                <%= photo.brands.map(&:name).join(", ") %>
               </div>  
               <div class="date">
                 <%= photo.audit.audit_date %>

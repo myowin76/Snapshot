@@ -1,11 +1,8 @@
-
-  <div class="page-header">
-    <h1><%= @store.name %></h1>
-    
-  </div>
+<div class="page-header">
+  <h1><%= @store.name %></h1>  
+</div>
 
 <div class="span9">
-  
   <p>
     <% if @store.address.present? %>
       <%= @store.address %>,
@@ -61,21 +58,41 @@
     <% end %>
 
   <% end %> -->
+  <h2>Audit List</h2>
+  <div class="row-fluid pages">
+    <ul>
+      <% for audit in @store.audits %>
+        <li class="span3">
+          <i></i>
+          <strong><%= audit.audit_date %></strong>
+          <span>by <%= audit.user.username %></span>
+          <span class="actions">
+            <%= link_to "View", audit %>
+
+          </span>
+        </li>
+      <% end %>  
+  </ul>
+  </div>
+  
+  
+<!--   <div class="btn-group btn-group-vertical block">
+    <a href="" class="btn btn-icon btn-default btn-block group">
+      <i></i>
+      <span><%#= @store.audits.count %></span>
+      Total Audits
+    </a>
+    <a href="" class="btn btn-icon btn-default btn-block group">
+      <i></i>
+      <span><%#= @store.photos.count %></span>
+      Total Photos
+    </a>
+  </div> -->
+
+
 </div>  
 <div class="span3">
-<!--   <% unless @store.audits.nil? %>
-    <% @store.audits.each do |audit| %>
-      
-      <div class="widget">
-        <h2>Audits</h2>
-        <ul>
-          <li>
-            <%= link_to audit.audit_date, audit %>
-          </li>
-        </ul>
-      </div>
-    <% end %>
-  <% end %> -->
+
   <div class="action pull-right">
     <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
         :class => 'btn btn-primary' do %>
@@ -88,6 +105,18 @@
     <% end %>    
   </div>
 
+  <div class="btn-group btn-group-vertical block">
+    <a href="" class="btn btn-icon btn-default btn-block group">
+      <i></i>
+      <span><%= @store.audits.count %></span>
+      Total Audits
+    </a>
+    <a href="" class="btn btn-icon btn-default btn-block group">
+      <i></i>
+      <span><%= @store.photos.count %></span>
+      Total Photos
+    </a>
+  </div>
 
-
+  
 </div>
