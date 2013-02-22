@@ -1,6 +1,11 @@
 class PagesController < ApplicationController
   # layout "admin", :only => "admin" 
   # layout false
+  before_filter :get_user, :only => [:admin]
+  before_filter :accessible_roles, :only => [:admin, :home]
+  # load_and_authorize_resource :only => [:admin], :class => self.class
+  authorize_resource :class => false
+  
   def home
 	
   end

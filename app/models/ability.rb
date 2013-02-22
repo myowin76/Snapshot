@@ -8,7 +8,7 @@ class Ability
       if user.role? :super_admin
         can :manage, :all
       elsif user.role? :admin
-
+        can :read, [Photo, Store]
       elsif user.role? :uploader
         can :manage, Store do |store|
 
@@ -16,6 +16,7 @@ class Ability
         can :manage, [Photo, Audit, Store]
       else
         can :read, [Photo, Store]
+        # can [ :index, :users_list ], :pages
       end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
