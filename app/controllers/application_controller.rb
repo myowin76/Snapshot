@@ -6,9 +6,6 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-
-
-
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to root_url
@@ -25,11 +22,6 @@ class ApplicationController < ActionController::Base
     @current_user = current_user
   end
 
-
-
-
-
-
   def after_sign_in_path_for(resource)                                                                                                                      
       root_path                                                                                         
   end                                                                                                                                                     
@@ -40,11 +32,9 @@ class ApplicationController < ActionController::Base
 
   def store_location
     session[:return_to] = request.env['REQUEST_URI']
-
   end
 
   def redirect_back_or_default(default)
-
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end

@@ -10,9 +10,7 @@
     <tr>    
       <th>Reference</th>
       <th>Store</th>
-      <!-- <th>Channel</th>
-      <th>Environment type</th> -->
-      <th>uploaded by</th>
+      <th>Username</th>
       <th>Date</th>
       <th></th>
       <th></th>
@@ -24,8 +22,6 @@
       <tr>
         <td><%= audit.reference %></td>
         <td><%= audit.store.name %></td>
-        <!-- <td><%#= audit.channel.name %></td>
-        <td><%#= audit.environment_type.name %></td> -->
         <td><%= audit.user.username %></td>
         <td><%= audit.audit_date %></td>
         <td>

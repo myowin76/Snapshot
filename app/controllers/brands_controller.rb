@@ -11,8 +11,6 @@ class BrandsController < ApplicationController
     end
   end
 
-  # GET /brands/1
-  # GET /brands/1.json
   def show
     @brand = Brand.find(params[:id])
 
@@ -22,8 +20,6 @@ class BrandsController < ApplicationController
     end
   end
 
-  # GET /brands/new
-  # GET /brands/new.json
   def new
     @brand = Brand.new
 
@@ -34,13 +30,10 @@ class BrandsController < ApplicationController
     end
   end
 
-  # GET /brands/1/edit
   def edit
     @brand = Brand.find(params[:id])
   end
 
-  # POST /brands
-  # POST /brands.json
   def create
     @brand = Brand.new(params[:brand])
 
@@ -56,8 +49,6 @@ class BrandsController < ApplicationController
     end
   end
 
-  # PUT /brands/1
-  # PUT /brands/1.json
   def update
     @brand = Brand.find(params[:id])
 
@@ -72,8 +63,6 @@ class BrandsController < ApplicationController
     end
   end
 
-  # DELETE /brands/1
-  # DELETE /brands/1.json
   def destroy
     @brand = Brand.find(params[:id])
     @brand.destroy
