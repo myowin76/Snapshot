@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221154351) do
+ActiveRecord::Schema.define(:version => 20130222120625) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -243,6 +243,13 @@ ActiveRecord::Schema.define(:version => 20130221154351) do
   create_table "sectors", :force => true do |t|
     t.string   "name"
     t.text     "desc"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "settings", :force => true do |t|
+    t.string   "setting"
+    t.text     "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

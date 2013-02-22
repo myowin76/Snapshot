@@ -5,19 +5,34 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
       user ||= User.new # guest user (not logged in)
+      
+      # Super Admin Role
       if user.role? :super_admin
         can :manage, :all
+      
+      # Admin Role
       elsif user.role? :admin
         can :read, [Photo, Store]
+      
+      # Uploader
       elsif user.role? :uploader
         can :manage, Store do |store|
 
         end
         can :manage, [Photo, Audit, Store]
+
+
+      # Developer Role
+      elsif user.role? :developer
+        # can :manage, :all  
+
+      # Other Roles  
       else
+
         can :read, [Photo, Store]
         # can [ :index, :users_list ], :pages
       end
+    
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are

@@ -8,10 +8,5 @@ class Brand < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :name, :uniqueness => {:message => "Brand exist."}
- #  def self.tokens(query)
-	#   brands = where("name like ?", "#{query}%")
-	#   # if brands.empty?
-	#   #   [{id: "<<<#{query}>>>", name: "New: \"#{query}\""}]
-	#   # end
-	# end
+ 
 end

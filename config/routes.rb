@@ -1,6 +1,9 @@
 Snapshot::Application.routes.draw do
 
 
+  resources :settings
+
+
   # namespace :admin do
   #   resources :roles
   # end
