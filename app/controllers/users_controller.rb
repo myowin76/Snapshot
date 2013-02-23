@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   # end
 
    def update
-    debugger
+   
     if params[:user][:password].blank?
       [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
     else

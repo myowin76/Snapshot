@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class AdminController < ApplicationController
   # layout "admin", :only => "admin" 
   # layout false
   before_filter :get_user, :only => [:admin]
@@ -25,7 +25,7 @@ class PagesController < ApplicationController
   def privacy
   end
 
-  def admin
+  def dashboard
     
 		@unpublished_photos = Photo.order('created_at DESC').unpublished.all
     render :layout => "admin"

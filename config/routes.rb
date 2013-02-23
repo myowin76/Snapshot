@@ -10,7 +10,7 @@ Snapshot::Application.routes.draw do
 
 
   # devise_for :users
-  devise_for :users,  :controllers => { :registrations => "users/registrations" }
+  devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions"}
   resources :users
   resources :subscriptions, :save_searches, :user_types
   resources :media_types, :media_vehicles, :media_locations, :themes
@@ -65,16 +65,17 @@ Snapshot::Application.routes.draw do
     end
   end
 
-  get "pages/home"
-  get "pages/about"
-  get "pages/consultancy"
-  get "pages/reports"
-  get "pages/news"
-  get "pages/contact"
-  get "pages/admin"
+  get "admin/home"
+  get "admin/about"
+  get "admin/consultancy"
+  get "admin/reports"
+  get "admin/news"
+  get "admin/contact"
 
-  match '/pages/admin', :controller => 'pages', :action => 'admin', :as => 'admin'
-  match '/pages/loginpage_message', :controller => 'pages', :action => 'loginpage_message'
+  match '/admin/dashboard', :controller => 'admin', :action => 'dashboard', :as => 'admin'
+  match '/admin/audits', :controller => 'audits', :action => 'index', :as => 'audits'
+  match '/admin/users', :controller => 'users', :action => 'index', :as => 'users'
+  match '/admin/loginpage_message', :controller => 'admin', :action => 'loginpage_message'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

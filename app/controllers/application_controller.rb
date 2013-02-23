@@ -1,10 +1,21 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  #before_filter :authenticate
   helper_method :subscribed_country, :admin_user?, :uploader?, :admin_or_uploader?
   
   # before_filter :authenticate_user!
 
   layout :layout_by_resource
+
+  def authenticate
+    if request.format == "application/json"
+      authenticate_or_request_with_http_basic do |username, password|
+          username == "foo" && password == "bar"
+      end
+      debugger
+      warden.custom_failure! if performed?
+    end
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
