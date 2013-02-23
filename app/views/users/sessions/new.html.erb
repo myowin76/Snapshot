@@ -1,12 +1,15 @@
 	
 	<%= simple_form_for(resource, :html => { :class => "widget login"}, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 		<header>
-		  <h3 class="login-header">Sign In from user</h3>
+		  <h3 class="login-header">Sign In</h3>
 		</header>
 
 		<section>
+			<!-- <fieldset>
+		    <%#= f.input :username, :required => true %>
+		  </fieldset> -->
 		  <fieldset>
-		    <%= f.input :email, :required => true, :autofocus => true %>
+		    <%= f.input :email, :required => true %>
 		  </fieldset>
 		  <fieldset>
 		    <%= f.input :password, :required => true %>
@@ -23,4 +26,72 @@
 		  </fieldset-->
 
 		</section>
+	<% end %>
+	<div class="links">
+		<%= render :partial => "devise/shared/links" %>
+	</div>
+
+	<% content_for :scripts do %>
+		<script type="text/javascript">
+
+		  jQuery(document).ready(function($) {
+
+		    var timeID;
+
+		    if ($('#user_email').is(":focus") == false && $('#user_password').is(":focus") == false){
+		      timeID = setInterval(function(){
+		        $('#notLogginInModal').modal('show');
+		        clearInterval(timeID);
+		      }, 3000);    
+		    }
+		    $('#new_user').on('focus', '#user_email, #user_password', function(){
+		      clearInterval(timeID);
+		    });
+		  });
+
+		  $('#email-form').validate({
+		      debug: true,
+		      submitHandler: function(form){
+		        
+		        console.log('start');
+		        var info = {}
+		        info['email'] = $('#notLogginInModal #inputEmail').val();
+		        info['message'] = $('#notLogginInModal #msg').val();
+		        
+		        $.ajax({
+		          url: '/pages/loginpage_message',
+		          type: "POST",
+		          dataType: 'script',
+		          data: info,
+		          success: function(data){
+		            console.log('success!!!!');
+		            // to show sent message on popup form
+		            $('#notLogginInModal .modal-header h3').html("Message Sent");
+		            $('#notLogginInModal .modal-body').html("We will get back to you as soon as possible");
+		            $('#notLogginInModal input[type="submit"]').remove();
+		          }
+		        })
+		      },
+		      onsubmit: true,  
+		      rules: {
+		        inputEmail: {
+		          required: true,
+		          email: true
+		        },
+		        msg: {
+		          required: true,
+		          minlength: 4
+		        }
+		      },
+		      highlight: function(label){
+		        $(label).closest('.control-group').addClass('error');
+		      },
+		      success: function(label){ 
+		        label
+		          .text('OK!').addClass('valid')
+		          .closest('.control-group').addClass('success');
+		      }
+		    });
+		</script>
+
 	<% end %>
