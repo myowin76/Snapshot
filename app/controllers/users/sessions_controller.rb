@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   
   def create
+    # debugger
     if params[:api_request]
         build_resource
         user_email = params[:email] || params[:user][:email]
@@ -18,6 +19,13 @@ class Users::SessionsController < Devise::SessionsController
     end
 
   end
+
+	# def destroy
+ #    # expire auth token
+ #    @user=User.where(:authentication_token=>params[:auth_token]).first
+ #    @user.reset_authentication_token!
+ #    render :json => { :message => ["Session deleted."] },  :success => true, :status => :ok
+	# end
 
 	def invalid_login_attempt
     warden.custom_failure!

@@ -12,8 +12,10 @@
   <div id="photo-details">
     
     <div class="left">
-      <%= image_tag(@photo.photo.url(:large)) %>
-
+      <figure>
+        <%= image_tag(@photo.photo.url(:large)) %>
+      </figure>  
+      
       <%= link_to photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" do %>
         <i class="icon-download icon-white"></i>
         <span>Download Pdf</span>
