@@ -34,8 +34,9 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-      resource.reset_authentication_token
+
       root_path
+      # resource.reset_authentication_token
   end                                                                                                                                                     
   
   def check_return_url
