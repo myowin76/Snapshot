@@ -224,14 +224,20 @@ $(document).ready(function() {
         }
       });
     });
-
+///////////////////////////////
     $('.chosen-brand').live('change', function(){
+      // var id = "#" + $(this).attr('id');
+      // var pre_selected_brand_ids = new Array();
+
+      // $("#" + $('.chosen-brand').attr('id')).find('option:selected').each(function(){
+      //   pre_selected_brand_ids.push($(this).val());
+      // });
 
       var id = "#" + $(this).attr('id');
       var info = {}
       info['brand_ids'] = $(id).val();
       info["brand_owner_ddl_id"] = $(this).closest(".brands-actions").prev(".brands-owners-actions").children(".brand_owner_ddl").attr("id");
-      
+      // info['pre_selected_brand_ids'] = pre_selected_brand_ids;
       $.ajax({
         url: '/photos/update_brand_owners_dropdown',
         type: "POST",

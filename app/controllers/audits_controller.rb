@@ -58,20 +58,25 @@ class AuditsController < ApplicationController
     
     @audit = Audit.new(params[:audit])
     
-    if params[:audit][:store_id].blank?
+    if params[:audit].present? && params[:audit][:store_id].blank?
       redirect_to new_audit_path, notice: 'Please fill require data.'
-    else
+    elsif params[:store_id].present? || params[:audit][:store_id].present?
+    # else
       respond_to do |format|
         if @audit.save
           
           @audit.update_attribute(:user_id, current_user.id)
-          @audit.update_attribute(:store_id, params[:audit][:store_id])
+          if params[:audit].present? && params[:audit][:store_id].present?
+            @audit.update_attribute(:store_id, params[:audit][:store_id])
+          elsif params[:store_id].present?
+            @audit.update_attribute(:store_id, params[:store_id])
+          end  
           
           format.html { redirect_to @audit, notice: 'Audit was successfully created.' }
-          # format.json { render json: @audit, status: :created, location: @audit }
+          format.json { render json: @audit, status: :created, location: @audit }
         else
           format.html { render action: "new" }
-          # format.json { render json: @audit.errors, status: :unprocessable_entity }
+          format.json { render json: @audit.errors, status: :unprocessable_entity }
         end
       end 
     end
