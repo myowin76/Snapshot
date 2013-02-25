@@ -7,7 +7,7 @@ class BrandsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       # format.json { render json: @brands }
-      format.json { render json: @brands.tokens(params[:q]) }
+      format.json { render json: @brands }
     end
   end
 

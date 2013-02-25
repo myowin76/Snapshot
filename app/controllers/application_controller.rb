@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
-
   def accessible_roles
     @accessible_roles = Role.accessible_by(current_ability,:read)
   end

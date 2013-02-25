@@ -10,7 +10,7 @@ class Audit < ActiveRecord::Base
         :user_id, :reference, :created_at, :photos_attributes, :audit_date
   accepts_nested_attributes_for :photos, :allow_destroy => true 
   
-  validates :reference, :presence => true  
+  # validates :reference, :presence => true  
   validates :audit_date, :presence => true  
 
 end

@@ -150,7 +150,7 @@ class Photo < ActiveRecord::Base
       
       Zip::ZipOutputStream.open(zip_file) do |zos|
         assets.each do |asset|    
-          download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
+          download_url = open(URI.parse(URI.encode(asset.photo.url(:original))))
           # csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
@@ -170,7 +170,7 @@ class Photo < ActiveRecord::Base
       
       Zip::ZipOutputStream.open(zip_file) do |zos|
         assets.each do |asset|
-          download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
+          download_url = open(URI.parse(URI.encode(asset.photo.url(:original))))
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
         end  

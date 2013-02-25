@@ -97,7 +97,7 @@
               :input_html => { :class=> 'chosen-promo-cal' } %>
           <%= f.input :display_for_project, inline_label: 'Display for project', label: false %>
           <%= f.input :brand_compliant, inline_label: 'Brand Compliant', label: false %>
-          <%= f.input :published, inline_label: 'Published', label: false %>
+          <%= f.input :published, inline_label: 'Publish', label: false %>
           <%= f.input :data_complete, inline_label: 'Data Complete', label: false %>
           <%= f.input :insight %>
           <%= f.input :role_of_comm %>
@@ -107,7 +107,11 @@
 
         <div class="form-actions">
           <%= f.button :submit, :class => 'btn btn-primary' %>
-          <%= link_to 'Cancel', @photo, :class => 'btn' %>
+          <% unless params[:audit_id] %>
+            <%= link_to 'Cancel', @photo, :class => 'btn' %>
+          <% else %>  
+            <%= link_to 'Cancel', audit_path(@photo.audit), :class => 'btn' %>
+          <% end %>
         </div>
       <% end %>
     </div>

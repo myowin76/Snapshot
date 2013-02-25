@@ -20,7 +20,11 @@
         <% else %>
           <%= link_to 'Edit', edit_audit_photo_path, :class => "btn" %>
         <% end %> 
-        <%= link_to 'Delete', @photo, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
+        <% unless params[:audit_id] %>
+          <%= link_to 'Delete', @photo, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
+        <% else %>
+          <%= link_to 'Delete', audit_photo_path, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
+        <% end %>   
       <%#= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "", :target => "_blank" %>
     </div>
     
