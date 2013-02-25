@@ -33,8 +33,9 @@ class ApplicationController < ActionController::Base
     @current_user = current_user
   end
 
-  def after_sign_in_path_for(resource)                                                                                                                      
-      root_path                                                                                         
+  def after_sign_in_path_for(resource)
+      resource.reset_authentication_token
+      root_path
   end                                                                                                                                                     
   
   def check_return_url
