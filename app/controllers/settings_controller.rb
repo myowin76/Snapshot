@@ -14,7 +14,7 @@ class SettingsController < ApplicationController
   # GET /settings
   # GET /settings.json
   def index
-    @settings = Setting.all
+    @settings = Setting.find(1)
 
     respond_to do |format|
       format.html # index.html.erb
