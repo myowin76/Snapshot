@@ -10,7 +10,7 @@ window.Snapshot = {
   Views: {},
   Routers: {},
   initialize: function() {
-    return alert('Hello from Backbone!');
+    //return alert('Hello from Backbone!');
   }
 };
 
