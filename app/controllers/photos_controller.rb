@@ -225,19 +225,21 @@ class PhotosController < ApplicationController
   end
 
   def create
-    
+    debugger
     # @photo = Photo.new(params[:photo])
-    if params[:photo] && params[:photo][:audit_id].present?
-      @photo = Photo.new(params[:photo])
-      audit_id = params[:photo][:audit_id]
-    elsif params[:api_request].present?
-      @photo = Photo.new(params)
-      audit_id = params[:audit_id]
-      @photo.update_attributes(:audit_id, params[:audit_id])
+    if params[:photo].present?
+      if params[:audit_id].present?
+        @photo = Photo.new(params[:photo])
+        audit_id = params[:audit_id]
+        @photo.update_attribute(:audit_id, params[:audit_id])
+        debugger
+      elsif params[:photo][:audit_id].present? 
+        @photo = Photo.new(params[:photo])
+        audit_id = params[:photo][:audit_id]  
 
-      debugger
+        
+      end
     end
-    
     respond_to do |format|
       if @photo.save
         
