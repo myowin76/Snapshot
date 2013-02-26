@@ -48,21 +48,31 @@
 </div>
 
 <% unless @photos.nil? %>    
+
   <ul class="list-header" style="display: none;">
     <li style="width: 143px;">&nbsp;</li>
     <li style="width: 132px;">Retailer</li>
     <li style="width: 130px;">Date</li>
     <li style="width: 143px;">Location</li>
-    
   </ul>
-  <ul class="photos-viewer row-fluid">
+
+
+  <ul id="photos-viewer" class="photos-viewer row-fluid">
     
     <% @photos.each do |photo| %>
       <% unless photo.audit.nil? %>
         <li>
           <div class="viewer-inner">
             <figure class="thumb">
-              <%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
+            
+
+              <%#= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
+              <%= link_to photo, remote: true  do %>
+
+                <%= image_tag("snapshot_loading.gif" , :class => 'lazy', :"data-original" => "#{photo.photo.url(:medium)}", :width => '213', :height => '160' )  %>
+
+              <% end %>
+
             </figure>
             <section>
               <%= check_box_tag "photo_ids[]", photo.id %>

@@ -94,12 +94,31 @@ var snapshot = {
   
   Pagination: function(){
     $('.pagination a').live('click',function (e) {
-      // e.preventDefault();
+      
+      //e.preventDefault();
+
       $('html, body').animate({
         scrollTop: $("body").offset().top
       }, 500);
 
-      $.get(this.href, null, null, 'script');
+
+      $.ajax({
+        url: this.href,
+        data: null,
+        success: function(data){
+
+          //console.log(data);
+
+          $("img.lazy").show().lazyload({ 
+            effect : "fadeIn"
+          });           
+        },
+        dataType: 'script'
+      });
+
+
+      //$.get(this.href, null, null, 'script');
+
       return false;
     });
   }
@@ -166,7 +185,7 @@ $(document).ready(function() {
   });
 
   $('.alert').click(function(){
-      $(this).fadeOut(1000).remove();;
+      $(this).fadeOut(1000).remove();
   });
 
   $('.go-top').on('click',function(e){
@@ -588,3 +607,33 @@ var filterUI = {
 
 };
 
+
+
+
+/*
+    Lazy Load
+*/
+jQuery(document).ready(function($) {
+
+  
+  $("img.lazy").lazyload({ 
+    effect : "fadeIn"
+  });  
+  
+  /*
+  $('#main').on('click', '.pagination a' , function(){
+    alert('hello');
+    $("img.lazy").lazyload();  
+  });
+*/
+  
+});
+
+/*
+$(window).bind("load", function() { 
+    var timeout = setTimeout(function() {
+      $("img.lazy").trigger("sporty");
+      alert('yo');
+    }, 5000);
+}); 
+*/
