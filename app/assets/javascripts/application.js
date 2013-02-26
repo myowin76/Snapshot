@@ -20,6 +20,9 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
 //= require jquery-fileupload
+//= require underscore
+//= require backbone
+//= require backbone/snapshot
 //= require_tree .
 // require jquery-fileupload/vendor/tmpl
 // require jquery.tokeninput
