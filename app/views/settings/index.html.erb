@@ -11,11 +11,12 @@
 
 <% @settings.each do |setting| %>
   <tr>
-    <td><%= setting.setting %></td>
-    <td><%= setting.value %></td>
-    <td><%= link_to 'Show', setting %></td>
-    <td><%= link_to 'Edit', edit_setting_path(setting) %></td>
-    <td><%= link_to 'Destroy', setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= setting.db_update_store %></td>
+    <td><%= setting.db_update_sector %></td>
+    <td><%= setting.db_update_retailer %></td>
+    <td><%= setting.db_update_category %></td>
+    <td><%= setting.db_update_brand %></td>
+    
   </tr>
 <% end %>
 </table>
