@@ -1,4 +1,16 @@
 class SettingsController < ApplicationController
+
+
+
+  # def get_db_updates
+  #   @settings = Setting.all
+  #   respond_to do |format|
+  #     format.json { render json: @settings }
+  #   end
+
+  # end
+
+
   # GET /settings
   # GET /settings.json
   def index
