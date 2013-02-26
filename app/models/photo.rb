@@ -184,6 +184,9 @@ class Photo < ActiveRecord::Base
       includes(:audit).where('audits.store_id IN (?)',
          stores) }
 
+    def api_request
+      return
+    end
     private
     def self.photo_category_names(photo)
       photo.categories.map(&:name).join(",") unless photo.categories.nil?

@@ -226,19 +226,32 @@ class PhotosController < ApplicationController
 
   def create
     
-    @photo = Photo.new(params[:photo])
+    # @photo = Photo.new(params[:photo])
     if params[:photo] && params[:photo][:audit_id].present?
+      @photo = Photo.new(params[:photo])
       audit_id = params[:photo][:audit_id]
+    elsif params[:api_request].present?
+      @photo = Photo.new(params)
+      audit_id = params[:audit_id]
+      @photo.update_attributes(:audit_id, params[:audit_id])
+
+      debugger
     end
+    
     respond_to do |format|
       if @photo.save
         
-         format.html {
+        format.html {
             render :json => [@photo.to_jq_upload].to_json,
             :content_type => 'text/html',
             :layout => false
           }
-        format.json { render json: [@photo.to_jq_upload].to_json, status: :created, location: @photo }
+        if params[:api_request].present?
+          
+          format.json { render json: @photo, status: :created, location: @photo }
+        else
+          format.json { render json: [@photo.to_jq_upload].to_json, status: :created, location: @photo }
+        end  
         # format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
         # format.json { render json: @photo, status: :created, location: @photo }
       else
