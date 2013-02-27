@@ -28,13 +28,13 @@
         <div class="accordion-inner">
           <% for sector in @sectors %>
             <% if search_sectors && search_sectors.include?(sector.id.to_s) %>
-              <%= label_tag "search[sectors][#{sector.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[sectors][]", sector.id, true, :id => "search_sectors_#{sector.id}" %>
+              <%= label_tag "search[sectors][#{sector.id}]", :class => "checkbox"  do %>
+                <%= check_box_tag "search[sectors][]", sector.id, true, :id => "search_sectors_#{sector.id}", :"data-desc" => "#{sector.name}" %>
                   <%= sector.name %>
               <% end %>  
             <% else %>  
               <%= label_tag "search[sectors][#{sector.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[sectors][]", sector.id, false, :id => "search_sectors_#{sector.id}" %>
+                <%= check_box_tag "search[sectors][]", sector.id, false, :id => "search_sectors_#{sector.id}" , :"data-desc" => "#{sector.name}"%>
                 <%= sector.name %>
               <% end %>  
             <% end %>  
@@ -55,55 +55,78 @@
         </div>
       </div>
     </div>
+
+
+
     <div class="accordion-group" id="category-group">
+
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#categories">
           Categories <i class="icon-plus pull-right"></i>
         </a>
-      </div>
+      </div><!-- /.accordion-heading -->
+
       <div id="categories" class="accordion-body collapse">
         <div class="accordion-inner">
           <% for category in @categories %>
             <% if search_categories && search_categories.include?(category.id.to_s) %>
               <%= label_tag "search[categories][#{category.id}]", category.id, :class => "checkbox" do %>
-                <%= check_box_tag "search[categories][]", category.id, true, :id => "search_categories_#{category.id}" %>
+                <%= check_box_tag "search[categories][]", category.id, true, :id => "search_categories_#{category.id}", :"data-desc" => "#{category.name}" %>
                 <%= category.name %>
               <% end %>    
             <% else %>
               <%= label_tag "search[categories][#{category.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[categories][]", category.id, false, :id => "search_categories_#{category.id}" %>
+                <%= check_box_tag "search[categories][]", category.id, false, :id => "search_categories_#{category.id}", :"data-desc" => "#{category.name}" %>
                 <%= category.name %>
               <% end %>  
             <% end %>
             
           <% end %>
-        </div>
-      </div>
-    </div>
+        </div><!-- /.accordion-inner -->
+      </div><!-- /.accordion-body -->
+    </div><!-- /.accordion-group -->
+
+
     <div class="accordion-group" id="brand-owners-group">
+
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brand_owners">
           Brand Owners <i class="icon-plus pull-right"></i>
         </a>
-      </div>
+      </div><!-- /.accordion-heading -->
+
       <div id="brand_owners" class="accordion-body collapse">
         <div class="accordion-inner">
           <% for brand_owner in @brand_owners %>
+
             <% if search_brand_owners && search_brand_owners.include?(brand_owner.id.to_s) %>
+
               <%= label_tag "search[brand_owners][#{brand_owner.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[brand_owners][]", brand_owner.id, :check => "checked", :id => "search_brand_owners_#{brand_owner.id}" %>
-                <%= brand_owner.name %><br />
+                
+                <%= check_box_tag "search[brand_owners][]", brand_owner.id, true, :id => "search_brand_owners_#{brand_owner.id}", :"data-desc" => "#{brand_owner.name}" %>
+                <%= brand_owner.name %>
+
               <% end %>  
+
             <% else %>  
+
               <%= label_tag "search[brand_owners][#{brand_owner.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[brand_owners][]", brand_owner.id, false, :id => "search_brand_owners_#{brand_owner.id}" %>
-                <%= brand_owner.name %><br />
+
+                <%= check_box_tag "search[brand_owners][]", brand_owner.id, false, :id => "search_brand_owners_#{brand_owner.id}", :"data-desc" => "#{brand_owner.name}" %>
+                <%= brand_owner.name %>
+
               <% end %>  
+
             <% end %>  
+
           <% end %>  
-        </div>
-      </div>
-    </div>
+
+        </div><!-- /.accordion-inner -->
+      </div><!-- /.accordion-body -->
+    </div><!-- /.accordion-group -->
+
+
+
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brands-accord">
@@ -154,12 +177,12 @@
           <% for channel in @channels %>
             <% if params[:search] && params[:search][:pchannel] && params[:search][:pchannel].include?(channel.id.to_s) %>
               <%= label_tag "search[pchannel][#{channel.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[pchannel][]", channel.id, true, :id => "search_pchannel_#{channel.id}" %>
+                <%= check_box_tag "search[pchannel][]", channel.id, true, :id => "search_pchannel_#{channel.id}", :"data-desc" => "#{channel.name}" %>
                 <%= channel.name %>
               <% end %>  
             <% else %>
               <%= label_tag "search[pchannel][#{channel.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[pchannel][]", channel.id, false, :id => "search_pchannel_#{channel.id}" %>
+                <%= check_box_tag "search[pchannel][]", channel.id, false, :id => "search_pchannel_#{channel.id}", :"data-desc" => "#{channel.name}" %>
                 <%= channel.name %>
               <% end %>
             <% end %>
@@ -178,12 +201,12 @@
           <% for env_type in @env_types %>
             <% if params[:search] && params[:search][:env_types] && params[:search][:env_types].include?(env_type.id.to_s) %>
               <%= label_tag "search[env_types][#{env_type.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[env_types][]", env_type.id, :check => "checked", :id => "search_env_types_#{env_type.id}" %>
+                <%= check_box_tag "search[env_types][]", env_type.id, true, :id => "search_env_types_#{env_type.id}", :"data-desc" => "#{env_type.name}" %>
                 <%= env_type.name %>
               <% end %>  
             <% else %>
               <%= label_tag "search[env_types][#{env_type.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[env_types][]", env_type.id, false, :id => "search_env_types_#{env_type.id}" %>
+                <%= check_box_tag "search[env_types][]", env_type.id, false, :id => "search_env_types_#{env_type.id}", :"data-desc" => "#{env_type.name}" %>
                 <%= env_type.name %>
               <% end %>  
             <% end %>  
@@ -202,12 +225,12 @@
           <% for sf in @store_formats %>
             <% if params[:search] && params[:search][:sformats] && params[:search][:sformats].include?(sf.id.to_s) %>
               <%= label_tag "search[sformats][#{sf.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[sformats][]", sf.id, true, :id => "search_sformats_#{sf.id}" %>
+                <%= check_box_tag "search[sformats][]", sf.id, true, :id => "search_sformats_#{sf.id}", :"data-desc" => "#{sf.name}" %>
                 <%= sf.name %>
               <% end %>  
             <% else %> 
               <%= label_tag "search[sformats][#{sf.id}]", :class => "checkbox" do %> 
-                <%= check_box_tag "search[sformats][]", sf.id, false, :id => "search_sformats_#{sf.id}" %>
+                <%= check_box_tag "search[sformats][]", sf.id, false, :id => "search_sformats_#{sf.id}", :"data-desc" => "#{sf.name}"  %>
                 <%= sf.name %>
               <% end %>  
             <% end %>
@@ -226,13 +249,13 @@
           <% for media_location in @media_locations %>
             <% if params[:search] && params[:search][:media_loc] && params[:search][:media_loc].include?(media_location.id.to_s) %>
               <%= label_tag "search[media_loc][#{media_location.id}]", :class => "checkbox" do %>    
-                <%= check_box_tag "search[media_loc][]", media_location.id, :check => "checked", :id => "search_media_loc_#{media_location.id}" %>
-                <%= media_location.name %><br />
+                <%= check_box_tag "search[media_loc][]", media_location.id, true, :id => "search_media_loc_#{media_location.id}", :"data-desc" => "#{media_location.name}"  %>
+                <%= media_location.name %>
               <% end %>    
             <% else %>
               <%= label_tag "search[media_loc][#{media_location.id}]", :class => "checkbox" do %>      
-                <%= check_box_tag "search[media_loc][]", media_location.id, false, :id => "search_media_loc_#{media_location.id}" %>
-                <%= media_location.name %><br />
+                <%= check_box_tag "search[media_loc][]", media_location.id, false, :id => "search_media_loc_#{media_location.id}", :"data-desc" => "#{media_location.name}" %>
+                <%= media_location.name %>
               <% end %>    
             <% end %>  
           <% end %>  
@@ -250,13 +273,13 @@
           <% for media_vehicle in @media_vehicles %>
             <% if params[:search] && params[:search][:media_v] && params[:search][:media_v].include?(media_vehicle.id.to_s) %>
               <%= label_tag "search[media_v][#{media_vehicle.id}]", :class => "checkbox" do %>    
-                <%= check_box_tag "search[media_v][]", media_vehicle.id, :check => "checked", :id => "search_media_v_#{media_vehicle.id}" %>
-                <%= media_vehicle.name %><br />
+                <%= check_box_tag "search[media_v][]", media_vehicle.id, true, :id => "search_media_v_#{media_vehicle.id}", :"data-desc" => "#{media_vehicle.name}" %>
+                <%= media_vehicle.name %>
               <% end %>    
             <% else %>
               <%= label_tag "search[media_v][#{media_vehicle.id}]", :class => "checkbox" do %>      
-                <%= check_box_tag "search[media_v][]", media_vehicle.id, false, :id => "search_media_v_#{media_vehicle.id}" %>
-                <%= media_vehicle.name %><br />
+                <%= check_box_tag "search[media_v][]", media_vehicle.id, false, :id => "search_media_v_#{media_vehicle.id}", :"data-desc" => "#{media_vehicle.name}" %>
+                <%= media_vehicle.name %>
               <% end %>    
             <% end %>  
             
@@ -275,13 +298,13 @@
           <% for media_type in @media_types %>
             <% if params[:search] && params[:search][:media_type] && params[:search][:media_type].include?(media_type.id.to_s) %>
               <%= label_tag "search[media_type][#{media_type.id}]", :class => "checkbox" do %>    
-                <%= check_box_tag "search[media_type][]", media_type.id, :check => "checked", :id => "search_media_type_#{media_type.id}" %>
-                <%= media_type.name %><br />
+                <%= check_box_tag "search[media_type][]", media_type.id, true, :id => "search_media_type_#{media_type.id}", :"data-desc" => "#{media_type.name}" %>
+                <%= media_type.name %>
               <% end %>  
             <% else %>
               <%= label_tag "search[media_type][#{media_type.id}]", :class => "checkbox" do %>      
-                <%= check_box_tag "search[media_type][]", media_type.id, false, :id => "search_media_type_#{media_type.id}" %>
-                <%= media_type.name %><br />
+                <%= check_box_tag "search[media_type][]", media_type.id, false, :id => "search_media_type_#{media_type.id}", :"data-desc" => "#{media_type.name}" %>
+                <%= media_type.name %>
               <% end %>    
             <% end %>  
             
@@ -299,13 +322,13 @@
         <div class="accordion-inner">
           <% for promo_type in @promo_types %>
             <% if params[:search] && params[:search][:promo_types] && params[:search][:promo_types].include?(promo_type.id.to_s) %>
-              <%= label_tag "search[promo_types][#{promo_type.id}]" do %>  
-                <%= check_box_tag "search[promo_types][]", promo_type.id, :check => "checked", :id => "search_promo_types_#{promo_type.id}"  %>
+              <%= label_tag "search[promo_types][#{promo_type.id}]", :class => 'checkbox' do %>  
+                <%= check_box_tag "search[promo_types][]", promo_type.id, true, :id => "search_promo_types_#{promo_type.id}", :"data-desc" => "#{promo_type.name}"  %>
                 <%= promo_type.name %><br />
               <% end %>  
             <% else %>
-              <%= label_tag "search[promo_types][#{promo_type.id}]" do %>    
-                <%= check_box_tag "search[promo_types][]", promo_type.id, false, :id => "search_promo_types_#{promo_type.id}" %>
+              <%= label_tag "search[promo_types][#{promo_type.id}]", :class => 'checkbox' do %>    
+                <%= check_box_tag "search[promo_types][]", promo_type.id, false, :id => "search_promo_types_#{promo_type.id}", :"data-desc" => "#{promo_type.name}" %>
                 <%= promo_type.name %><br />
               <% end %>
             <% end %>  
@@ -325,12 +348,12 @@
           <% for promo_calendar in @promo_calendars %>
             <% if params[:search] && params[:search][:promo_cal] && params[:search][:promo_cal].include?(promo_calendar.id.to_s) %>
               <%= label_tag "search[promo_cal][#{promo_calendar.id}]", :class => "checkbox" do %>    
-                <%= check_box_tag "search[promo_cal][]", promo_calendar.id, :check => "checked", :id => "search_promo_cal_#{promo_calendar.id}"  %>
+                <%= check_box_tag "search[promo_cal][]", promo_calendar.id, true, :id => "search_promo_cal_#{promo_calendar.id}", :"data-desc" => "#{promo_calendar.name}" %>
                 <%= promo_calendar.name %>
               <% end %>
             <% else %>
               <%= label_tag "search[promo_cal][#{promo_calendar.id}]", :class => "checkbox" do %>  
-                <%= check_box_tag "search[promo_cal][]", promo_calendar.id, false, :id => "search_promo_cal_#{promo_calendar.id}" %>
+                <%= check_box_tag "search[promo_cal][]", promo_calendar.id, false, :id => "search_promo_cal_#{promo_calendar.id}", :"data-desc" => "#{promo_calendar.name}" %>
                 <%= promo_calendar.name %>
               <% end %>
             <% end %>
@@ -370,12 +393,12 @@
           <% for theme in @themes %>
             <% if params[:search] && params[:search][:themes] && params[:search][:themes].include?(theme.id.to_s) %>
               <%= label_tag "search[themes][#{theme.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[themes][]", theme.id, :check => "checked", :id => "search_themes_#{theme.id}" %>
+                <%= check_box_tag "search[themes][]", theme.id, true, :id => "search_themes_#{theme.id}", :"data-desc" => "#{theme.name}" %>
                 <%= theme.name %>
               <% end %>
             <% else %>  
               <%= label_tag "search[themes][#{theme.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[themes][]", theme.id, false, :id => "search_themes_#{theme.id}" %>
+                <%= check_box_tag "search[themes][]", theme.id, false, :id => "search_themes_#{theme.id}", :"data-desc" => "#{theme.name}" %>
                 <%= theme.name %>
               <% end %>  
             <% end %>  
