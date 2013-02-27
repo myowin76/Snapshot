@@ -1,4 +1,4 @@
-<div class=" action">
+<div class="action">
 
   <!-- <div class="sort-control">
     <label for="sort_by" class="sort-control-label">Sort by:</label>
@@ -22,7 +22,7 @@
     <a href="#" class="icon-map-marker layout-map">Map</a>
   </div>
 
-  <ul style="margin-top: 8px;">
+  <ul>
     <li>
       <a href="#" id="checkAll">Select All</a> |
     </li>
@@ -36,7 +36,7 @@
       <%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf' %> |
     </li>
     <li class="reviews">
-      <%= link_to "Filter selected", "#", :id => 'reviews'%>
+      <%= link_to "Filter selected", "#", :id => 'filterSelectedItems'%>
       <a href="#" id="show-all" style="display:none;">Show All</a>
       <%#= link_to "Show All", "#", :id => 'show-all', %>
     </li>
@@ -49,13 +49,15 @@
 
 <% unless @photos.nil? %>    
 
-  <ul class="list-header" style="display: none;">
-    <li style="width: 143px;">&nbsp;</li>
-    <li style="width: 132px;">Retailer</li>
-    <li style="width: 130px;">Date</li>
-    <li style="width: 143px;">Location</li>
-  </ul>
-
+<div class="page-controls">  
+  <!-- <a href="#" class="go-top pull-right">Top</a> -->
+  <%#= page_entries_info @photos %>
+  <div class="will-page">
+    <%= will_paginate @photos, :next_label => 'Next', :previous_label => 'Prev', :link_separator => '',
+    :params => {:search => params_search} %>    
+  </div>
+  
+</div>
 
   <ul id="photos-viewer" class="photos-viewer row-fluid">
     
@@ -98,6 +100,8 @@
     <% end %>
   </ul>
 <% end %>
+
+
 <div class="page-controls">  
   <!-- <a href="#" class="go-top pull-right">Top</a> -->
   <%#= page_entries_info @photos %>

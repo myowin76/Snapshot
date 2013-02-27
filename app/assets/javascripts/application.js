@@ -97,21 +97,21 @@ var snapshot = {
       
       //e.preventDefault();
 
-    
+    /*
       $.ajax({
         url: this.href,
         data: null,
         success: function(data){
 
           
-          console.log( $(data) );
+          //console.log( $(data) );
           //initLazyLoad("img.lazy");
         },
         dataType: 'script'
       });
-      
-
-      //$.get(this.href, null, null, 'script');
+      */
+    
+      $.get(this.href, null, null, 'script');
       
 
       $('html, body').animate({
@@ -174,6 +174,7 @@ $(document).ready(function() {
   photos.exportZIP();
   photos.exportStorePhotos();
   
+
   $(".photo-view").ajaxStart(function(){
     $(this).hide();
     $('#list-view .loading').show();
@@ -183,9 +184,11 @@ $(document).ready(function() {
     $(this).show();
   });
 
+
   $('.alert').click(function(){
       $(this).fadeOut(1000).remove();
   });
+
 
   $('.go-top').on('click',function(e){
     e.preventDefault();
@@ -285,25 +288,6 @@ $(document).ready(function() {
   });
 
   
-  $('#reviews').on('click', function(){
-    if ($(".photo-view .photos-viewer input[name='photo_ids[]']:checked").length < 1){
-      alert("Please select images");
-      return false;
-    }
-    $(".photo-view .photos-viewer input[name='photo_ids[]']:not(:checked)").each(function(){
-      $(this).closest('li').hide();
-    });
-    $(this).hide();
-    $('#show-all').show();
-    return false;
-  });
-
-  $('#show-all').on('click', function(){
-    $(".photo-view .photos-viewer input[name='photo_ids[]']").closest('li').show();
-    $(this).hide();
-    $('#reviews').show();
-    return false;
-  });
 
   $('#length').live('change',function(){
     var info = {}
@@ -592,7 +576,7 @@ var filterUI = {
         return $(el).find(':selected').attr('data-desc');
         break;
       case "checkbox":
-        console.log('This is a checkbox', $(el).attr('data-desc'),el );
+        //console.log('This is a checkbox', $(el).attr('data-desc'),el );
         return $(el).attr('data-desc');
         break;
       case "text":
@@ -600,7 +584,7 @@ var filterUI = {
         return $(el).val();
         break;
       default:
-        console.log('No element type found.');
+        //console.log('No element type found.');
     }// switch
 
   },
@@ -697,7 +681,98 @@ var filterUI = {
 
 };
 
+
+
+//  Photo Actions - Select/DeSelect All / Export / Filter Selected
 // ============================================
+var photoActions = {
+
+  conf: {
+    container        : "#main",
+    filterSelectedEl : "#filterSelectedItems",
+    photos           : "#photos-viewer input[name^='photo_ids']"
+
+  },
+
+  init : function(){
+    var that = this;
+
+
+    $(that.conf.filterSelectedEl).data('showAll', false);
+
+    that.initFilterSelected();
+
+  },
+
+  initFilterSelected : function(){
+    var that = this;
+
+    $(that.conf.container).on('click', that.conf.filterSelectedEl, function(e){
+      e.preventDefault();
+      that.toggleFilterSelected();
+    });
+  },
+
+  toggleFilterSelected : function(){
+    var that = this;
+    console.log( $(that.conf.photos + ":checked").length );
+
+    // Filter 
+    if ( $(that.conf.filterSelectedEl).data('showAll') === false  ) {
+
+      if ( $(that.conf.photos + ":checked").length > 0) {
+        $(that.conf.photos + ":not(:checked)").parents('li').hide();
+
+        $(that.conf.filterSelectedEl).text('Show All');
+
+        $(that.conf.filterSelectedEl).data('showAll', true)
+
+        console.log( $(that.conf.filterSelectedEl).data('showAll') ) ;
+      };
+    }
+    // Show All
+    else{
+      $(that.conf.photos + ":not(:checked)").parents('li').show();
+      $(that.conf.filterSelectedEl).text('Filter selected');
+      $(that.conf.filterSelectedEl).data('showAll', false)
+    }
+
+  },
+
+  xxx : function(){} 
+
+};
+
+  $('#reviews').on('click', function(){
+    if ($(".photo-view .photos-viewer input[name^='photo_ids']:checked").length < 1){
+      alert("Please select images");
+      return false;
+    }
+    $(".photo-view .photos-viewer input[name='photo_ids[]']:not(:checked)").each(function(){
+      $(this).closest('li').hide();
+    });
+    $(this).hide();
+    $('#show-all').show();
+    return false;
+  });
+
+  $('#show-all').on('click', function(){
+    $(".photo-view .photos-viewer input[name='photo_ids[]']").closest('li').show();
+    $(this).hide();
+    $('#reviews').show();
+    return false;
+  });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -727,6 +802,7 @@ jQuery(document).ready(function($) {
   
   filterUI.init('#search_form');
 
+  photoActions.init();
 
   //initLazyLoad("img.lazy");
   /*
