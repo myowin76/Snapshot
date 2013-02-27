@@ -63,6 +63,7 @@ Snapshot::Application.routes.draw do
       post :get_store_details
       post :refresh_category_view_photos
     end
+    resources :audits
   end
 
   get "admin/home"
