@@ -1,0 +1,65 @@
+/*
+    Photo Filter 
+*/
+
+@import "compass/css3";
+// Filter Tags
+// =========================================
+
+.filter-tag-wrapper{
+  display:block;
+  margin-left:15px;
+  margin-right:15px;
+  position:relative;
+}
+
+.filter-tag{
+  cursor: pointer;
+  font-weight:100;
+  font-size:9px;
+
+  display:inline-block;
+  position:relative;
+  width:83px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  
+  background:#aaa;
+  color: #fff;  
+
+
+  @include transition(background 0.25s);
+  @include border-radius(3px);
+
+  margin-left:5px;
+  margin-bottom:2px;
+  padding-left:20px;
+
+  &:nth-child(2n+1){
+    margin-left:0;
+  }
+
+  i{
+    position: absolute;
+
+    @include transform-origin(50%, 50%, 1, true);
+    @include rotate(45deg);
+    @include transition(all 0.25s);
+    
+    margin:3px -17px 0;
+    //@include translate3d(0,0,0);
+  }
+
+  &:hover{
+    background:#AD0404;
+    color:#fff;
+    text-decoration: none;
+    i{
+      @include rotate(0deg);
+    }
+
+
+  }
+
+}
