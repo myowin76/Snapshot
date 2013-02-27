@@ -8,7 +8,7 @@
       
       <div id = "main" >
      
-        <section class="overlay"></section>
+        <section id="photoOverlay" class="overlay"></section>
         <section class="site-content" role="main">
           <% flash.each do |name, msg| %>
             <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
@@ -26,7 +26,7 @@
   </div>
       <%= render 'layouts/blocks/footer' %>
 
-    <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="photoOverlay" aria-hidden="true">
     </div>      
   </div>  <!-- /.container -->
 

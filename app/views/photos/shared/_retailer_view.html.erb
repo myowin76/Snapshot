@@ -1,11 +1,11 @@
 <% for retailer in @retailers %>
   <% if search_retailers && search_retailers.include?(retailer.id.to_s) %>
-  	<%= label_tag "search[retailers][#{retailer.id}]" do %>
+  	<%= label_tag "search[retailers][#{retailer.id}]", :class => "checkbox" do %>
     	<%= check_box_tag "search[retailers][]", retailer.id, true, :id => "search_retailers_#{retailer.id}" %>
     	<%= retailer.name %>
     <% end %>  	
   <% else %>  
-  	<%= label_tag "search[retailers][#{retailer.id}]" do %>
+  	<%= label_tag "search[retailers][#{retailer.id}]", :class => "checkbox" do %>
     	<%= check_box_tag "search[retailers][]", retailer.id, false, :id => "search_retailers_#{retailer.id}" %>
     	<%= retailer.name %>
     <% end %>

@@ -76,7 +76,7 @@
 
             </figure>
             <section>
-              <%= check_box_tag "photo_ids[]", photo.id %>
+              <%= check_box_tag "photo_ids[#{photo.id}]", photo.id %>
               <div class="retailer">
                 <%= photo.audit.store.retailer.name unless photo.audit.store.nil? %>
               </div>  
