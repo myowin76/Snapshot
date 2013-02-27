@@ -14,8 +14,11 @@
 	<%= link_to "Save", new_save_search_path(:params => params[:search]), id: "new_link", :class => "btn small span3", remote: true %>
   
   <% unless params[:saved_search_id].nil? %>
+
     <%= link_to "Save as", edit_save_search_path(params[:saved_search_id]), :id => 'save_as', :class => "btn small span4", remote: true %>
+
   <% else %>    
+  
     <%= link_to "Save as", "#", :id => 'save_as', :class => "btn small span4", :disabled => 'true' %>
   <% end %>  
 	
