@@ -97,27 +97,26 @@ var snapshot = {
       
       //e.preventDefault();
 
-      $('html, body').animate({
-        scrollTop: $("body").offset().top
-      }, 500);
-
-
+    
       $.ajax({
         url: this.href,
         data: null,
         success: function(data){
 
-          //console.log(data);
-
-          $("img.lazy").show().lazyload({ 
-            effect : "fadeIn"
-          });           
+          
+          console.log( $(data) );
+          //initLazyLoad("img.lazy");
         },
         dataType: 'script'
       });
-
+      
 
       //$.get(this.href, null, null, 'script');
+      
+
+      $('html, body').animate({
+        scrollTop: $("body").offset().top
+      }, 500);
 
       return false;
     });
@@ -613,12 +612,33 @@ var filterUI = {
 /*
     Lazy Load
 */
+
+
+function initLazyLoad(el){
+  if (el) {
+    
+    console.log( $(el).length + " lazy load elements" );
+
+    $(el).show().lazyload({ 
+      effect : "fadeIn"
+    });      
+
+  }
+
+  else{
+    console.log("Error: No element found!");
+  }
+
+}
+
 jQuery(document).ready(function($) {
 
-  
+  //initLazyLoad("img.lazy");
+  /*
   $("img.lazy").lazyload({ 
     effect : "fadeIn"
-  });  
+  });
+  */
   
   /*
   $('#main').on('click', '.pagination a' , function(){

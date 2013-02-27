@@ -12,6 +12,7 @@
  * Version:  1.8.4
  *
  */
+ 
 (function($, window, document, undefined) {
     var $window = $(window);
 

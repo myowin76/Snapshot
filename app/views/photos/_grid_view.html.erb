@@ -69,7 +69,8 @@
               <%#= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
               <%= link_to photo, remote: true  do %>
 
-                <%= image_tag("snapshot_loading.gif" , :class => 'lazy', :"data-original" => "#{photo.photo.url(:medium)}", :width => '213', :height => '160' )  %>
+                <%#= image_tag("snapshot_loading.gif" , :class => 'lazy', :"data-original" => "#{photo.photo.url(:medium)}", :width => '213', :height => '160' )  %>
+                <%= image_tag( photo.photo.url(:medium) ) %>
 
               <% end %>
 
