@@ -2,36 +2,50 @@
 
 
 	<div id="header" class="site-header" role="banner">
+
+
 		<div id="branding">						
 			<h1 id="site-title">
 				<a href="/" title="Snapshot Worldwide" rel="Home">
-					<!-- <img class="logo" src="<%= asset_path 'SNAPSHOT_logo.png' %>" alt="Snapshot Worldwide"> -->
 					<img class="logo" src="http://snapshotworldwide.com/wp-content/uploads/2013/02/snapshot-logo-300x622.png" 
 							alt="Snapshot Worldwide">
-					
 				</a>
 			</h1>		
-		</div>
+		</div><!-- /#branding -->
+
+
+		<% if user_signed_in? %>
 		<div id="account">
-			<% if user_signed_in? %>
 			<ul>
 				<li>
 					<%= current_user.email  %>
 				</li>
 				<li>
-	        <%= link_to "Account", edit_user_registration_path %>
+	        <%= link_to "My Account", edit_user_registration_path %>
 	      </li>
 				<!-- <li>
 					<%#= link_to "Logout", destroy_user_session_path %>
-				</li> -->
-				<li class="last">
+				</li>
+				<li>
 					<a href="#">Feedback</a>
 				</li>
+				 -->
+
+				<% if can? :read, :page %>
+					<li>
+	          <%= link_to "Admin", admin_path %>
+	        </li>
+	      <% end %>  
+
+				<li class="last">
+					<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
+				</li>				
 			</ul>
 		</div>
 		<% end %>
-		<div id="menu-primary" class="menu-container">
 
+		<!-- 
+		<div id="menu-primary" class="menu-container">
 			<div class="menu">
 				
 				<ul class="account">
@@ -48,6 +62,9 @@
 				</ul>
 			</div>
 		</div>
+		-->
+
+
 	</div>	
 
 </div>
