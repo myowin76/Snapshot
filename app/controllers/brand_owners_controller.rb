@@ -28,6 +28,7 @@ class BrandOwnersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js
       format.json { render json: @brand_owner }
     end
   end
@@ -41,11 +42,12 @@ class BrandOwnersController < ApplicationController
   # POST /brand_owners.json
   def create
     @brand_owner = BrandOwner.new(params[:brand_owner])
-
+debugger
     respond_to do |format|
       if @brand_owner.save
         format.html { redirect_to new_brand_owner_path, notice: 'Brand owner was successfully created.' }
         format.json { render json: @brand_owner, status: :created, location: @brand_owner }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @brand_owner.errors, status: :unprocessable_entity }

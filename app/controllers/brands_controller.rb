@@ -39,6 +39,7 @@ class BrandsController < ApplicationController
 
     respond_to do |format|
       if @brand.save
+        debugger
         format.html { redirect_to brands_path, notice: 'Brand was successfully created.' }
         format.json { render json: @brand, status: :created, location: @brand }
         format.js

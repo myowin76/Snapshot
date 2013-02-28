@@ -1,0 +1,23 @@
+//$('.site-content').hide();
+
+text = $('#brand_brand_owner_id_chzn .no-results').children('span').text();
+
+if ($('.overlay').children().hasClass('brands-popup')){
+	$('.brands-popup').hide();
+	$('.overlay').append("<%= j render('form_ajax') %>");
+}	
+
+$('#brand_owner_name').val(text);
+
+$('.page-header .close, #new_brand btn.cancel').click(function () {
+
+	if ($('.overlay').children().hasClass('brands-popup')){
+		$('.owner-popup').remove();
+		$('.brands-popup').show();
+	}	
+	else{
+		$('.owner-popup').remove();
+		$('.site-content').show();	
+	}
+	
+ });

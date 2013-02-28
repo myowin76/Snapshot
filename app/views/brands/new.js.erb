@@ -1,4 +1,3 @@
-// alert("test");
 
 text = $('.no-results').children('span').text();
 owner_id = $('.no-results').closest('.brands-actions').prev().children('select').val();
@@ -13,3 +12,5 @@ $('.page-header .close, #new_brand btn.cancel').click(function () {
 	$('.overlay').empty();
 	$('.site-content').show();
  });
+
+$('.chosen-brand-owner').chosen({no_results_text: "<a href='/brand_owners/new' data-remote='true'>Add</a>:"})

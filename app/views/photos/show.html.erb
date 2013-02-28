@@ -7,8 +7,11 @@
   <div id="photo-details">
     
     <div class="left">
-      <%= image_tag(@photo.photo.url(:large)) %>
-      <p></p>
+      <figure>
+        <%= image_tag(@photo.photo.url(:large)) %>
+      </figure>
+      
+    
         <% if @photo.published == true %>
           <%#= link_to 'Un-publish', publish_multiple_photos_path(:photo_ids => @photo.id), :method => :put %>
         <% else %>  

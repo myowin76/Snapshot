@@ -368,6 +368,7 @@ $(document).ready(function() {
   })
   
   $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
+  $('.chosen-brand-owner').chosen()
   // $('#store_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_country_id').chosen({no_results_text: "No results matched"})
   // $('.audit_categories').chosen({no_results_text: "No results matched"})

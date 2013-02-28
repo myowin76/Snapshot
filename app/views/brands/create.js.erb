@@ -1,19 +1,20 @@
 var select_id = "#" + $('.no-results a').closest('.chzn-container').prev().attr('id');
-var brand_owner
+// var brand_owner
+
 var values = new Array();
+if(select_id =! null){	
 	values = $(select_id).val();
 	values.push('<%= @brand.id %>');
-	// values = values.split(",");
+	<%= debugger %>
+}
+else{
+	values.push('<%= @brand.id %>');
+}		
+
+
+	values = values.split(",");
 var new_brand = "<option value=<%= @brand.id %>><%= @brand.name %></option>";
 
-
-
-// var brand_dropdown_id = $("#main .brand_owner_ddl").closest(".brands-owners-actions")
-// 			.next(".brands-actions").children().find(".chosen-brand").attr('id');
-// var pre_selected_brand_ids = new Array();
-// 	$(brand_dropdown_id).find('option:selected').each(function(){
-// 	  pre_selected_brand_ids.push($(this).val());  
-// 	});
 
 alert(select_id);
 alert(values);
