@@ -37,7 +37,7 @@ class Photo < ActiveRecord::Base
       :small => :public_read,
       :medium => :public_read,
       :large => :public_read,
-      :original => :private
+      :original => :public_read
     },
     :s3_protocol => 'http',
       :s3_options => {
@@ -150,7 +150,7 @@ class Photo < ActiveRecord::Base
       
       Zip::ZipOutputStream.open(zip_file) do |zos|
         assets.each do |asset|    
-          download_url = open(URI.parse(URI.encode(asset.photo.url(:original))))
+          download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
           # csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
@@ -170,7 +170,7 @@ class Photo < ActiveRecord::Base
       
       Zip::ZipOutputStream.open(zip_file) do |zos|
         assets.each do |asset|
-          download_url = open(URI.parse(URI.encode(asset.photo.url(:original))))
+          download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)
         end  
