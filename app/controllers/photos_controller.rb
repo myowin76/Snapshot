@@ -2,7 +2,7 @@ class PhotosController < ApplicationController
   include PhotosHelper
   before_filter :authenticate_user!
   respond_to :html, :js, :json
-  respond_to :pdf, :only => :show
+  respond_to :pdf#, :only => :show
 
   # skip_before_filter  :verify_authenticity_token
   
@@ -205,6 +205,7 @@ class PhotosController < ApplicationController
   end
 
   def new
+    debugger
     @photo = Photo.new
 
     respond_to do |format|
@@ -238,9 +239,11 @@ class PhotosController < ApplicationController
         audit_id = params[:photo][:audit_id]  
       end
     end
+    debugger
     respond_to do |format|
       if @photo.save
-        
+         @photo.update_attributes(params[:photo])
+
         format.html {
             render :json => [@photo.to_jq_upload].to_json,
             :content_type => 'text/html',
@@ -298,7 +301,7 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     @audit = Audit.find_by_id(params[:photo][:audit_id])
-    
+    debugger
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
         unless @audit.nil?

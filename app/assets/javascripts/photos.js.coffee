@@ -16,10 +16,10 @@ jQuery ->
     "sPaginationType": 'full_numbers'
     "bRetrieve": true
 
-  $('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
+  ###$('#search_fromDate').datepicker({ dateFormat: 'dd/mm/yy'})
   $('#search_toDate').datepicker({ dateFormat: 'dd/mm/yy'})
   
-  ###$('#search_form').submitOnCheck()###
+  $('#search_form').submitOnCheck()###
 
   $('#search_location_id').parent().hide()
   location = $('#search_location_id').html()

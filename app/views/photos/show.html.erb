@@ -1,6 +1,10 @@
 <section class="photo_views_view">
   
   <div class="page-header">
+    <%= link_to :back , :class => "btn btn-success pull-right" do %>
+    <i class="icon-circle-arrow-left icon-white"></i>
+    <span>Back</span>
+  <% end %>
     <h1 id="myModalLabel"><%= @photo.photo_file_name %></h1>
   </div>
   

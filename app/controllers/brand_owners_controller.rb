@@ -42,7 +42,7 @@ class BrandOwnersController < ApplicationController
   # POST /brand_owners.json
   def create
     @brand_owner = BrandOwner.new(params[:brand_owner])
-debugger
+
     respond_to do |format|
       if @brand_owner.save
         format.html { redirect_to new_brand_owner_path, notice: 'Brand owner was successfully created.' }

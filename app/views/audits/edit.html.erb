@@ -133,6 +133,7 @@
   <div class="form-actions">
     <% if params[:id] %>
       <%= f.button :submit, "Save", :class=>"btn btn-primary" %>
+      <%= link_to "Cancel", :back , :class => "btn" %>      
     <% else %>
     <%= f.button :submit, "Next", :class=>"btn btn-primary" %>
     <% end %>

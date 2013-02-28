@@ -1,6 +1,6 @@
 class RetailersController < ApplicationController
   before_filter :authenticate_user!
-  # before_filter :check_return_url, :only => [:create, :edit, :update]
+  
   layout "admin"
   def index
     @retailers = Retailer.all

@@ -145,6 +145,24 @@ var photos = {
 
 $(document).ready(function() {
 
+
+  $('#search_fromDate').datepicker({ 
+    dateFormat: 'dd/mm/yy',
+    onClose: function( selectedDate ){
+      $( "#search_toDate" ).datepicker( "option", "minDate", selectedDate );
+    }
+  });
+  $('#search_toDate').datepicker({ 
+    dateFormat: 'dd/mm/yy',
+    onClose: function( selectedDate ) {
+      $( "#search_fromDate" ).datepicker( "option", "maxDate", selectedDate );
+    }
+  })
+
+
+
+
+
   $('.nav-tabs li a').live('click', function (e) {
     google.maps.event.trigger(map, 'resize');
   });
