@@ -205,7 +205,7 @@ class PhotosController < ApplicationController
   end
 
   def new
-    debugger
+    
     @photo = Photo.new
 
     respond_to do |format|
@@ -222,7 +222,6 @@ class PhotosController < ApplicationController
       @brand_owner = @brands.first.brand_owner.name unless @brands.first.brand_owner.nil?
 
     end
-
   end
 
   def create
@@ -239,10 +238,41 @@ class PhotosController < ApplicationController
         audit_id = params[:photo][:audit_id]  
       end
     end
-    debugger
+    
     respond_to do |format|
       if @photo.save
-         @photo.update_attributes(params[:photo])
+         if params[:brand_ids].present?
+          @brands = Brand.find_all_by_id(params[:brand_ids].join(",").split(","))
+          @photo.brands = @brands
+         end 
+         if params[:category_ids].present?
+          @cats = Category.find_all_by_id(params[:category_ids].join(",").split(","))
+          @photo.categories = @cats
+         end 
+         if params[:media_location_ids].present?
+          @mls = MediaLocation.find_all_by_id(params[:media_location_ids].join(",").split(","))
+          @photo.locations = @mls
+         end 
+         if params[:media_type_ids].present?
+          @mts = MediaType.find_all_by_id(params[:media_type_ids].join(",").split(","))
+          @photo.media_types = @mts
+         end 
+         if params[:media_vehicle_ids].present?
+          @mvs = MediaVehicle.find_all_by_id(params[:media_vehicle_ids].join(",").split(","))
+          @photo.media_vehicles = @mvs
+         end 
+         if params[:promotion_type_ids].present?
+          @pts = PromotionType.find_all_by_id(params[:promotion_type_ids].join(",").split(","))
+          @photo.promotion_types = @pts
+         end 
+         if params[:themes_ids].present?
+          @themes = Theme.find_all_by_id(params[:themes_ids].join(",").split(","))
+          @photo.themes = @themes
+         end 
+        
+        # @photo.update_attributes(params[:category_ids].join(",").split(",")) if params[:category_ids].present?
+
+         
 
         format.html {
             render :json => [@photo.to_jq_upload].to_json,
@@ -301,7 +331,7 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     @audit = Audit.find_by_id(params[:photo][:audit_id])
-    debugger
+    
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
         unless @audit.nil?
