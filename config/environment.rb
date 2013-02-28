@@ -17,3 +17,9 @@ ActionMailer::Base.delivery_method = :smtp
   :user_name => 'aung.win@skyron.co.uk',
   :password => 'mandalay7'
 }
+
+
+Snapshot::Application.configure do
+  config.sass.line_comments = false
+  config.sass.style = :nested
+end

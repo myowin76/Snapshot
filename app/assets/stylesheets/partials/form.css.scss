@@ -12,3 +12,29 @@ form{
 }
 
 
+form .field, form .actions {
+  margin: 12px 0;
+}
+
+
+form textarea{
+  height: 140px;
+}
+
+
+
+//FORM #### CHOSEN DROPDOWN BOX
+.chzn-container-multi .chzn-choices .search-choice{
+  background-color: #d92680;
+  background-image: none;
+  border-radius: 0;
+  border: none;
+  color: #fff;
+  margin: 2px 0 2px 2px;
+  padding: 4px 20px 6px 5px;
+}
+.chzn-container-multi .chzn-choices{
+  width: 362px;
+  border: 1px solid #ccc;
+  background-image: none;
+}

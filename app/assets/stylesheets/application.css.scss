@@ -14,87 +14,19 @@
  *= require dataTables/jquery.dataTables
  *= require_self
  *= require bootstrap_and_overrides
- *= require_tree ./partials
+ 
  *= require gmaps4rails
  *= require jquery.fileupload-ui 
+
  * require_tree .
- 
+ * require_tree ./partials
+
  */
 
 @import "compass";
 @import "twitter/bootstrap";
 
-
-@font-face {
-  font-family: Museo500;
-  src: url("../assets/MuseoSans_500.otf");}
-@font-face {
-  font-family: OpenSans;
-  src: url("../assets/OpenSans-Regular.ttf");}
-
-body {
-  overflow-y: scroll; 
-  color: #333;
-  background-color: #f9f9f9;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 100%;
-  padding: 10px 0px;
-  a{
-    color: #D92680;
-    &:hover{
-      text-decoration: none;
-      color: #333;
-    }
-  }
-  label, input, button, select, textarea {
-    font-size: 13px;
-  }
-
-  input[type='text'], textarea{
-    border-radius: 0;
-    box-shadow: none;
-  }
-  h1, h2, h3, h4, h5, h6{
-    font-weight: normal;
-    font-family: Museo500;
-    text-transform: uppercase;
-  }
-  h1{
-    font-size: 140%;
-  }
-  h2{
-    font-size: 135%;
-  }
-  h3{
-    font-size: 130%;
-    line-height: 20px;
-  }
-
-  abbr[title]{
-    border-bottom: none;
-    color: #d92680;
-  }
-
-//FORM #### CHOSEN DROPDOWN BOX
-.chzn-container-multi .chzn-choices .search-choice{
-  background-color: #d92680;
-  background-image: none;
-  border-radius: 0;
-  border: none;
-  color: #fff;
-  margin: 2px 0 2px 2px;
-  padding: 4px 20px 6px 5px;
-}
-.chzn-container-multi .chzn-choices{
-  width: 362px;
-  border: 1px solid #ccc;
-  background-image: none;
-}
-
-
-
-}
-
+@import "partials/*";
 
 
 
@@ -104,26 +36,32 @@ body {
   border: 1px solid #E5E5E5;
   padding: 8px 0 8px 20px;
   margin-bottom: 2px;
+
   input[type="text"]{
     padding: 2px 6px;
   }
+
+
   .add-on{
     padding: 2px 5px;
     &:last-child{
       border-radius: 0px;
     }
   }
+
   #search_location{
     width: 85%;
   }
+
   label{
     display: inline;
   }
+
   #search_brand_comp{
     margin-top: -2px;
   }
+  
   &.date{
-
 
     label{
       //float: left;
@@ -147,11 +85,6 @@ body {
 
 
 
-
-
-form textarea{
-  height: 140px;
-}
 body ul{
   margin: 0;
 }
@@ -168,10 +101,7 @@ body ul{
   
   z-index: 1500;
 }
-a {
-  color: #0000FF;
-  img { border: none; }
-}
+
 
 .clear {
   clear: both;
@@ -221,9 +151,7 @@ a {
   display: inline;
 }
 
-form .field, form .actions {
-  margin: 12px 0;
-}
+
 .table.dataTable tr.odd td,.table.dataTable tr.even td{
   padding: 8px;
 }
@@ -321,12 +249,17 @@ ul.ui-autocomplete {
   background-color: #EEE;
 }
 
+/*
 @media (max-width: 767px){
 
   .container-fluid{
     margin-top: 0;
   }
 }
+
+*/
+
+
 
 //******************************* new 
 
@@ -341,6 +274,7 @@ ul.ui-autocomplete {
       margin: 0px;
     }
   }
+
   .site-content{
     .alert{
       display: block;
@@ -354,12 +288,14 @@ ul.ui-autocomplete {
       }
     }
   }
+
   .content-wrap {
     float: right;
     width: 71.53061%;
     //padding-top: 15px;
   }
 }
+
 #header{
   clear: both;
   width: 960px;
@@ -374,55 +310,10 @@ ul.ui-autocomplete {
 }
 
 
-// NAVIGATION
-#menu-primary {
-  font-size: 1em;
-  width: 100%;
-  margin: 0.8em 0 0 0;
-  float: left;
-  clear: left;
-  position: relative;
-  z-index: 99;
-  //border-bottom: 1px solid #CCC;
-  ul{
-    padding-left: 0;
-    &.account{
-      float: right;
-    }
-    li {
-      display: block;
-      float: left;
-      min-height: 30px;
-      padding-left: 1.8em;
-      //background: url(../assets/menu-separator.png) no-repeat left 15%;
-      &:first-child {
-        padding-left: 0;
-        background: none;
-      }
-      a {
-        color: #D92680;
-        font-size: 1;
-        font-weight: 400;
-        line-height: 1em;
-        margin-right: 1em;
-        display: block;
-        //text-transform: lowercase;
-      }
-    }
-  }  
-}
 
-.aside {
-  select{
-    width: 100%;
-  }
-  float: left;
-  //padding-top: 15px;
-  font-size: 12px;
-  width: 25.40816%;
-}
 
 .page-controls{
+  
   display: block;
   width: 100%;
   overflow: hidden;
@@ -448,6 +339,10 @@ ul.ui-autocomplete {
     float: left;
   }
 }
+
+
+
+/*
 .layout-switcher {
   border-left: 1px solid #CECECE;
   padding-left: 10px;
@@ -471,6 +366,8 @@ ul.ui-autocomplete {
     &.active{} 
   }
 }
+*/
+
 
 // DATE PICKER
 body .ui-datepicker{
@@ -479,10 +376,17 @@ body .ui-datepicker{
 body .ui-widget {
   font-size: 1em;
 }
+
+
+
 //### LIST VIEW / GRID VIEW
 .loading{
   text-align: center;
 }
+
+
+
+
 .photo-view{  
   .length-control{
     float: left;
@@ -496,6 +400,10 @@ body .ui-widget {
     }
   }
 }
+
+
+
+
 .photo-view.grid{
   .photos-viewer{
     padding: 0px; margin: 0px;
@@ -543,6 +451,8 @@ body .ui-widget {
   }  
 }
 
+
+
 .photo-view.list{
   .photos-viewer{
     padding: 0; margin: 0px;
@@ -587,6 +497,8 @@ body .ui-widget {
   }  
 }
 
+
+
 .snapshot-window { 
   border: 2px solid #666666; 
   border-radius: 5px; 
@@ -608,6 +520,10 @@ body .ui-widget {
   overflow: hidden;
   margin-bottom: 25px;
 }
+
+
+
+
 #photo-details{
   table{
     tr{
@@ -655,10 +571,6 @@ body .ui-widget {
 
 }
 
-// save searches
-.saved-list{
-  
-}
 
 
 .new_save_search{
@@ -669,7 +581,6 @@ body .ui-widget {
     background-color: #eee;
     margin: 5px 0;
   }
-
 }
 
 input{
@@ -682,39 +593,6 @@ input{
 
 }
 
-// searrch form action
-.search-form-actions{
-  background-color: #eee;
-  border: 1px solid #E5E5E5;
-  padding: 12px;
-  margin-bottom: 10px;
-  .btn{
-    border-radius: 0;   
-    &.clear-form{
-      float: left;
-      width: 48%;
-    }
-    &.search{
-      float: right;
-      width: 48%;
-    }  
-    &.small{
-      padding: 2px 10px;
-      font-size: 11px;
-    }
-  }
-  .saved-search{
-    margin-top: 8px;
-    ul{
-      li{
-        form{
-          margin: 0 0 6px;
-        }    
-      }
-    } 
-  }
-
-}
 
 .photo_views_view{
   .photo-store-info{

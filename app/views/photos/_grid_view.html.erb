@@ -1,47 +1,51 @@
-<div class="action">
+<div id="pageControls" class="mod mod-page-controls">
 
-  <!-- <div class="sort-control">
-    <label for="sort_by" class="sort-control-label">Sort by:</label>
-    <select class="sort_select" id="sort_by" name="sort_by">
-      <option selected="selected">Date latest first</option>
-      <option>Date latest last</option>
-      <option>Retailer A-Z</option>
-      <option>Retailer Z-A</option>
-      <option>Brand A-Z</option>
-      <option>Brand Z-A</option>
-    </select>
-  </div> -->
-  <div class="length-control">
-    <label for="length" class="sort-control-label">Show:</label>
-    <%= select_tag :length, options_for_select([30,60,90], params[:per_page]) %>
-  </div>
-  
-  <div class="layout-switcher sort-control">
-    <a href="#" class="icon-list layout-list">List</a>
-    <a href="#" class="icon-th layout-grid">Grid</a>
-    <a href="#" class="icon-map-marker layout-map">Map</a>
-  </div>
+  <div class="page-filters">
 
-  <ul>
-    <li>
-      <a href="#" id="checkAll">Select All</a> |
-    </li>
-    <li>
-      <a href="#" id="uncheckAll">Deselect All</a> | 
-    </li>
-    <li>
-      <%= link_to "Export Zip", download_url, :id => 'export-zip'%> |
-    </li>
-    <li>
-      <%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf' %> |
-    </li>
-    <li class="reviews">
-      <%= link_to "Filter selected", "#", :id => 'filterSelectedItems'%>
-      <a href="#" id="show-all" style="display:none;">Show All</a>
-      <%#= link_to "Show All", "#", :id => 'show-all', %>
-    </li>
-  </ul>
-</div>
+
+    <div class="filter-items">
+      
+      <b class="filter-label">Show:</b>
+
+      <%= select_tag :length , options_for_select([20,30,50], params[:per_page] ), :class => 'input-mini items-to-display' %>
+    </div><!-- /.filter-items -->
+
+    <div class="filter-layout">
+
+      <b class="filter-label">View:</b>
+
+      <a href="#" id="viewGrid" data-layout="grid" class="layout-type selected" title="Grid View"><i class="icon-white icon-th"></i></a>
+
+      <a href="#" id="viewList" data-layout="list" class="layout-type" title="List View"><i class="icon-white icon-list"></i></a>
+      
+    </div><!-- /.filter-layout -->
+
+  </div><!-- /.page-filters -->
+
+  <div class="page-actions">
+
+    <ul>
+
+      <li><a href="#" id="checkAll" data-select-all="false">Select All</a></li>
+      
+      <li><%= link_to "Export Zip", download_url, :id => 'export-zip'%></li>
+      <li><%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf' %></li>
+      <li class="reviews">
+        <%= link_to "Filter selected", "#", :id => 'reviews'%>
+        <a href="#" id="show-all" style="display:none;">Show All</a>
+        <%#= link_to "Show All", "#", :id => 'show-all', %>
+      </li>
+    </ul>
+    
+  </div><!-- /.page-actions -->
+
+
+</div><!-- /.mod-page-controls -->
+
+
+
+
+
 
 <div class="page-controls">  
   <%= page_entries_info @photos %>

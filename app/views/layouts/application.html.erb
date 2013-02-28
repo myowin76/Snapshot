@@ -2,13 +2,17 @@
 <html>
   <%= render 'layouts/blocks/head' %>
   <body>
-    <%= render 'layouts/blocks/header' %>
-    <div class="header_small">
+
+  <%= render 'layouts/blocks/header' %>
+
+  <div class="header_small">
+
     <div class="container">
       
       <div id = "main" >
      
         <section id="photoOverlay" class="overlay"></section>
+        
         <section class="site-content" role="main">
           <% flash.each do |name, msg| %>
             <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
@@ -23,8 +27,10 @@
         </section>
          
       </div> 
-  </div>
-      <%= render 'layouts/blocks/footer' %>
+
+    </div>
+    
+    <%= render 'layouts/blocks/footer' %>
 
     <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="photoOverlay" aria-hidden="true">
     </div>      
