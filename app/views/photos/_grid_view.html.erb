@@ -17,6 +17,8 @@
       <a href="#" id="viewGrid" data-layout="grid" class="layout-type selected" title="Grid View"><i class="icon-white icon-th"></i></a>
 
       <a href="#" id="viewList" data-layout="list" class="layout-type" title="List View"><i class="icon-white icon-list"></i></a>
+
+      <a href="#" id="viewMap" data-layout="map" class="layout-type" title="Map View"><i class="icon-white icon-map-marker"></i></a>
       
     </div><!-- /.filter-layout -->
 
@@ -83,6 +85,35 @@
             </figure>
             <section>
               <%= check_box_tag "photo_ids[#{photo.id}]", photo.id %>
+
+
+              <section class="meta">
+
+                <div class="meta-inner">
+
+                  <div class="meta-set retailer">
+                    <b class="meta-label">Retailer:</b>
+                    <b class="meta-data"><%= photo.audit.store.retailer.name unless photo.audit.store.nil? %></b>
+                  </div>  
+
+                  <div class="meta-set brand">
+                    <b class="meta-label">Brand:</b>
+                    <b class="meta-data"><%= photo.brands.map(&:name).join(",") %></b>
+                  </div>  
+
+                  <div class="meta-set date">
+                    <b class="meta-label">Date:</b>
+                    <b class="meta-data"><%= photo.audit.created_at %></b>
+                  </div>
+
+                  <div class="meta-set address">
+                    <b class="meta-label">Address:</b>
+                    <b class="meta-data"><%= photo.audit.store.address2 unless photo.audit.store.nil? %></b>
+                  </div>
+
+                </div><!-- /.meta-inner -->
+                
+              <!--
               <div class="retailer">
                 <%= photo.audit.store.retailer.name unless photo.audit.store.nil? %>
               </div>  
@@ -95,6 +126,8 @@
               <div class="address">
                 <%= photo.audit.store.address2 unless photo.audit.store.nil? %>
               </div>
+              -->
+
             </section>
           <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>
           <%#= photo.audit.store.retailer.sector.name unless photo.audit.store.retailer.sector_id.nil? %>

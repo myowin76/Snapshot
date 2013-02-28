@@ -1,0 +1,41 @@
+/*
+    Nav
+*/
+
+// NAVIGATION
+#menu-primary {
+  font-size: 1em;
+  width: 100%;
+  margin: 0.8em 0 0 0;
+  float: left;
+  clear: left;
+  position: relative;
+  z-index: 99;
+  //border-bottom: 1px solid #CCC;
+  ul{
+    padding-left: 0;
+    &.account{
+      float: right;
+    }
+    li {
+      display: block;
+      float: left;
+      min-height: 30px;
+      padding-left: 1.8em;
+      //background: url(../assets/menu-separator.png) no-repeat left 15%;
+      &:first-child {
+        padding-left: 0;
+        background: none;
+      }
+      a {
+        color: #D92680;
+        font-size: 1;
+        font-weight: 400;
+        line-height: 1em;
+        margin-right: 1em;
+        display: block;
+        //text-transform: lowercase;
+      }
+    }
+  }  
+}

@@ -26,8 +26,11 @@
 
 var snapshot = {
 
+
+
   LayoutSwitcher: function(){
 
+    alert('Old LayoutSwitcher');
     $('#main .content-wrap .layout-switcher .layout-list').live('click', function(){
       $('.list-header').show();
       if($('.map-view:visible')){
@@ -49,6 +52,8 @@ var snapshot = {
           return false;
         } 
     });
+
+
 
     $('#main .content-wrap .layout-switcher .layout-map').live('click', function(){
       $('ul.photos-viewer').hide();
@@ -168,7 +173,7 @@ $(document).ready(function() {
     Gmaps.loadMaps();
   });
 
-  snapshot.LayoutSwitcher();
+  //snapshot.LayoutSwitcher();
   snapshot.Pagination();
   photos.generatePDF();
   photos.exportZIP();

@@ -1,0 +1,158 @@
+/*
+    Photo List
+*/
+
+
+.photos-viewer{
+
+  > li{
+    cursor:pointer;    
+  }
+
+}
+
+
+
+// Meta 
+// ==========================================
+.meta{
+  margin-top: 1em;
+  //@include clearfix;
+  //position: relative; 
+  
+  //height: 7em;
+
+  b{
+    @include inline-block;      
+
+    &.meta-label{
+      width: 5em;
+    }
+
+  }// b
+
+  .meta-set{
+    border-bottom:1px solid darken($grayLighter, 10%);
+  }// .meta-set
+
+}// .meta
+
+
+
+
+.photo-view{  
+  .length-control{
+    float: left;
+    margin-right: 12px;
+    label{
+      float: left;
+      line-height: 28px;
+    }
+    select{
+      width: auto;
+    }
+  }
+}
+
+
+
+
+.photo-view[data-layout=grid]{
+
+  //background:blue;
+
+  .photos-viewer{
+    padding: 0px; margin: 0px;
+
+    li{
+      float: left;
+      @include box-sizing(border-box);      
+      margin-left: 2.12766%;
+      //margin-right:18px;
+      //width:216px;
+      width: 31.9149%;
+      display: block;
+      min-height: 280px;
+      margin-bottom: 12px;
+      &:nth-child(3n+1){
+        margin-left: 0px;
+      }
+      &:first-child{
+        margin-left: 0;
+      }
+      .viewer-inner{
+        box-sizing: border-box;
+        border: 3px solid transparent;
+        overflow: hidden;
+        &:hover{
+          border-color: #efbeda;
+        }
+        .thumb{
+          margin: 0 auto;
+          height: 160px;
+          position: relative;
+          img{
+            position: absolute;
+            bottom: 0;
+          }
+        }
+        section{
+          margin: 0;
+          background-color: #eee;
+          padding: 3px 10px 10px;
+          height: 130px;
+        }
+      }
+    }
+  }  
+}
+
+
+
+.photo-view[data-layout=list]{
+
+  //background:red;
+
+  .photos-viewer{
+    padding: 0; margin: 0px;
+    input[type="checkbox"]{
+      float: left;
+      width: 30px;
+    }
+    li{
+      padding: 12px 0;
+      overflow: hidden;
+      border-bottom: 1px solid #e0e0e0;
+      position: relative;
+
+      .thumb{
+        margin-right: 10px;
+        padding: 1px;
+        width: 100px;
+        float: left;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 3px #ccc;
+      }
+      section{
+        .retailer{
+          width: 130px;
+          float: left;
+        }
+        .brand{
+          width: 130px;
+          float: left;
+        }
+        .date{
+          width: 130px;
+          float: left;
+        }  
+        .address{
+          float: left;
+          width: 130px;
+        }  
+      }
+    }
+
+  }  
+}
+
