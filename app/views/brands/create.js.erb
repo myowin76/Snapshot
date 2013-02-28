@@ -1,32 +1,13 @@
 var select_id = "#" + $('.no-results a').closest('.chzn-container').prev().attr('id');
-// var brand_owner
-
-var values = new Array();
-if(select_id =! null){	
-	values = $(select_id).val();
-	values.push('<%= @brand.id %>');
-	<%= debugger %>
-}
-else{
-	values.push('<%= @brand.id %>');
-}		
-
-
-	values = values.split(",");
+var values = $(select_id).val();
 var new_brand = "<option value=<%= @brand.id %>><%= @brand.name %></option>";
-
-
-alert(select_id);
-alert(values);
-
 
 $('.overlay').empty();
 $('.site-content').show();
 
 //$('.brands-actions').html('<%= j render("/brands/shared/photos_brands_dropdown") %>');
-$(select_id).append(new_brand);
-// $(select_id).val('<%= @brand.id %>');
-$(select_id).val(values);
+ $(select_id).append(new_brand);
+$(select_id).val('<%= @brand.id %>');
 $(select_id).trigger("liszt:updated");
 
 $('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add New Brand</a>:"});
