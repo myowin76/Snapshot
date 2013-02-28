@@ -16,7 +16,6 @@ class SectorsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml { render xml: @sector }
       format.json { render json: @sector }
     end
   end
@@ -48,13 +47,16 @@ class SectorsController < ApplicationController
 
   def update
     @sector = Sector.find(params[:id])
-    if @sector.update_attributes(params[:sector])
-      format.html { redirect_to @sector, :notice  => "Successfully updated sector." }
-      format.json { head :no_content }
-    else
-      format.html { render :action => 'edit' }
-      format.json { render json: @sector.errors, status: :unprocessable_entity }
-    end
+    
+    respond_to do |format|
+      if @sector.update_attributes(params[:sector])
+        format.html { redirect_to @sector, :notice => "Successfully updated sector." }
+        format.json { head :no_content }
+      else
+        format.html { render :action => 'edit' }
+        format.json { render json: @sector.errors, status: :unprocessable_entity }
+      end
+    end  
   end
 
   def destroy
