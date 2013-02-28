@@ -7,12 +7,12 @@
   
       
       <fieldset>
-        <%= label_tag "search_country_id" %>
+        <%#= label_tag "search_country_id" %>
         <% if search_country_id.present? %>
           <%= collection_select(:search, :country_id, @countries, :id, :name, 
-          {:selected => search_country_id, :include_blank => 'All'}) %>
+          {:selected => search_country_id, :include_blank => 'All Countries'}) %>
         <% else %>
-          <%= collection_select(:search, :country_id, @countries, :id, :name, :prompt => 'All')  %>
+          <%= collection_select(:search, :country_id, @countries, :id, :name, :prompt => 'All Countries')  %>
         <% end %>  
       </fieldset>
       
@@ -425,27 +425,41 @@
     </div>
 
     <div class="single-group date">
-      <fieldset class="input-append">
-
-        <%= label_tag "search_fromDate", "From" %>
-        <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
-          <%= text_field_tag "search[fromDate]", params[:search][:fromDate] %>
-          <span class="add-on"><i class="icons icon-calendar"></i></span>
-        <% else %>
-          <%= text_field_tag "search[fromDate]" %>
-          <span class="add-on"><i class="icons icon-calendar"></i></span>
+      <fieldset class="input-prepend">
+        
+      
+        <%= label_tag "search_fromDate" do %>
+          <span class="add-on">
+            <i class="icons icon-calendar"></i>
+            From Date
+          </span>  
         <% end %>
+
+        <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
+
+          <%= text_field_tag "search[fromDate]", params[:search][:fromDate], :class => "input-small" %>
+
+        <% else %>
+          <%= text_field_tag "search[fromDate]", nil, :class => "input-small" %>
+        <% end %>
+        
       </fieldset>
 
-      <fieldset class="input-append">
-        <%= label_tag "search_toDate", "To" %>
+      <fieldset class="input-prepend input-append">
+
+        <%= label_tag "search_toDate" do %>
+          <span class="add-on">
+            <i class="icons icon-calendar"></i>
+            To Date
+          </span>  
+        <% end %>
+
         <% if params[:search] && params[:search][:toDate] && params[:search][:toDate] %>
-          <%= text_field_tag "search[toDate]", params[:search][:toDate] %>  
-          <span class="add-on"><i class="icons icon-calendar"></i></span>
+          <%= text_field_tag "search[toDate]", params[:search][:toDate], :class => "input-small" %>  
         <% else %>
-          <%= text_field_tag "search[toDate]" %>
-          <span class="add-on"><i class="icons icon-calendar"></i></span>
+          <%= text_field_tag "search[toDate]", nil, :class => "input-small"  %>
         <% end %>  
+        
       </fieldset>
     </div>
 
