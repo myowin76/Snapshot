@@ -25,19 +25,19 @@
         <td><%= audit.user.username %></td>
         <td><%= audit.audit_date %></td>
         <td>
-          <% if (current_user == audit.user) %>
+          <%# if (current_user == audit.user) %>
             <%= link_to 'Details', audit_path(audit) %>
-          <% end %>  
+          <% #end %>  
         </td>  
         <td>
-          <% if (current_user == audit.user) %>
+          <% #if (current_user == audit.user) %>
             <%= link_to 'Edit', edit_audit_path(audit) %>
-          <% end %>  
+          <% #end %>  
         </td>
         <td>
-          <% if (current_user == audit.user) %>
+          <% #if (current_user == audit.user) %>
             <%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
+          <% #end %>
         </td>  
       </tr>
     <% end %>
