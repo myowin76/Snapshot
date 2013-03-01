@@ -5,7 +5,9 @@
   </div> -->
   <div id="photo-details">
     <div class="left">
-      <%= image_tag(@photo.photo.url(:large)) %><br />
+      <figure>
+        <%= image_tag(@photo.photo.url(:large)) %><br />
+      </figure>  
       <br />
       <section class="photo-store-info">
         <strong>Store: </strong>

@@ -1,11 +1,17 @@
+
 <%- model_class = MediaLocation -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
+<div class="action">
+  <%= link_to new_media_location_path, :class => 'btn btn-primary pull-right' do %>
+  <i class="icon-plus icon-white"></i>
+  <span>Add New</span>
+  <% end %>
+</div>  
 <table class="table table-striped" id="tbl-media-locs">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -15,7 +21,6 @@
   <tbody>
     <% @media_locations.each do |media_location| %>
       <tr>
-        <td><%= link_to media_location.id, media_location_path(media_location) %></td>
         <td><%= media_location.name %></td>
         <td><%= media_location.description %></td>
         <td><%=l media_location.created_at %></td>
@@ -33,6 +38,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_media_location_path,
-            :class => 'btn btn-primary' %>

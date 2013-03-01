@@ -251,7 +251,7 @@ class PhotosController < ApplicationController
          end 
          if params[:media_location_ids].present?
           @mls = MediaLocation.find_all_by_id(params[:media_location_ids].join(",").split(","))
-          @photo.locations = @mls
+          @photo.media_locations = @mls
          end 
          if params[:media_type_ids].present?
           @mts = MediaType.find_all_by_id(params[:media_type_ids].join(",").split(","))

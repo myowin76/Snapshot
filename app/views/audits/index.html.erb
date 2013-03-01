@@ -2,7 +2,10 @@
   <h1>Listing audits</h1>
 </div>
 <div class="action">
-  <%= link_to 'New Audit', new_audit_path, :class=>"btn btn-primary pull-right" %>
+  <%= link_to new_audit_path, :class => 'btn btn-primary pull-right' do %>
+    <i class="icon-plus icon-white"></i>
+    <span>New Audit</span>
+  <% end %>
 </div>  
   
 <table class="table table-striped" id="tbl-audits">

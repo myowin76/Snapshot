@@ -14,15 +14,13 @@
       <th>Description</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @media_types.each do |media_type| %>
       <tr>
-        <td><%= media_type.name %></td>
+        <td><%= link_to media_type.name, media_type %></td>
         <td><%= media_type.description %></td>
-        <td><%= link_to 'Show', media_type %></td>
         <td><%= link_to 'Edit', edit_media_type_path(media_type) %></td>
         <td><%= link_to 'Destroy', media_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
