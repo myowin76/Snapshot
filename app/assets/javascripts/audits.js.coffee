@@ -18,12 +18,15 @@ jQuery ->
   $('.chosen-theme').chosen()
   $('.brand_owner_ddl').chosen()
   $('#tbl-audits').dataTable
-    "sPaginationType": 'full_numbers'
-    "bStateSave": true
+    "sPaginationType": 'full_numbers',
+    "aLengthMenu": [[30, 50, -1], [30, 50, "All"]],
+    "iDisplayLength" : 30,
+    "bStateSave": true,
     "aoColumnDefs": [
       { 'bSortable': false, 'aTargets': [ 0 ] },
       { 'bSortable': false, 'aTargets': [ -1 ] },
-      { 'bSortable': false, 'aTargets': [ -2 ] }
+      { 'bSortable': false, 'aTargets': [ -2 ] },
+      { 'bSortable': false, 'aTargets': [ -3 ] }
     ]
 
 
