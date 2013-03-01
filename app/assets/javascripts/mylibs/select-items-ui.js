@@ -31,6 +31,54 @@ jQuery(document).ready(function($) {
 
       this.initSelectItem();
       this.initSelectAllItems();
+      this.exportZIP();
+    },
+
+
+    exportZIP: function(){
+      
+      $('#export-zip').on('click', function(e){
+        
+        e.preventDefault();
+
+        var checkedItems = $("#photos-viewer :checked");
+
+        console.log( checkedItems );
+
+        var checkbox_array = [];
+
+
+        
+        //checkedItems.each(function(){ alert( this.value ) } );
+
+        for (var i = checkedItems.length - 1; i >= 0; i--) {
+          console.log( checkedItems[i] );
+          checkbox_array.push(checkedItems[i].value );
+        };
+
+        //checkbox_array.push( checkedItems.each(function(){ return $(this).val() } ) );
+
+
+        console.log('dil', checkbox_array );
+        
+        
+        //checkbox_array = $("#photos-viewer :checked") ;
+        
+        console.log('xxx', checkbox_array );
+
+        if (checkbox_array == undefined) {
+          alert("Please select the image");
+          return false;
+        }
+        
+        url = '/photos/generate_zip?photo_ids=' + checkbox_array;
+        $(this).attr('href', url);  
+      
+        
+
+
+      })
+
     },
 
 

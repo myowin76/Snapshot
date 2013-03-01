@@ -143,6 +143,7 @@ var photos = {
       }  
     })
   },
+/*
   exportZIP: function(){
     
     $('#export-zip').on('click', function(e){
@@ -155,6 +156,7 @@ var photos = {
       $(this).attr('href', url);
     })
   },
+*/  
   exportStorePhotos: function(){
     // $('#map-store-download').live('click',function(){
     //   alert('downloading');
