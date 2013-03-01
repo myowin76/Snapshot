@@ -165,6 +165,8 @@ var photos = {
 
 $(document).ready(function() {
 
+
+
   $('.nav-tabs li a').live('click', function (e) {
     google.maps.event.trigger(map, 'resize');
   });
@@ -173,11 +175,13 @@ $(document).ready(function() {
     Gmaps.loadMaps();
   });
 
+
+
   //snapshot.LayoutSwitcher();
   snapshot.Pagination();
-  photos.generatePDF();
-  photos.exportZIP();
-  photos.exportStorePhotos();
+  //photos.generatePDF();
+  //photos.exportZIP();
+  //photos.exportStorePhotos();
   
 
   $(".photo-view").ajaxStart(function(){
@@ -226,6 +230,8 @@ $(document).ready(function() {
           }
         });
     });
+
+
 
     $('#main .brand_owner_ddl').live('change', function(){
       var id = "#" + $(this).attr('id');
@@ -294,6 +300,10 @@ $(document).ready(function() {
 
   
 
+
+
+
+
   $('#length').live('change',function(){
     var info = {}
     info['per_page'] = $(this).val();
@@ -313,10 +323,19 @@ $(document).ready(function() {
     })
   });
 
+
+
+
+
   //## sort by
   $('#sort_by').change(function(){
     $('#search_form').submit();
   });
+
+
+
+
+
 
   $('#audit_audit_date').datepicker(
     {
@@ -326,6 +345,9 @@ $(document).ready(function() {
       }
     }
   );
+
+
+
   
   // TO DO
   $('#store-view').live('click',function(){
@@ -340,6 +362,9 @@ $(document).ready(function() {
     });
     return false;
   });
+
+
+
   // $('#audit_store_id').chosen({no_results_text: "<a href='/stores/new'>New Store</a>:"})
   
   $('#audit_store_id').live('change',function(){
@@ -352,6 +377,9 @@ $(document).ready(function() {
     })
   });
 
+
+
+
   $('#audit_retailer_id').live('change',function(){
     retailer_id = $('#audit_retailer_id').serializeObject();
     $.ajax({
@@ -362,6 +390,9 @@ $(document).ready(function() {
     })
   });
 
+
+
+
   $('#publish_multiple').click(function(){
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
     
@@ -371,12 +402,19 @@ $(document).ready(function() {
     };
   })
   
+
+
   $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_country_id').chosen({no_results_text: "No results matched"})
   // $('.audit_categories').chosen({no_results_text: "No results matched"})
   // $('.audit_brands').chosen({no_results_text: "No results matched"})
   
+
+
+
+
+
 	$('.clear-form').click(function(){
 		$('#search_form select').val('');
     $('#search_form input:text').val('');
@@ -384,6 +422,9 @@ $(document).ready(function() {
 		// $('.accordion-heading').find('.labels').remove();
 		return false;
 	});
+
+
+
 
  // $('#search_form input[type=checkbox]').live('click',function(){
  //    sectores_checkboxes = $('#search_form input[type=checkbox]:checked').serializeObject();
@@ -395,6 +436,7 @@ $(document).ready(function() {
  //    })
  // });
 
+
   $('#sector-group .accordion-inner input[type=checkbox]').live('click',function(){
     
     sectores_checkboxes = $('#sector-group .accordion-inner input[type=checkbox]:checked').serializeObject();
@@ -405,6 +447,9 @@ $(document).ready(function() {
       data: sectores_checkboxes
     })
   });
+
+
+
 
   $('#brand-owners-group .accordion-inner input[type=checkbox]').live('click',function(){
     brand_owners_checkboxes = $('#brand-owners-group .accordion-inner input[type=checkbox]:checked').serializeObject();
@@ -427,6 +472,10 @@ $(document).ready(function() {
   //   })
   // })    
 
+
+
+/*
+
 	$('#checkAll').live('click',function(){
 		$('.photos-viewer input[type="checkbox"]').each(function(){
 			$(this).attr('checked', true)
@@ -440,6 +489,9 @@ $(document).ready(function() {
 		})
 		return false;
 	})
+
+*/
+
 
   $('.accordion').on('show hide', function(e){
     $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-plus icon-minus');

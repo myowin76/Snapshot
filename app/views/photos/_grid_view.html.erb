@@ -34,7 +34,7 @@
       <li><%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf' %></li>
       <li class="reviews">
         <%= link_to "Filter selected", "#", :id => 'reviews'%>
-        <a href="#" id="show-all" style="display:none;">Show All</a>
+        
         <%#= link_to "Show All", "#", :id => 'show-all', %>
       </li>
     </ul>
@@ -78,16 +78,18 @@
               <%= link_to photo, remote: true  do %>
 
                 <%#= image_tag("snapshot_loading.gif" , :class => 'lazy', :"data-original" => "#{photo.photo.url(:medium)}", :width => '213', :height => '160' )  %>
+                <i class="expand"></i>
                 <%= image_tag( photo.photo.url(:medium) ) %>
 
               <% end %>
 
             </figure>
+
+            <%#= label_tag "photo_ids[#{photo.id}]" do %>
             <section>
-              <%= check_box_tag "photo_ids[#{photo.id}]", photo.id %>
+              
 
-
-              <section class="meta">
+              <div class="meta">
 
                 <div class="meta-inner">
 
@@ -98,7 +100,7 @@
 
                   <div class="meta-set brand">
                     <b class="meta-label">Brand:</b>
-                    <b class="meta-data"><%= photo.brands.map(&:name).join(",") %></b>
+                    <b class="meta-data" title="<%= photo.brands.map(&:name).join(", ") %>"><%= photo.brands.map(&:name).join(", ") %></b>
                   </div>  
 
                   <div class="meta-set date">
@@ -112,21 +114,13 @@
                   </div>
 
                 </div><!-- /.meta-inner -->
+
+              </div><!-- /.meta -->
+
+              <%= check_box_tag "photo_ids[#{photo.id}]", photo.id %>
+
+              <% #end %>
                 
-              <!--
-              <div class="retailer">
-                <%= photo.audit.store.retailer.name unless photo.audit.store.nil? %>
-              </div>  
-              <div class="brand">
-                <%= photo.brands.map(&:name).join(", ") %>
-              </div>  
-              <div class="date">
-                <%#= photo.audit.audit_date %>
-              </div>
-              <div class="address">
-                <%= photo.audit.store.address2 unless photo.audit.store.nil? %>
-              </div>
-              -->
 
             </section>
           <%#= photo.audit.store.country.name unless photo.audit.store.country.nil? %>

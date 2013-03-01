@@ -8,9 +8,9 @@ jQuery(document).ready(function($) {
   var ListUI = {
 
     config : {
-      $main           : $("#main"),
-      $photos         : $("#photos-viewer > li"),
-      $photoItems     : $("#photos-viewer .thumb"),
+      main           : "#main",
+      photos         : "#photos-viewer > li",
+      
       photoInner      : ".viewer-inner",
       selectClass     : "selected",
 
@@ -27,45 +27,76 @@ jQuery(document).ready(function($) {
       //console.log(this.config.$main);
       //console.log(this.config.$photos);
       //console.log(this.config.$photoItems);
-
+      //this.initCheckBoxes();
 
       this.initSelectItem();
       this.initSelectAllItems();
     },
 
 
+    initSelectItem : function(){
+      var that = this;
+
+      //console.log('initSelectItem');
+      $(this.config.photos).on('click', this.config.photoInner , function(evt){
+        
+        // Dont select item if click target is a link <a> 
+        if ( !$(evt.target).is('a, :checkbox, .expand, img') ) {
+          console.log( $(evt.target) ); 
+          evt.preventDefault();
+          that.selectItem(this);  
+        };// if
+
+        
+      });
+    },
+
+
+    // el should be this.config.photoInner
+    selectItem : function(el){
+      console.log('selectItem', el);
+
+      var that = this,
+          $chkbox =  $(el).find(':checkbox')
+
+      $chkbox.attr('checked', !$chkbox.attr('checked') );
+      $(el).toggleClass( that.config.selectClass );
+    },
+
+
+
+    /*
+      Select/Deselect All - toggle checkbox and class 
+    */
     initSelectAllItems : function(){
+
       var that = this,
       $selectAllEl = $(that.config.selectAllEl);
-      //console.log('initSelectAllItems');
-      this.config.$main.on('click', this.config.selectAllEl, function(evt){
-        evt.preventDefault();
-        $selectAllEl.data("areAllSelected", ($selectAllEl.data("areAllSelected") == "yes" ? "no" : "yes") );
-        that.selectAllItems();
-      } );
-    },
+  
 
-
-    selectAllItems : function(){
-
-      //console.log('selectAllItems');
-      
-      var that = this,
-          $selectAllEl = $(that.config.selectAllEl);
-          
-
-      that.config.$photoItems.each(function(){
+      $(that.config.main).on('click', that.config.selectAllEl, function(e){
+        
+        e.preventDefault();
 
         that.toggleSelectAllText();
-        that.toggleItemCheckbox(  $(this).find(that.config.photoInner),  $selectAllEl.data("areAllSelected") );
-        that.toggleItemClass(     $(this).find(that.config.photoInner),  $selectAllEl.data("areAllSelected") );
 
+        if ( $(that.config.selectAllEl).attr('data-select-all') === "false" ) {
+          
+          $(that.config.photos).find(':checkbox').attr('checked', 'checked');
+          $(that.config.photoInner).addClass(that.config.selectClass);
+
+          $(that.config.selectAllEl).attr('data-select-all', "true");
+        }
+        else{
+          $(that.config.photos).find(':checkbox').attr('checked', null); 
+          $(that.config.photoInner).removeClass(that.config.selectClass);
+
+          $(that.config.selectAllEl).attr('data-select-all', "false")
+        }
+      
       });
-
-      
-      //console.log("af", $selectAllEl.data("areAllSelected") );
-      
     },
+
 
     toggleSelectAllText : function(){
       //console.log('toggleSelectAllText');
@@ -73,8 +104,7 @@ jQuery(document).ready(function($) {
           $selectAllEl = $(that.config.selectAllEl);
 
       //console.log('B', $selectAllEl.text());
-
-      if ( $selectAllEl.data("areAllSelected") == "yes" ) {
+      if ( $(that.config.selectAllEl).attr('data-select-all') === "false" ) {
         //console.log('t', that.config.selectAllText);
         $selectAllEl.text(that.config.unSelectAllText); 
       }
@@ -85,80 +115,11 @@ jQuery(document).ready(function($) {
 
     },
 
-    initSelectItem : function(){
-      var that = this;
-
-      //console.log('initSelectItem');
-      this.config.$photos.on('click', this.config.photoInner , function(evt){
-        
-        // Dont select item if click target is a link <a> 
-        if ( !$(evt.target).is('a') ) {
-          //console.log( $(evt.target) ); 
-          evt.preventDefault();
-          that.selectItem(this);  
-        };// if
-
-        
-      });
-    },
-
-
-
-    // el should be this.config.photoInner
-    selectItem : function(el){
-      //console.log('selectItem', el);
-
-      this.toggleItemCheckbox(el);
-      this.toggleItemClass(el);
-    },
-
-    toggleItemCheckbox : function(el, override){
-      //console.log('toggleItemCheckbox');
-
-      // ***** TODOD
-      //console.log('dil', override);
-
-      var $checkbox = $(el).find(':checkbox');
-      
-      if (override) {
-        if (override == "yes") {   
-          $checkbox.attr('checked' , 'checked' );  
-        }
-        else{ 
-          $checkbox.attr('checked' , null );  
-        };
-      }
-      else{
-        $checkbox.attr('checked' , !$checkbox.attr('checked') );  
-      }
-      
-    },
-
-    toggleItemClass : function(el, override){
-      //console.log('toggleItemClass');
-      if (override) {
-        if (override == "yes") { 
-          $(el).addClass( this.config.selectClass );  
-        }
-        else{ 
-          $(el).removeClass( this.config.selectClass );  
-        };
-      }
-      else{
-        $(el).toggleClass( this.config.selectClass );  
-      }
-      
-    }
-
-
   };
 
 
   // Stuff to do as soon as the DOM is ready;
   ListUI.init();
 });
-
-
-
 
 

@@ -19,9 +19,9 @@
   <% end %>  
 	
   <% unless current_user.save_searches.blank? %>
-    <%= link_to "Saved Searches", save_searches_path, id: "open_link", :class => "btn small ", remote: true %>
+    <%= link_to "My Searches", save_searches_path, id: "open_link", :class => "btn small ", remote: true %>
   <% else %>  
-    <%= link_to "Saved Searches", "#", :id => 'open_link', :class => "btn small ", :disabled => 'true' %>
+    <%= link_to "My Searches", "#", :id => 'open_link', :class => "btn small ", :disabled => 'true' %>
   <% end %>
   </div>
 </div> 
