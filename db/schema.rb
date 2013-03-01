@@ -223,8 +223,8 @@ ActiveRecord::Schema.define(:version => 20130222120625) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer  "role_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"

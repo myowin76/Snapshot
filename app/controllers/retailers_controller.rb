@@ -66,7 +66,7 @@ class RetailersController < ApplicationController
   # PUT /retailers/1.json
   def update
     @retailer = Retailer.find(params[:id])
-
+debugger
     respond_to do |format|
       if @retailer.update_attributes(params[:retailer])
         format.html { redirect_to @retailer, notice: 'Retailer was successfully updated.' }
