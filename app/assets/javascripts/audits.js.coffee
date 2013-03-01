@@ -19,6 +19,7 @@ jQuery ->
   $('.brand_owner_ddl').chosen()
   $('#tbl-audits').dataTable
     "sPaginationType": 'full_numbers'
+    "bStateSave": true
     "aoColumnDefs": [
       { 'bSortable': false, 'aTargets': [ 0 ] },
       { 'bSortable': false, 'aTargets': [ -1 ] },

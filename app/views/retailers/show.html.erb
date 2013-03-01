@@ -13,6 +13,10 @@
   <%= @retailer.description %>
 </p>
 
-<%= link_to 'Edit', edit_retailer_path(@retailer) %> |
-<%= link_to 'New Store', new_store_path %> |
-<%= link_to 'Retailer List', retailers_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              brands_path, :class => 'btn'  %>
+	<%= link_to 'Edit', edit_retailer_path(@retailer) %> |
+	<%= link_to 'New Store', new_store_path %> |
+	<%= link_to 'Retailer List', retailers_path %>
+</div>	

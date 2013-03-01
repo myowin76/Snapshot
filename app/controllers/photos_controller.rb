@@ -232,7 +232,7 @@ class PhotosController < ApplicationController
         @photo = Photo.new(params[:photo])
         audit_id = params[:audit_id]
         @photo.update_attribute(:audit_id, params[:audit_id])
-        debugger
+        # debugger
       elsif params[:photo][:audit_id].present? 
         @photo = Photo.new(params[:photo])
         audit_id = params[:photo][:audit_id]  

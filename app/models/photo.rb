@@ -24,7 +24,8 @@ class Photo < ActiveRecord::Base
   		:promotion_calendar_id, :published, :headline, :photo, 
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids #, :brands_tokens
 
-  has_attached_file :photo, 
+  has_attached_file :photo,
+    # :default_url => "/images/default_:style_avatar.png",
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
   	 # :path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
