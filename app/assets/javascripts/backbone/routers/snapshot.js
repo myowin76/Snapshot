@@ -10,7 +10,9 @@ window.Snapshot.Routers.Sectors = Backbone.Router.extend({
   },
 
   index: function(){
-    // alert("home page");
+    view = new Snapshot.Views.SectorsIndex();
+    // $('.page-header').html(view.render().el);
+    // $('.page-header').html(view.render().el)
   },
 
   show: function(id){

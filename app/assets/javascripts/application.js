@@ -144,6 +144,18 @@ var photos = {
 };
 
 $(document).ready(function() {
+  window.Sector = Backbone.Model.extend({});
+  window.SectorView = Backbone.View.extend({
+    initialize: function(){
+      this.template = _.template($('.page-header').html());
+    },
+    render: function(){
+      var renderedContent = this.template(this.model.attributes);
+      $(this.el).html(renderedContent);
+      return this;
+    }
+
+  });
 
 
   $('#search_fromDate').datepicker({ 

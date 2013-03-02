@@ -65,7 +65,7 @@ Snapshot::Application.routes.draw do
   get "admin/contact"
 
   match '/admin/dashboard', :controller => 'admin', :action => 'dashboard', :as => 'admin'
-  match '/admin/audits', :controller => 'audits', :action => 'index', :as => 'audits'
+  # match '/admin/audits', :controller => 'audits', :action => 'index', :as => 'audits'
   match '/admin/users', :controller => 'users', :action => 'index', :as => 'users'
   match '/admin/loginpage_message', :controller => 'admin', :action => 'loginpage_message'
 
