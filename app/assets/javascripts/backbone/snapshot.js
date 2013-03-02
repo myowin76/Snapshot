@@ -4,28 +4,28 @@
 //= require_tree ./views
 //= require_tree ./routers
 
-window.Snapshot = {
-  Models: {},
-  Collections: {},
-  Views: {},
-  Routers: {},
+// window.Snapshot = {
+//   Models: {},
+//   Collections: {},
+//   Views: {},
+//   Routers: {},
   
 
-  initialize: function(options) {
-    Snapshot.options = options;
-    new Snapshot.Routers.Sectors(options);
+//   initialize: function(options) {
+//     Snapshot.options = options;
+//     new Snapshot.Routers.Sectors(options);
 
-	  if (!Backbone.history.started) {
-	    Backbone.history.start();
-	    Backbone.history.started = true;
-	  }  
+// 	  if (!Backbone.history.started) {
+// 	    Backbone.history.start();
+// 	    Backbone.history.started = true;
+// 	  }  
 
-  }
-};
+//   }
+// };
 
-$(document).ready(function() {
+// $(document).ready(function() {
   
-  return Snapshot.initialize();
+//   return Snapshot.initialize();
 
 
-});
+// });
