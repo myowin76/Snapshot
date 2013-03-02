@@ -1,4 +1,4 @@
-window.Snapshot.Views.SectorsIndex = Backbone.View.extend({
+/*window.Snapshot.Views.SectorsIndex = Backbone.View.extend({
 
   // template: JST['sectors/index'],
   // template: _.template(JST['sectors/index']);
@@ -8,3 +8,4 @@ window.Snapshot.Views.SectorsIndex = Backbone.View.extend({
     return this;
   }
 });
+*/
