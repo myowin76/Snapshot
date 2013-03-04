@@ -38,6 +38,39 @@ jQuery(document).ready(function($) {
       this.generatePDF();
       this.filterSelected();
 
+/*
+      $('.thumb-content').on(
+      {
+          mouseenter: function(e) 
+          {
+              //stuff to do on mouseover
+              console.log(e.target);
+              if (e.target === '.thumb-content') {
+                console.log(e.target, this);
+              };
+          },
+          mouseleave: function()
+          {
+              //stuff to do on mouseleave
+              //console.log(this);
+          }
+      });
+*/
+  
+      $(this.config.main).on('mouseenter mouseleave', '.thumb-content', function(e){
+        
+        if (e.type === "mouseenter") {
+          $(this).parent('.viewer-inner').addClass('content-hovered');
+        }
+        else if (e.type === "mouseleave") {
+          $(this).parent('.viewer-inner').removeClass('content-hovered');
+        }
+        
+        
+
+      });
+  
+
 
 
     },
