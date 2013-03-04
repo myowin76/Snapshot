@@ -1,4 +1,5 @@
-// window.Snapshot.Collections.Sectors = Backbone.Collection.extend({
-//   url: '/sectors',
-//   model: Snapshot.Models.Sector
-// });
+window.Snapshot.Collections.Sectors = Backbone.Collection.extend({
+  model: Snapshot.Models.Sector,
+  url: '/sectors'
+  
+});

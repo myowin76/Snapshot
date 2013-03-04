@@ -1,13 +1,23 @@
 var select_id = "#" + $('.no-results a').closest('.chzn-container').prev().attr('id');
-var values = $(select_id).val();
+var owner_ddl = "#" + $(select_id).closest('.brands-actions').prev('.brands-owners-actions').children('#brand_owner_id').attr('id');
+
+<% unless @brand.brand_owner_id.nil? %>
+	var owner_values = $(owner_ddl).val() + ",<%= @brand.brand_owner_id %>";
+	// var new_owner = "<option value=<%= @brand.brand_owner_id %>><%= @brand.brand_owner.name %></option>";
+<% end  %>	
+
 var new_brand = "<option value=<%= @brand.id %>><%= @brand.name %></option>";
+var values = $(select_id).val() + ",<%= @brand.id %>";
 
 $('.overlay').empty();
 $('.site-content').show();
 
 //$('.brands-actions').html('<%= j render("/brands/shared/photos_brands_dropdown") %>');
- $(select_id).append(new_brand);
-$(select_id).val('<%= @brand.id %>');
-$(select_id).trigger("liszt:updated");
+$(select_id).append(new_brand).trigger("liszt:updated");
+$(select_id).val(values.split(",")).trigger("liszt:updated");
+
+//update owner dropdown if new owner
+// $(owner_ddl).append(new_owner);
+$(owner_ddl).val(owner_values.split(",")).trigger("liszt:updated");
 
 $('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add New Brand</a>:"});

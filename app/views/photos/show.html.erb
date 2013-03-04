@@ -15,23 +15,29 @@
         <%= image_tag(@photo.photo.url(:large)) %>
       </figure>
       
-    
+      
         <% if @photo.published == true %>
           <%#= link_to 'Un-publish', publish_multiple_photos_path(:photo_ids => @photo.id), :method => :put %>
         <% else %>  
           <%= link_to 'Publish', publish_individual_photos_path(:id => @photo.id), :method => :put, :class => "btn" %>
         <% end %> 
+
         <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" %>
+      
+      <% if can? :edit, @photo %>  
         <% unless params[:audit_id] %>
           <%= link_to 'Edit', edit_photo_path, :class => "btn" %>
         <% else %>
           <%= link_to 'Edit', edit_audit_photo_path, :class => "btn" %>
         <% end %> 
+      <% end %>  
+      <% if can? :delete, @photo %>  
         <% unless params[:audit_id] %>
           <%= link_to 'Delete', @photo, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
         <% else %>
           <%= link_to 'Delete', audit_photo_path, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
-        <% end %>   
+        <% end %>
+      <% end %>  
       <%#= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "", :target => "_blank" %>
     </div>
     

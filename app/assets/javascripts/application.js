@@ -156,7 +156,26 @@ $(document).ready(function() {
   //   }
 
   // });
-
+// $.getJSON('/sectors.json', function(data) {
+//   var items = [];
+  
+//   $.each(data, function(key, val) {
+//     console.log (val.id + ':'+ val.name);
+//     items.push('<li id="' + val.id + '">' + val.name + '</li>');
+//   });
+ 
+//   $('<div />', {
+//     'class': 'accordion-inner',
+//     html: items.join('')
+//   }).appendTo('#sector-accord');
+// });
+// $.ajax({
+//   url: "http://localhost:3000/lists/3",
+//   dataType: "json",
+//   type: "GET",
+//   processData: false,
+//   contentType: "application/json"
+// });
 
   $('#search_fromDate').datepicker({ 
     dateFormat: 'dd/mm/yy',
@@ -265,6 +284,7 @@ $(document).ready(function() {
       // $("#" + $('.chosen-brand').attr('id')).find('option:selected').each(function(){
       //   pre_selected_brand_ids.push($(this).val());
       // });
+      
 
       var id = "#" + $(this).attr('id');
       var info = {}

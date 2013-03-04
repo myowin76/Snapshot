@@ -1,10 +1,14 @@
 class PhotosController < ApplicationController
   include PhotosHelper
   before_filter :authenticate_user!
+  before_filter :get_user, :only => [:edit, :destroy]
+  before_filter :accessible_roles, :only => [:show]
+  load_and_authorize_resource :only => [:new,:destroy,:edit,:update]
+  # authorize_resource :class => false
+
   respond_to :html, :js, :json
   respond_to :pdf#, :only => :show
 
-  # skip_before_filter  :verify_authenticity_token
   
   def index
         
@@ -463,6 +467,8 @@ class PhotosController < ApplicationController
   def update_brand_owners_dropdown
     # debugger
     @brand_owner_ddl_id = params[:brand_owner_ddl_id]
+    @pre_brand_ids = params[:pre_selected_brand_ids]
+
     if params[:brand_ids].present?
       @brands =  Brand.find_all_by_id(params[:brand_ids])
       @brand_owner_ids = @brands.map(&:brand_owner_id).join(",")

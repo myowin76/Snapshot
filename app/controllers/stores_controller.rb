@@ -1,29 +1,16 @@
 class StoresController < ApplicationController
   layout "admin", :only => :index 
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
+  before_filter :get_user, :only => [:index,:new,:edit]
+  before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
+  load_and_authorize_resource :only => [:new,:destroy,:edit,:update]
+  
   # before_filter :check_return_url, :only => [:new, :edit, :update]
   def index
 
-    # if user_is_country_and_category_subscriber?
-      
-      # @countries = Country.find(current_user.subscription.sub_country.split(","))
-      # @countries = Country.order(:name)
-      # # @stores_in_country = Store.find_all_by_country_id(@countries)
-      # #@categories = Category.find(current_user.subscription.sub_cats.split(","))
-      # @categories = Category.order(:name)
-      # @stores_in_country = Store.order(:name).where('country_id IN (?)', @countries)
+
       @stores = Store.order(:name).includes([:store_format, :retailer, :country])
-      # @stores = Store.all
 
-    # elsif user_is_country_subscriber?
-      
-
-    # elsif user_is_category_subscriber?
-      
-    # else 
-    #   # SOMETHING ELSE
-    #   # @subscribed_country = "none"
-    # end
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,6 +1,9 @@
 class MediaTypesController < ApplicationController
   # GET /media_types
   # GET /media_types.json
+  before_filter :get_user, :only => [:index,:new,:edit]
+  before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
+  load_and_authorize_resource # :only => [:show,:new,:destroy,:edit,:update]
   layout "admin"
   def index
     @media_types = MediaType.all

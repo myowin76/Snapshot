@@ -1,8 +1,8 @@
 
-var new_brand_owner = "<option value=<%= @brand_owner.id %>><%= @brand_owner.name %></option>";
+	var new_brand_owner = "<option value=<%= @brand_owner.id %>><%= @brand_owner.name %></option>";
 
 
-alert(new_brand_owner);
+// alert(new_brand_owner);
 
 if ($('.overlay').children().hasClass('brands-popup')){
 		$('.owner-popup').remove();
@@ -11,6 +11,11 @@ if ($('.overlay').children().hasClass('brands-popup')){
 		$('#brand_brand_owner_id').append(new_brand_owner);
 		$('#brand_brand_owner_id').val('<%= @brand_owner.id %>')
 		$('#brand_brand_owner_id').trigger("liszt:updated");
+		if( $('#photo-details').children().find('#brand_owner_id').length > 0){
+			$('#photo-details').children().find('#brand_owner_id').append(new_brand_owner);
+		}
+
+
 	}	
 	else{
 		$('.owner-popup').remove();
