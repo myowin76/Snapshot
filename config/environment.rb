@@ -19,7 +19,7 @@ ActionMailer::Base.delivery_method = :smtp
 }
 
 
-Snapshot::Application.configure do
-  config.sass.line_comments = false
-  config.sass.style = :nested
-end
+# Snapshot::Application.configure do
+#   config.sass.line_comments = false
+#   config.sass.style = :nested
+# end
