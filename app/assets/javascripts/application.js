@@ -129,6 +129,7 @@ var snapshot = {
 };
 
 var photos = {
+/*
   generatePDF: function(){
     
     $('#export-pdf').on('click',function(){
@@ -143,7 +144,7 @@ var photos = {
       }  
     })
   },
-/*
+
   exportZIP: function(){
     
     $('#export-zip').on('click', function(e){
@@ -347,8 +348,6 @@ $(document).ready(function() {
       }
     }
   );
-
-
 
   
   // TO DO
@@ -796,12 +795,11 @@ var photoActions = {
       $(that.conf.filterSelectedEl).data('showAll', false)
     }
 
-  },
-
-  xxx : function(){} 
+  }
 
 };
 
+/*
   $('#reviews').on('click', function(){
     if ($(".photo-view .photos-viewer input[name^='photo_ids']:checked").length < 1){
       alert("Please select images");
@@ -821,7 +819,7 @@ var photoActions = {
     $('#reviews').show();
     return false;
   });
-
+*/
 
 
 

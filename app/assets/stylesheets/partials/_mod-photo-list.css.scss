@@ -20,8 +20,8 @@
 
 .viewer-inner{
   background-color: #eee;
-  box-sizing: border-box;
-  border: 3px solid transparent;
+  //@include box-sizing(border-box);
+  border: 3px solid #dedede;
   overflow: hidden;
 
   @include transition(all 0.25s);
@@ -53,7 +53,7 @@
 
       &:hover{
         img{
-          @include scale(1.1);
+          @include scale(1);
 
         }
 
@@ -70,6 +70,7 @@
     }
 
     img{
+      @include scale(1.1);
       width:100%;
       position: absolute;
       z-index: 999;
@@ -213,9 +214,9 @@
     padding: 0; margin: 0px;
 
     li{
-      //padding: 12px 0;
+      
       overflow: hidden;
-      //border-bottom: 1px solid #e0e0e0;
+      
       position: relative;
       margin-bottom: 12px;
 
@@ -224,10 +225,7 @@
         padding: 1px;
         width: 200px;
         float: left;
-        //border: 1px solid #ccc;
-        //box-shadow: 0 0 3px #ccc;
       }
-     
 
     }
 

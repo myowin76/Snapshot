@@ -17,7 +17,10 @@ jQuery(document).ready(function($) {
       areAllSelected  : "no",
       selectAllEl     : "#checkAll",
       selectAllText   : "Select All",
-      unSelectAllText : "Unselect All"
+      unSelectAllText : "Unselect All",
+
+      hideSelectedText : "Filter Selected",
+      showSelectedText : "Show All"
       
     },
 
@@ -32,6 +35,9 @@ jQuery(document).ready(function($) {
       this.initSelectItem();
       this.initSelectAllItems();
       this.exportZIP();
+      this.generatePDF();
+      this.filterSelected();
+
     },
 
 
@@ -39,45 +45,92 @@ jQuery(document).ready(function($) {
       
       $('#export-zip').on('click', function(e){
         
-        e.preventDefault();
+        //e.preventDefault();
 
-        var checkedItems = $("#photos-viewer :checked");
+        var $checkedItems = $("#photos-viewer :checked"),
+            chkboxArr = [];
 
-        console.log( checkedItems );
+        if ($checkedItems.length) {
 
-        var checkbox_array = [];
+          for (var i = $checkedItems.length - 1; i >= 0; i--) {
+            chkboxArr.push($checkedItems[i].value );
+          };
 
+          url = '/photos/generate_zip?photo_ids=' + chkboxArr.join(',');
+          $(this).attr('href', url);  
 
-        
-        //checkedItems.each(function(){ alert( this.value ) } );
-
-        for (var i = checkedItems.length - 1; i >= 0; i--) {
-          console.log( checkedItems[i] );
-          checkbox_array.push(checkedItems[i].value );
-        };
-
-        //checkbox_array.push( checkedItems.each(function(){ return $(this).val() } ) );
-
-
-        console.log('dil', checkbox_array );
-        
-        
-        //checkbox_array = $("#photos-viewer :checked") ;
-        
-        console.log('xxx', checkbox_array );
-
-        if (checkbox_array == undefined) {
-          alert("Please select the image");
+        }
+        else{
+          alert("Please select an image");
           return false;
         }
-        
-        url = '/photos/generate_zip?photo_ids=' + checkbox_array;
-        $(this).attr('href', url);  
-      
-        
-
 
       })
+
+    },
+
+
+    generatePDF: function(){
+      
+      $('#export-pdf').on('click',function(e){
+
+        //e.preventDefault();
+
+        var checkedItems = $("#photos-viewer :checked"),
+            chkboxArr = [];
+
+        if ( checkedItems.length ){
+
+          for (var i = checkedItems.length - 1; i >= 0; i--) {
+            chkboxArr.push(checkedItems[i].value );
+          };
+
+          url = '/photos/generate_pdf.pdf?photo_ids=' + chkboxArr.join(',');
+          $(this).attr({'href': url, 'target': '_blank'});
+
+        }else{
+
+          alert("Please select an image");
+          return false;
+        };
+
+      })//on
+    },
+
+    filterSelected : function(){
+
+      var that = this;
+
+      //console.log( $checkedItems, $checkedItems.length);
+
+      $('#reviews').on('click', function(e){
+
+        e.preventDefault();
+
+        var $unCheckedItems = $("#photos-viewer input:not(:checked)");
+        var $checkedItems = $("#photos-viewer input:checked");
+
+        if ( $checkedItems.length ) {
+
+          if ( $(this).attr('data-filtered') === 'show' ) {
+            $unCheckedItems.parents('li').hide();
+            $(this).attr('data-filtered' , 'hide');
+            $(this).text( that.config.showSelectedText );
+          }
+          else{
+            $unCheckedItems.parents('li').show();
+            $(this).attr('data-filtered' , 'show');
+            $(this).text( that.config.hideSelectedText );
+          }
+
+        }
+        else{
+          alert("Please select an image");
+        }
+
+
+
+      });
 
     },
 
