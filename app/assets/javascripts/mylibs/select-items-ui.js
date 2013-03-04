@@ -38,25 +38,7 @@ jQuery(document).ready(function($) {
       this.generatePDF();
       this.filterSelected();
 
-/*
-      $('.thumb-content').on(
-      {
-          mouseenter: function(e) 
-          {
-              //stuff to do on mouseover
-              console.log(e.target);
-              if (e.target === '.thumb-content') {
-                console.log(e.target, this);
-              };
-          },
-          mouseleave: function()
-          {
-              //stuff to do on mouseleave
-              //console.log(this);
-          }
-      });
-*/
-  
+      // TODO:DA - Move this somewhere more sensible
       $(this.config.main).on('mouseenter mouseleave', '.thumb-content', function(e){
         
         if (e.type === "mouseenter") {
@@ -65,12 +47,8 @@ jQuery(document).ready(function($) {
         else if (e.type === "mouseleave") {
           $(this).parent('.viewer-inner').removeClass('content-hovered');
         }
-        
-        
-
+      
       });
-  
-
 
 
     },
@@ -178,7 +156,7 @@ jQuery(document).ready(function($) {
         
         // Dont select item if click target is a link <a> 
         if ( !$(evt.target).is('a, :checkbox, .expand, img') ) {
-          console.log( $(evt.target) ); 
+          //console.log( $(evt.target) ); 
           evt.preventDefault();
           that.selectItem(this);  
         };// if
@@ -190,7 +168,7 @@ jQuery(document).ready(function($) {
 
     // el should be this.config.photoInner
     selectItem : function(el){
-      console.log('selectItem', el);
+      //console.log('selectItem', el);
 
       var that = this,
           $chkbox =  $(el).find(':checkbox')
