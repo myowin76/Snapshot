@@ -1,9 +1,11 @@
 jQuery ->
   
   $('.chosen-brand').chosen({no_results_text: "<a href='/brands/new' data-remote='true'>Add</a>:"})
+  
   $('.chosen-category').chosen()
   $('.chosen-media-local').chosen()
   $('#brand-owner-id').chosen()
+  
 
   $('.chosen-media-vehic').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add New</a>:"})
   $('.chosen-media-vehic-uploader').chosen({no_results_text: "<a href='/media_vehicles/new' data-remote='true'>Add</a>:"})
@@ -16,11 +18,15 @@ jQuery ->
   $('.chosen-theme').chosen()
   $('.brand_owner_ddl').chosen()
   $('#tbl-audits').dataTable
-    "sPaginationType": 'full_numbers'
+    "sPaginationType": 'full_numbers',
+    "aLengthMenu": [[30, 50, -1], [30, 50, "All"]],
+    "iDisplayLength" : 30,
+    "bStateSave": true,
     "aoColumnDefs": [
       { 'bSortable': false, 'aTargets': [ 0 ] },
       { 'bSortable': false, 'aTargets': [ -1 ] },
-      { 'bSortable': false, 'aTargets': [ -2 ] }
+      { 'bSortable': false, 'aTargets': [ -2 ] },
+      { 'bSortable': false, 'aTargets': [ -3 ] }
     ]
 
 

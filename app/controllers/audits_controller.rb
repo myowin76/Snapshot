@@ -1,37 +1,48 @@
 class AuditsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :get_user, :only => [:index,:new,:edit]
+  before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
+  load_and_authorize_resource # :only => [:show,:new,:destroy,:edit,:update]
+
   layout "admin"
 
   def index
-    @retailers = Retailer.all
-    if admin_user?
-      @audits = Audit.order(:created_at)
+
+    # @retailers = Retailer.all
+    # if admin_user?
+    # @audits = Audit.order(:created_at)
     # elsif uploader?
     #   @audits = current_user.audits.all
     # elsif subscriber?
+    # else
+    #   @audits = current_user.audits.all
+    # end  
+
+    unless params[:store_id].nil?
+      store = Store.find_by_id(params[:store_id])
+      @audits = store.audits.order(:created_at)
     else
-      @audits = current_user.audits.all
-    end  
+      @audits = Audit.order(:created_at)
+    end
+
+
+
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @audits }
     end
   end
-
-  # GET /audits/1
-  # GET /audits/1.json
+  
   def show
     @audit = Audit.find(params[:id])
 
-    # respond_to do |format|
-    #   format.html # show.html.erb
-    #   format.json { render json: @audit }
-    # end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @audit }
+    end
   end
 
-  # GET /audits/new
-  # GET /audits/new.json
   def new
     @audit = Audit.new
     @retailers = Retailer.all
@@ -42,7 +53,6 @@ class AuditsController < ApplicationController
     end
   end
 
-  # GET /audits/1/edit
   def edit
     
     @audit = Audit.find(params[:id])
@@ -52,8 +62,6 @@ class AuditsController < ApplicationController
     # @audit.photos.build
   end
 
-  # POST /audits
-  # POST /audits.json
   def create
     
     @audit = Audit.new(params[:audit])
@@ -82,8 +90,6 @@ class AuditsController < ApplicationController
     end
   end
 
-  # PUT /audits/1
-  # PUT /audits/1.json
   def update
     @audit = Audit.find(params[:id])
 

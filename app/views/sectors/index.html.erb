@@ -4,8 +4,8 @@
 </div>   
 <div class="action">
   <%= link_to new_sector_path, :class => 'btn btn-primary pull-right' do %>
-  <i class="icon-plus icon-white"></i>
-  <span>New Sector</span>
+    <i class="icon-plus icon-white"></i>
+    <span>New Sector</span>
   <% end %>
 </div>
 <table id="tbl-sectors" class="table table-striped">
@@ -15,18 +15,22 @@
       <th>Desc</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% for sector in @sectors %>
       <tr>
-        <td><%= sector.name %></td>
+        <td><%= link_to sector.name, sector %></td>
         <td><%= sector.desc %></td>
-        <td><%= link_to "Show", sector %></td>
         <td><%= link_to "Edit", edit_sector_path(sector) %></td>
         <td><%= link_to "Destroy", sector, :confirm => 'Are you sure?', :method => :delete %></td>
       </tr>
     <% end %>
   </tbody>  
 </table>
+
+<script type="text/template" id="sectors-list">
+  <h1>header</h1>
+  
+
+</script>

@@ -5,7 +5,10 @@
 jQuery ->
 	$('#tbl-stores').dataTable
   "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-  "sPaginationType": 'full_numbers'
+  "sPaginationType": 'full_numbers',
+  "aLengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
+  "iDisplayLength" : 30, 
+  "bStateSave": true,
   "aoColumnDefs": [
   	{ 'bSortable': false, 'aTargets': [ -1 ] },
   	{ 'bSortable': false, 'aTargets': [ -2 ] }

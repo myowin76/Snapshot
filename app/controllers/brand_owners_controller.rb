@@ -1,5 +1,10 @@
 class BrandOwnersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :get_user, :only => [:index,:new,:edit]
+  before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
+  load_and_authorize_resource # :only => [:show,:new,:destroy,:edit,:update]
+  
+  
   layout 'admin'
   def index
     @brand_owners = BrandOwner.all
@@ -28,6 +33,7 @@ class BrandOwnersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js
       format.json { render json: @brand_owner }
     end
   end
@@ -46,6 +52,7 @@ class BrandOwnersController < ApplicationController
       if @brand_owner.save
         format.html { redirect_to new_brand_owner_path, notice: 'Brand owner was successfully created.' }
         format.json { render json: @brand_owner, status: :created, location: @brand_owner }
+        format.js
       else
         format.html { render action: "new" }
         format.json { render json: @brand_owner.errors, status: :unprocessable_entity }

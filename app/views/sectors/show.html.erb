@@ -1,4 +1,7 @@
-<% title "Sector" %>
+<div class="page-header">
+	<%# title "Sector" %>
+	<h1>Sectors: <%= @sector.name %></h1>
+</div>
 
 <p>
   <strong>Name:</strong>
@@ -9,8 +12,10 @@
   <%= @sector.desc %>
 </p>
 
-<p>
-  <%= link_to "Edit", edit_sector_path(@sector) %> |
-  <%= link_to "Destroy", @sector, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", sectors_path %>
-</p>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              brands_path, :class => 'btn'  %>
+  <%= link_to "Edit", edit_sector_path(@sector), :class => 'btn' %>
+  <%#= link_to "Destroy", @sector, :confirm => 'Are you sure?', :method => :delete %>
+  <%#= link_to "View All", sectors_path %>
+</div>

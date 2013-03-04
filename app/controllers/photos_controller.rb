@@ -1,10 +1,14 @@
 class PhotosController < ApplicationController
   include PhotosHelper
   before_filter :authenticate_user!
-  respond_to :html, :js, :json
-  respond_to :pdf, :only => :show
+  before_filter :get_user, :only => [:edit, :destroy]
+  before_filter :accessible_roles, :only => [:show]
+  load_and_authorize_resource :only => [:new,:destroy,:edit,:update]
+  # authorize_resource :class => false
 
-  # skip_before_filter  :verify_authenticity_token
+  respond_to :html, :js, :json
+  respond_to :pdf#, :only => :show
+
   
   def index
         
@@ -205,6 +209,7 @@ class PhotosController < ApplicationController
   end
 
   def new
+    
     @photo = Photo.new
 
     respond_to do |format|
@@ -221,37 +226,68 @@ class PhotosController < ApplicationController
       @brand_owner = @brands.first.brand_owner.name unless @brands.first.brand_owner.nil?
 
     end
-
   end
 
   def create
     
     # @photo = Photo.new(params[:photo])
-    if params[:photo] && params[:photo][:audit_id].present?
-      @photo = Photo.new(params[:photo])
-      audit_id = params[:photo][:audit_id]
-    elsif params[:api_request].present?
-      @photo = Photo.new(params)
-      audit_id = params[:audit_id]
-      @photo.update_attributes(:audit_id, params[:audit_id])
-
-      debugger
+    if params[:photo].present?
+      if params[:audit_id].present?
+        @photo = Photo.new(params[:photo])
+        audit_id = params[:audit_id]
+        @photo.update_attribute(:audit_id, params[:audit_id])
+        # debugger
+      elsif params[:photo][:audit_id].present? 
+        @photo = Photo.new(params[:photo])
+        audit_id = params[:photo][:audit_id]  
+      end
     end
     
     respond_to do |format|
       if @photo.save
+         if params[:brand_ids].present?
+          @brands = Brand.find_all_by_id(params[:brand_ids].join(",").split(","))
+          @photo.brands = @brands
+         end 
+         if params[:category_ids].present?
+          @cats = Category.find_all_by_id(params[:category_ids].join(",").split(","))
+          @photo.categories = @cats
+         end 
+         if params[:media_location_ids].present?
+          @mls = MediaLocation.find_all_by_id(params[:media_location_ids].join(",").split(","))
+          @photo.media_locations = @mls
+         end 
+         if params[:media_type_ids].present?
+          @mts = MediaType.find_all_by_id(params[:media_type_ids].join(",").split(","))
+          @photo.media_types = @mts
+         end 
+         if params[:media_vehicle_ids].present?
+          @mvs = MediaVehicle.find_all_by_id(params[:media_vehicle_ids].join(",").split(","))
+          @photo.media_vehicles = @mvs
+         end 
+         if params[:promotion_type_ids].present?
+          @pts = PromotionType.find_all_by_id(params[:promotion_type_ids].join(",").split(","))
+          @photo.promotion_types = @pts
+         end 
+         if params[:themes_ids].present?
+          @themes = Theme.find_all_by_id(params[:themes_ids].join(",").split(","))
+          @photo.themes = @themes
+         end 
         
+        # @photo.update_attributes(params[:category_ids].join(",").split(",")) if params[:category_ids].present?
+
+         
+
         format.html {
             render :json => [@photo.to_jq_upload].to_json,
             :content_type => 'text/html',
             :layout => false
           }
-        if params[:api_request].present?
-          
-          format.json { render json: @photo, status: :created, location: @photo }
-        else
+        # if params[:api_request].present?
+        #   format.json { render json: @photo, status: :created, location: @photo }
+        # else
           format.json { render json: [@photo.to_jq_upload].to_json, status: :created, location: @photo }
-        end  
+        # end  
         # format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
         # format.json { render json: @photo, status: :created, location: @photo }
       else
@@ -431,6 +467,8 @@ class PhotosController < ApplicationController
   def update_brand_owners_dropdown
     # debugger
     @brand_owner_ddl_id = params[:brand_owner_ddl_id]
+    @pre_brand_ids = params[:pre_selected_brand_ids]
+
     if params[:brand_ids].present?
       @brands =  Brand.find_all_by_id(params[:brand_ids])
       @brand_owner_ids = @brands.map(&:brand_owner_id).join(",")

@@ -20,6 +20,9 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
 //= require jquery-fileupload
+//= require underscore
+//= require backbone
+//= require backbone/snapshot
 //= require_tree .
 // require jquery-fileupload/vendor/tmpl
 // require jquery.tokeninput
@@ -46,6 +49,55 @@ var snapshot = {
 
 
 $(document).ready(function() {
+  // window.Sector = Backbone.Model.extend({});
+  // window.SectorView = Backbone.View.extend({
+  //   initialize: function(){
+  //     this.template = _.template($('.page-header').html());
+  //   },
+  //   render: function(){
+  //     var renderedContent = this.template(this.model.attributes);
+  //     $(this.el).html(renderedContent);
+  //     return this;
+  //   }
+
+  // });
+// $.getJSON('/sectors.json', function(data) {
+//   var items = [];
+  
+//   $.each(data, function(key, val) {
+//     console.log (val.id + ':'+ val.name);
+//     items.push('<li id="' + val.id + '">' + val.name + '</li>');
+//   });
+ 
+//   $('<div />', {
+//     'class': 'accordion-inner',
+//     html: items.join('')
+//   }).appendTo('#sector-accord');
+// });
+// $.ajax({
+//   url: "http://localhost:3000/lists/3",
+//   dataType: "json",
+//   type: "GET",
+//   processData: false,
+//   contentType: "application/json"
+// });
+
+  $('#search_fromDate').datepicker({ 
+    dateFormat: 'dd/mm/yy',
+    onClose: function( selectedDate ){
+      $( "#search_toDate" ).datepicker( "option", "minDate", selectedDate );
+    }
+  });
+  $('#search_toDate').datepicker({ 
+    dateFormat: 'dd/mm/yy',
+    onClose: function( selectedDate ) {
+      $( "#search_fromDate" ).datepicker( "option", "maxDate", selectedDate );
+    }
+  })
+
+
+
+
 
   snapshot.Pagination();
 
@@ -109,7 +161,6 @@ $(document).ready(function() {
         }
       });
   });
-
 
 
   $('#main .brand_owner_ddl').live('change', function(){
@@ -271,6 +322,7 @@ $(document).ready(function() {
 
 
   $('#audit_retailer_id').chosen({no_results_text: "No results matched"})
+  $('.chosen-brand-owner').chosen()
   // $('#store_retailer_id').chosen({no_results_text: "No results matched"})
   // $('#store_country_id').chosen({no_results_text: "No results matched"})
   // $('.audit_categories').chosen({no_results_text: "No results matched"})

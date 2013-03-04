@@ -2,7 +2,10 @@
   <h1>Listing audits</h1>
 </div>
 <div class="action">
-  <%= link_to 'New Audit', new_audit_path, :class=>"btn btn-primary pull-right" %>
+  <%= link_to new_audit_path, :class => 'btn btn-primary pull-right' do %>
+    <i class="icon-plus icon-white"></i>
+    <span>New Audit</span>
+  <% end %>
 </div>  
   
 <table class="table table-striped" id="tbl-audits">
@@ -25,19 +28,19 @@
         <td><%= audit.user.username %></td>
         <td><%= audit.audit_date %></td>
         <td>
-          <% if (current_user == audit.user) %>
+          <%# if (current_user == audit.user) %>
             <%= link_to 'Details', audit_path(audit) %>
-          <% end %>  
+          <% #end %>  
         </td>  
         <td>
-          <% if (current_user == audit.user) %>
+          <% #if (current_user == audit.user) %>
             <%= link_to 'Edit', edit_audit_path(audit) %>
-          <% end %>  
+          <% #end %>  
         </td>
         <td>
-          <% if (current_user == audit.user) %>
+          <% #if (current_user == audit.user) %>
             <%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <% end %>
+          <% #end %>
         </td>  
       </tr>
     <% end %>

@@ -24,7 +24,8 @@ class Photo < ActiveRecord::Base
   		:promotion_calendar_id, :published, :headline, :photo, 
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids #, :brands_tokens
 
-  has_attached_file :photo, 
+  has_attached_file :photo,
+    # :default_url => "/images/default_:style_avatar.png",
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
     # :url  => "/audits/:id/:style/:basename.:extension",
   	 # :path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
@@ -37,7 +38,7 @@ class Photo < ActiveRecord::Base
       :small => :public_read,
       :medium => :public_read,
       :large => :public_read,
-      :original => :private
+      :original => :public_read
     },
     :s3_protocol => 'http',
       :s3_options => {
@@ -150,7 +151,7 @@ class Photo < ActiveRecord::Base
       
       Zip::ZipOutputStream.open(zip_file) do |zos|
         assets.each do |asset|    
-          download_url = open(URI.parse(URI.encode(asset.photo.url(:original))))
+          download_url = open(URI.parse(URI.encode(asset.photo.url(:large))))
           # csv_file = open(csv)
           zos.put_next_entry(asset.photo_file_name)
           zos.print IO.read(download_url)

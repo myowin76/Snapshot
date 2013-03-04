@@ -1,97 +1,60 @@
 <div class="page-header">
+  <%= link_to :back , :class => "btn btn-success pull-right" do %>
+    <i class="icon-circle-arrow-left icon-white"></i>
+    <span>Back</span>
+  <% end %>
+  
   <h1><%= @store.name %></h1>  
 </div>
+<div class="row-fluid">
+  <div class="span4">
+    <div class="widget">
+      <!-- <h5>Address</h5> -->
+      <p>
+        <% if @store.address.present? %>
+          <%= @store.address %>,
+        <% end %>
+        <% if @store.address.present? %>
+          <%= @store.address2 %>,
+        <% end %>
+        <% if @store.address3.present? %>
+          <%= @store.address3 %><br />
+        <% end %>
+        <% if @store.town.present? %>
+          <%= @store.town %>
+        <% end %>
+        <% if @store.postcode.present? %>
+          <%= @store.postcode %>,
+        <% end %>
+        <%= @store.country.name unless @store.country_id.nil? %>
+      </p>
+      <p>
+        <strong>Sector: </strong>
+        <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
+      </p>
+      <p>
+        <strong>Store format:</strong>
+        <%= @store.store_format.name %>
+      </p>
+      <p>
+        <% if @store.channel_id.present? %>
+          <strong>Environment Type:</strong>
+          <%= @store.environment_type.name %>
+        <% end %>
+      </p>
+      <p>
+        <% if @store.channel_id.present? %>
+          <strong>Channel:</strong>
+          <%= @store.channel.name %>
+        <% end %>
+      </p>      
 
-<div class="span9">
-  <p>
-    <% if @store.address.present? %>
-      <%= @store.address %>,
-    <% end %>
-    <% if @store.address.present? %>
-      <%= @store.address2 %>,
-    <% end %>
-    <% if @store.address3.present? %>
-      <%= @store.address3 %><br />
-    <% end %>
-    <% if @store.town.present? %>
-      <%= @store.town %>
-    <% end %>
-    <% if @store.postcode.present? %>
-      <%= @store.postcode %>,
-    <% end %>
-    <%= @store.country.name unless @store.country_id.nil? %>
-  </p>
-  <p>
-    <strong>Sector: </strong>
-    <%= @store.retailer.sector.name unless @store.retailer.sector_id.nil? %>
-  </p>
-  <p>
-    <strong>Store format:</strong>
-    <%= @store.store_format.name %>
-  </p>
-  <p>
-    <% if @store.channel_id.present? %>
-      <strong>Environment Type:</strong>
-      <%= @store.environment_type.name %>
-    <% end %>
-  </p>
-  <p>
-    <% if @store.channel_id.present? %>
-      <strong>Channel:</strong>
-      <%= @store.channel.name %>
-    <% end %>
-  </p>      
-
-    <strong>Retailer:</strong>
-    <%= @store.retailer.name %>
-  </p>
-  <!-- 
-  <% unless @audits.nil? %>
-    <% unless @audit.nil?  %>
-    <p>
-      <%#= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
-    </p>
-    
-    <section class="store_audit_categories">
-      <%#= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
-    </section> 
-    <% end %>
-
-  <% end %> -->
-<!--   <h2>Audit List</h2>
-  <div class="row-fluid pages">
-    <ul>
-      <% #for audit in @store.audits %>
-        <li class="span3">
-          <i></i>
-          <strong><%#= audit.audit_date %></strong>
-          <span>by <%#= audit.user.username %></span>
-          <span class="actions">
-            <%#= link_to "View", audit %>
-
-          </span>
-        </li>
-      <% #end %>  
-  </ul>
-  </div> -->
-  
-  
-<!--   <div class="btn-group btn-group-vertical block">
-    <a href="" class="btn btn-icon btn-default btn-block group">
-      <i></i>
-      <span><%#= @store.audits.count %></span>
-      Total Audits
-    </a>
-    <a href="" class="btn btn-icon btn-default btn-block group">
-      <i></i>
-      <span><%#= @store.photos.count %></span>
-      Total Photos
-    </a>
-  </div> -->
-
-
-</div>  
-<div class="span3">
+        <strong>Retailer:</strong>
+        <%= @store.retailer.name %>
+      </p>
+    </div>
+  </div>
+  <div class="span3">
 
   <div class="action pull-right">
     <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
@@ -117,6 +80,52 @@
       Total Photos
     </a>
   </div>
-
-  
 </div>
+</div>
+  
+  <!-- 
+  <% unless @audits.nil? %>
+    <% unless @audit.nil?  %>
+    <p>
+      <%#= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
+    </p>
+    
+    <section class="store_audit_categories">
+      <%#= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
+    </section> 
+    <% end %>
+
+  <% end %> -->
+  <h2>Latest Audits</h2>
+  <div class="row-fluid pages">
+    <ul>
+      <% for audit in @store.audits %>
+        <li class="span3">
+          <i></i>
+          <strong><%= audit.audit_date %></strong>
+          <span>by <%= audit.user.username %></span>
+          <span class="actions">
+            <%= link_to "View", audit %>
+
+          </span>
+        </li>
+      <% end %>  
+    </ul>
+  </div>
+  
+  
+<!--   <div class="btn-group btn-group-vertical block">
+    <a href="" class="btn btn-icon btn-default btn-block group">
+      <i></i>
+      <span><%#= @store.audits.count %></span>
+      Total Audits
+    </a>
+    <a href="" class="btn btn-icon btn-default btn-block group">
+      <i></i>
+      <span><%#= @store.photos.count %></span>
+      Total Photos
+    </a>
+  </div> -->
+
+
+

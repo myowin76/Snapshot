@@ -28,6 +28,7 @@ gem 'chosen-rails'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'cancan'
+gem 'backbone-on-rails'
 
 group :production do
 	gem "pg"

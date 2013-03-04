@@ -1,30 +1,43 @@
 <section class="photo_views_view">
   
   <div class="page-header">
+    <%= link_to :back , :class => "btn btn-success pull-right" do %>
+    <i class="icon-circle-arrow-left icon-white"></i>
+    <span>Back</span>
+  <% end %>
     <h1 id="myModalLabel"><%= @photo.photo_file_name %></h1>
   </div>
   
   <div id="photo-details">
     
     <div class="left">
-      <%= image_tag(@photo.photo.url(:large)) %>
-      <p></p>
+      <figure>
+        <%= image_tag(@photo.photo.url(:large)) %>
+      </figure>
+      
+      
         <% if @photo.published == true %>
           <%#= link_to 'Un-publish', publish_multiple_photos_path(:photo_ids => @photo.id), :method => :put %>
         <% else %>  
           <%= link_to 'Publish', publish_individual_photos_path(:id => @photo.id), :method => :put, :class => "btn" %>
         <% end %> 
+
         <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" %>
+      
+      <% if can? :edit, @photo %>  
         <% unless params[:audit_id] %>
           <%= link_to 'Edit', edit_photo_path, :class => "btn" %>
         <% else %>
           <%= link_to 'Edit', edit_audit_photo_path, :class => "btn" %>
         <% end %> 
+      <% end %>  
+      <% if can? :delete, @photo %>  
         <% unless params[:audit_id] %>
           <%= link_to 'Delete', @photo, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
         <% else %>
           <%= link_to 'Delete', audit_photo_path, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn" %>
-        <% end %>   
+        <% end %>
+      <% end %>  
       <%#= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "", :target => "_blank" %>
     </div>
     
@@ -110,12 +123,12 @@
             <% if @photo.brands.present?  %>
               <tr>
                 <td width="40%">Brands</td>
-                <td width="60%"><%= @photo.brands.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.brands.map(&:name).join(", ") %></td>
               </tr>
               <tr>
                 <td width="40%">Brand Owner</td>
                 <td width="60%">
-                  <%= BrandOwner.find_all_by_id(@photo.brands.map(&:brand_owner_id)).map(&:name).join(",") if @photo.brands.first.brand_owner_id.present? %>
+                  <%= BrandOwner.find_all_by_id(@photo.brands.map(&:brand_owner_id)).map(&:name).join(", ") if @photo.brands.first.brand_owner_id.present? %>
                 </td>
               </tr>
             <% end %>
@@ -128,25 +141,25 @@
             <% if @photo.categories.present? %>
               <tr>
                 <td width="40%">Product Category</td>
-                <td width="60%"><%= @photo.categories.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.categories.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.media_locations.present? %>
               <tr>
                 <td width="40%">Media Locations</td>
-                <td width="60%"><%= @photo.media_locations.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.media_locations.map(&:name).join(", ") %></td>
               </tr>
             <% end %>  
             <% if @photo.media_types.present? %>
               <tr>
                 <td width="40%">Media Types</td>
-                <td width="60%"><%= @photo.media_types.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.media_types.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.media_vehicles.present? %>
               <tr>
                 <td width="40%">Media Vehicle</td>
-                <td width="60%"><%= @photo.media_vehicles.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.media_vehicles.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.promotion_calendar.present? %>
@@ -158,13 +171,13 @@
             <% if @photo.promotion_types.present? %>
               <tr>
                 <td width="40%">Promotion Type</td>
-                <td width="60%"><%= @photo.promotion_types.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.promotion_types.map(&:name).join(", ") %></td>
               </tr>
             <% end %>  
             <% if @photo.themes.present? %>
               <tr>
                 <td width="40%">Themes</td>
-                <td width="60%"><%= @photo.themes.map(&:name).join(",") %></td>
+                <td width="60%"><%= @photo.themes.map(&:name).join(", ") %></td>
               </tr>
             <% end %>
             <% if @photo.description.present? %>

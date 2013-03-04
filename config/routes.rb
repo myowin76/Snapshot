@@ -13,14 +13,12 @@ Snapshot::Application.routes.draw do
   devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions"}
   resources :users
   resources :subscriptions, :save_searches, :user_types
-  resources :media_types, :media_vehicles, :media_locations, :themes
-  resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
-  resources :sectors,:retailers, :countries, :promotion_calendars, :promotion_types
-
-  # resources :categories do
-  #   resources :photos
+  # scope "admin" do
+    resources :media_types, :media_vehicles, :media_locations, :themes
+    resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
+    resources :sectors, :retailers, :countries, :promotion_calendars, :promotion_types
+    resources :audits
   # end
-
   
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
@@ -46,14 +44,7 @@ Snapshot::Application.routes.draw do
     end    
   end
 
-  # match '/media_vehicles/ddl_create' => 'media_vehicles#ddl_create'
-  resources :media_vehicles
-
-  match '/audits/mv_create' => 'audits#mv_create'
-  
-  # match '/stores/show_store_with_categories' => 'stores#show',
-  #   :as => :store_view, 
-  #   :via => :post
+  match '/audits/mv_create' => 'audits#mv_create' 
   match '/stores/clear_filters' => 'stores#show', :as => :clear_filters
   match '/store/:store_id/category_view/:id' => 'stores#store_category_view', :as => :category_view
   resources :stores do
@@ -63,6 +54,7 @@ Snapshot::Application.routes.draw do
       post :get_store_details
       post :refresh_category_view_photos
     end
+    resources :audits
   end
 
   get "admin/home"
@@ -73,7 +65,7 @@ Snapshot::Application.routes.draw do
   get "admin/contact"
 
   match '/admin/dashboard', :controller => 'admin', :action => 'dashboard', :as => 'admin'
-  match '/admin/audits', :controller => 'audits', :action => 'index', :as => 'audits'
+  # match '/admin/audits', :controller => 'audits', :action => 'index', :as => 'audits'
   match '/admin/users', :controller => 'users', :action => 'index', :as => 'users'
   match '/admin/loginpage_message', :controller => 'admin', :action => 'loginpage_message'
 

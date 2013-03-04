@@ -29,8 +29,16 @@ class Ability
       # Other Roles  
       else
 
-        can :read, [Photo, Store]
+        can :read, [Photo]
+        
+        can :read, Store do |store|
+          # photo.show
+
+        end
+
+        # cannot :show, Photo
         # can [ :index, :users_list ], :pages
+        cannot [ :show, :edit ], :photos
       end
     
     #

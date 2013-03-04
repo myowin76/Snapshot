@@ -223,8 +223,8 @@ ActiveRecord::Schema.define(:version => 20130222120625) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer  "role_id"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
@@ -248,10 +248,13 @@ ActiveRecord::Schema.define(:version => 20130222120625) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "setting"
-    t.text     "value"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "db_update_store"
+    t.string   "db_update_sector"
+    t.string   "db_update_retailer"
+    t.string   "db_update_category"
+    t.string   "db_update_brand"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "store_formats", :force => true do |t|

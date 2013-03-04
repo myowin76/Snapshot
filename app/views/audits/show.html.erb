@@ -3,6 +3,14 @@
   <strong>Reference:</strong>
   <%= @audit.reference %>
 </p>
+<p>
+  <strong>Store:</strong>
+  <%= @audit.store.name %>
+</p>
+<p>
+  <strong>Retailer:</strong>
+  <%= @audit.store.retailer.name %>
+</p>
 
 <p>
   <strong>Uploaded by:</strong>
@@ -13,14 +21,7 @@
   <%#= @audit.audit_date.strftime('%d/%m/%Y') %>
   <%= @audit.audit_date.to_s %>
 </p>
-<p>
-  <strong>Retailer:</strong>
-  <%= @audit.store.retailer.name %>
-</p>
-<p>
-  <strong>Store:</strong>
-  <%= @audit.store.name %>
-</p>
+
 
 <%= simple_form_for @audit.photos.new, :html => { :multipart => true } do |f| %>
     <%= f.hidden_field :audit_id, :value=> @audit.id %>
@@ -39,11 +40,15 @@
         
         <%= link_to edit_audit_path(@audit), :class => 'btn' do %>
           <i class="icon-edit"></i>
-          <span>Edit</span>
+          <span>Edit All</span>
         <% end  %>
         <%= link_to audit_path, :class => 'btn' do %>
           <i class="icon-refresh"></i>
           <span>Refresh</span>
+        <% end  %>
+        <%= link_to :back, :class => 'btn' do %>
+          <i class="icon-circle-arrow-left"></i>
+          <span>Back</span>
         <% end  %>
         <!-- <button type="reset" class="btn btn-warning cancel">
           <i class="icon-ban-circle icon-white"></i>
@@ -184,8 +189,8 @@
         <th>File Name</th>
         <th>File Size</th>
         <th>Categories</th>
-        <th></th>
-        <th></th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>

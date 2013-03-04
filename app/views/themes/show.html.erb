@@ -10,6 +10,7 @@
   <%= @theme.description %>
 </p>
 
-
-<%= link_to 'Edit', edit_theme_path(@theme) %> |
-<%= link_to 'Back', themes_path %>
+<div class="form-actions">
+	<%= link_to 'Edit', edit_theme_path(@theme), :class => 'btn' %>
+	<%= link_to 'Back', themes_path, :class => 'btn' %>
+</div>
