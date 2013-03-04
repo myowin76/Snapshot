@@ -1,10 +1,15 @@
 <fieldset>
+
+
   <button type="submit" class="btn clear-form">Clear</button>
   <button type="submit" class="btn btn-primary search">Search</button>
 </fieldset>  
 
 <div class="saved-search">
 	
+  <ul id="savedSearchList" class="saved-search-list"></ul>
+
+
   <div class="row-fluid">
   <%#= render @saved_searches unless current_user.save_searches.blank? %>
 	<%= link_to "Save", new_save_search_path(:params => params[:search]), id: "new_link", :class => "btn small ", remote: true %>
@@ -23,6 +28,8 @@
   <% else %>  
     <%= link_to "My Searches", "#", :id => 'open_link', :class => "btn small ", :disabled => 'true' %>
   <% end %>
+
+
   </div>
 </div> 
 

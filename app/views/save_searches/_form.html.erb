@@ -1,4 +1,5 @@
 <%= simple_form_for @save_search do |f| %>
+
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -11,4 +12,5 @@
     <%= f.button :submit, "Save", :id => 'new_save_search', :class => 'small' %>
     <%= link_to "Cancel", root_path, :class=>"cancel btn small" %>
   </div>
+  
 <% end %>

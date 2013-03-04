@@ -1,1 +1,8 @@
-$('.saved-search ul').html('<%= j render @save_searches %>');
+//alert('index.js.erb');
+
+if ($('#savedSearchList').length ) {
+  $('#savedSearchList').html('<%= j render @save_searches %>');  
+}
+else{
+  alert('Could not find element: ul#savedSearchList');
+}

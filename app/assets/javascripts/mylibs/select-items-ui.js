@@ -38,12 +38,14 @@ jQuery(document).ready(function($) {
       this.generatePDF();
       this.filterSelected();
 
+
+
     },
 
 
     exportZIP: function(){
       
-      $('#export-zip').on('click', function(e){
+      $(this.config.main).on('click', '#export-zip', function(e){
         
         //e.preventDefault();
 
@@ -72,7 +74,7 @@ jQuery(document).ready(function($) {
 
     generatePDF: function(){
       
-      $('#export-pdf').on('click',function(e){
+      $(this.config.main).on('click', '#export-pdf', function(e){
 
         //e.preventDefault();
 
@@ -103,7 +105,7 @@ jQuery(document).ready(function($) {
 
       //console.log( $checkedItems, $checkedItems.length);
 
-      $('#reviews').on('click', function(e){
+      $(this.config.main).on('click', '#reviews', function(e){
 
         e.preventDefault();
 
@@ -139,7 +141,7 @@ jQuery(document).ready(function($) {
       var that = this;
 
       //console.log('initSelectItem');
-      $(this.config.photos).on('click', this.config.photoInner , function(evt){
+      $(this.config.main).on('click', this.config.photoInner , function(evt){
         
         // Dont select item if click target is a link <a> 
         if ( !$(evt.target).is('a, :checkbox, .expand, img') ) {
