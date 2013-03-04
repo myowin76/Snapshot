@@ -28,10 +28,8 @@ var snapshot = {
   
   Pagination: function(){
 
-    console.log('paging');
-    $('.pagination a').live('click',function (e) {
     
-      console.log(this.href);
+    $('.pagination a').live('click',function (e) {
 
       $.get(this.href, null, null, 'script');
 
@@ -426,7 +424,7 @@ function fixPosElement(el){
 function initLazyLoad(el){
   if (el) {
 
-    console.log( $(el).length + " lazy load elements" );
+    //console.log( $(el).length + " lazy load elements" );
 
     $(el).show().lazyload({
       effect : "fadeIn"
@@ -434,7 +432,7 @@ function initLazyLoad(el){
   }
 
   else{
-    console.log("Error: No element found!");
+    //console.log("Error: No element found!");
   }
 
 }
