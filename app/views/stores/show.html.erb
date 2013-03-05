@@ -56,19 +56,19 @@
   </div>
   <div class="span3">
 
-  <div class="action pull-right">
-    <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
-        :class => 'btn btn-primary' do %>
-        <i class="icon-upload icon-white"></i>
-        <span>Upload Images</span>
-    <% end %>    
-    <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
-        <i class="icon-edit icon-white"></i>
-        <span>Edit</span>
-    <% end %>    
-  </div>
+    <div class="action pull-right">
+      <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
+          :class => 'btn btn-primary' do %>
+          <i class="icon-upload icon-white"></i>
+          <span>Upload Images</span>
+      <% end %>    
+      <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
+          <i class="icon-edit icon-white"></i>
+          <span>Edit</span>
+      <% end %>    
+    </div>
 
-  <div class="btn-group btn-group-vertical block">
+  <!-- <div class="btn-group btn-group-vertical block">
     <a href="" class="btn btn-icon btn-default btn-block group">
       <i></i>
       <span><%= @store.audits.count %></span>
@@ -79,8 +79,8 @@
       <span><%= @store.photos.count %></span>
       Total Photos
     </a>
+  </div> -->
   </div>
-</div>
 </div>
   
   <!-- 
