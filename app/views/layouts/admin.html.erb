@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html>
   <%= render 'layouts/blocks/head' %>
+  <%= stylesheet_link_tag "admin/admin" %>
   <body>
     
     <%= render 'layouts/blocks/header' %>
     <div class="header_small">
-    <div class="container">
-      
-        <div id = "main" >
-          <section class="overlay"></section>
-          <section class="site-content" role="main">
-              
-            <% flash.each do |name, msg| %>
-              <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-                    <%= content_tag :div, msg %>
+      <div class="container-fluid fixed">
+        <section class="overlay"></section>
+        <div class="site-content">
+          <div id="wrapper">
+            <div id="menu">
+              <div id="menuInner">
+                <%= render 'shared/admin/sidebar' %>
               </div>
-            <% end %>
-            <div class="aside">
-              <%= render 'shared/admin/sidebar' %>
             </div>
-            
-            <div class="content-wrap">
-              <div class="content">
-                <%= content_tag :h1, yield(:title) if show_title? %>
-                <%= yield %>
-              </div>
-            </div>    
-          </section>
-      </div> 
-    </div>
+            <div id="content">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>  
       <%= render 'layouts/blocks/footer' %>
     </div>  <!-- /.container -->
     <%= yield :scripts %>

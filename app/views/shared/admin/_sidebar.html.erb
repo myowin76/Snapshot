@@ -1,123 +1,120 @@
-
-  <h3>Uploads</h3>
-  <ul class="nav nav-tabs nav-stacked">
-    <!-- <li>
-      <%= link_to new_audit_path do %>
-      Upload images <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li> -->
-    <li>
-      <%= link_to audits_path do %>
-        Audit List
-        <i class="icon-chevron-right"></i>
+<ul>
+  <li class="glyphicons home">
+    <%= link_to admin_path do %>
+      <i></i>
+      <span>Dashboard</span>
+    <% end  %>
+  </li>
+  <li class="glyphicons sort">
+    <%= link_to audits_path do %>
+      <i></i>
+      <span>Audit List</span>
+    <% end  %>
+  </li>
+  <li class="glyphicons show_thumbnails_with_lines">
+    <%= link_to stores_path do %>
+      <i></i>
+      <span>Stores</span>
+    <% end  %>
+  </li>
+  <% if can? :read, @users %>
+    <li class="glyphicons group">
+      <%= link_to users_path do %>
+        <i></i>
+        <span>Users</span>
       <% end  %>
     </li>
-    <li>
-      <%= link_to stores_path do %>
-        Stores <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <% if can? :read, @users %>
+  <% end %>
+  <li class="glyphicons picture">
+    <%= link_to admin_path do %>
+      <i></i>
+      <span>Unpublished Images</span>
+    <% end  %>
+  </li>
+  <!-- <li class="heading">
+    <span>Settings</span>
+  </li> -->
+  <li class="hasSubmenu">
+    <a data-toggle="collapse" class="glyphicons cogwheels " href="#menu_forms">
+      <i></i>
+      <span>Settings</span>
+    </a>
+    <ul class="collapse" id="menu_forms">
       <li>
-        <%= link_to users_path do %>
-          Users <i class="icon-chevron-right"></i>
+        <%= link_to categories_path do %>
+          <span>Categories</span>
         <% end  %>
       </li>
-    <% end %>
-    <li>
-      <%= link_to admin_path do %>
-        Unpublished Images <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-  </ul>
-
-  <h3>Settings</h3>
-  <ul class="nav nav-tabs nav-stacked">
-    <li>
-      <%= link_to categories_path do %>
-        Categories <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to retailers_path do %>
-      Retailers <i class="icon-chevron-right"></i>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to sectors_path do %>
-      Sectors <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to brands_path do %>
-      Brands
-      <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to brand_owners_path do %>
-      Brand Owners
-      <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to channels_path do%>
-        Channels
-        <i class="icon-chevron-right"></i>
-      <% end  %>  
-    </li>
-    <li>
-      <%= link_to countries_path do %>
-        Countries  
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to store_formats_path do %>
-        Store Formats
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to environment_types_path do %>
-        Environment Types
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to media_types_path do %>
-        Media Types
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to media_locations_path do %>
-        Media Locations
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to media_vehicles_path do %>
-        Media Vehicles
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to promotion_calendars_path do %>
-        Promotion Calendars
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to promotion_types_path do %>
-        Promotion Types
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-    <li>
-      <%= link_to themes_path do %>
-        Themes
-        <i class="icon-chevron-right"></i>
-      <% end  %>
-    </li>
-  </ul>
+      <li>
+        <%= link_to retailers_path do %>
+          <span>Retailers</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to sectors_path do %>
+          <span>Sectors</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to brands_path do %>
+          <span>Brands</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to brand_owners_path do %>
+          <span>Brand Owners</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to channels_path do%>
+          <span>Channels</span>
+        <% end  %>  
+      </li>
+      <li>
+        <%= link_to countries_path do %>
+          <span>Countries</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to store_formats_path do %>
+          <span>Store Formats</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to environment_types_path do %>
+          <span>Environment Types</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to media_types_path do %>
+          <span>Media Types</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to media_locations_path do %>
+          <span>Media Locations</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to media_vehicles_path do %>
+          <span>Media Vehicles</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to promotion_calendars_path do %>
+          <span>Promotion Calendars</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to promotion_types_path do %>
+          <span>Promotion Types</span>
+        <% end  %>
+      </li>
+      <li>
+        <%= link_to themes_path do %>
+          <span>Themes</span>
+        <% end  %>
+      </li>
+    </ul>
+  </li>
+</ul>

@@ -3,8 +3,8 @@
   <h1>Brand List</h1>
 </div>
 <div class="action">
-  <%= link_to new_brand_path, :class => 'btn btn-primary pull-right' do %>
-  <i class="icon-plus icon-white"></i>
+  <%= link_to new_brand_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus pull-right' do %>
+  <i></i>
   <span>New Brand</span>
   <% end %>
 </div>
@@ -21,7 +21,7 @@
     <% @brands.each do |brand| %>
       <tr>
         <td><%= link_to brand.name, brand %></td>
-        <td><%= brand.brand_owner.name unless brand.brand_owner_id.nil? %></td>
+        <td><%= brand.brand_owner.name unless brand.brand_owner || brand.brand_owner_id.nil? %></td>
         <td><%= brand.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
