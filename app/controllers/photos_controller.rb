@@ -483,7 +483,7 @@ class PhotosController < ApplicationController
   end
 
   def preselect_brand_owners
-    
+    # debugger
     unless params[:brands_ddl_id].empty?
       @brands_ddl_id = params[:brands_ddl_id]
     end

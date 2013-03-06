@@ -1,7 +1,6 @@
 
 var brand_owner_ddl_id = "#<%= @brand_owner_ddl_id %>";
 var bos = "<%= @brand_owner_ids %>"
-// alert(brand_owner_ddl_id);
-// alert(bos);
+
 $(brand_owner_ddl_id).val(bos.split(","));
 $(brand_owner_ddl_id).trigger("liszt:updated");

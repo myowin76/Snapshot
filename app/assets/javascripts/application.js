@@ -138,7 +138,7 @@ $(document).ready(function() {
 
 
 
-  $('.content .edit_audit .brands-actions .chosen-brand').each(function(){
+  $('.edit_audit .brands-actions .chosen-brand').each(function(){
       var brands_ddl_id = "#" + $(this).attr('id');
       var brand_ids = new Array();
       

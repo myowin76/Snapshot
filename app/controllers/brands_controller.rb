@@ -40,7 +40,7 @@ class BrandsController < ApplicationController
 
   def create
     @brand = Brand.new(params[:brand])
-
+    
     respond_to do |format|
       if @brand.save
         # Photo.update
