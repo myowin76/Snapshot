@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <%= render 'layouts/blocks/head' %>
+
   <body>
 
   <%= render 'layouts/blocks/header' %>
@@ -35,9 +36,8 @@
     <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="photoOverlay" aria-hidden="true">
     </div>      
   </div>  <!-- /.container -->
-
-    
-    <%= yield :scripts %>
-
+  <%= javascript_include_tag "application" %>
+  <%= yield :scripts %>
+      
   </body>
 </html>

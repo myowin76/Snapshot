@@ -25,9 +25,14 @@ class AdminController < ApplicationController
   def privacy
   end
 
+  def raw_photos
+    @unpublished_photos = Photo.order('created_at DESC').unpublished.all
+    render :layout => "admin"
+  end
+
   def dashboard
     
-		@unpublished_photos = Photo.order('created_at DESC').unpublished.all
+		# @unpublished_photos = Photo.order('created_at DESC').unpublished.all
     render :layout => "admin"
   end
 

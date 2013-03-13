@@ -1,5 +1,5 @@
 class StoresController < ApplicationController
-  layout "admin", :only => :index 
+  layout "admin", :only => [:index, :show] 
   # before_filter :authenticate_user!
   before_filter :get_user, :only => [:index,:new,:edit]
   before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]

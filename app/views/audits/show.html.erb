@@ -76,6 +76,7 @@
 
       </tbody>
     </table>
+<% content_for :scripts do %>
 
   <script>
     var fileUploadErrors = {
@@ -180,6 +181,8 @@
   </style>
 
 <% end %>
+
+<% end  %>
 
 <% unless @audit.photos.empty? %>
   <table class="table table-striped photo-list">

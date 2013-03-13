@@ -9,11 +9,9 @@
 
 <%#= gmaps4rails(@json, true, false) %>
 
-    <script type="text/javascript">
-
-    $(document).ready(function () {
-
-      Gmaps.map.infobox = function(boxText) {
+<% content_for :scripts do %>
+  <script>
+        Gmaps.map.infobox = function(boxText) {
       return {
         content: boxText,
         disableAutoPan: false,
@@ -35,8 +33,6 @@
      }};
        
 
+  </script>  
 
-
-    });
-      
-    </script>
+<% end  %>

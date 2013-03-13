@@ -1,8 +1,5 @@
 <div class="mainnav_full">
-
-
 	<div id="header" class="site-header" role="banner">
-
 
 		<div id="branding">						
 			<h1 id="site-title">
@@ -11,8 +8,7 @@
 							alt="Snapshot Worldwide">
 				</a>
 			</h1>		
-		</div><!-- /#branding -->
-
+		</div>
 
 		<% if user_signed_in? %>
 		<div id="account">
@@ -23,20 +19,12 @@
 				<li>
 	        <%= link_to "My Account", edit_user_registration_path %>
 	      </li>
-				<!-- <li>
-					<%#= link_to "Logout", destroy_user_session_path %>
-				</li>
-				<li>
-					<a href="#">Feedback</a>
-				</li>
-				 -->
 
 				<% if can? :read, :page %>
 					<li>
-	          <%= link_to "Admin", admin_path %>
+	          <%= link_to "Admin", dashboard_path %>
 	        </li>
-	      <% end %>  
-
+	      <% end %>
 				<li class="last">
 					<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
 				</li>				
@@ -44,27 +32,5 @@
 		</div>
 		<% end %>
 
-		<!-- 
-		<div id="menu-primary" class="menu-container">
-			<div class="menu">
-				
-				<ul class="account">
-					<% if user_signed_in? %>
-						<% if can? :read, :page %>
-							<li>
-			          <%= link_to "Admin", admin_path %>
-			        </li>
-			      <% end %>  
-						<li>
-							<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
-						</li>
-					<% end %>
-				</ul>
-			</div>
-		</div>
-		-->
-
-
-	</div>	
-
+	</div>
 </div>

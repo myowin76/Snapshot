@@ -119,7 +119,9 @@ class PhotosController < ApplicationController
         # search action
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
-       
+          # @photos = @photos.where('audits.audit_date < ?', from_date) if search_from_date.present?
+          
+
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
           @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars) if search_promotion_calendars.present?
@@ -138,7 +140,8 @@ class PhotosController < ApplicationController
           end
           
           @photos = @photos.all_brand_compliant if search_brand_compliant?
-          @photos = @photos.find_between(from_date,to_date).published
+
+          @photos = @photos.find_between(from_date, to_date)
 
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
@@ -523,6 +526,34 @@ class PhotosController < ApplicationController
     
 
 
+  end
+  def search
+      @countries = Country.order(:name)
+      @categories = Category.order(:name)
+      
+      @stores = Store.order(:id).includes({:retailer => :sector})
+      @sectors = Sector.order(:name)
+      @store_formats = StoreFormat.order(:name)
+    
+      @env_types = EnvironmentType.order(:name)
+      @channels = Channel.order(:name)
+
+        @retailers = Retailer.order(:name)
+        
+      @promo_calendars = PromotionCalendar.order(:name)
+      @brand_owners = BrandOwner.order(:name)
+      @brands = Brand.order(:name)
+      @themes = Theme.order(:name)
+      @promo_types = PromotionType.order(:name)
+      @media_types = MediaType.order(:name)
+      @media_vehicles = MediaVehicle.order(:name)
+      @media_locations = MediaLocation.order(:name)
+       
+    @photos = Photo.order(:created_at).includes(:brands).paginate(:page => params[:page])
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @photos }
+    # end  
   end
   
 end

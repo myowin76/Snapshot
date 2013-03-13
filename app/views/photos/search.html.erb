@@ -1,3 +1,14 @@
+<!-- <h1>Search page</h1>
+
+<div class="photo-view" data-layout="grid">
+
+</div>
+
+<script id="photos_view" type="text/template">
+<img src ="{{ url }}" alt="test" />
+	
+</script>
+ -->
 <% content_for :head do %>
   <%= stylesheet_link_tag "gmaps4rails" %>
 <% end  %>
@@ -21,10 +32,13 @@
 
           
           <div class="photo-view" data-layout="grid">  
-              <%= render 'grid_view' %>
+              <script id="photos_view" type="text/template">
+							<img src ="{{ url }}" alt="test" />
+								
+							</script>
           </div>
           <div class="map-view" style="display:none;">
-            <%= render 'map_view' %>  
+            <%#= render 'map_view' %>  
           </div>  
 
       </div>
@@ -33,3 +47,28 @@
 </div>  
 
 
+
+
+
+
+
+
+
+
+
+
+<% content_for :scripts do %>
+	<%= javascript_include_tag "backbone/snapshot" %>
+
+	<script>
+
+		new Snapshot.Router;
+	  Backbone.history.start();
+	  Snapshot.photos = new Snapshot.Collections.Photos;
+	  Snapshot.photos.fetch().then(function(){
+	    new Snapshot.Views.Snapshot({ collection: Snapshot.photos })
+	  });
+
+	</script>
+
+<% end  %>

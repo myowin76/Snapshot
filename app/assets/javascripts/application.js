@@ -20,12 +20,23 @@
 //= require dataTables/jquery.dataTables.bootstrap
 //= require rails.validations
 //= require jquery-fileupload
-//= require underscore
-//= require backbone
-//= require backbone/snapshot
-//= require_tree .
+//= require_tree ./gmaps4rails
+//= require_tree ./libs
+//= require_tree ./mylibs
+//= require_tree ./admin
+// require underscore
+// require backbone
+// require backbone/snapshot
+// require_tree .
 // require jquery-fileupload/vendor/tmpl
 // require jquery.tokeninput
+//= require pages
+//= require audits
+//= require retailers
+//= require photos
+//= require stores
+//= require save_searches
+//= require_self
 
 var snapshot = {
   
@@ -49,6 +60,15 @@ var snapshot = {
 
 
 $(document).ready(function() {
+
+
+  // new Snapshot.Router;
+  // Backbone.history.start();
+  // Snapshot.photos = new Snapshot.Collections.Photos;
+  // Snapshot.photos.fetch().then(function(){
+  //   new Snapshot.Views.Snapshot({ collection: Snapshot.photos })
+  // });
+
   // window.Sector = Backbone.Model.extend({});
   // window.SectorView = Backbone.View.extend({
   //   initialize: function(){

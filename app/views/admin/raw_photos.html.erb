@@ -1,0 +1,53 @@
+<div class="page-header">
+  <h1>Unpublished images</h1>
+</div>
+<%= form_tag publish_multiple_photos_path, :method => :put do %>
+  <div class="action">
+    <%= submit_tag "Publish Checked", :class=> 'btn btn-primary pull-right', :id => 'publish_multiple'%>
+  </div>
+    
+  <table id="tbl-unpublished" class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Images</th>
+        <th>Retailer/Store</th>
+        <th>Date</th>
+        <th>User</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @unpublished_photos.each do |photo| %>
+        <% if photo.audit.present? %>
+      	<tr>
+          <td>
+          	<%= check_box_tag "photo_ids[]", photo.id %>
+          </td>
+          <td width='150'>
+          	<%= link_to image_tag(photo.photo.url(:small)), photo  %>
+          </td>
+          <%#= link_to photo.audit.id unless photo.audit_id.nil? %>
+          <td>
+            <% if photo.audit.store %>    
+            	<%= photo.audit.store.retailer.name unless photo.audit.store.retailer_id.nil?  %><br />
+            	<%= photo.audit.store.name %>
+            <% end %>  
+          </td>
+          <td><%= photo.audit.audit_date %></td>
+          <td>
+            <% unless photo.audit.user.username.nil? %>
+              <%= photo.audit.user.username unless photo.audit_id.nil? %>
+            <% else %>
+              <%= photo.audit.user.email unless photo.audit_id.nil? %>
+            <% end %>
+          </td>
+          <td><%= link_to "Details", photo_path(photo) %></td>
+          <td><%= link_to "Edit", edit_photo_path(photo) %></td>
+      	</tr>
+        <% end %>  
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

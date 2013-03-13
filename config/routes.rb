@@ -41,6 +41,7 @@ Snapshot::Application.routes.draw do
       post :refresh_all_brands_dropdowns
       post :update_brand_owners_dropdown
       post :preselect_brand_owners
+      get  :search
     end    
   end
 
@@ -64,7 +65,8 @@ Snapshot::Application.routes.draw do
   get "admin/news"
   get "admin/contact"
 
-  match '/admin/dashboard', :controller => 'admin', :action => 'dashboard', :as => 'admin'
+  match '/admin/dashboard', :controller => 'admin', :action => 'dashboard', :as => 'dashboard'
+  match '/admin/unpublished', :controller => 'admin', :action => 'raw_photos', :as => 'unpublished'
   # match '/admin/audits', :controller => 'audits', :action => 'index', :as => 'audits'
   match '/admin/users', :controller => 'users', :action => 'index', :as => 'users'
   match '/admin/loginpage_message', :controller => 'admin', :action => 'loginpage_message'
