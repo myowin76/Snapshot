@@ -1,18 +1,5 @@
-// Global Snapshot View
-Snapshot.Views.Snapshot = Backbone.View.extend({
 
-  initialize: function(){
-
-    var allPhotosView = new Snapshot.Views.Photos({ collection: Snapshot.photos}).render();
-    $('.photo-view').append(allPhotosView.el);
-  },
-
-  render: function() {  
-    return this;
-  }
-});
-
-// All Photos View
+//////// All Photos View
 Snapshot.Views.Photos = Backbone.View.extend({
   tagName: 'ul',
   id: 'photos-viewer',
@@ -26,7 +13,7 @@ Snapshot.Views.Photos = Backbone.View.extend({
 
   addOne: function(photo){
     var photoView = new Snapshot.Views.Photo({ model: photo });
-    console.log(  photoView.render().el );
+    // console.log(  photoView.render().el );
     this.$el.append(photoView.render().el);
   }
 
@@ -36,8 +23,6 @@ Snapshot.Views.Photos = Backbone.View.extend({
 Snapshot.Views.Photo = Backbone.View.extend({
   tagName: 'li', 
    template: template('photos_view'),
-   // template: '<li>'+ +'</li>',
-  // template: _.template($('#photos_view').html()),
 
   render: function() {
     this.$el.html( this.template( this.model.toJSON() ) );
@@ -46,3 +31,4 @@ Snapshot.Views.Photo = Backbone.View.extend({
   }
 
 });
+

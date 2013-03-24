@@ -16,11 +16,11 @@
       </figure>
       
       
-        <% if @photo.published == true %>
+        <% #if @photo.published == true %>
           <%#= link_to 'Un-publish', publish_multiple_photos_path(:photo_ids => @photo.id), :method => :put %>
-        <% else %>  
-          <%= link_to 'Publish', publish_individual_photos_path(:id => @photo.id), :method => :put, :class => "btn" %>
-        <% end %> 
+        <% #else %>  
+          <%#= link_to 'Publish', publish_individual_photos_path(:id => @photo.id), :method => :put, :class => "btn" %>
+        <% #end %> 
 
         <%= link_to 'Download Pdf', photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" %>
       

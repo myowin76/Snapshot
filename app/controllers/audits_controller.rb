@@ -59,7 +59,6 @@ class AuditsController < ApplicationController
     @store = @audit.store
     @retailers = Retailer.order(:name).all
     
-    # @audit.photos.build
   end
 
   def create

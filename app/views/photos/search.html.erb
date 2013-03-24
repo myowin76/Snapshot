@@ -15,7 +15,9 @@
 
 
 <div class="aside">
-  <%= render 'photos/shared/search_form' %>
+  
+
+  <%= render 'photos/shared/search_form_json' %>
 </div>
 
 <div class="content-wrap">
@@ -32,10 +34,7 @@
 
           
           <div class="photo-view" data-layout="grid">  
-              <script id="photos_view" type="text/template">
-							<img src ="{{ url }}" alt="test" />
-								
-							</script>
+             
           </div>
           <div class="map-view" style="display:none;">
             <%#= render 'map_view' %>  
@@ -43,32 +42,74 @@
 
       </div>
     </div> 
+    
   </div>  
 </div>  
 
+  <script id="photos_view" type="text/template">
+    <!--img src="/assets/snapshot_loading.gif" class="lazy" data-original="{{ url }}" -->
+     <img src ="{{ url }}" alt="test" />
+  </script>
+  <script id="sectors_view" type="text/template">
+    <input data-desc="{{ name }}" id="search_sectors_{{ id }}" name="search[sectors][]" type="checkbox" value="{{ id }}">
+    {{ name }}
+  </script>
+  
+  <script id="retailers_view" type="text/template">
+    <input data-desc="{{ name }}" id="search_retailers_{{ id }}" name="search[retailers][]" type="checkbox" value="{{ id }}">
+    {{ name }}
+  </script>
 
-
-
-
-
-
+  <script id="categories_view" type="text/template">
+    <input data-desc="{{ name }}" id="search_categories_{{ id }}" name="search[categories][]" type="checkbox" value="{{ id }}">
+    {{ name }}
+  </script>
 
 
 
 
 
 <% content_for :scripts do %>
+
+
 	<%= javascript_include_tag "backbone/snapshot" %>
 
 	<script>
+  $(document).ready(function() {
 
 		new Snapshot.Router;
 	  Backbone.history.start();
+
 	  Snapshot.photos = new Snapshot.Collections.Photos;
 	  Snapshot.photos.fetch().then(function(){
-	    new Snapshot.Views.Snapshot({ collection: Snapshot.photos })
+	    new Snapshot.Views.PhotosView({ collection: Snapshot.photos })
+
 	  });
 
-	</script>
+    Snapshot.sectors = new Snapshot.Collections.Sectors;
+    Snapshot.sectors.fetch().then(function(){
+      new Snapshot.Views.SectorsView({ collection: Snapshot.sectors })
+    });
 
+    Snapshot.retailers = new Snapshot.Collections.Retailers;
+    Snapshot.retailers.fetch().then(function(){
+      new Snapshot.Views.RetailersView({ collection: Snapshot.retailers })
+    });
+
+    Snapshot.categories = new Snapshot.Collections.Categories;
+    Snapshot.categories.fetch().then(function(){
+      new Snapshot.Views.CategoriesView({ collection: Snapshot.categories })
+    });
+
+    Snapshot.filters = new Snapshot.Collections.Filters({sectors});
+    Snapshot.filters.fetch().then(function(){
+      // new Snapshot.Views.Filters({ collection: Snapshot.filters })
+    });
+
+  });
+
+
+  
+	</script>
+  
 <% end  %>

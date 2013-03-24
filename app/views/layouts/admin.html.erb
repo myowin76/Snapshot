@@ -16,6 +16,14 @@
               </div>
             </div>
             <div id="content">
+              <% flash.each do |name, msg| %>
+                <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+                  <%= content_tag :div, msg %>
+                  <p class="pull-right">close</p>
+                </div>
+
+              <% end %>
+              
               <%= yield %>
             </div>
           </div>

@@ -7,7 +7,7 @@
       
       <b class="filter-label">Show:</b>
 
-      <%= select_tag :length , options_for_select([20,30,50], params[:per_page] ), :class => 'input-mini items-to-display' %>
+      <%= select_tag :length , options_for_select([30,60,90], params[:per_page] ), :class => 'input-mini items-to-display' %>
     </div><!-- /.filter-items -->
 
     <div class="filter-layout">
@@ -99,6 +99,11 @@
                     <b class="meta-data"><%= photo.audit.store.retailer.name unless photo.audit.store.nil? %></b>
                   </div>  
 
+                  <div class="meta-set date">
+                    <b class="meta-label">Store:</b>
+                    <b class="meta-data"><%= photo.audit.store.name %></b>
+                  </div>
+
                   <div class="meta-set brand">
                     <b class="meta-label">Brand:</b>
                     <b class="meta-data" data-trigger="hover" data-placement="top" data-toggle="tooltip" title="Brand: <%= photo.brands.map(&:name).join(", ") %>"><%= photo.brands.map(&:name).join(", ") %></b>
@@ -106,13 +111,13 @@
 
                   <div class="meta-set date">
                     <b class="meta-label">Date:</b>
-                    <b class="meta-data"><%= photo.audit.created_at %></b>
+                    <b class="meta-data"><%= photo.audit.audit_date %></b>
                   </div>
 
-                  <div class="meta-set address">
+                  <!-- <div class="meta-set address">
                     <b class="meta-label">Address:</b>
-                    <b class="meta-data"><%= photo.audit.store.address2 unless photo.audit.store.nil? %></b>
-                  </div>
+                    <b class="meta-data"><%#= photo.audit.store.address2 unless photo.audit.store.nil? %></b>
+                  </div> -->
 
                 </div><!-- /.meta-inner -->
 

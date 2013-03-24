@@ -18,9 +18,21 @@
       </p>
       
       <section>
-        <%= @store.address %>, 
-        <%= @store.address2 %>, 
-        <%= @store.postcode %>,
+        <% if @store.address.present? %>
+          <%= @store.address %>,
+        <% end %>
+        <% if @store.address.present? %>
+          <%= @store.address2 %>,
+        <% end %>
+        <% if @store.address3.present? %>
+          <%= @store.address3 %><br />
+        <% end %>
+        <% if @store.town.present? %>
+          <%= @store.town %>
+        <% end %>
+        <% if @store.postcode.present? %>
+          <%= @store.postcode %>,
+        <% end %>
         <%= @store.country.name unless @store.country_id.nil? %>
       </section>
       <p>

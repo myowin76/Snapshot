@@ -156,11 +156,10 @@ class PhotosController < ApplicationController
               @per_page = 30
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
+
            
       end
 
-    elsif user_is_country_subscriber?
-    elsif user_is_category_subscriber?
     else 
       # SOMETHING ELSE
     end
@@ -169,15 +168,7 @@ class PhotosController < ApplicationController
     unless @stores.blank?
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
-        marker.picture({
-            #:picture => "http://www.blankdots.com/img/github-32x32.png",
-            #:width   => 32,
-            #:height  => 32
-           })
         marker.title   store.name
-
-        # marker.sidebar "i'm the sidebar"
-        # marker.json({ :id => store.id, :foo => "bar" })
       end
     else 
       @json = '[
@@ -374,11 +365,12 @@ class PhotosController < ApplicationController
   end
 
   def publish_individual
-    
+    debugger
     @photo = Photo.find(params[:id])
+
     if @photo.update_attributes(:published => true)
       flash[:notice] = "Selected Images successfully Published."  
-      redirect_to admin_path
+        redirect_to photo_path(@photo)
     else
       flash[:notice] = "Error occured during publish..please try again"  
       redirect_to photo_path(@photo)
@@ -399,7 +391,7 @@ class PhotosController < ApplicationController
       flash[:notice] = "Please Select one or more image"
     end  
     
-    redirect_to admin_path
+    redirect_to unpublished_path
     
   end
 
@@ -527,33 +519,47 @@ class PhotosController < ApplicationController
 
 
   end
-  def search
-      @countries = Country.order(:name)
-      @categories = Category.order(:name)
-      
-      @stores = Store.order(:id).includes({:retailer => :sector})
-      @sectors = Sector.order(:name)
-      @store_formats = StoreFormat.order(:name)
-    
-      @env_types = EnvironmentType.order(:name)
-      @channels = Channel.order(:name)
 
-        @retailers = Retailer.order(:name)
-        
-      @promo_calendars = PromotionCalendar.order(:name)
-      @brand_owners = BrandOwner.order(:name)
-      @brands = Brand.order(:name)
-      @themes = Theme.order(:name)
-      @promo_types = PromotionType.order(:name)
-      @media_types = MediaType.order(:name)
-      @media_vehicles = MediaVehicle.order(:name)
-      @media_locations = MediaLocation.order(:name)
-       
+  def search
+      @countries = Country.select("id, name")
+    @store_formats = StoreFormat.select("id, name")
+    @env_types = EnvironmentType.select("id, name")
+    @channels = Channel.select("id, name")
+    @promo_calendars = PromotionCalendar.select("id, name")
+    @brand_owners = BrandOwner.select("id, name")
+    @brands = Brand.select("id, name")
+    @themes = Theme.select("id, name")
+    @promo_types = PromotionType.select("id, name")
+    @media_types = MediaType.select("id, name")
+    @media_vehicles = MediaVehicle.select("id, name")
+    @media_locations = MediaLocation.select("id, name")
     @photos = Photo.order(:created_at).includes(:brands).paginate(:page => params[:page])
     # respond_to do |format|
     #   format.html # index.html.erb
     #   format.json { render json: @photos }
     # end  
+  end
+
+  def all_filters
+  
+    @countries = Country.select("id, name")
+    @categories = Category.select("id, name")
+    @sectors = Sector.select("id, name")
+    @retailers = Retailer.select("id, name, sector_id")
+    @store_formats = StoreFormat.select("id, name")
+    @env_types = EnvironmentType.select("id, name")
+    @channels = Channel.select("id, name")
+    @promo_calendars = PromotionCalendar.order(:name)
+    @brand_owners = BrandOwner.order(:name)
+    @brands = Brand.order(:name)
+    @themes = Theme.order(:name)
+    @promo_types = PromotionType.order(:name)
+    @media_types = MediaType.order(:name)
+    @media_vehicles = MediaVehicle.order(:name)
+    @media_locations = MediaLocation.order(:name)
+
+
+
   end
   
 end
