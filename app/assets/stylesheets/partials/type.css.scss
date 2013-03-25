@@ -1,6 +1,6 @@
 /*
     Type
-*/
+
 
 
 
@@ -10,7 +10,7 @@
 @font-face {
   font-family: OpenSans;
   src: url("../assets/OpenSans-Regular.ttf");}
-
+*/
 body {
   overflow-y: scroll; 
   color: #333;
@@ -35,7 +35,7 @@ body {
   }
   h1, h2, h3, h4, h5, h6{
     font-weight: normal;
-    font-family: Museo500;
+    font-family: Helvetica, Arial, Serif;
     text-transform: uppercase;
   }
   h1{
