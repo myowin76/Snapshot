@@ -4,7 +4,7 @@ class	PhotoPdf < Prawn::Document
 		super()
 		@photo = photo
 		logo
-		move_down(30)
+		move_down(10)
 		#define_grid(:columns => 2, :rows => 8, :gutter => 10)
 		
 		move_down(30)
@@ -31,7 +31,11 @@ class	PhotoPdf < Prawn::Document
 		# grid.show_all
 		# grid([3,0], [2,1]).bounding_box do
 		# end	
+			photo_image
+			move_down(10)
+
 			text "Retailer: #{@photo.audit.store.retailer.name}", :size => 12
+			text "RetailSector: #{@photo.audit.store.retailer.sector.name}"
 			text "Store: #{@photo.audit.store.name}", :size => 12
 			if @photo.audit.store.address.present?
 				text "Address: #{@photo.audit.store.address}, ", :size => 12
@@ -57,14 +61,6 @@ class	PhotoPdf < Prawn::Document
 				text "Channel: #{@photo.audit.store.channel.name}"
 			end	
 			
-			move_down(10)
-			photo_image
-			move_down(10)
-			
-			
-			
-			text "Sector: #{@photo.audit.store.retailer.sector.name}"
-		
 		if @photo.categories
 			@photo.categories.each do |cat|
 				text "Category: #{cat.name}", :size => 12

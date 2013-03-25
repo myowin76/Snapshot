@@ -1,8 +1,5 @@
 <section class="photo_views_view">
-  <!-- <div class="page-header">
-    <button type="button" class="close">×</button>
-    <h1 id="myModalLabel"><%= @photo.photo_file_name %></h1>
-  </div> -->
+
   <div id="photo-details">
     <div class="left">
       <figure>
@@ -44,11 +41,9 @@
           <strong>Store Not Found..</strong>
           <%= link_to "Edit", edit_audit_path(@photo.audit) %>
         <% end %>
-        
-
       </section>
-
     </div>
+
     <div class="right">
       <%= simple_form_for(@photo) do |f| %>
         <%= f.error_notification %>
@@ -59,14 +54,7 @@
             <br />
           </label>
           <%= f.hidden_field "audit_id", :value=> @photo.audit.id %>
-          <!-- <label>
-            <strong>Environment Type:</strong>
-            <%#= @photo.audit.environment_type.name unless @photo.audit.environment_type_id.nil? %>
-          </label>
-          <label>
-            <strong>Channel:</strong>
-            <%#= @photo.audit.channel.name unless @photo.audit.channel_id.nil? %>
-          </label> -->
+
           <label>
             <strong>Date of Audit: </strong>
             <%= @photo.audit.audit_date %>
@@ -86,8 +74,6 @@
                 :include_blank => false, :input_html => { :class=> 'chosen-brand' } %>
           </div>
           
-          
-          <%#= f.input :additional_brands %>
           <label>Product Categories</label>
           <%= f.association :categories, collection: Category.all(order: 'name'), 
             :input_html => { :class=> 'chosen-category' }, :label => false  %>

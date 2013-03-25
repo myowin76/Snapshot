@@ -23,7 +23,9 @@ Snapshot::Application.routes.draw do
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
   match '/photos/download/:id' => 'photos#zip_all_from_store', :as => :all_store_photos
-  
+  # match '/photos/publish_checked' => 'photos#publish_multiple', :as => :publish_checked
+  # match '/photos/delete_checked' => 'photos#delete_multiple', :as => :delete_checked
+
   resources :audits do
     collection do
       post :refresh_store_dropdown
@@ -33,7 +35,9 @@ Snapshot::Application.routes.draw do
 
   resources :photos do
     collection do
-      put :publish_multiple
+      # put :publish_multiple
+      post :publish_multiple
+      post :delete_multiple
       put :publish_individual
       post :refresh_brands
       post :refresh_retailers

@@ -18,11 +18,7 @@ class	PhotoListPdf < Prawn::Document
   #   	self.header = true
 		# end
     photo_rows
-		# photo_image
-		# move_down(30)
-		# photo_table
-		# move_down(10)
-		
+
 	end
 
 	def header
@@ -32,16 +28,13 @@ class	PhotoListPdf < Prawn::Document
 	def logo
 		image open("#{Rails.root}/app/assets/images/SNAPSHOT_logo.jpg"), :width => 200	
 	end
+
   def photo_rows
 
     @photo_list.map do |photo|
-
-        photo_details photo  
+      photo_details photo  
     end  
-    
   end
-
-	
 
   def photo_image(photo)
 		# text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold
@@ -54,46 +47,41 @@ class	PhotoListPdf < Prawn::Document
 	# end
 	
   def photo_details photo
-    move_down(10)
+        move_down(10)
         photo_image photo
         move_down(10)  
+        
+        if photo.audit.store
 
-
-        text "Retailer: #{photo.audit.store.retailer.name}"
-        text "Store: #{photo.audit.store.name}"
-        if photo.audit.store.address.present?
-          text "Address: #{photo.audit.store.address}, "
+          text "Retailer: #{photo.audit.store.retailer.name}"
+          text "Sector: #{photo.audit.store.retailer.sector.name}"
+          text "Store: #{photo.audit.store.name}"
+          if photo.audit.store.address.present?
+            text "Address: #{photo.audit.store.address}, "
+          end
+          if photo.audit.store.address2.present?
+            text " #{photo.audit.store.address2}, "
+          end
+          if photo.audit.store.address3.present?
+            text "#{photo.audit.store.address3}, "
+          end
+          if photo.audit.store.town.present?
+            text "#{photo.audit.store.town}, "
+          end
+          if photo.audit.store.postcode.present?
+            text "#{photo.audit.store.postcode}"
+          end
+          
+          text "Country: #{photo.audit.store.country.name}" unless photo.audit.store.country_id.nil?
+          text "Store Format: #{photo.audit.store.store_format.name}"
+          text "Environment Type: #{photo.audit.store.environment_type.name}"
+          if photo.audit.store.channel.present?
+            text "Channel: #{photo.audit.store.channel.name}"
+          end 
         end
-        if photo.audit.store.address2.present?
-          text " #{photo.audit.store.address2}, "
-        end
-        if photo.audit.store.address3.present?
-          text "#{photo.audit.store.address3}, "
-        end
-        if photo.audit.store.address.present?
-          text "#{photo.audit.store.town}, "
-        end
-        if photo.audit.store.address.present?
-          text "#{photo.audit.store.postcode}"
-        end
-        
-        text "Country: #{photo.audit.store.country.name}" unless photo.audit.store.country_id.nil?
-        text "Store Format: #{photo.audit.store.store_format.name}"
-        text "Environment Type: #{photo.audit.store.environment_type.name}"
-        if photo.audit.store.channel.present?
-          text "Channel: #{photo.audit.store.channel.name}"
-        end 
-        
-        
-        
-        
-        
-        text "Sector: #{photo.audit.store.retailer.sector.name}"
-      
+  
       if photo.categories
-        photo.categories.each do |cat|
-          text "Category: #{cat.name}"
-        end
+        text "Categories: #{photo.categories.map(&:name).join(", ")}"
       end
       if photo.brands
           text "Brands: #{photo.brands.map(&:name).join(", ")}"
@@ -105,23 +93,12 @@ class	PhotoListPdf < Prawn::Document
       end
       if photo.media_locations
         text "Media Location: #{photo.media_locations.map(&:name).join(", ")}"
-        # photo.media_locations.each do |ml|   
-        #   text "Media Location: #{ml.name }"
-        # end
       end
       if photo.media_types
         text "Media Types: #{photo.media_types.map(&:name).join(", ")}"
-        # @photo.media_types.each do |mt|   
-        #   text "Media Type: #{mt.name}"
-        # end
       end   
       if photo.media_vehicles
         text "Media Vehicles: #{photo.media_vehicles.map(&:name).join(", ")}"
-        # @photo.media_vehicles.each do |mv|    
-        #   text "Media Vehicle: #{mv.name}"
-        # end
       end  
-    
   end
-	
 end

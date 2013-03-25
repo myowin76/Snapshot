@@ -330,14 +330,41 @@ $(document).ready(function() {
 
 
 
-  $('#publish_multiple').click(function(){
+  $('#publish_checked').click(function(){
+    var info = {}
     checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
     
     if (checkbox_array == undefined) {
       alert("Please select the image");
       return false;
-    };
-  })
+    }
+    info['checkbox_array'] = checkbox_array
+    $.ajax({
+      url: '/photos/publish_multiple',
+      type: "POST",
+      dataType: 'script',
+      data: info
+    });
+    // return false;
+
+  });
+  $('#delete_checked').live("click", function(){
+    var info = {}
+    checkbox_array = $("input[name='photo_ids[]']:checked").serializeObject()['photo_ids[]'];
+    
+    if (checkbox_array == undefined) {
+      alert("Please select the image");
+      return false;
+    }
+    info['checkbox_array'] = checkbox_array
+    $.ajax({
+      url: '/photos/delete_multiple',
+      type: "POST",
+      dataType: 'script',
+      data: info
+    });
+    // return false;
+  });
   
 
 

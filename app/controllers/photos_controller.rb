@@ -381,12 +381,31 @@ class PhotosController < ApplicationController
 
   def publish_multiple
     
-    if params[:photo_ids].present?
-      @photos = Photo.find(params[:photo_ids])
+    if params[:checkbox_array].present?
+      @photos = Photo.find_all_by_id(params[:checkbox_array])
       @photos.each do |photo|
         photo.update_attributes(:published => true)
       end
       flash[:notice] = "Selected Images successfully Published."  
+
+    else
+      flash[:notice] = "Please Select one or more image"
+    end  
+    
+    render "admin/unpublished"
+    
+  end
+
+  def delete_multiple
+    
+    if params[:checkbox_array].present?
+      # @photos = Photo.find_all_by_id(params[:checkbox_array])
+      # debugger
+      # @photos.each do |photo|
+      #   photo.destroy
+      # end
+      Photo.destroy(params[:checkbox_array])
+      flash[:notice] = "Selected Images Deleted."  
     else
       flash[:notice] = "Please Select one or more image"
     end  
@@ -460,7 +479,7 @@ class PhotosController < ApplicationController
   end
 
   def update_brand_owners_dropdown
-    # debugger
+    
     @brand_owner_ddl_id = params[:brand_owner_ddl_id]
     @pre_brand_ids = params[:pre_selected_brand_ids]
 
