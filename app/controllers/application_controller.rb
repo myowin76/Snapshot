@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
       authenticate_or_request_with_http_basic do |username, password|
           username == "foo" && password == "bar"
       end
-      debugger
+      # debugger
       warden.custom_failure! if performed?
     end
   end

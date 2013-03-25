@@ -365,7 +365,7 @@ class PhotosController < ApplicationController
   end
 
   def publish_individual
-    debugger
+    # debugger
     @photo = Photo.find(params[:id])
 
     if @photo.update_attributes(:published => true)
