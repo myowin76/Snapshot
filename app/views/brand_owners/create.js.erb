@@ -9,11 +9,13 @@ if ($('.overlay').children().hasClass('brands-popup')){
 		$('.brands-popup').show();
 
 		$('#brand_brand_owner_id').append(new_brand_owner);
+		$('.brand_owner_ddl').append(new_brand_owner);
+		
 		$('#brand_brand_owner_id').val('<%= @brand_owner.id %>')
 		$('#brand_brand_owner_id').trigger("liszt:updated");
-		if( $('#photo-details').children().find('#brand_owner_id').length > 0){
-			$('#photo-details').children().find('#brand_owner_id').append(new_brand_owner);
-		}
+		// if( $('#photo-details').children().find('#brand_owner_id').length > 0){
+		// 	$('#photo-details').children().find('#brand_owner_id').append(new_brand_owner);
+		// }
 
 
 	}	

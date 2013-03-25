@@ -19,9 +19,10 @@ $('.site-content').show();
 // alert("new owner" + new_owner);
 // alert("new brand" + new_brand);
 
-$(select_id).append(new_brand).trigger("liszt:updated");
+// $(select_id).append(new_brand).trigger("liszt:updated");
+$('.chosen-brand').append(new_brand).trigger("liszt:updated");
 $(select_id).val(values.split(",")).trigger("liszt:updated");
- <% debugger %>
+ <%# debugger %>
 //update owner dropdown if new owner
 	// $(owner_ddl).append(new_owner); //.trigger("liszt:updated");
 $(owner_ddl).val(owner_values.split(",")).trigger("liszt:updated");
