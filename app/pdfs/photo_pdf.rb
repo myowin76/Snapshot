@@ -20,7 +20,7 @@ class	PhotoPdf < Prawn::Document
 	
 	def photo_image
 		# text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold
-		image open("#{@photo.photo.url(:medium)}") #, :width => 200
+		image open("#{@photo.photo.url(:original)}") , :width => 500
 		# image open("#{@photo.photo.url(:medium).to_s.sub!(/\?.+\Z/, '')}")
 
 	end
@@ -31,20 +31,38 @@ class	PhotoPdf < Prawn::Document
 		# grid.show_all
 		# grid([3,0], [2,1]).bounding_box do
 		# end	
+			text "Retailer: #{@photo.audit.store.retailer.name}", :size => 12
 			text "Store: #{@photo.audit.store.name}", :size => 12
-			text "Address: #{@photo.audit.store.address}, #{@photo.audit.store.address2}, #{@photo.audit.store.address3} #{@photo.audit.store.town}
-						#{@photo.audit.store.postcode}", :size => 12
-			text "#{@photo.audit.store.country.name}" unless @photo.audit.store.country_id.nil?
+			if @photo.audit.store.address.present?
+				text "Address: #{@photo.audit.store.address}, ", :size => 12
+			end
+			if @photo.audit.store.address2.present?
+				text " #{@photo.audit.store.address2}, ", :size => 12
+			end
+			if @photo.audit.store.address3.present?
+				text "#{@photo.audit.store.address3}, ", :size => 12
+			end
+			if @photo.audit.store.address.present?
+				text "#{@photo.audit.store.town}, ", :size => 12
+			end
+			if @photo.audit.store.address.present?
+				text "#{@photo.audit.store.postcode}", :size => 12
+			end
+			# text "#{@photo.audit.store.address2}, #{@photo.audit.store.address3} #{@photo.audit.store.town}
+			# 			#{@photo.audit.store.postcode}", :size => 12
+			text "Country: #{@photo.audit.store.country.name}" unless @photo.audit.store.country_id.nil?
 			text "Store Format: #{@photo.audit.store.store_format.name}"
 			text "Environment Type: #{@photo.audit.store.environment_type.name}"
-			text "Channel: #{@photo.audit.store.channel.name}"
+			if @photo.audit.store.channel.present?
+				text "Channel: #{@photo.audit.store.channel.name}"
+			end	
 			
 			move_down(10)
 			photo_image
 			move_down(10)
 			
-			text "Date:#{@photo.created_at}", :size => 12
-			text "Retailer: #{@photo.audit.store.retailer.name}", :size => 12
+			
+			
 			text "Sector: #{@photo.audit.store.retailer.sector.name}"
 		
 		if @photo.categories
@@ -53,16 +71,12 @@ class	PhotoPdf < Prawn::Document
 			end
 		end
 		if @photo.brands
-			@photo.brands.each do |brand|
-				text "Brand: #{brand.name}", :size => 12
-			end
+				text "Brands: #{@photo.brands.map(&:name).join(", ")}", :size => 12
 		end
 
 		text "Promotion Calendar: #{@photo.promotion_calendar.name unless @photo.promotion_calendar_id.nil? }"
 		if @photo.promotion_types
-			@photo.promotion_types.each do |pt|
-				text "Promotion Type: #{pt.name}"
-			end
+				text "Promotion Types: #{@photo.promotion_types.map(&:name).join(", ")}"
 		end
 		if @photo.media_locations
 			@photo.media_locations.each do |ml|		

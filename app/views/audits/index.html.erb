@@ -25,7 +25,11 @@
     <% @audits.each do |audit| %>
       <tr>
         <td><%= audit.reference %></td>
-        <td><%= audit.store.name %></td>
+        <% if audit.store %></td> 
+          <td><%= audit.store.name %></td>
+        <% else %>  
+          <td style="color:red;">Store Not Assigned</td>
+        <% end %>  
         <td><%= audit.user.username %></td>
         <td><%= audit.audit_date %></td>
         <td>

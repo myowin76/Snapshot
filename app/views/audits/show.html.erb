@@ -4,14 +4,22 @@
   <%= @audit.reference %>
 </p>
 <p>
+  <% if @audit.store %>
   <strong>Store:</strong>
-  <%= @audit.store.name %>
+    <%= @audit.store.name %>
+  <% else %>  
+    <div style="color: red">
+      No store has been assign to the audit, 
+      <%= link_to "Edit", edit_audit_path(@audit) %>
+    </div>
+  <% end %>  
 </p>
-<p>
-  <strong>Retailer:</strong>
-  <%= @audit.store.retailer.name %>
-</p>
-
+<% if @audit.store %>
+  <p>
+    <strong>Retailer:</strong>
+    <%= @audit.store.retailer.name %>
+  </p>
+<% end %>
 <p>
   <strong>Uploaded by:</strong>
   <%= @audit.user.username unless @audit.user.username.nil?%>

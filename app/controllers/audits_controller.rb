@@ -56,7 +56,9 @@ class AuditsController < ApplicationController
   def edit
     
     @audit = Audit.find(params[:id])
-    @store = @audit.store
+    if @audit.store
+      @store = @audit.store  
+    end  
     @retailers = Retailer.order(:name).all
     
   end

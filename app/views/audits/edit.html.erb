@@ -17,8 +17,12 @@
           <%= select_tag "audit_retailer_id", options_from_collection_for_select(
           Retailer.all.order(:name), "id", "name"), {:prompt => 'Please Select' }%>
         <% else  %>
-
-          <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), :validate => { :presence => true } %>
+          <% if @audit.store %>
+            <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name",  @audit.store.retailer.id ), :validate => { :presence => true } %>
+          <% else %>
+            
+            <%= select_tag "audit_retailer_id", options_from_collection_for_select(@retailers, "id", "name" ), :validate => { :presence => true } , :prompt => 'Please Select'  %>
+          <% end %>
         <% end %>
       <% else  %>  
         <% retailer = Retailer.find_by_name(params[:retailer])  %>
@@ -28,10 +32,16 @@
     <fieldset>
       <div class="audits_store_dropdown">
         <% unless @audit.new_record? %>
+          <% if @audit.store %>
           Stores<br />
-          <%= select_tag 'audit[store_id]', 
+            <%= select_tag 'audit[store_id]', 
           		options_from_collection_for_select(@audit.store.retailer.stores, "id", "name",  
           		@audit.store.id(&:id)), {:prompt => 'Please Select'} %>
+          <% else %>   
+            <div style="color: red;">
+              No store has been assigned. Please Select Retailers and Store.
+            </div> 
+          <% end %>      
         <% end %>
       </div>
     </fieldset>

@@ -101,7 +101,11 @@
 
                   <div class="meta-set date">
                     <b class="meta-label">Store:</b>
-                    <b class="meta-data"><%= photo.audit.store.name %></b>
+                    <% if photo.audit.store %>
+                      <b class="meta-data"><%= photo.audit.store.name %></b>
+                    <% else  %>  
+                      <b class="meta-data" style="color: red">No Store Assigned</b>
+                    <% end %>
                   </div>
 
                   <div class="meta-set brand">

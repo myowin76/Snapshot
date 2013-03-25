@@ -57,8 +57,21 @@
       <%= f.input :store_id, :as => :hidden, :input_html => {:value => store.id} %>
       <strong>Store Name:</strong>
       <%= store.name %><br />
-      <%= store.address %>, 
-      <%= store.address2 %>, <%= store.postcode %>,
+      <% if store.address.present? %>
+        <%= store.address %>,
+      <% end %>
+      <% if store.address2.present? %>
+        <%= store.address2 %>,
+      <% end %>  
+      <% if store.address3.present? %>
+        <%= store.address3 %>,
+      <% end %>  
+      <% if store.town.present? %>
+        <%= store.town %>,
+      <% end %>  
+      <% if store.address.present? %>
+        <%= store.postcode %>,
+      <% end %>    
     <% end %>  
       
     <% unless @audit.new_record? %>

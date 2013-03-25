@@ -11,35 +11,39 @@
       <br />
       <section class="photo-store-info">
         <strong>Store: </strong>
-        <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %> - 
-        <%= @photo.audit.store.store_format.name %>
-        <br>
-        <% unless @photo.audit.store.address.blank? %>
-          <strong>Address: </strong><%= @photo.audit.store.address %>, 
-        <% end %>
-        <% unless @photo.audit.store.address2.blank? %>  
-          <%= @photo.audit.store.address2 %>,
-        <% end %>      
-        <% unless @photo.audit.store.address3.blank? %>
-          <%= @photo.audit.store.address3 %>,
-        <% end %>
-        <% unless @photo.audit.store.town.blank? %>
-          <%= @photo.audit.store.town %>,
-        <% end %>
-        <% if @photo.audit.store.country_id.present?  %>
-          <%= @photo.audit.store.country.name %><br />
-        <% end %>  
-        <strong>Environment Type: </strong> 
-        <%= @photo.audit.store.environment_type.name unless @photo.audit.store.environment_type.nil? %><br /> 
-        
-        <strong>Channel: </strong> 
-        <%= @photo.audit.store.channel.name unless @photo.audit.store.channel.nil? %><br /> 
+        <% if @photo.audit.store %>
+          <%= link_to @photo.audit.store.name, store_path(@photo.audit.store) %> - 
+          <%= @photo.audit.store.store_format.name %>
+          <br>
+          <% unless @photo.audit.store.address.blank? %>
+            <strong>Address: </strong><%= @photo.audit.store.address %>, 
+          <% end %>
+          <% unless @photo.audit.store.address2.blank? %>  
+            <%= @photo.audit.store.address2 %>,
+          <% end %>      
+          <% unless @photo.audit.store.address3.blank? %>
+            <%= @photo.audit.store.address3 %>,
+          <% end %>
+          <% unless @photo.audit.store.town.blank? %>
+            <%= @photo.audit.store.town %>,
+          <% end %>
+          <% if @photo.audit.store.country_id.present?  %>
+            <%= @photo.audit.store.country.name %><br />
+          <% end %>  
+          <strong>Environment Type: </strong> 
+          <%= @photo.audit.store.environment_type.name unless @photo.audit.store.environment_type.nil? %><br /> 
+          
+          <strong>Channel: </strong> 
+          <%= @photo.audit.store.channel.name unless @photo.audit.store.channel.nil? %><br /> 
 
-        <strong>Retail Sector: </strong>
-        <%= @photo.audit.store.retailer.sector.name %><br />
-        <strong>Retailer: </strong> 
-        <%= @photo.audit.store.retailer.name %><br /> 
-        
+          <strong>Retail Sector: </strong>
+          <%= @photo.audit.store.retailer.sector.name %><br />
+          <strong>Retailer: </strong> 
+          <%= @photo.audit.store.retailer.name %><br /> 
+        <% else %>  
+          <strong>Store Not Found..</strong>
+          <%= link_to "Edit", edit_audit_path(@photo.audit) %>
+        <% end %>
         
 
       </section>
