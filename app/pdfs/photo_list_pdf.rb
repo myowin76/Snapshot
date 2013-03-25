@@ -38,7 +38,7 @@ class	PhotoListPdf < Prawn::Document
 
   def photo_image(photo)
 		# text "File Name: #{@photo.photo_file_name}", :size => 14, :style => :bold
-		image open("#{photo.photo.url(:large)}"), :width => 400
+		image open("#{photo.photo.url(:large)}"), :width => 200
 		# image open("#{@photo.photo.url(:medium).to_s.sub!(/\?.+\Z/, '')}")
 	end
   # using custom fonts
