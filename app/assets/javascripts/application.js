@@ -26,6 +26,7 @@
 //= require_tree ./admin
 // require underscore
 // require backbone
+//= require jquery.validate.min
 // require backbone/snapshot
 // require_tree .
 // require jquery-fileupload/vendor/tmpl
@@ -42,11 +43,9 @@ var snapshot = {
   
   Pagination: function(){
 
-    
     $('.pagination a').live('click',function (e) {
 
       $.get(this.href, null, null, 'script');
-
       $('html, body').animate({
         scrollTop: $("body").offset().top
       }, 500);
@@ -56,11 +55,7 @@ var snapshot = {
   }
 };
 
-
-
-
-$(document).ready(function() {
-
+  $(document).ready(function() {
 
   // new Snapshot.Router;
   // Backbone.history.start();
@@ -73,7 +68,7 @@ $(document).ready(function() {
   // window.SectorView = Backbone.View.extend({
   //   initialize: function(){
   //     this.template = _.template($('.page-header').html());
-  //   },
+  //   }, 
   //   render: function(){
   //     var renderedContent = this.template(this.model.attributes);
   //     $(this.el).html(renderedContent);
@@ -114,10 +109,6 @@ $(document).ready(function() {
       $( "#search_fromDate" ).datepicker( "option", "maxDate", selectedDate );
     }
   })
-
-
-
-
 
   snapshot.Pagination();
 

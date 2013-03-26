@@ -7,9 +7,11 @@ class	PhotoListPdf < Prawn::Document
 		
 		photo_ids = photos.split(",")
 		@photo_list = Photo.find_all_by_id(photo_ids)
-		move_up(30)
-		header
-		move_down(30)
+		move_up 30
+    repeat(:all) do
+		  header
+    end  
+		move_down 30
 		
 		# table photo_rows do
 		# 	row(0).font_style = :bold
@@ -17,12 +19,14 @@ class	PhotoListPdf < Prawn::Document
 		# 	self.row_colors = ["DDDDDD", "FFFFFF"]
   #   	self.header = true
 		# end
+
     photo_rows
 
 	end
 
 	def header
 		logo
+    move_down(30)
 	end
 	
 	def logo
@@ -30,10 +34,17 @@ class	PhotoListPdf < Prawn::Document
 	end
 
   def photo_rows
-
     @photo_list.map do |photo|
-      photo_details photo  
-    end  
+      define_grid(:columns => 5, :rows => 1, :gutter => 0)
+
+      grid(0,0).bounding_box do
+        photo_image photo
+      end
+      grid([0,2],[0,5]).bounding_box do
+        photo_details photo  
+      end
+      start_new_page
+    end
   end
 
   def photo_image(photo)
@@ -47,58 +58,66 @@ class	PhotoListPdf < Prawn::Document
 	# end
 	
   def photo_details photo
-        move_down(10)
-        photo_image photo
-        move_down(10)  
+ 
         
         if photo.audit.store
 
-          text "Retailer: #{photo.audit.store.retailer.name}"
-          text "Sector: #{photo.audit.store.retailer.sector.name}"
-          text "Store: #{photo.audit.store.name}"
+          data = [[ "Retailer","#{photo.audit.store.retailer.name}"]]
+          data += [[ "Retail Sector","#{photo.audit.store.retailer.sector.name}"]]
+          data += [[ "Store Name","#{photo.audit.store.name}"]]
+          # sector = "#{photo.audit.store.retailer.sector.name}"
+          # store =  "#{photo.audit.store.name}"
+          
           if photo.audit.store.address.present?
-            text "Address: #{photo.audit.store.address}, "
+            address = "Address: #{photo.audit.store.address}, "
           end
           if photo.audit.store.address2.present?
-            text " #{photo.audit.store.address2}, "
+            address = address +"#{photo.audit.store.address2}, "
           end
           if photo.audit.store.address3.present?
-            text "#{photo.audit.store.address3}, "
+            address = address + "#{photo.audit.store.address3}, "
           end
           if photo.audit.store.town.present?
-            text "#{photo.audit.store.town}, "
+            address = address + "#{photo.audit.store.town}, "
           end
           if photo.audit.store.postcode.present?
-            text "#{photo.audit.store.postcode}"
+            address = address + "#{photo.audit.store.postcode}"
           end
-          
-          text "Country: #{photo.audit.store.country.name}" unless photo.audit.store.country_id.nil?
-          text "Store Format: #{photo.audit.store.store_format.name}"
-          text "Environment Type: #{photo.audit.store.environment_type.name}"
+          data += [[ "Address", address]]
+          unless photo.audit.store.country_id.nil?
+            data += [[ "Country", "#{photo.audit.store.country.name}" ]]
+          end
+          data += [[ "Store Format", "#{photo.audit.store.store_format.name}" ]]
+          data += [[ "Environment Type:", "#{photo.audit.store.environment_type.name}" ]]
           if photo.audit.store.channel.present?
-            text "Channel: #{photo.audit.store.channel.name}"
+            data += [[ "Channel","#{photo.audit.store.channel.name}"]]
           end 
         end
   
-      if photo.categories
-        text "Categories: #{photo.categories.map(&:name).join(", ")}"
+      if photo.categories.present?
+        data += [[ "Categories","#{photo.categories.map(&:name).join(", ")}"]]
       end
       if photo.brands
-          text "Brands: #{photo.brands.map(&:name).join(", ")}"
+          data += [[ "Brands", "#{photo.brands.map(&:name).join(", ")}"]]
       end
-
-      text "Promotion Calendar: #{photo.promotion_calendar.name unless photo.promotion_calendar_id.nil? }"
+      if photo.promotion_calendar_id.present?
+        data += [[ "Promotion Calendar", "#{photo.promotion_calendar.name}"]]
+      end  
       if photo.promotion_types
-          text "Promotion Types: #{photo.promotion_types.map(&:name).join(", ")}"
+          promotion_types = 
+          data += [[ "Promotion Types", "#{photo.promotion_types.map(&:name).join(", ")}"]]
       end
       if photo.media_locations
-        text "Media Location: #{photo.media_locations.map(&:name).join(", ")}"
+        data += [[ "Promotion Types", "#{photo.media_locations.map(&:name).join(", ")}"]]
       end
       if photo.media_types
-        text "Media Types: #{photo.media_types.map(&:name).join(", ")}"
+        data += [[ "Media Types", "#{photo.media_types.map(&:name).join(", ")}"]]
       end   
       if photo.media_vehicles
-        text "Media Vehicles: #{photo.media_vehicles.map(&:name).join(", ")}"
-      end  
+        data += [[ "Media Types", "#{photo.media_vehicles.map(&:name).join(", ")}"]]
+      end 
+      
+      table(data, :width => 300, :row_colors => ["FFFFFF", "FFFFCC"])
+      
   end
 end

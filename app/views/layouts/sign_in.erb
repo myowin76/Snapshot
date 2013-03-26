@@ -23,8 +23,7 @@
   </div> 
   <%#= render 'layouts/blocks/footer' %>
   <div id="photo-detail-model" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>     
-
-    <%= yield :scripts %>
+    
 
     
     <form class="form-horizontal" id="email-form">
@@ -61,7 +60,8 @@
     </form>
 
 
-    
+    <%= javascript_include_tag "application" %>
+    <%= yield :scripts %>
 
   </body>
 </html>

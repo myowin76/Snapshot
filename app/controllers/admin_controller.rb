@@ -1,10 +1,11 @@
 class AdminController < ApplicationController
   # layout "admin", :only => "admin" 
   # layout false
-  before_filter :get_user, :only => [:admin]
-  before_filter :accessible_roles, :only => [:admin, :home]
+  # before_filter :get_user, :only => [:admin, :home]
+  # before_filter :accessible_roles, :only => [:admin]
   # load_and_authorize_resource :only => [:admin], :class => self.class
-  authorize_resource :class => false
+  load_and_authorize_resource :except => [:loginpage_message]
+  # authorize_resource :class => false
   
   def home
 	
@@ -37,7 +38,7 @@ class AdminController < ApplicationController
   end
 
   def loginpage_message
-    
+    # layout false
     if params[:email].present? && params[:message].present?
       AdminMailer.loginpage_message(params).deliver
         

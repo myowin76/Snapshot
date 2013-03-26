@@ -1,6 +1,6 @@
 // client side pagination
 .pagination {
-  font-family: OpenSans;
+  font-family: Helvetica, Arial, sans-serif;
   margin: 0px !important;
   padding: 0;
   position: relative;
@@ -38,7 +38,7 @@
   }
 }
 .paging_full_numbers{
-  font-family: OpenSans, Arial;
+  font-family: Helvetica, Arial, sans-serif;
   a{
 
     &.paginate_button{
