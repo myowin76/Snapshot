@@ -21,7 +21,11 @@
     <% @brands.each do |brand| %>
       <tr>
         <td><%= link_to brand.name, brand %></td>
-        <td><%= brand.brand_owner.name unless brand.brand_owner || brand.brand_owner_id.nil? %></td>
+        <td>
+          <% unless brand.brand_owner_id.nil? %>
+            <%= brand.brand_owner_name %>
+          <% end %>  
+        </td>
         <td><%= brand.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

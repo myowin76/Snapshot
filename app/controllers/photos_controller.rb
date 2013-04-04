@@ -12,7 +12,8 @@ class PhotosController < ApplicationController
   
   def index
         
-    if user_is_country_and_category_subscriber?
+    # if user_is_country_and_category_subscriber?
+
       if params[:saved_search_id] 
         saved = SaveSearch.find_by_id(params[:saved_search_id])
         if saved
@@ -101,13 +102,13 @@ class PhotosController < ApplicationController
       else
         @per_page = 30
       end
-    
-        @photos = Photo.published
+      # initiate Photo object
+      @photos = Photo.published
       if params_search.nil?
 
           #.select('photos.id, photos.photo_file_name, photos.audit_id')
           @photos = @photos.paginate(:page => params[:page], 
-            :per_page => @per_page).order('audits.audit_date DESC').includes([:audit, :brands])
+            :per_page => @per_page).order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
       #   # on page load
         
       #   # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
@@ -125,6 +126,7 @@ class PhotosController < ApplicationController
 
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
+
           @photos = @photos.where('promotion_calendar_id IN (?)', search_promotion_calendars) if search_promotion_calendars.present?
           @photos = @photos.joins(:promotion_types).where('promotion_types.id IN (?)', search_promotion_types) if search_promotion_types.present?
           @photos = @photos.joins(:media_types).where('media_types.id IN (?)', search_media_types) if search_media_types.present?
@@ -158,12 +160,12 @@ class PhotosController < ApplicationController
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
 
-           
+           # debugger
       end
 
-    else 
+    # else 
       # SOMETHING ELSE
-    end
+    # end
 
     # MAP
     unless @stores.blank?
@@ -296,7 +298,7 @@ class PhotosController < ApplicationController
     
     zip_file = Photo.zip_files(params[:photo_ids].split(','))
     if zip_file
-      send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export"
+      send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "export.zip"
       zip_file.close
     end
   end
@@ -306,7 +308,7 @@ class PhotosController < ApplicationController
     zip_file = Photo.zip_all_from_store store
     
     if zip_file
-      send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "#{store.name}"
+      send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "#{store.name}.zip"
       zip_file.close
     end
   end
@@ -535,25 +537,33 @@ class PhotosController < ApplicationController
   # end
 
   def check_counts
-    
+  # TO DO
+  end
 
-
+  
+  def all_photos
+    @photos = Photo.order(:created_at)
+    # .includes(:brands)
   end
 
   def search
-      @countries = Country.select("id, name")
-    @store_formats = StoreFormat.select("id, name")
-    @env_types = EnvironmentType.select("id, name")
-    @channels = Channel.select("id, name")
-    @promo_calendars = PromotionCalendar.select("id, name")
-    @brand_owners = BrandOwner.select("id, name")
-    @brands = Brand.select("id, name")
-    @themes = Theme.select("id, name")
-    @promo_types = PromotionType.select("id, name")
-    @media_types = MediaType.select("id, name")
-    @media_vehicles = MediaVehicle.select("id, name")
-    @media_locations = MediaLocation.select("id, name")
-    @photos = Photo.order(:created_at).includes(:brands).paginate(:page => params[:page])
+    # @countries = Country.select("id, name")
+    # @store_formats = StoreFormat.select("id, name")
+    # @env_types = EnvironmentType.select("id, name")
+    # @channels = Channel.select("id, name")
+    # @promo_calendars = PromotionCalendar.select("id, name")
+    # @brand_owners = BrandOwner.select("id, name")
+    # @brands = Brand.select("id, name")
+    # @themes = Theme.select("id, name")
+    # @promo_types = PromotionType.select("id, name")
+    # @media_types = MediaType.select("id, name")
+    # @media_vehicles = MediaVehicle.select("id, name")
+    # @media_locations = MediaLocation.select("id, name")
+    
+    @photos = Photo.order(:created_at)
+    .includes(:brands)
+    # .select("photos.id, photos.photo_file_name, photos.audit_id")
+    # .paginate(:page => params[:page])
     # respond_to do |format|
     #   format.html # index.html.erb
     #   format.json { render json: @photos }
@@ -562,21 +572,21 @@ class PhotosController < ApplicationController
 
   def all_filters
   
-    @countries = Country.select("id, name")
+    # @countries = Country.select("id, name")
     @categories = Category.select("id, name")
     @sectors = Sector.select("id, name")
     @retailers = Retailer.select("id, name, sector_id")
-    @store_formats = StoreFormat.select("id, name")
-    @env_types = EnvironmentType.select("id, name")
-    @channels = Channel.select("id, name")
-    @promo_calendars = PromotionCalendar.order(:name)
-    @brand_owners = BrandOwner.order(:name)
-    @brands = Brand.order(:name)
-    @themes = Theme.order(:name)
-    @promo_types = PromotionType.order(:name)
-    @media_types = MediaType.order(:name)
-    @media_vehicles = MediaVehicle.order(:name)
-    @media_locations = MediaLocation.order(:name)
+    # @store_formats = StoreFormat.select("id, name")
+    # @env_types = EnvironmentType.select("id, name")
+    # @channels = Channel.select("id, name")
+    # @promo_calendars = PromotionCalendar.order(:name)
+    # @brand_owners = BrandOwner.order(:name)
+    # @brands = Brand.order(:name)
+    # @themes = Theme.order(:name)
+    # @promo_types = PromotionType.order(:name)
+    # @media_types = MediaType.order(:name)
+    # @media_vehicles = MediaVehicle.order(:name)
+    # @media_locations = MediaLocation.order(:name)
 
 
 

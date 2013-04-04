@@ -15,13 +15,13 @@
         <section id="photoOverlay" class="overlay"></section>
         
         <section class="site-content" role="main">
-          <% flash.each do |name, msg| %>
-            <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-              <%= content_tag :div, msg %>
+          <% #flash.each do |name, msg| %>
+            <!-- <div class="alert alert-<%#= name == :notice ? "success" : "error" %>">
+              <%#= content_tag :div, msg %>
               <p class="pull-right">close</p>
-            </div>
+            </div> -->
 
-          <% end %>
+          <% #end %>
           
           <%#= content_tag :h1, yield(:title) if show_title? %>
           <%= yield %>

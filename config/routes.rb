@@ -46,6 +46,7 @@ Snapshot::Application.routes.draw do
       post :update_brand_owners_dropdown
       post :preselect_brand_owners
       get  :search
+      get  :all_photos
       get  :all_filters
     end    
   end

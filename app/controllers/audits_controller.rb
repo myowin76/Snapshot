@@ -22,7 +22,7 @@ class AuditsController < ApplicationController
       store = Store.find_by_id(params[:store_id])
       @audits = store.audits.order(:created_at)
     else
-      @audits = Audit.order(:created_at)
+      @audits = Audit.order(:created_at).includes(:store, :user)
     end
 
 

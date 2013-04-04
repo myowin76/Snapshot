@@ -6,7 +6,7 @@ class BrandsController < ApplicationController
   
   layout "admin"
   def index
-    @brands = Brand.order(:name)
+    @brands = Brand.order(:name).joins(:brand_owner).select("brands.*, brand_owners.name as brand_owner_name")
 
     respond_to do |format|
       format.html # index.html.erb

@@ -3,7 +3,7 @@ class RetailersController < ApplicationController
   
   layout "admin"
   def index
-    @retailers = Retailer.all
+    @retailers = Retailer.order('retailers.name').includes(:sector)
     
     respond_to do |format|
       format.html # index.html.erb

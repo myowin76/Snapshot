@@ -48,7 +48,7 @@
 
   <script id="photos_view" type="text/template">
     <!--img src="/assets/snapshot_loading.gif" class="lazy" data-original="{{ url }}" -->
-     <img src ="{{ url }}" alt="test" />
+     <!--img src ="{{ url }}" alt="test" /-->
   </script>
   <script id="sectors_view" type="text/template">
     <input data-desc="{{ name }}" id="search_sectors_{{ id }}" name="search[sectors][]" type="checkbox" value="{{ id }}">
@@ -101,7 +101,7 @@
       new Snapshot.Views.CategoriesView({ collection: Snapshot.categories })
     });
 
-    Snapshot.filters = new Snapshot.Collections.Filters({sectors});
+    Snapshot.filters = new Snapshot.Collections.Filters;
     Snapshot.filters.fetch().then(function(){
       // new Snapshot.Views.Filters({ collection: Snapshot.filters })
     });
