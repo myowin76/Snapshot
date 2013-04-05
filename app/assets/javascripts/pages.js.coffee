@@ -1,5 +1,14 @@
 jQuery ->
+	jQuery.extend jQuery.fn.dataTableExt.oSort,
+	  "date-uk-pre": (a) ->
+	    ukDatea = a.split("/")
+	    (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1
 
+	  "date-uk-asc": (a, b) ->
+	    (if (a < b) then -1 else ((if (a > b) then 1 else 0)))
+
+	  "date-uk-desc": (a, b) ->
+	    (if (a < b) then 1 else ((if (a > b) then -1 else 0)))
 
 	$('#tbl-users').dataTable
 		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
@@ -23,6 +32,9 @@ jQuery ->
   	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   	"sPaginationType": 'full_numbers',
   	"bStateSave": true
+  	"aoColumnDefs": [
+  		{ "sType": "date-uk-pre", "aTargets": [1] }
+  	]
   	
 
   $('#tbl-sectors').dataTable
