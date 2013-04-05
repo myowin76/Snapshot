@@ -406,7 +406,7 @@ ul.ui-autocomplete {
   &.is-active{
     .left{
       @include transition-property(width);
-      @include transition-duration(2s);
+      @include transition-duration(1s);
       width: 100%;
       margin-right: 0;
     }
@@ -415,8 +415,12 @@ ul.ui-autocomplete {
       margin-top: 12px;
       section{
         float: left;
-        width: 40%;
+        width: 45%;
         margin-right: 12px;
+        &:last-child{
+          float: right;
+          margin-right: 0;
+        }
       }
     }
   }
@@ -434,7 +438,7 @@ ul.ui-autocomplete {
   }
   .left{
     @include transition-property(width);
-    @include transition-duration(2s);
+    @include transition-duration(1s);
     float: left;
     margin-right: 20px;
     width: 600px;

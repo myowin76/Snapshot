@@ -44,10 +44,10 @@ class	PhotoPdf < Prawn::Document
     dimensions = Paperclip::Geometry.from_file("#{@photo.photo.url(:large)}")
     
     if(dimensions.width > dimensions.height)
-		  image open("#{@photo.photo.url(:large)}"), :width => 518	
+		  image open("#{@photo.photo.url(:original)}"), :width => 518	
     else
       
-      image open("#{@photo.photo.url(:large)}"), :height => 480  
+      image open("#{@photo.photo.url(:original)}"), :height => 480  
     end  
 		# image open("#{@photo.photo.url(:medium).to_s.sub!(/\?.+\Z/, '')}")
 	end
