@@ -116,12 +116,12 @@ body{
 .accordion-inner label{
   display: block;
   margin-bottom: 3px;
+  line-height: 21px;
 }
 .accordion-inner input[type='text'] {
   width: 90%;
 }
 .accordion-inner input[type='checkbox'] {
-  margin-top: 3px;
   float: left;
   margin-right: 2px;
 }
