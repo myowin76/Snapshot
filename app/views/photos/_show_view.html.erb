@@ -17,7 +17,7 @@
     
     <div class="left">
       <figure>
-        <%= image_tag(@photo.photo.url(:large)) %>
+        <%= image_tag(@photo.photo.url(:original), :class => "expend") %>
       </figure>  
       
       <%= link_to photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" do %>

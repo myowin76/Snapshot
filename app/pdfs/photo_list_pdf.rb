@@ -55,13 +55,13 @@ class	PhotoListPdf < Prawn::Document
 
   def photo_image photo
 
-    dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:large)}")
+    dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original)}")
     
     if(dimensions.width > dimensions.height)
-      image open("#{photo.photo.url(:large)}"), :width => 518  
+      image open("#{photo.photo.url(:original)}"), :width => 518  
     else
       
-      image open("#{photo.photo.url(:large)}"), :height => 480  
+      image open("#{photo.photo.url(:original)}"), :height => 480  
     end  
 	end
   
@@ -89,7 +89,7 @@ class	PhotoListPdf < Prawn::Document
     if photo.audit.store.postcode.present?
       address = address + "#{photo.audit.store.postcode}"
     end
-    data += [[ "Address", address]]
+    data += [[ "Address", address]] if photo.audit.store.address.present?
     unless photo.audit.store.country_id.nil?
       data += [[ "Country", "#{photo.audit.store.country.name}" ]]
     end
@@ -119,27 +119,32 @@ class	PhotoListPdf < Prawn::Document
       
       data = [[ "", ""]]
       data += [[ "IMAGE DATA", ""]]
-      if photo.categories.present?
-        data += [[ "Categories","#{photo.categories.map(&:name).join(", ")}"]]
-      end
       if photo.brands.present?
           data += [[ "Brands", "#{photo.brands.map(&:name).join(", ")}"]]
+          if photo.brands.first.brand_owner.present?
+          end
+      end
+      if photo.brands.first.brand_owner_id.present?
+        owners = BrandOwner.find_all_by_id(photo.brands.map(&:brand_owner_id)).map(&:name).join(", ")
+        data += [["Brand Owners", "#{owners}"]]
+      end
+      if photo.categories.present?
+        data += [[ "Categories","#{photo.categories.map(&:name).join(", ")}"]]
       end
       if photo.promotion_calendar_id.present?
         data += [[ "Promotion Calendar", "#{photo.promotion_calendar.name}"]]
       end  
-      if photo.promotion_types
-          promotion_types = 
-          data += [[ "Promotion Types", "#{photo.promotion_types.map(&:name).join(", ")}"]]
+      if photo.promotion_types.present?
+        data += [[ "Promotion Types", "#{photo.promotion_types.map(&:name).join(", ")}"]]
       end
-      if photo.media_locations
-        data += [[ "Promotion Types", "#{photo.media_locations.map(&:name).join(", ")}"]]
+      if photo.media_locations.present?
+        data += [[ "Media Locations", "#{photo.media_locations.map(&:name).join(", ")}"]]
       end
-      if photo.media_types
+      if photo.media_types.present?
         data += [[ "Media Types", "#{photo.media_types.map(&:name).join(", ")}"]]
       end   
-      if photo.media_vehicles
-        data += [[ "Media Types", "#{photo.media_vehicles.map(&:name).join(", ")}"]]
+      if photo.media_vehicles.present?
+        data += [[ "Media Vehicles", "#{photo.media_vehicles.map(&:name).join(", ")}"]]
       end 
       data += [[ "", ""]]
 

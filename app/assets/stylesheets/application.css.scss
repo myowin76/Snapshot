@@ -420,6 +420,13 @@ ul.ui-autocomplete {
     figure{
       text-align: center;
       margin-bottom: 10px;
+      img{
+        &.expend{
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
     }
   }
   .right{
