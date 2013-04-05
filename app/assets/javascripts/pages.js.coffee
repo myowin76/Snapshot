@@ -33,7 +33,7 @@ jQuery ->
   	"sPaginationType": 'full_numbers',
   	"bStateSave": true
   	"aoColumnDefs": [
-  		{ "sType": "date-uk-pre", "aTargets": [1] }
+  		{ "sType": "date-uk-asc", "aTargets": [4] }
   	]
   	
 
