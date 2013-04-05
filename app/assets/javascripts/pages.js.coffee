@@ -1,13 +1,36 @@
 jQuery.extend jQuery.fn.dataTableExt.oSort,
-	"date-uk-pre": (a) ->
-	  ukDatea = a.split("/")
-	  (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1
+  "date-eu-pre": (date) ->
+    date = date.replace(" ", "")
+    if date.indexOf(".") > 0
+      
+      #date a, format dd.mn.(yyyy) ; (year is optional)
+      eu_date = date.split(".")
+    else
+      
+      #date a, format dd/mn/(yyyy) ; (year is optional)
+      eu_date = date.split("/")
+    
+    #year (optional)
+    if eu_date[2]
+      year = eu_date[2]
+    else
+      year = 0
+    
+    #month
+    month = eu_date[1]
+    month = 0 + month  if month.length is 1
+    
+    #day
+    day = eu_date[0]
+    day = 0 + day  if day.length is 1
+    (year + month + day) * 1
 
-	"date-uk-asc": (a, b) ->
-	  (if (a < b) then -1 else ((if (a > b) then 1 else 0)))
+  "date-eu-asc": (a, b) ->
+    (if (a < b) then -1 else ((if (a > b) then 1 else 0)))
 
-	"date-uk-desc": (a, b) ->
-	  (if (a < b) then 1 else ((if (a > b) then -1 else 0)))
+  "date-eu-desc": (a, b) ->
+    (if (a < b) then 1 else ((if (a > b) then -1 else 0)))
+
 
 jQuery ->
 	
