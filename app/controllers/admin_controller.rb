@@ -27,9 +27,9 @@ class AdminController < ApplicationController
   end
 
   def raw_photos
-    @unpublished_photos = Photo.order('photos.created_at')
-        .joins(:audit => [:user, :store => :retailer])
+    @unpublished_photos = Photo.joins(:audit => [:user, :store => :retailer])
         .select("photos.*, users.username, retailers.name, stores.name")
+        .order('photos.created_at')
         .unpublished.all
         
     render :layout => "admin"

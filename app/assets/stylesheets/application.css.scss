@@ -402,7 +402,26 @@ ul.ui-autocomplete {
   margin-bottom: 25px;
 }
 
+#photo-details{
+  &.is-active{
+    .left{
+      @include transition-property(width);
+      @include transition-duration(2s);
+      width: 100%;
+      margin-right: 0;
+    }
+    .right{
+      width: 100%;
+      margin-top: 12px;
+      section{
+        float: left;
+        width: 40%;
+        margin-right: 12px;
+      }
+    }
+  }
 
+}
 
 
 #photo-details{
@@ -414,6 +433,8 @@ ul.ui-autocomplete {
     }
   }
   .left{
+    @include transition-property(width);
+    @include transition-duration(2s);
     float: left;
     margin-right: 20px;
     width: 600px;

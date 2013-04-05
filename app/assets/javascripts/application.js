@@ -140,72 +140,13 @@ var snapshot = {
       $(this).fadeOut(1000).remove();
   });
 
-
-$('img.expend').live('click', function(){
-  
-  $('img.expend').toggle(
-    function(){
-      var styles = {
-        width : "40%",
-        float: "left",
-        marginRight: "20px"
-      };
-      $('#photo-details .left').animate({
-        width: "100%",
-        marginRight: "0"
-      }, 1500 );
-      $('#photo-details .right').animate({
-        marginTop: "12px",
-        width: "100%"
-      }, 500 );
-
-      $('#photo-details .right section').css(
-        styles
-      );
-    },
-    function(){
-      var styles = {
-        width : "100%",
-        marginRight: "0"
-      };
-      $('#photo-details .left').animate({
-        width: "600px",
-        marginRight: "20px"
-      }, 1500 );
-      $('#photo-details .right').animate({
-        marginTop: "0",
-        width: "340px"
-      }, 500 );
-
-      $('#photo-details .right section').css(
-        styles
-      );
-    });
-});
-
-/*
   $('img.expend').live('click', function(){
-    var styles = {
-      width : "40%",
-      float: "left",
-      marginRight: "20px"
-    };
-    $('#photo-details .left').animate({
-      width: "100%",
-      marginRight: "0"
-    }, 1500 );
-    $('#photo-details .right').animate({
-      marginTop: "12px",
-      width: "100%"
-    }, 500 );
-
-    $('#photo-details .right section').css(
-      styles
-    );
+    
+    $("#photo-details").toggleClass('is-active');
   });
 
-*/
   $('.go-top').on('click',function(e){
+    
     e.preventDefault();
     $('html, body').animate({
       scrollTop: $(".tab-content").offset().top
