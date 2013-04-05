@@ -37,7 +37,10 @@
             	<%= photo.audit.store.name %>
             <% end %>  
           </td>
-          <td><%= photo.audit.audit_date %></td>
+          <td>
+            <%#= photo.audit.audit_date %>
+            <%= photo.created_at %>
+          </td>
           <td>
             <% unless photo.audit.user.username.nil? %>
               <%= photo.audit.user.username unless photo.audit_id.nil? %>
