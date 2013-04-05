@@ -42,9 +42,9 @@ class	PhotoListPdf < Prawn::Document
 
       grid([0,5],[7,4]).bounding_box do
         logo
-        if photo.audit.store
+        # if photo.audit.store
           store_details photo
-        end
+        # end
         move_down 10
         photo_details photo  
 
@@ -73,7 +73,7 @@ class	PhotoListPdf < Prawn::Document
     data += [[ "Retailer","#{photo.audit.store.retailer.name}"]]
     data += [[ "Retail Sector","#{photo.audit.store.retailer.sector.name}"]]
     data += [[ "Store Name","#{photo.audit.store.name}"]]
-
+    address = ""
     if photo.audit.store.address.present?
       address = "Address: #{photo.audit.store.address}, "
     end
@@ -83,9 +83,11 @@ class	PhotoListPdf < Prawn::Document
     if photo.audit.store.address3.present?
       address = address + "#{photo.audit.store.address3}, "
     end
-    if photo.audit.store.town.present?
-      address = address + "#{photo.audit.store.town}, "
-    end
+    unless photo.audit.store.town.nil?
+      if photo.audit.store.town.present?
+        address = address + "#{photo.audit.store.town}, "
+      end
+    end  
     if photo.audit.store.postcode.present?
       address = address + "#{photo.audit.store.postcode}"
     end

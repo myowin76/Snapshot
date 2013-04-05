@@ -59,7 +59,7 @@ class	PhotoPdf < Prawn::Document
       data += [[ "Retailer","#{photo.audit.store.retailer.name}"]]
       data += [[ "Retail Sector","#{photo.audit.store.retailer.sector.name}"]]
       data += [[ "Store Name","#{photo.audit.store.name}"]]
-      
+      address = ""
       if photo.audit.store.address.present?
         address = "Address: #{photo.audit.store.address}, "
       end
@@ -69,9 +69,11 @@ class	PhotoPdf < Prawn::Document
       if photo.audit.store.address3.present?
         address = address + "#{photo.audit.store.address3}, "
       end
-      if photo.audit.store.town.present?
-        address = address + "#{photo.audit.store.town}, "
-      end
+      unless photo.audit.store.town.nil?
+        if photo.audit.store.town.present?
+          address = address + "#{photo.audit.store.town}, "
+        end
+      end  
       if photo.audit.store.postcode.present?
         address = address + "#{photo.audit.store.postcode}"
       end
