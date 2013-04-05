@@ -35,13 +35,13 @@ jQuery ->
     ]
 
   $('#tbl-unpublished').dataTable
-  	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
-  	"sPaginationType": 'full_numbers',
+  	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>"
+  	"sPaginationType": 'full_numbers'
   	"bStateSave": true
-  	"aoColumnDefs": [
-  		{ "sType": "uk_date", "aTargets": "uk-date-column" }
-  	]
-  	
+		aoColumnDefs: [
+			aTargets: ["uk-date-column"]
+			sType: "uk_date"
+		]
 
   $('#tbl-sectors').dataTable
 	  "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
