@@ -123,8 +123,6 @@ class	PhotoListPdf < Prawn::Document
       data += [[ "IMAGE DATA", ""]]
       if photo.brands.present?
           data += [[ "Brands", "#{photo.brands.map(&:name).join(", ")}"]]
-          if photo.brands.first.brand_owner.present?
-          end
       end
       if photo.brands.first.brand_owner_id.present?
         owners = BrandOwner.find_all_by_id(photo.brands.map(&:brand_owner_id)).map(&:name).join(", ")

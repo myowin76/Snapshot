@@ -104,11 +104,16 @@ class	PhotoPdf < Prawn::Document
     
     data = [[ "", ""]]
     data += [[ "IMAGE DATA", ""]]
-    if photo.categories.present?
-        data += [[ "Categories","#{photo.categories.map(&:name).join(", ")}"]]
-      end
+      
       if photo.brands
           data += [[ "Brands", "#{photo.brands.map(&:name).join(", ")}"]]
+      end
+      if photo.brands.first.brand_owner_id.present?
+        owners = BrandOwner.find_all_by_id(photo.brands.map(&:brand_owner_id)).map(&:name).join(", ")
+        data += [["Brand Owners", "#{owners}"]]
+      end
+      if photo.categories.present?
+        data += [[ "Categories","#{photo.categories.map(&:name).join(", ")}"]]
       end
       if photo.promotion_calendar_id.present?
         data += [[ "Promotion Calendar", "#{photo.promotion_calendar.name}"]]
@@ -118,13 +123,13 @@ class	PhotoPdf < Prawn::Document
           data += [[ "Promotion Types", "#{photo.promotion_types.map(&:name).join(", ")}"]]
       end
       if photo.media_locations
-        data += [[ "Promotion Types", "#{photo.media_locations.map(&:name).join(", ")}"]]
+        data += [[ "Media Locations", "#{photo.media_locations.map(&:name).join(", ")}"]]
       end
       if photo.media_types
         data += [[ "Media Types", "#{photo.media_types.map(&:name).join(", ")}"]]
       end   
       if photo.media_vehicles
-        data += [[ "Media Types", "#{photo.media_vehicles.map(&:name).join(", ")}"]]
+        data += [[ "Media Vehicles", "#{photo.media_vehicles.map(&:name).join(", ")}"]]
       end 
       data += [[ "", ""]]
 
