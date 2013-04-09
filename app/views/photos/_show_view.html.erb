@@ -59,7 +59,7 @@
                     <%= @photo.audit.store.address3 %> 
                   <% end %>  
                   <% if @photo.audit.store.town.present? %>  
-                    ,<%= @photo.audit.store.town %>
+                    , <%= @photo.audit.store.town %>
                   <% end %>
                   <% if @photo.audit.store.country_id.present? %>
                     <%= @photo.audit.store.country.name %>

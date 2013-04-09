@@ -97,7 +97,7 @@ class PhotosController < ApplicationController
 
       @saved_searches = current_user.save_searches.all
 
-      if params[:per_page]
+      if params[:per_page].present?
         @per_page = params[:per_page]
       else
         @per_page = 30
@@ -105,7 +105,7 @@ class PhotosController < ApplicationController
       # initiate Photo object
       @photos = Photo.published
       if params_search.nil?
-
+        # debugger
           #.select('photos.id, photos.photo_file_name, photos.audit_id')
           @photos = @photos.paginate(:page => params[:page], 
             :per_page => @per_page).order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
@@ -115,7 +115,7 @@ class PhotosController < ApplicationController
       #   # @photos = Photo.published.paginate(:page => params[:page], 
       #   #   :per_page => @per_page).order('photos.created_at DESC')
           
-      else 
+        else 
        # unless params_search.nil?
         
         # search action
@@ -159,8 +159,9 @@ class PhotosController < ApplicationController
               @per_page = 30
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
+            
 
-           # debugger
+           debugger
       end
 
     # else 
@@ -419,9 +420,9 @@ class PhotosController < ApplicationController
 
   def refresh_retailers
     if params[:search].nil?
-      @retailers = Retailer.all
+      @retailers = Retailer.order(:name)
     else
-      @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors])
+      @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors]).order(:name)
     end
     respond_to do |format|
       format.js {

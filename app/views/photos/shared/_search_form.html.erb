@@ -1,3 +1,32 @@
+<% content_for :scripts do %>
+  <script>
+    var $rows = $('#brands-group').children().find('.accordion-inner label');
+    var lastInput = "";
+    $("#brand_search").keyup(function(){
+      var search_val = $.trim($("input#brand_search").val());
+      //alert(search_val);
+      if(lastInput == search_val) return;
+      if (search_val == ''){
+        $rows.show();
+      }else{
+        $rows.each(function(){
+          oLabel = $(this);
+          if (oLabel.length > 0){
+            if (oLabel.text().toLowerCase().indexOf(search_val.toLowerCase()) >= 0){
+              $(this).show();
+            }else{
+              $(this).hide();
+            }
+          }
+        });
+        lastInput = search_val;
+      }
+
+
+    });
+
+  </script>
+<% end %>  
 
 <%#= form_tag root_path, :id=>"search_form", remote: true do %>
 <div class="search-form-actions">
@@ -27,6 +56,7 @@
       </div>
       <div id="sector-accord" class="accordion-body collapse">
         <div class="accordion-inner">
+          <%#= text_field_tag 'name', nil, :id => "sector_search", :placeholder => 'Search' %>
           <% for sector in @sectors %>
             <% if search_sectors && search_sectors.include?(sector.id.to_s) %>
               <%= label_tag "search[sectors][#{sector.id}]", :class => "checkbox"  do %>
@@ -128,14 +158,16 @@
 
 
 
-    <div class="accordion-group">
+    <div class="accordion-group" id="brands-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#brands-accord">
           Brands <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="brands-accord" class="accordion-body collapse">
+        <%= text_field_tag 'name', nil, :id => "brand_search", :placeholder => 'Search' %>
         <div class="accordion-inner">
+          
           <%= render 'photos/shared/brand_view', :locals => {:brands => @brands}%>
         </div>
       </div>
@@ -471,7 +503,7 @@
           <%= text_field_tag 'search[location]', params[:search][:location] %>
         <% else %>
           <%= text_field_tag 'search[location]' %>
-          <%#= text_field_tag 'search[location]', '', :autocomplete => photo_autocomplete_store_location_path %>
+          <%#= text_field_tag 'search[location]', '', :photo_autocomplete_store_location_pathplete => photo_autocomplete_store_location_path %>
         <% end %><br />
         <span>e.g Edinburgh, EH3, etc</span>
       </fieldset>

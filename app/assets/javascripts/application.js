@@ -381,7 +381,7 @@ var snapshot = {
 		$('#search_form select').val('');
     $('#search_form input:text').val('');
 		$('#search_form input:checkbox').attr('checked',false);
-		// $('.accordion-heading').find('.labels').remove();
+		$('.accordion-heading').find('.filter-tag-wrapper').remove();
 		return false;
 	});
 
