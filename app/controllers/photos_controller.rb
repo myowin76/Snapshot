@@ -159,9 +159,9 @@ class PhotosController < ApplicationController
               @per_page = 30
             end
             @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-            
 
-           debugger
+
+           # debugger
       end
 
     # else 
@@ -418,11 +418,16 @@ class PhotosController < ApplicationController
     
   end
 
+  def refresh_filters
+    
+  end
+
   def refresh_retailers
     if params[:search].nil?
       @retailers = Retailer.order(:name)
     else
-      @retailers = Retailer.find_all_by_sector_id(params[:search][:sectors]).order(:name)
+      @retailers = Retailer.order(:name).find_all_by_sector_id(params[:search][:sectors])
+      # debugger
     end
     respond_to do |format|
       format.js {
@@ -433,9 +438,9 @@ class PhotosController < ApplicationController
 
   def refresh_brands
     if params[:search].nil?
-      @brands = Brand.all
+      @brands = Brand.order(:name)
     else
-      @brands = Brand.find_all_by_brand_owner_id(params[:search][:brand_owners])
+      @brands = Brand.order(:name).find_all_by_brand_owner_id(params[:search][:brand_owners])
     end  
     respond_to do |format|
       format.js {

@@ -1,15 +1,20 @@
 <% content_for :scripts do %>
   <script>
-    var $rows = $('#brands-group').children().find('.accordion-inner label');
+    
+    // var $rows = $('#brands-group').children().find('.accordion-inner label');
     var lastInput = "";
-    $("#brand_search").keyup(function(){
+
+    $("#search_form").on('keyup', function(){
+    
       var search_val = $.trim($("input#brand_search").val());
       //alert(search_val);
       if(lastInput == search_val) return;
+    
       if (search_val == ''){
-        $rows.show();
-      }else{
-        $rows.each(function(){
+        $('#brands-group').children().find('.accordion-inner label').show();
+      }
+      else{
+        $('#brands-group').children().find('.accordion-inner label').each(function(){
           oLabel = $(this);
           if (oLabel.length > 0){
             if (oLabel.text().toLowerCase().indexOf(search_val.toLowerCase()) >= 0){

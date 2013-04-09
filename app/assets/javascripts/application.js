@@ -404,6 +404,7 @@ var snapshot = {
     sectores_checkboxes = $('#sector-group .accordion-inner input[type=checkbox]:checked').serializeObject();
     $.ajax({
       url: '/photos/refresh_retailers',
+      //url: '/photos/refresh_filters',
       type: "POST",
       dataType: 'script',
       data: sectores_checkboxes
