@@ -47,8 +47,9 @@
 </div>  
 
   <script id="photos_view" type="text/template">
-    <!--img src="/assets/snapshot_loading.gif" class="lazy" data-original="{{ url }}" -->
-     <!--img src ="{{ url }}" alt="test" /-->
+    <!--img src="/assets/snapshot_loading.gif" class="lazy" data-original="{{ id }}" -->
+     <!--img src ="{{ id }}" alt="test" /-->
+     {{ id }}
   </script>
   <script id="sectors_view" type="text/template">
     <input data-desc="{{ name }}" id="search_sectors_{{ id }}" name="search[sectors][]" type="checkbox" value="{{ id }}">
@@ -80,30 +81,31 @@
 		new Snapshot.Router;
 	  Backbone.history.start();
 
-	  Snapshot.photos = new Snapshot.Collections.Photos;
-	  Snapshot.photos.fetch().then(function(){
-	    new Snapshot.Views.PhotosView({ collection: Snapshot.photos })
-
-	  });
+	  
 
     Snapshot.sectors = new Snapshot.Collections.Sectors;
-    Snapshot.sectors.fetch().then(function(){
-      new Snapshot.Views.SectorsView({ collection: Snapshot.sectors })
-    });
+    // Snapshot.sectors.fetch().then(function(){
+    //   new Snapshot.Views.SectorsView({ collection: Snapshot.sectors })
+    // });
 
     Snapshot.retailers = new Snapshot.Collections.Retailers;
-    Snapshot.retailers.fetch().then(function(){
-      new Snapshot.Views.RetailersView({ collection: Snapshot.retailers })
-    });
+    // Snapshot.retailers.fetch().then(function(){
+    //   new Snapshot.Views.RetailersView({ collection: Snapshot.retailers })
+    // });
 
     Snapshot.categories = new Snapshot.Collections.Categories;
-    Snapshot.categories.fetch().then(function(){
-      new Snapshot.Views.CategoriesView({ collection: Snapshot.categories })
-    });
+    // Snapshot.categories.fetch().then(function(){
+    //   new Snapshot.Views.CategoriesView({ collection: Snapshot.categories })
+    // });
 
     Snapshot.filters = new Snapshot.Collections.Filters;
-    Snapshot.filters.fetch().then(function(){
+    // Snapshot.filters.fetch().then(function(){
       // new Snapshot.Views.Filters({ collection: Snapshot.filters })
+    // });
+    Snapshot.photos = new Snapshot.Collections.Photos;
+    Snapshot.photos.fetch().then(function(){
+      new Snapshot.Views.PhotosView({ collection: Snapshot.photos })
+
     });
 
   });

@@ -427,6 +427,10 @@ class PhotosController < ApplicationController
       @retailers = Retailer.order(:name)
     else
       @retailers = Retailer.order(:name).find_all_by_sector_id(params[:search][:sectors])
+      # @stores = Store.find_all_by_retailer_id(@retailers.map(&:id))
+      # @audits = Audit.find_all_by_store_id(@stores.map(&:id))
+      # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
+      
       # debugger
     end
     respond_to do |format|
@@ -566,8 +570,10 @@ class PhotosController < ApplicationController
     # @media_vehicles = MediaVehicle.select("id, name")
     # @media_locations = MediaLocation.select("id, name")
     
-    @photos = Photo.order(:created_at)
-    .includes(:brands)
+    # @photos = Photo.order(:created_at)
+    # .includes(:brands)
+    @photos = Photo.select('id, audit_id, photo_file_name, photo_updated_at')
+    # debugger
     # .select("photos.id, photos.photo_file_name, photos.audit_id")
     # .paginate(:page => params[:page])
     # respond_to do |format|
