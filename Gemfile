@@ -29,7 +29,7 @@ gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 gem 'cancan'
 gem 'backbone-on-rails'
-gem 'newrelic_rpm'
+gem "newrelic_rpm", "~> 3.5.5.38"
 
 group :production do
 	gem "pg"
