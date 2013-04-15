@@ -474,9 +474,7 @@
         <% end %>
 
         <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
-
           <%= text_field_tag "search[fromDate]", params[:search][:fromDate], :class => "input-small" %>
-
         <% else %>
           <%= text_field_tag "search[fromDate]", nil, :class => "input-small" %>
         <% end %>

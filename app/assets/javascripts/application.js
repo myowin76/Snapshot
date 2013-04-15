@@ -43,14 +43,15 @@ var snapshot = {
   
   Pagination: function(){
 
-    $('.pagination a').live('click',function (e) {
-
+    $('.content .will-page .pagination a').live('click',function (e) {
+      e.preventDefault();
       $.get(this.href, null, null, 'script');
       $('html, body').animate({
-        scrollTop: $("body").offset().top
+        scrollTop: $(".photo-view").offset().top
       }, 500);
 
-      return false;
+      // return false;
+
     });
   }
 };
@@ -98,7 +99,7 @@ var snapshot = {
 // });
 
 
-  
+  // $('#search_form').submit();
 
   $('#search_fromDate').datepicker({ 
     dateFormat: 'dd/mm/yy',
@@ -120,7 +121,7 @@ var snapshot = {
     google.maps.event.trigger(map, 'resize');
   });
 
-  $('.nav-tabs li a').live('click', function () {
+  $('#viewMap').live('click', function () {
     Gmaps.loadMaps();
   });
 
@@ -523,7 +524,7 @@ function fixPosElement(el){
 function initLazyLoad(el){
   if (el) {
 
-    //console.log( $(el).length + " lazy load elements" );
+    // console.log( $(el).length + " lazy load elements" );
 
     $(el).show().lazyload({
       effect : "fadeIn"
@@ -538,18 +539,18 @@ function initLazyLoad(el){
 
 jQuery(document).ready(function($) {
 
-  //initLazyLoad("img.lazy");
-  /*
-  $("img.lazy").lazyload({ 
-    effect : "fadeIn"
-  });
-  */
+  // initLazyLoad("img.lazy");
+  
+  // $("img.lazy").lazyload({ 
+  //   effect : "fadeIn",
+  //   event : "click"
+  // });
+  
+  
+  // $('.pagination a').live('click',function () {
+  //   alert('hello');
+  //   $("img.lazy").lazyload();  
+  // });
 
-  /*
-  $('#main').on('click', '.pagination a' , function(){
-    alert('hello');
-    $("img.lazy").lazyload();  
-  });
-*/
 
 });

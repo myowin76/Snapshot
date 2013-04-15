@@ -75,7 +75,7 @@ class	PhotoListPdf < Prawn::Document
     data += [[ "Store Name","#{photo.audit.store.name}"]]
     address = ""
     if photo.audit.store.address.present?
-      address = "Address: #{photo.audit.store.address}, "
+      address = "#{photo.audit.store.address}, "
     end
     if photo.audit.store.address2.present?
       address = address +"#{photo.audit.store.address2}, "

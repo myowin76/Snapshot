@@ -52,7 +52,7 @@ class PhotosController < ApplicationController
         @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
 
         if search_sectors.present?
-          @retailers = Retailer.find_all_by_sector_id(search_sectors)
+          @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
           
           unless search_retailers.present?
             @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
@@ -78,7 +78,7 @@ class PhotosController < ApplicationController
       else
         # page load
 
-        @sectors = Sector.order(:name)
+        # @sectors = Sector.order(:name)
         @retailers = Retailer.order(:name)
         # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
         @stores = @stores.includes(:retailer)
