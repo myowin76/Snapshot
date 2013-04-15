@@ -153,12 +153,12 @@ class PhotosController < ApplicationController
 
             @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
             
-            if params[:per_page]
+            if params[:per_page].present?
               @per_page = params[:per_page]
             else
               @per_page = 30
             end
-            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page)
+            @photos = @photos.paginate(:per_page => @per_page, :page => params[:page])
                 .order('audits.audit_date DESC, brands.name')
                 # .order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
 

@@ -539,12 +539,12 @@ function initLazyLoad(el){
 
 jQuery(document).ready(function($) {
 
-  initLazyLoad("img.lazy");
+  // initLazyLoad("img.lazy");
   
-  $("img.lazy").lazyload({ 
-    effect : "fadeIn",
-    event : "click"
-  });
+  // $("img.lazy").lazyload({ 
+  //   effect : "fadeIn",
+  //   event : "click"
+  // });
   
   
   // $('.pagination a').live('click',function () {

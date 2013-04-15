@@ -17,7 +17,7 @@ Snapshot::Application.routes.draw do
     resources :media_types, :media_vehicles, :media_locations, :themes
     resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
     resources :sectors, :retailers, :countries, :promotion_calendars, :promotion_types
-    resources :audits
+    # resources :audits
   # end
   
   match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
@@ -26,9 +26,13 @@ Snapshot::Application.routes.draw do
   # match '/photos/publish_checked' => 'photos#publish_multiple', :as => :publish_checked
   # match '/photos/delete_checked' => 'photos#delete_multiple', :as => :delete_checked
 
+
+  match '/audits/:id/edit_multiple' => 'audits#edit_multiple', :as => :edit_multiple_audit 
   resources :audits do
     collection do
+      get :edit_multiple
       post :refresh_store_dropdown
+
     end
     resources :photos
   end
