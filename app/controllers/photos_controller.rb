@@ -158,8 +158,9 @@ class PhotosController < ApplicationController
             else
               @per_page = 30
             end
-            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-
+            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page)
+                .order('audits.audit_date DESC, brands.name')
+                # .order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
 
            # debugger
       end
