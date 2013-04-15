@@ -109,8 +109,8 @@ class PhotosController < ApplicationController
           #.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
           @photos = @photos
             .select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
-            .paginate(:page => params[:page], 
-            :per_page => @per_page).order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
+            .paginate(:page => params[:page], :per_page => @per_page)
+            .order('audits.audit_date DESC').includes([:audit, :brands])
       #   # on page load
         
       #   # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
@@ -155,11 +155,11 @@ class PhotosController < ApplicationController
 
             @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
             
-            if params[:per_page].present?
-              @per_page = params[:per_page]
-            else
-              @per_page = 30
-            end
+            # if params[:per_page].present?
+            #   @per_page = params[:per_page]
+            # else
+            #   @per_page = 30
+            # end
             @photos = @photos.paginate(:per_page => @per_page, :page => params[:page])
                 .order('audits.audit_date DESC, brands.name')
                 # .order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
