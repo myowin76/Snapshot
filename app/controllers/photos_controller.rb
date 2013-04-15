@@ -106,8 +106,10 @@ class PhotosController < ApplicationController
       @photos = Photo.published
       if params_search.nil?
         # debugger
-          #.select('photos.id, photos.photo_file_name, photos.audit_id')
-          @photos = @photos.paginate(:page => params[:page], 
+          #.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
+          @photos = @photos
+            .select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
+            .paginate(:page => params[:page], 
             :per_page => @per_page).order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
       #   # on page load
         
