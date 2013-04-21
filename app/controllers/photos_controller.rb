@@ -107,10 +107,10 @@ class PhotosController < ApplicationController
       if params_search.nil?
         # debugger
           #.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
-          @photos = @photos
+          @photos = @photos.order('audits.audit_date DESC, photos.created_at DESC')
             .select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
             .paginate(:page => params[:page], :per_page => @per_page)
-            .order('audits.audit_date DESC').includes([:audit, :brands])
+            .includes([:audit, :brands]).published
       #   # on page load
         
       #   # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
@@ -125,7 +125,7 @@ class PhotosController < ApplicationController
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           # @photos = @photos.where('audits.audit_date < ?', from_date) if search_from_date.present?
           
-
+          @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
 
@@ -161,7 +161,7 @@ class PhotosController < ApplicationController
             #   @per_page = 30
             # end
             @photos = @photos.paginate(:per_page => @per_page, :page => params[:page])
-                .order('audits.audit_date DESC, brands.name')
+                .order('audits.audit_date DESC, photos.created_at DESC')
                 # .order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
 
            # debugger
