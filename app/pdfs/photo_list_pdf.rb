@@ -55,14 +55,14 @@ class	PhotoListPdf < Prawn::Document
 
   def photo_image photo
 
-    dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:large)}")
+    # dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original)}")
     
-    if(dimensions.width > dimensions.height)
-      image open("#{photo.photo.url(:original)}"), :width => 518  
-    else
+    # if(dimensions.width > dimensions.height)
+    #   image open("#{photo.photo.url(:original)}"), :width => 518  
+    # else
       
       image open("#{photo.photo.url(:original)}"), :height => 480  
-    end  
+    # end  
 	end
   
   
