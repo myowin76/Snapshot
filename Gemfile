@@ -30,6 +30,7 @@ gem 'client_side_validations-simple_form'
 gem 'cancan'
 gem 'backbone-on-rails'
 gem "newrelic_rpm", "~> 3.5.5.38"
+gem "cocaine", "= 0.3.2"
 
 group :production do
 	gem "pg"

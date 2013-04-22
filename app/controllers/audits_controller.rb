@@ -139,7 +139,7 @@ class AuditsController < ApplicationController
   end
 
   def edit_multiple
-    # debugger
+    
     @audit = Audit.find(params[:id])
 
     if @audit.store
@@ -150,6 +150,11 @@ class AuditsController < ApplicationController
     respond_to do |format|
       format.html
     end
+  end
+
+  def update_multiple
+    debugger
+    
   end
 
 end
