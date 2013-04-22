@@ -1,0 +1,28 @@
+<section class="photo_views_view">
+
+  <%= form_tag update_multiple_audit_photos_path, method: :put do %>
+    <%#= hidden_field_tag "audit_id", :value=> params[:id] %>  
+
+    <% for photo in @photos %>
+      <%= fields_for "photos[]", photo do |f| %>
+        <%= render "photos/shared/fields", :f => f, :photo => photo %>
+        <% end %>      
+      <% end %>    
+    
+      <!-- <div class="form-actions">
+        <%#= f.button :submit, :class => 'btn btn-primary' %>
+        <% unless params[:audit_id] %>
+          <%#= link_to 'Cancel', photo, :class => 'btn' %>
+        <% else %>  
+          <%#= link_to 'Cancel', audit_path(photo.audit), :class => 'btn' %>
+        <% end %>
+      </div> -->
+      <%= submit_tag "Save", :class => 'btn btn-primary' %>
+      <% unless params[:audit_id].nil? %>
+        <%= link_to 'Cancel', audit_path(params[:audit_id]), :class => 'btn' %>
+      <% end %>  
+    
+
+
+  <% end %>
+</section>  

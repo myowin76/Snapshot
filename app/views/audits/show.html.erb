@@ -195,7 +195,7 @@
 <% unless @audit.photos.empty? %>
 
 <%= form_tag edit_multiple_audit_photos_path, method: :get do %>
-  <%= submit_tag "Edit Checked" %>
+  <%#= submit_tag "Edit Checked" %>
   <table class="table table-striped photo-list">
     <thead>
       <tr>
@@ -208,7 +208,7 @@
         <th>&nbsp;</th>
       </tr>
     </thead>
-    
+
     <tbody>
       <% @audit.photos.each do |photo| %>
         <tr>
