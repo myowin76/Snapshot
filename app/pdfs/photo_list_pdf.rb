@@ -58,10 +58,10 @@ class	PhotoListPdf < Prawn::Document
     # dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original)}")
     
     # if(dimensions.width > dimensions.height)
-    #   image open("#{photo.photo.url(:original)}"), :width => 518  
+      image open("#{photo.photo.url(:original)}"), :width => 518  
     # else
       
-      image open("#{photo.photo.url(:original)}"), :height => 480  
+      # image open("#{photo.photo.url(:original)}"), :height => 480  
     # end  
 	end
   
@@ -123,11 +123,12 @@ class	PhotoListPdf < Prawn::Document
       data += [[ "IMAGE DATA", ""]]
       if photo.brands.present?
           data += [[ "Brands", "#{photo.brands.map(&:name).join(", ")}"]]
+          if photo.brands.first.brand_owner_id.present?
+            owners = BrandOwner.find_all_by_id(photo.brands.map(&:brand_owner_id)).map(&:name).join(", ")
+            data += [["Brand Owners", "#{owners}"]]
+          end
       end
-      if photo.brands.first.brand_owner_id.present?
-        owners = BrandOwner.find_all_by_id(photo.brands.map(&:brand_owner_id)).map(&:name).join(", ")
-        data += [["Brand Owners", "#{owners}"]]
-      end
+      
       if photo.categories.present?
         data += [[ "Categories","#{photo.categories.map(&:name).join(", ")}"]]
       end
