@@ -127,14 +127,14 @@ var snapshot = {
 
   
 
-  $(".photo-view").ajaxStart(function(){
-    $(this).hide();
-    $('#list-view .loading').show();
+  // $(".photo-view").ajaxStart(function(){
+  //   $(this).hide();
+  //   $('#list-view .loading').show();
     
-  }).ajaxStop(function() {
-    $('#list-view .loading').hide();
-    $(this).show();
-  });
+  // }).ajaxStop(function() {
+  //   $('#list-view .loading').hide();
+  //   $(this).show();
+  // });
 
 
   $('.alert').click(function(){
