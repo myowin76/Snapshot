@@ -139,8 +139,8 @@
         </a>
       </div>
       <div id="retailers-accord" class="accordion-body collapse">
+        <%= text_field_tag 'name', nil, :id => "retailer_search", :placeholder => 'Search' %>
         <div class="accordion-inner">
-          <%= text_field_tag 'name', nil, :id => "retailer_search", :placeholder => 'Search' %>
           <%= render 'photos/shared/retailer_view', :locals => {:retailers => @retailers}%>
         </div>
       </div>
