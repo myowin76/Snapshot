@@ -44,13 +44,35 @@ var snapshot = {
   Pagination: function(){
 
     $('.content .will-page .pagination a').live('click',function (e) {
-      e.preventDefault();
-      $.get(this.href, null, null, 'script');
+
+      // e.preventDefault();
+      // $('#list-view .loading').show();
+      $('.page-controls').hide();
+      $('#pageControls').hide();
+      $('#photos-viewer').hide();
+      
       $('html, body').animate({
         scrollTop: $(".photo-view").offset().top
       }, 500);
 
-      // return false;
+      $('#list-view .loading').show();
+      $.get(
+          this.href,
+          function(){ 
+            $('#list-view .loading').hide();
+            $('.page-controls').show();
+            $('#pageControls').show();
+            $('#photos-viewer').show();
+            
+          }, 
+          null, 
+          'script');
+      // $('#list-view .loading').hide();
+      // // $('#page-controls').show();
+      // $('#photo-view').show();
+      
+
+      return false;
 
     });
   }
