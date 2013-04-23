@@ -608,12 +608,14 @@ class PhotosController < ApplicationController
   end
 
   def edit_multiple
-    
-    # @photos = Photo.unpublished
-    @photos = Photo.find(params[:audit_photo_ids])
     # debugger
+    # @photos = Photo.unpublished
+    # @photos = Photo.find(params[:audit_photo_ids])
+    # debugger
+    @photo = Photo.find(4741)
     respond_to do |format|
       format.html # index.html.erb
+      format.js
     end  
   end
 
@@ -621,13 +623,14 @@ class PhotosController < ApplicationController
     debugger
     @photos = Photo.update(params[:photos].keys, params[:photos].values).reject { |p| p.errors.empty? }
     @audit = Audit.find(params[:id])
-    
+
     if @photos.empty?
-      respond_to do |format|
-        unless params[:audit_id].nil?
+      # unless params[:audit_id].nil?
+        respond_to do |format|  
           format.html { redirect_to @audit, notice: 'Successfully updated.' }
+          format.js
         end
-      end      
+      # end      
       # redirect_to photos_url
     else
       # render :action => "edit_multiple_audit_photos_url"

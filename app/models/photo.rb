@@ -18,6 +18,8 @@ class Photo < ActiveRecord::Base
   has_many :themes, :through => :themings
   belongs_to :promotion_calendar
   
+  # accepts_nested_attributes_for :categories, :allow_destroy => true
+
   attr_accessible :description, :created_at, :audit_id, 
       :theme_ids, :brand_compliant, :display_for_project, :insight, :role_of_comm, :perspective,
       :additional_brands, :photo_file_name, :data_complete,

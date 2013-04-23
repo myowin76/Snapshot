@@ -46,10 +46,10 @@
           <span>Start upload</span>
         </button>
         
-        <%= link_to edit_audit_path(@audit), :class => 'btn' do %>
-          <i class="icon-edit"></i>
-          <span>Edit All</span>
-        <% end  %>
+        <%#= link_to edit_audit_path(@audit), :class => 'btn' do %>
+          <!-- <i class="icon-edit"></i>
+          <span>Edit All</span> -->
+        <% #end  %>
         <%= link_to audit_path, :class => 'btn' do %>
           <i class="icon-refresh"></i>
           <span>Refresh</span>
@@ -194,8 +194,9 @@
 
 <% unless @audit.photos.empty? %>
 
-<%= form_tag edit_multiple_audit_photos_path, method: :get do %>
-  <%#= submit_tag "Edit Checked" %>
+<%= form_tag edit_multiple_audit_photos_path, method: :get, remote: true do %>
+  <%#= submit_tag "Edit Checked", :class => 'btn', "data-reveal-id" => "myModal", :id => 'audit-edit-checked' %>
+  <%#= link_to "Edit Checked", edit_multiple_photos_path, remote: true %>
   <table class="table table-striped photo-list">
     <thead>
       <tr>
@@ -234,6 +235,7 @@
       <% end %>    
     </tbody>
   </table>
-
+  <div id="edit-container">
+  </div>
 <% end %>
 <% end %>

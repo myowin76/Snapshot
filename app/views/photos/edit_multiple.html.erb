@@ -11,18 +11,15 @@
     
       <!-- <div class="form-actions">
         <%#= f.button :submit, :class => 'btn btn-primary' %>
-        <% unless params[:audit_id] %>
+        <%# unless params[:audit_id] %>
           <%#= link_to 'Cancel', photo, :class => 'btn' %>
-        <% else %>  
+        <% #else %>  
           <%#= link_to 'Cancel', audit_path(photo.audit), :class => 'btn' %>
-        <% end %>
+        <% #end %>
       </div> -->
       <%= submit_tag "Save", :class => 'btn btn-primary' %>
       <% unless params[:audit_id].nil? %>
         <%= link_to 'Cancel', audit_path(params[:audit_id]), :class => 'btn' %>
-      <% end %>  
-    
-
-
+      <% end %>
   <% end %>
 </section>  

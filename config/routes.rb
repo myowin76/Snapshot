@@ -31,6 +31,8 @@ Snapshot::Application.routes.draw do
   # match '/audits/:id/photos/edit_multiple' => 'audits#edit_multiple', :as => :edit_multiple_audit 
   match '/audits/:id/photos/edit_multiple' => 'photos#edit_multiple', :as => :edit_multiple_audit_photos 
   match '/audits/:id/photos/update_multiple' => 'photos#update_multiple', :as => :update_multiple_audit_photos
+
+  match '/photos/edit_multiple' => 'photos#edit_multiple', :as => :edit_multiple_photos
   resources :audits do
     collection do
       get :edit_multiple
@@ -57,7 +59,7 @@ Snapshot::Application.routes.draw do
       get  :all_photos
       get  :all_filters
       
-      post :edit_multiple
+      get :edit_multiple
       put :update_multiple
 
 
