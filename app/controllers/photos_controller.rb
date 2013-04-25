@@ -22,10 +22,7 @@ class PhotosController < ApplicationController
       end
 
       @countries = Country.order(:name)
-      #@countries = Country.find(current_user.subscription.sub_country.split(","))
       @categories = Category.order(:name)
-      # @categories = Category.find(current_user.subscription.sub_cats.split(","))
-      # need to check category and country
       # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
       @stores = Store.order(:id).includes({:retailer => :sector})
       @sectors = Sector.order(:name)

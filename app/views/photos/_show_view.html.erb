@@ -50,16 +50,16 @@
                 <td width="30%">Location:</td>
                 <td width="70%">
                   <% if @photo.audit.store.address.present? %>
-                    <%= @photo.audit.store.address %>
+                    <%= @photo.audit.store.address %>, 
                   <% end %>
                   <% if @photo.audit.store.address2.present? %>  
-                    , <%= @photo.audit.store.address2 %> 
+                    <%= @photo.audit.store.address2 %>, 
                   <% end %>  
                   <% if @photo.audit.store.address3.present? %>  
-                    <%= @photo.audit.store.address3 %> 
+                    <%= @photo.audit.store.address3 %>, 
                   <% end %>  
                   <% if @photo.audit.store.town.present? %>  
-                    , <%= @photo.audit.store.town %>
+                    <%= @photo.audit.store.town %>, 
                   <% end %>
                   <% if @photo.audit.store.country_id.present? %>
                     <%= @photo.audit.store.country.name %>
