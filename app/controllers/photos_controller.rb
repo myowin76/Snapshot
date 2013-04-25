@@ -32,6 +32,7 @@ class PhotosController < ApplicationController
       @channels = Channel.order(:name)
 
       unless params_search.nil?
+        # 
         # Country Search
         if search_country_id.present?
           # for selected country
@@ -41,9 +42,7 @@ class PhotosController < ApplicationController
         end
 
         @stores = @stores.where('environment_type_id IN (?)', search_environment_types) if search_environment_types.present?
-
         @stores = @stores.where('channel_id IN (?)', search_channels) if search_channels.present?
-
         @stores = @stores.where('store_format_id IN (?)', search_store_formats) if search_store_formats.present?
         # Location Search          
         @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
@@ -90,7 +89,6 @@ class PhotosController < ApplicationController
       @media_types = MediaType.order(:name)
       @media_vehicles = MediaVehicle.order(:name)
       @media_locations = MediaLocation.order(:name)
-      
 
       @saved_searches = current_user.save_searches.all
 
@@ -108,14 +106,9 @@ class PhotosController < ApplicationController
             .select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
             .paginate(:page => params[:page], :per_page => @per_page)
             .includes([:audit, :brands]).published
-      #   # on page load
-        
-      #   # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-      #   # @photos = Photo.published.paginate(:page => params[:page], 
-      #   #   :per_page => @per_page).order('photos.created_at DESC')
           
         else 
-       # unless params_search.nil?
+      
         
         # search action
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
@@ -152,21 +145,10 @@ class PhotosController < ApplicationController
 
             @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
             
-            # if params[:per_page].present?
-            #   @per_page = params[:per_page]
-            # else
-            #   @per_page = 30
-            # end
             @photos = @photos.paginate(:per_page => @per_page, :page => params[:page])
                 .order('audits.audit_date DESC, photos.created_at DESC')
-                # .order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
-
-           # debugger
+            
       end
-
-    # else 
-      # SOMETHING ELSE
-    # end
 
     # MAP
     unless @stores.blank?
