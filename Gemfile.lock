@@ -72,7 +72,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
-    columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -89,13 +88,6 @@ GEM
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
     database_cleaner (0.9.1)
-    debugger (1.2.1)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.1.4)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.4)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -150,7 +142,7 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.19)
+    mime-types (1.23)
     multi_json (1.5.0)
     multi_xml (0.5.1)
     mysql2 (0.3.11)
@@ -176,7 +168,7 @@ GEM
     prawnto_2 (0.2.5)
       prawn (>= 0.6.0)
       rails (>= 3.1)
-    rack (1.4.3)
+    rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-ssl (1.3.2)
@@ -240,6 +232,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.7)
     susy (1.0.5)
       compass (>= 0.12.2)
       sass (>= 3.2.0)
@@ -288,7 +281,6 @@ DEPENDENCIES
   compass-rails
   cucumber-rails
   database_cleaner
-  debugger
   devise
   factory_girl
   geocoder
@@ -312,6 +304,7 @@ DEPENDENCIES
   rubyzip (~> 0.9.4)
   sass-rails (~> 3.2.3)
   simple_form
+  sqlite3
   susy
   taps
   uglifier (>= 1.0.3)
