@@ -55,14 +55,14 @@ class	PhotoListPdf < Prawn::Document
 
   def photo_image photo
 
-    dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original)}")
+    # dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original)}")
     
-    if(dimensions.width > dimensions.height)
+    # if(dimensions.width > dimensions.height)
       image open("#{photo.photo.url(:original)}"), :width => 518  
-    else
+    # else
       
-      image open("#{photo.photo.url(:original)}"), :height => 480  
-    end  
+      # image open("#{photo.photo.url(:original)}"), :height => 480  
+    # end  
 	end
   
   
@@ -75,7 +75,7 @@ class	PhotoListPdf < Prawn::Document
     data += [[ "Store Name","#{photo.audit.store.name}"]]
     address = ""
     if photo.audit.store.address.present?
-      address = "Address: #{photo.audit.store.address}, "
+      address = "#{photo.audit.store.address}, "
     end
     if photo.audit.store.address2.present?
       address = address +"#{photo.audit.store.address2}, "
@@ -123,11 +123,12 @@ class	PhotoListPdf < Prawn::Document
       data += [[ "IMAGE DATA", ""]]
       if photo.brands.present?
           data += [[ "Brands", "#{photo.brands.map(&:name).join(", ")}"]]
+          if photo.brands.first.brand_owner_id.present?
+            owners = BrandOwner.find_all_by_id(photo.brands.map(&:brand_owner_id)).map(&:name).join(", ")
+            data += [["Brand Owners", "#{owners}"]]
+          end
       end
-      if photo.brands.first.brand_owner_id.present?
-        owners = BrandOwner.find_all_by_id(photo.brands.map(&:brand_owner_id)).map(&:name).join(", ")
-        data += [["Brand Owners", "#{owners}"]]
-      end
+      
       if photo.categories.present?
         data += [[ "Categories","#{photo.categories.map(&:name).join(", ")}"]]
       end

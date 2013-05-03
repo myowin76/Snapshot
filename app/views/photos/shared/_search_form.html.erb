@@ -29,6 +29,59 @@
 
 
     });
+  $("input#owner_search").on('keyup', function(){
+    
+      var search_val = $.trim($("input#owner_search").val());
+      //alert(search_val);
+      if(lastInput == search_val) return;
+    
+      if (search_val == ''){
+        $('#brand-owners-group').children().find('.accordion-inner label').show();
+      }
+      else{
+        $('#brand-owners-group').children().find('.accordion-inner label').each(function(){
+          oLabel = $(this);
+          if (oLabel.length > 0){
+            if (oLabel.text().toLowerCase().indexOf(search_val.toLowerCase()) >= 0){
+              $(this).show();
+            }else{
+              $(this).hide();
+            }
+          }
+        });
+        lastInput = search_val;
+      }
+
+
+    });
+
+  $("input#retailer_search").on('keyup', function(){
+    
+      var search_val = $.trim($("input#retailer_search").val());
+      //alert(search_val);
+      if(lastInput == search_val) return;
+    
+      if (search_val == ''){
+        $('#retailer-group').children().find('.accordion-inner label').show();
+      }
+      else{
+        $('#retailer-group').children().find('.accordion-inner label').each(function(){
+          oLabel = $(this);
+          if (oLabel.length > 0){
+            if (oLabel.text().toLowerCase().indexOf(search_val.toLowerCase()) >= 0){
+              $(this).show();
+            }else{
+              $(this).hide();
+            }
+          }
+        });
+        lastInput = search_val;
+      }
+
+
+    });
+
+
 
   </script>
 <% end %>  
@@ -79,13 +132,14 @@
       </div>
     </div>
     
-    <div class="accordion-group">
+    <div class="accordion-group" id="retailer-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#retailers-accord">
           Retailers <i class="icon-plus pull-right"></i>
         </a>
       </div>
       <div id="retailers-accord" class="accordion-body collapse">
+        <%= text_field_tag 'name', nil, :id => "retailer_search", :placeholder => 'Search' %>
         <div class="accordion-inner">
           <%= render 'photos/shared/retailer_view', :locals => {:retailers => @retailers}%>
         </div>
@@ -132,6 +186,7 @@
       </div><!-- /.accordion-heading -->
 
       <div id="brand_owners" class="accordion-body collapse">
+        <%= text_field_tag 'name', nil, :id => "owner_search", :placeholder => 'Search' %>
         <div class="accordion-inner">
           <% for brand_owner in @brand_owners %>
 
@@ -474,9 +529,7 @@
         <% end %>
 
         <% if params[:search] && params[:search][:fromDate] && params[:search][:fromDate] %>
-
           <%= text_field_tag "search[fromDate]", params[:search][:fromDate], :class => "input-small" %>
-
         <% else %>
           <%= text_field_tag "search[fromDate]", nil, :class => "input-small" %>
         <% end %>

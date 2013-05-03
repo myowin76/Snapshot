@@ -22,10 +22,7 @@ class PhotosController < ApplicationController
       end
 
       @countries = Country.order(:name)
-      #@countries = Country.find(current_user.subscription.sub_country.split(","))
       @categories = Category.order(:name)
-      # @categories = Category.find(current_user.subscription.sub_cats.split(","))
-      # need to check category and country
       # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
       @stores = Store.order(:id).includes({:retailer => :sector})
       @sectors = Sector.order(:name)
@@ -35,6 +32,7 @@ class PhotosController < ApplicationController
       @channels = Channel.order(:name)
 
       unless params_search.nil?
+        # 
         # Country Search
         if search_country_id.present?
           # for selected country
@@ -44,15 +42,13 @@ class PhotosController < ApplicationController
         end
 
         @stores = @stores.where('environment_type_id IN (?)', search_environment_types) if search_environment_types.present?
-
         @stores = @stores.where('channel_id IN (?)', search_channels) if search_channels.present?
-
         @stores = @stores.where('store_format_id IN (?)', search_store_formats) if search_store_formats.present?
         # Location Search          
         @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
 
         if search_sectors.present?
-          @retailers = Retailer.find_all_by_sector_id(search_sectors)
+          @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
           
           unless search_retailers.present?
             @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
@@ -78,7 +74,7 @@ class PhotosController < ApplicationController
       else
         # page load
 
-        @sectors = Sector.order(:name)
+        # @sectors = Sector.order(:name)
         @retailers = Retailer.order(:name)
         # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
         @stores = @stores.includes(:retailer)
@@ -93,7 +89,6 @@ class PhotosController < ApplicationController
       @media_types = MediaType.order(:name)
       @media_vehicles = MediaVehicle.order(:name)
       @media_locations = MediaLocation.order(:name)
-      
 
       @saved_searches = current_user.save_searches.all
 
@@ -106,24 +101,21 @@ class PhotosController < ApplicationController
       @photos = Photo.published
       if params_search.nil?
         # debugger
-          #.select('photos.id, photos.photo_file_name, photos.audit_id')
-          @photos = @photos.paginate(:page => params[:page], 
-            :per_page => @per_page).order('audits.audit_date DESC, brands.name').includes([:audit, :brands])
-      #   # on page load
-        
-      #   # @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-      #   # @photos = Photo.published.paginate(:page => params[:page], 
-      #   #   :per_page => @per_page).order('photos.created_at DESC')
+          #.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
+          @photos = @photos.order('audits.audit_date DESC, photos.created_at DESC')
+            .select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
+            .paginate(:page => params[:page], :per_page => @per_page)
+            .includes([:audit, :brands]).published
           
         else 
-       # unless params_search.nil?
+      
         
         # search action
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           # @photos = @photos.where('audits.audit_date < ?', from_date) if search_from_date.present?
           
-
+          @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
 
@@ -153,20 +145,10 @@ class PhotosController < ApplicationController
 
             @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
             
-            if params[:per_page]
-              @per_page = params[:per_page]
-            else
-              @per_page = 30
-            end
-            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page).order('photos.created_at DESC')
-
-
-           # debugger
+            @photos = @photos.paginate(:per_page => @per_page, :page => params[:page])
+                .order('audits.audit_date DESC, photos.created_at DESC')
+            
       end
-
-    # else 
-      # SOMETHING ELSE
-    # end
 
     # MAP
     unless @stores.blank?
@@ -600,6 +582,38 @@ class PhotosController < ApplicationController
     # @media_vehicles = MediaVehicle.order(:name)
     # @media_locations = MediaLocation.order(:name)
 
+
+
+  end
+
+  def edit_multiple
+    # debugger
+    # @photos = Photo.unpublished
+    # @photos = Photo.find(params[:audit_photo_ids])
+    # debugger
+    @photo = Photo.find(4741)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.js
+    end  
+  end
+
+  def update_multiple
+    debugger
+    @photos = Photo.update(params[:photos].keys, params[:photos].values).reject { |p| p.errors.empty? }
+    @audit = Audit.find(params[:id])
+
+    if @photos.empty?
+      # unless params[:audit_id].nil?
+        respond_to do |format|  
+          format.html { redirect_to @audit, notice: 'Successfully updated.' }
+          format.js
+        end
+      # end      
+      # redirect_to photos_url
+    else
+      # render :action => "edit_multiple_audit_photos_url"
+    end
 
 
   end

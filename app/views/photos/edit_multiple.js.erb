@@ -1,0 +1,2 @@
+checkbox_array = $("input[name='audit_photo_ids[]']:checked").serializeObject()['audit_photo_ids[]'];
+$('#edit-container').html('<%= j render("photos/form_ajax") %>');

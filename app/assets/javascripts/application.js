@@ -43,14 +43,37 @@ var snapshot = {
   
   Pagination: function(){
 
-    $('.pagination a').live('click',function (e) {
+    $('.content .will-page .pagination a').live('click',function (e) {
 
-      $.get(this.href, null, null, 'script');
+      // e.preventDefault();
+      // $('#list-view .loading').show();
+      $('.page-controls').hide();
+      $('#pageControls').hide();
+      $('#photos-viewer').hide();
+      
       $('html, body').animate({
-        scrollTop: $("body").offset().top
+        scrollTop: $(".photo-view").offset().top
       }, 500);
 
+      $('#list-view .loading').show();
+      $.get(
+          this.href,
+          function(){ 
+            $('#list-view .loading').hide();
+            $('.page-controls').show();
+            $('#pageControls').show();
+            $('#photos-viewer').show();
+            
+          }, 
+          null, 
+          'script');
+      // $('#list-view .loading').hide();
+      // // $('#page-controls').show();
+      // $('#photo-view').show();
+      
+
       return false;
+
     });
   }
 };
@@ -98,7 +121,7 @@ var snapshot = {
 // });
 
 
-  
+  // $('#search_form').submit();
 
   $('#search_fromDate').datepicker({ 
     dateFormat: 'dd/mm/yy',
@@ -120,20 +143,20 @@ var snapshot = {
     google.maps.event.trigger(map, 'resize');
   });
 
-  $('.nav-tabs li a').live('click', function () {
+  $('#viewMap').live('click', function () {
     Gmaps.loadMaps();
   });
 
   
 
-  $(".photo-view").ajaxStart(function(){
-    $(this).hide();
-    $('#list-view .loading').show();
+  // $(".photo-view").ajaxStart(function(){
+  //   $(this).hide();
+  //   $('#list-view .loading').show();
     
-  }).ajaxStop(function() {
-    $('#list-view .loading').hide();
-    $(this).show();
-  });
+  // }).ajaxStop(function() {
+  //   $('#list-view .loading').hide();
+  //   $(this).show();
+  // });
 
 
   $('.alert').click(function(){
@@ -523,7 +546,7 @@ function fixPosElement(el){
 function initLazyLoad(el){
   if (el) {
 
-    //console.log( $(el).length + " lazy load elements" );
+    // console.log( $(el).length + " lazy load elements" );
 
     $(el).show().lazyload({
       effect : "fadeIn"
@@ -538,18 +561,18 @@ function initLazyLoad(el){
 
 jQuery(document).ready(function($) {
 
-  //initLazyLoad("img.lazy");
-  /*
-  $("img.lazy").lazyload({ 
-    effect : "fadeIn"
-  });
-  */
+  // initLazyLoad("img.lazy");
+  
+  // $("img.lazy").lazyload({ 
+  //   effect : "fadeIn",
+  //   event : "click"
+  // });
+  
+  
+  // $('.pagination a').live('click',function () {
+  //   alert('hello');
+  //   $("img.lazy").lazyload();  
+  // });
 
-  /*
-  $('#main').on('click', '.pagination a' , function(){
-    alert('hello');
-    $("img.lazy").lazyload();  
-  });
-*/
 
 });

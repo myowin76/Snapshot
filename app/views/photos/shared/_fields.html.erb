@@ -1,0 +1,76 @@
+<section class="photo_views_view">
+
+  <div id="photo-details">
+    <div class="left">
+      <figure>
+        <%= image_tag(photo.photo.url(:large)) %><br />  
+        <fieldset>
+          <%= f.label :display_for_project do %>
+            <%= f.check_box :display_for_project %>
+            Display for Project
+          <% end %>
+          
+        </fieldset>  
+        <fieldset>
+          <%= f.label :brand_compliant do %>
+            <%= f.check_box :brand_compliant %>
+            Brand Compliance
+          <% end %>
+          
+        </fieldset>  
+        <fieldset>
+          <%= f.label :published do %>
+            <%= f.check_box :published %>
+            Published
+          <% end %>
+          
+        </fieldset>  
+        <fieldset>
+          <%= f.label :data_complete do %>
+            <%= f.check_box :data_complete%>
+            Data Complete
+          <% end %>
+        </fieldset>
+      </figure>  
+    </div>  
+    <div class="right">  
+      <div class="form-inputs">
+              
+        <%= f.label "Headline" %>
+        <%= f.text_field :headline %>
+        
+        <label>Product Categories</label>
+          <%= f.collection_select('category_ids', Category.all, :id, :name, {},
+            {:multiple => true, :class=> 'chosen-category'})
+            %>
+          <%#= f.collection_select(:special_equipment_id, SpecialEquipment.all, :id, :name,  {}, 
+            {:multiple => true, :class => 'select'}) %>
+              
+          <%#= f.fields_for :categories do |cat| %>
+            <%#= cat.collection_select 'id', Category.all, :id, :name, :multiple => true, :class=> 'chosen-category' %>
+          <% #end %>
+          <%#= select_tag :category_ids, 
+            options_from_collection_for_select( Category.order(:name), "id", "name", photo.categories.map(&:id)), 
+            :multiple => true,
+            :class => 'chosen-category'
+          %>
+        
+        <fieldset>
+          <%= f.label "Insight" %>
+          <%= f.text_field :insight %>
+        </fieldset>
+        
+        <fieldset>
+        <%= f.label "Role of Communication" %>
+        <%= f.text_field :role_of_comm %>
+
+        <fieldset>
+        <%= f.label "Perspective" %>
+        <%= f.text_field :perspective %>
+        
+        <fieldset>
+        <%= f.label "Description" %>
+        <%= f.text_field :description %>
+      </div>
+    </div>  
+ </section>   

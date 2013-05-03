@@ -17,7 +17,7 @@
       <th>Username</th>
       <th>Date</th>
       <th></th>
-      <th></th>
+      <!-- <th></th> -->
       <th></th>
     </tr>
   </thead>
@@ -37,11 +37,11 @@
             <%= link_to 'Details', audit_path(audit) %>
           <% #end %>  
         </td>  
-        <td>
+        <!-- <td>
           <% #if (current_user == audit.user) %>
             <%= link_to 'Edit', edit_audit_path(audit) %>
           <% #end %>  
-        </td>
+        </td> -->
         <td>
           <% #if (current_user == audit.user) %>
             <%= link_to 'Destroy', audit, method: :delete, data: { confirm: 'Are you sure?' } %>

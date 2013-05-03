@@ -1,5 +1,44 @@
   //index.js.erb
 
 $(".photo-view").fadeIn('slow').html("<%= j render('grid_view') %>");
-$(".map-view").html("<%= j render('map_view') %>");
-Gmaps.loadMaps();
+
+// $(".map-view").html("<%= j render('map_view') %>");
+// // $('.map-view').html('<%= escape_javascript( gmaps({:last_map => false}) ) %>');
+
+
+// function initLazyLoad(el){
+//   if (el) {
+
+//     console.log( $(el).length + " lazy load elements" );
+
+//     $(el).show().lazyload({
+//       effect : "fadeIn"
+//     });
+//   }
+
+//   else{
+//     //console.log("Error: No element found!");
+//   }
+
+// }
+
+// jQuery(document).ready(function($) {
+
+//   initLazyLoad("img.lazy");
+  
+//   $("img.lazy").lazyload({ 
+//     effect : "fadeIn"
+//   });
+
+//   $('.content .will-page .pagination a').live('click',function () {
+
+//       $.get(this.href, null, null, 'script');
+//       $('html, body').animate({
+//         scrollTop: $("body").offset().top
+//       }, 500);
+
+//       return false;
+//     });
+  
+// });
+//   

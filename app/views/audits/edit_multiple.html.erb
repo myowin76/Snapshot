@@ -6,7 +6,7 @@
 	<h1>Edit Audit</h1>
 </div>	
 
-<%= simple_form_for @audit, :validate => true, :html => { :multipart => true } do |f| %>
+<%= form_tag update_multiple_audits_path, method: :put , :validate => true, :html => { :multipart => true } do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -36,7 +36,7 @@
           Stores<br />
             <%= select_tag 'audit[store_id]', 
           		options_from_collection_for_select(@audit.store.retailer.stores, "id", "name",  
-          		@audit.store.id(&:id)), {:prompt => 'Please Select'} %>
+          		@audit.store.id(&:id)),  {:prompt => 'Please Select'} %>
           <% else %>   
             <div style="color: red;">
               No store has been assigned. Please Select Retailers and Store.
@@ -77,7 +77,7 @@
     <div id="store-info"></div>
 
     <fieldset>
-      <%= f.input :reference, :input_label => "test" %>
+      <%= f.input :reference, :input_label => "test" %> 
     </fieldset>
     
     <fieldset>
@@ -86,8 +86,14 @@
     </fieldset>
     
     <section>
-      
-      <%= f.fields_for :photos, @photos do |photo_fields| %>
+      <% if params[:audit_photo_ids].present? %>
+        
+         <% @photos = Photo.find_all_by_id(params[:audit_photo_ids]) %>
+         
+      <% else %>  
+        <% @photos = @audit.photos %>
+      <% end %>  
+      <%= f.fields_for @photos, "photo_ids[]" do |photo_fields| %>
       <% #debugger %>
         <% unless photo_fields.object.new_record? %>
           

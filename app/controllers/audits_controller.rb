@@ -55,7 +55,10 @@ class AuditsController < ApplicationController
 
   def edit
     
+
+
     @audit = Audit.find(params[:id])
+
     if @audit.store
       @store = @audit.store  
     end  
@@ -133,6 +136,25 @@ class AuditsController < ApplicationController
         render :partial => 'refresh_store_dropdown', :locals => { :stores => @stores}
       }
     end
+  end
+
+  def edit_multiple
+    
+    @audit = Audit.find(params[:id])
+
+    if @audit.store
+      @store = @audit.store  
+    end  
+    @retailers = Retailer.order(:name).all
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def update_multiple
+    debugger
+    
   end
 
 end

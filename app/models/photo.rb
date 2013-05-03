@@ -18,6 +18,8 @@ class Photo < ActiveRecord::Base
   has_many :themes, :through => :themings
   belongs_to :promotion_calendar
   
+  # accepts_nested_attributes_for :categories, :allow_destroy => true
+
   attr_accessible :description, :created_at, :audit_id, 
       :theme_ids, :brand_compliant, :display_for_project, :insight, :role_of_comm, :perspective,
       :additional_brands, :photo_file_name, :data_complete,
@@ -27,7 +29,7 @@ class Photo < ActiveRecord::Base
   has_attached_file :photo,
     # :default_url => "/images/default_:style_avatar.png",
   	:styles => { :large => "640x480", :medium => "300x300>", :small => "100x100>" },
-    # :url  => "/audits/:id/:style/:basename.:extension",
+    # :url  => "/photos/:id/:style/:basename.:extension",
   	 # :path => ":rails_root/public/audits/:id/:styles/:basename.:extension",
     :path => 'photos/photos/000/000/:id/:style/:basename.:extension',
     # :storage => :filesystem,
