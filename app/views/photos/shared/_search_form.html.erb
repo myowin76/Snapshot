@@ -454,68 +454,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#geolocation">
-          Location Search <i class="icon-plus pull-right"></i>
-        </a>
-      </div>
-      <div id="geolocation" class="accordion-body collapse">
-        <div class="accordion-inner">
-          <fieldset>
-            <%= label_tag "Location" %>
-            <% if params[:search] && params[:search][:location] && params[:search][:location] %>
-              <%= text_field_tag 'search[location]', params[:search][:location] %>
-            <% else %>
-              <%= text_field_tag 'search[location]'%>
-              <%#= text_field_tag 'search[location]', '', :autocomplete => photo_autocomplete_store_location_path %>
-            <% end %>
-            <span>e.g Edinburgh, EH3, etc</span>
-          </fieldset>
-        </div>
-      </div>
-    </div> -->
-    <div class="accordion-group">
-      <div class="accordion-heading">
-        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#themes">
-          Themes <i class="icon-plus pull-right"></i>
-        </a>
-      </div>
-      <div id="themes" class="accordion-body collapse">
-        <div class="accordion-inner">
-          <% for theme in @themes %>
-            <% if params[:search] && params[:search][:themes] && params[:search][:themes].include?(theme.id.to_s) %>
-              <%= label_tag "search[themes][#{theme.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[themes][]", theme.id, true, :id => "search_themes_#{theme.id}", :"data-desc" => "#{theme.name}" %>
-                <%= theme.name %>
-              <% end %>
-            <% else %>  
-              <%= label_tag "search[themes][#{theme.id}]", :class => "checkbox" do %>
-                <%= check_box_tag "search[themes][]", theme.id, false, :id => "search_themes_#{theme.id}", :"data-desc" => "#{theme.name}" %>
-                <%= theme.name %>
-              <% end %>  
-            <% end %>  
-          <% end %>  
-        </div>
-      </div>
-    </div>
-
-    <div class="single-group">
-      <% if params[:search] && params[:search][:brand_comp] %>
-        
-        <%= label_tag "search[brand_comp]" do %>
-          <%= check_box_tag "search[brand_comp]", "Brand Compliance", :check => "checked", :id => "search_brand_comp" %>
-          Brand Compliance<br />
-        <% end %>
-
-        <% else %>    
-          
-        <%= label_tag "search[brand_comp]" do %>
-          <%= check_box_tag "search[brand_comp]", "Brand Compliance", false, :id => "search_brand_comp" %>
-          <span>Brand Compliance</span>
-        <% end %>
-        <% end %>
-    </div>
+    
 
     <div class="single-group date">
       <fieldset class="input-prepend">

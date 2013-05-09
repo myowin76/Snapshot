@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
 
   
   def index
-        
+        # debugger
     # if user_is_country_and_category_subscriber?
 
       if params[:saved_search_id] 
@@ -21,15 +21,36 @@ class PhotosController < ApplicationController
         end  
       end
 
-      @countries = Country.order(:name)
-      @categories = Category.order(:name)
-      # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
-      @stores = Store.order(:id).includes({:retailer => :sector})
-      @sectors = Sector.order(:name)
-      @store_formats = StoreFormat.order(:name)
-      # newly added to store
-      @env_types = EnvironmentType.order(:name)
-      @channels = Channel.order(:name)
+      # skip on ajax calls
+      # unless params[:per_page].present? || params[:page].present?
+        
+        if user_is_category_subscriber?
+          @categories = Category.find_all_by_id(current_user.subscription.sub_cats.split(","))
+          # debugger
+        else  
+          @categories = Category.order(:name)
+        end  
+        # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
+        
+        if user_is_sector_subscriber?
+          @sectors = Sector.find_all_by_id(current_user.subscription.sectors.split(","))
+          
+        else  
+          @sectors = Sector.order(:name)
+        end
+
+        @store_formats = StoreFormat.order(:name)
+        # newly added to store
+        @env_types = EnvironmentType.order(:name)
+        @channels = Channel.order(:name)
+      # end
+
+      if user_is_country_subscriber?
+        @countries = Country.find_all_by_id(current_user.subscription.sub_country.split(","))
+      else  
+        @countries = Country.order(:name)  
+      end  
+      @stores = Store.order(:id)#.includes({:retailer => :sector})
 
       unless params_search.nil?
         # 
@@ -49,7 +70,7 @@ class PhotosController < ApplicationController
 
         if search_sectors.present?
           @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
-          
+          # debugger
           unless search_retailers.present?
             @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
           else
@@ -57,7 +78,16 @@ class PhotosController < ApplicationController
           end
 
         else
-          @retailers = Retailer.find(:all, :include => :sector)
+          @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
+          # @retailers = Retailer.all
+          if user_is_retailer_subscriber?
+            @sub_retailers = Retailer.order(:name).find_all_by_id(current_user.subscription.retailers.split(","))
+            @retailers = @retailers + @sub_retailers
+            
+            # debugger
+          else
+
+          end
           unless search_retailers.present?
             @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
           else
@@ -75,20 +105,36 @@ class PhotosController < ApplicationController
         # page load
 
         # @sectors = Sector.order(:name)
-        @retailers = Retailer.order(:name)
+        # @retailers = Retailer.order(:name)
         # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
+
+        @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
+        if user_is_retailer_subscriber?
+          @sub_retailers = Retailer.order(:name).find_all_by_id(current_user.subscription.retailers.split(","))
+          @retailers = @retailers + @sub_retailers
+          # @retailers = @retailers.order(:name)
+          # debugger
+        else
+
+        end
         @stores = @stores.includes(:retailer)
           .where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
+          .where('retailer_id IN (?)', @retailers.map(&:id))
       end
 
-      @promo_calendars = PromotionCalendar.order(:name)
-      @brand_owners = BrandOwner.order(:name)
-      @brands = Brand.order(:name)
-      @themes = Theme.order(:name)
-      @promo_types = PromotionType.order(:name)
-      @media_types = MediaType.order(:name)
-      @media_vehicles = MediaVehicle.order(:name)
-      @media_locations = MediaLocation.order(:name)
+      # skips those on ajax calls
+      unless params[:per_page].present? || params[:page].present?
+
+        @promo_calendars = PromotionCalendar.order(:name)
+        @brand_owners = BrandOwner.order(:name)
+        @brands = Brand.order(:name)
+        @themes = Theme.order(:name)
+        @promo_types = PromotionType.order(:name)
+        @media_types = MediaType.order(:name)
+        @media_vehicles = MediaVehicle.order(:name)
+        @media_locations = MediaLocation.order(:name)
+      end
+
 
       @saved_searches = current_user.save_searches.all
 
@@ -97,15 +143,19 @@ class PhotosController < ApplicationController
       else
         @per_page = 30
       end
+      
       # initiate Photo object
       @photos = Photo.published
-      if params_search.nil?
-        # debugger
+      @audits = Audit.find_all_by_store_id(@stores.map(&:id))
+      # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
+        if params_search.nil?
           #.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
-          @photos = @photos.order('audits.audit_date DESC, photos.created_at DESC')
-            .select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
+          @photos = @photos
+            .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+            .where('audit_id IN (?)', @audits.map(&:id))
+            .order('audits.audit_date DESC, photos.created_at DESC')
+            .includes([:audit, :brands])
             .paginate(:page => params[:page], :per_page => @per_page)
-            .includes([:audit, :brands]).published
           
         else 
       
@@ -115,7 +165,8 @@ class PhotosController < ApplicationController
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           # @photos = @photos.where('audits.audit_date < ?', from_date) if search_from_date.present?
           
-          @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
+          @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+              .where('audit_id IN (?)', @audits.map(&:id))
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
 
@@ -147,9 +198,10 @@ class PhotosController < ApplicationController
             
             @photos = @photos.paginate(:per_page => @per_page, :page => params[:page])
                 .order('audits.audit_date DESC, photos.created_at DESC')
-            
-      end
 
+            
+        end
+      # debugger
     # MAP
     unless @stores.blank?
       @json = @stores.to_gmaps4rails do |store, marker|

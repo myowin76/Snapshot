@@ -176,6 +176,14 @@ var snapshot = {
     }, 500);
   });
 
+  $('#go-to-top').on('click',function(e){
+    
+    e.preventDefault();
+    $('html, body').animate({
+      scrollTop: $("body").offset().top
+    }, 500);
+  });
+
 
 
 

@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
   
 
   protected
-  
 
   def layout_by_resource
     if devise_controller?
@@ -93,17 +92,49 @@ class ApplicationController < ActionController::Base
   end
 
   def user_is_country_subscriber?
-    return false if current_user.nil?
-    # return false if current_user.nil? || current_user.subscription.sub_country.blank?  || current_user.subscription.sub_country.nil?
-    # return false if current_user.nil? || current_user.subscriptons.sub_country.blank?  || current_user.subscriptions.sub_country.nil?
-    true
+    if current_user.subscription.nil?
+      return false
+    else  
+      return false if current_user.nil? || current_user.subscription.sub_country.blank?  || current_user.subscription.sub_country.nil?
+      # return false if current_user.nil? || current_user.subscriptons.sub_country.blank?  || current_user.subscriptions.sub_country.nil?
+      true
+    end
   end
   def user_is_category_subscriber?
-    return false if current_user.nil?
-    # return false if current_user.nil? || current_user.subscription.sub_cats.blank?  || current_user.subscription.sub_cats.nil?
-    # return false if current_user.nil? || current_user.subscriptions.sub_cats.blank?  || current_user.subscriptions.sub_cats.nil?
-    true
+    # return false if current_user.nil?
+    # debugger
+    if current_user.subscription.nil?
+      return false
+
+    else  
+      return false if current_user.nil? || current_user.subscription.sub_cats.blank?  || current_user.subscription.sub_cats.nil?
+      true
+    end
+    
+
   end
+  def user_is_sector_subscriber?
+    if current_user.subscription.nil?
+      return false
+      
+    else  
+      return false if current_user.nil? || current_user.subscription.sectors.blank?  || current_user.subscription.sectors.nil?
+      # return false if current_user.nil? || current_user.subscriptions.sub_cats.blank?  || current_user.subscriptions.sub_cats.nil?
+      true
+    end
+  end
+
+  def user_is_retailer_subscriber?
+    if current_user.subscription.nil?
+      return false
+      
+    else  
+      return false if current_user.nil? || current_user.subscription.retailers.blank?  || current_user.subscription.retailers.nil?
+      # return false if current_user.nil? || current_user.subscriptions.sub_cats.blank?  || current_user.subscriptions.sub_cats.nil?
+      true
+    end  
+  end
+
   def user_is_country_and_category_subscriber?
     if (user_is_country_subscriber? && user_is_category_subscriber? )
       return true

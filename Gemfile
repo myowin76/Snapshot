@@ -11,7 +11,7 @@ gem 'simple_form'
 gem 'unicorn'
 gem 'jquery-rails'
 gem "paperclip", "~> 3.4.0"
-gem 'taps'
+gem 'taps', :require => false
 gem 'geocoder'
 gem 'devise'
 gem 'will_paginate', '~> 3.0.0'
@@ -51,12 +51,15 @@ group :assets do
   gem 'compass-rails'
   gem 'susy'
 end
+
 group :development do
   gem "nifty-generators"	
 	gem 'debugger'
+  gem 'bullet'
 end
 
 group :test do
+  gem 'sqlite3'
   gem "rspec-rails", "~> 2.0"	
   gem 'capybara'
   gem 'cucumber-rails'

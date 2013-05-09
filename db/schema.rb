@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222120625) do
+ActiveRecord::Schema.define(:version => 20130509093043) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -295,6 +295,8 @@ ActiveRecord::Schema.define(:version => 20130222120625) do
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "sectors"
+    t.string   "retailers"
   end
 
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
