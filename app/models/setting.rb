@@ -2,6 +2,7 @@ class Setting < ActiveRecord::Base
   attr_accessible :setting, :value
 
   def self.check_db_updates
+    # @last_update_country = Country.order("updated_at").last.updated_at
     @last_update_store = Store.order("updated_at").last.updated_at
     @last_update_category = Category.order("updated_at").last.updated_at
     @last_update_brand = Brand.order("updated_at").last.updated_at

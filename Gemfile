@@ -53,7 +53,9 @@ group :assets do
 end
 group :development do
   gem "nifty-generators"	
-	# gem 'debugger'
+	gem 'debugger'
+  gem 'bullet'
+  # gem 'ruby-debug19'
 end
 
 group :test do
