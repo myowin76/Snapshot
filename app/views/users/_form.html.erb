@@ -10,6 +10,13 @@
   	<%= f.association :roles, as: :check_boxes, :label => false %>
   </div>
 
+  <!-- <div class="form-inputs">
+    
+    <!-- <h2>Subscriptions</h2> -->
+      <%#= f.collection_check_boxes :subscribe_country_ids, Country.order(:name), :id, :name, {:item_wrapper_class => 'checkbox_container'}%>
+  </div> -->
+
+
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn btn-primary' %>
     <%= link_to 'Back', users_path, :class => 'btn' %>

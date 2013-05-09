@@ -149,7 +149,6 @@ class PhotosController < ApplicationController
       @audits = Audit.find_all_by_store_id(@stores.map(&:id))
       # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
         if params_search.nil?
-        # debugger
           #.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
           @photos = @photos
             .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
@@ -157,7 +156,7 @@ class PhotosController < ApplicationController
             .order('audits.audit_date DESC, photos.created_at DESC')
             .includes([:audit, :brands])
             .paginate(:page => params[:page], :per_page => @per_page)
-          # debugger
+          
         else 
       
         

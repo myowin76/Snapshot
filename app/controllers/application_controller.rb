@@ -58,7 +58,6 @@ class ApplicationController < ActionController::Base
   
 
   protected
-  
 
   def layout_by_resource
     if devise_controller?
@@ -135,6 +134,7 @@ class ApplicationController < ActionController::Base
       true
     end  
   end
+
   def user_is_country_and_category_subscriber?
     if (user_is_country_subscriber? && user_is_category_subscriber? )
       return true

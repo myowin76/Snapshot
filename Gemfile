@@ -51,11 +51,11 @@ group :assets do
   gem 'compass-rails'
   gem 'susy'
 end
+
 group :development do
   gem "nifty-generators"	
 	gem 'debugger'
   gem 'bullet'
-  # gem 'ruby-debug19'
 end
 
 group :test do

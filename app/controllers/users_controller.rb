@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   def index
     # @users = User.accessible_by(current_ability, :index).limit(20)
     @users = User.accessible_by(current_ability, :index)
+    # debugger
     respond_to do |format|
       format.json { render :json => @users }
       format.xml  { render :xml => @users }
@@ -88,7 +89,7 @@ class UsersController < ApplicationController
   # end
 
    def update
-   
+   # debugger
     if params[:user][:password].blank?
       [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
     else
