@@ -92,13 +92,13 @@ module PhotosHelper
       @saved_params && @saved_params['search[brands][]']
     end
   end
-  def search_themes
-    if params[:search]
-      params[:search][:themes]
-    else
-      @saved_params && @saved_params['search[themes][]']
-    end
-  end
+  # def search_themes
+  #   if params[:search]
+  #     params[:search][:themes]
+  #   else
+  #     @saved_params && @saved_params['search[themes][]']
+  #   end
+  # end
   def search_categories
     if params[:search]
       params[:search][:categories]
@@ -134,14 +134,14 @@ module PhotosHelper
       @saved_params && @saved_params['search[pchannel][]']
     end
   end
-  def search_brand_compliant?
-    if params[:search]
-      true if params[:search][:brand_comp]
+  # def search_brand_compliant?
+  #   if params[:search]
+  #     true if params[:search][:brand_comp]
       
-    else
-      @saved_params && @saved_params['search[brand_comp]']
-    end
-  end
+  #   else
+  #     @saved_params && @saved_params['search[brand_comp]']
+  #   end
+  # end
   
 
 end
