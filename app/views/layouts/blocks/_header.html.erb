@@ -11,25 +11,25 @@
 		</div>
 
 		<% if user_signed_in? %>
-		<div id="account">
-			<ul>
-				<li>
-					<%= current_user.email  %>
-				</li>
-				<li>
-	        <%= link_to "My Account", edit_user_registration_path %>
-	      </li>
-
-				<% if can? :read, :page %>
+			<div id="account">
+				<ul>
 					<li>
-	          <%= link_to "Admin", dashboard_path %>
-	        </li>
-	      <% end %>
-				<li class="last">
-					<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
-				</li>				
-			</ul>
-		</div>
+						<%= current_user.email  %>
+					</li>
+					<li>
+		        <%= link_to "My Account", edit_user_registration_path %>
+		      </li>
+
+					<% if can? :read, :page %>
+						<li>
+		          <%= link_to "Admin", dashboard_path %>
+		        </li>
+		      <% end %>
+					<li class="last">
+						<%= link_to "Logout", destroy_user_session_path, :tabindex=>"-1" %>
+					</li>				
+				</ul>
+			</div>
 		<% end %>
 
 	</div>

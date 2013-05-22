@@ -11,8 +11,13 @@ Snapshot::Application.routes.draw do
 
   # devise_for :users
   devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions"}
-  resources :users
-  resources :subscriptions, :save_searches, :user_types
+  
+  resources :users do
+    resources :subscriptions
+  end
+
+
+  resources :save_searches, :user_types
   # scope "admin" do
     resources :media_types, :media_vehicles, :media_locations, :themes
     resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
