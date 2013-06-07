@@ -68,7 +68,7 @@ class PhotosController < ApplicationController
 
         # Location Search          
         @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
-        debugger
+        # debugger
         if search_sectors.present?
           @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
           # debugger
