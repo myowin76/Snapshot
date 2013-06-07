@@ -19,11 +19,12 @@
       <figure>
         <%= image_tag(@photo.photo.url(:original), :class => "expend") %>
       </figure>  
-      
-      <%= link_to photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" do %>
-        <i class="icon-download icon-white"></i>
-        <span>Download Pdf</span>
-      <% end %>
+      <% if !current_user.role?(:deny_download) %>
+        <%= link_to photo_path(:format => "pdf"), :class => "btn btn-primary", :target => "_blank" do %>
+          <i class="icon-download icon-white"></i>
+          <span>Download Pdf</span>
+        <% end %>
+      <% end %>  
     </div>
     
     <div class="right">

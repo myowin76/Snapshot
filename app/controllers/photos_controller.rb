@@ -51,7 +51,7 @@ class PhotosController < ApplicationController
         @countries = Country.order(:name)  
       end  
       @stores = Store.order(:id)#.includes({:retailer => :sector})
-
+      # debugger
       unless params_search.nil?
         # 
         # Country Search
@@ -65,9 +65,10 @@ class PhotosController < ApplicationController
         @stores = @stores.where('environment_type_id IN (?)', search_environment_types) if search_environment_types.present?
         @stores = @stores.where('channel_id IN (?)', search_channels) if search_channels.present?
         @stores = @stores.where('store_format_id IN (?)', search_store_formats) if search_store_formats.present?
+
         # Location Search          
         @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
-
+        debugger
         if search_sectors.present?
           @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
           # debugger

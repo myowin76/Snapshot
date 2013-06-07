@@ -23,6 +23,8 @@ class Ability
         can :manage, [Photo, Audit, Store]
 
 
+      elsif user.role? :deny_download
+          
       # Developer Role
       elsif user.role? :developer
         # can :manage, :all  

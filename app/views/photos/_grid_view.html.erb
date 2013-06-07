@@ -24,24 +24,25 @@
 
   </div><!-- /.page-filters -->
 
-  <div class="page-actions">
+  <% if !current_user.role?(:deny_download) %>
+    <div class="page-actions">
 
-    <ul>
+      <ul>
 
-      <li><a href="#" id="checkAll" data-select-all="false">Select All</a></li>
+        <li><a href="#" id="checkAll" data-select-all="false">Select All</a></li>
+        
+        <li><%= link_to "Export Zip", download_url, :id => 'export-zip'%></li>
+        
+        <li><%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf', :target => '_blank' %></li>
+
+        <li class="reviews">
+          <%= link_to "Filter selected", "#", :id => 'reviews', :'data-filtered' => 'show' %>
+        </li>
+      </ul>
       
-      <li><%= link_to "Export Zip", download_url, :id => 'export-zip'%></li>
-      
-      <li><%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf', :target => '_blank' %></li>
+    </div><!-- /.page-actions -->
 
-      <li class="reviews">
-        <%= link_to "Filter selected", "#", :id => 'reviews', :'data-filtered' => 'show' %>
-      </li>
-    </ul>
-    
-  </div><!-- /.page-actions -->
-
-
+  <% end %>
 </div><!-- /.mod-page-controls -->
 
 
