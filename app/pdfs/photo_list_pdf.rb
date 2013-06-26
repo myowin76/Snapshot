@@ -29,6 +29,7 @@ class	PhotoListPdf < Prawn::Document
 	end
 
   def photo_rows
+    # debugger
     @photo_list.map do |photo|
       define_grid(:columns => 6, :rows => 8, :gutter => 10)
 
@@ -50,7 +51,7 @@ class	PhotoListPdf < Prawn::Document
         photo_details photo  
 
       end
-      start_new_page
+      start_new_page unless photo == @photo_list.last
     end
   end
 
