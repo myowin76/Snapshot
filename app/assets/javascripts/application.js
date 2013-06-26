@@ -281,7 +281,7 @@ var snapshot = {
   $('#length').live('change',function(){
     var info = {}
     info['per_page'] = $(this).val();
-    info[''] = $('#search_form').serializeObject();
+    info[''] = $('#search_form').serializeArray();
     $.ajax({
       url: '/',
       type: "POST",

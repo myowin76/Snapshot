@@ -1,4 +1,6 @@
+# class UsersController < ApplicationController
 class UsersController < ApplicationController
+  include Devise::Controllers::Helpers
   before_filter :get_user, :only => [:index,:new,:edit]
   before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
   load_and_authorize_resource :only => [:index, :show, :new, :destroy, :edit, :update]
@@ -90,6 +92,7 @@ class UsersController < ApplicationController
 
    def update
    # debugger
+   # [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
     if params[:user][:password].blank?
       [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
     else
@@ -97,7 +100,7 @@ class UsersController < ApplicationController
     end
  
     respond_to do |format|
-      if @user.errors[:base].empty? and @user.update_attributes(params[:user])
+      if @user.errors[:base].empty? and @user.update_without_password(params[:user])
         flash[:notice] = "The account has been updated"
         format.json { render :json => @user.to_json, :status => 200 }
         format.xml  { head :ok }

@@ -25,7 +25,8 @@ class PhotosController < ApplicationController
       # unless params[:per_page].present? || params[:page].present?
         
         if user_is_category_subscriber?
-          @categories = Category.find_all_by_id(current_user.subscription.sub_cats.split(","))
+          @categories = Category.order(:name).find_all_by_id(current_user.subscription.sub_cats.split(","))
+          # @categories = @categories.order(:name)
           # debugger
         else  
           @categories = Category.order(:name)
@@ -33,7 +34,7 @@ class PhotosController < ApplicationController
         # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
         
         if user_is_sector_subscriber?
-          @sectors = Sector.find_all_by_id(current_user.subscription.sectors.split(","))
+          @sectors = Sector.order(:name).find_all_by_id(current_user.subscription.sectors.split(","))
           
         else  
           @sectors = Sector.order(:name)
@@ -77,7 +78,7 @@ class PhotosController < ApplicationController
           else
             @stores = @stores.where('retailer_id IN (?)', search_retailers)
           end
-
+          # debugger
         else
           @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
           # @retailers = Retailer.all
@@ -119,7 +120,7 @@ class PhotosController < ApplicationController
 
         end
         @stores = @stores.includes(:retailer)
-          .where('country_id IN (?) OR country_id IS NOT NULL', @countries.map(&:id))
+          .where('country_id IN (?) AND country_id IS NOT NULL', @countries.map(&:id))
           .where('retailer_id IN (?)', @retailers.map(&:id))
       end
 
@@ -144,7 +145,7 @@ class PhotosController < ApplicationController
       else
         @per_page = 30
       end
-      
+      # debugger
       # initiate Photo object
       @photos = Photo.published
       @audits = Audit.find_all_by_store_id(@stores.map(&:id))
@@ -652,7 +653,7 @@ class PhotosController < ApplicationController
   end
 
   def update_multiple
-    debugger
+    # debugger
     @photos = Photo.update(params[:photos].keys, params[:photos].values).reject { |p| p.errors.empty? }
     @audit = Audit.find(params[:id])
 

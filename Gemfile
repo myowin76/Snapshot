@@ -10,7 +10,8 @@ gem 'json', '1.7.7'
 gem 'simple_form'
 gem 'unicorn'
 gem 'jquery-rails'
-gem "paperclip", "~> 3.4.0"
+gem "paperclip", ">= 3.4.2"
+# gem "paperclip", "= 3.1"
 gem 'taps', :require => false
 gem 'geocoder'
 gem 'devise'
@@ -30,6 +31,8 @@ gem 'client_side_validations-simple_form'
 gem 'cancan'
 gem 'backbone-on-rails'
 gem "newrelic_rpm", "~> 3.5.5.38"
+
+# gem "cocaine", "= 0.5.0"
 
 group :production do
 	gem "pg"
