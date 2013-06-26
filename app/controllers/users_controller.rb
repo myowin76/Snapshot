@@ -1,5 +1,6 @@
 # class UsersController < ApplicationController
 class UsersController < ApplicationController
+  
   include Devise::Controllers::Helpers
   before_filter :get_user, :only => [:index,:new,:edit]
   before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
@@ -92,19 +93,39 @@ class UsersController < ApplicationController
 
    def update
    # debugger
-   # [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
     if params[:user][:password].blank?
       [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
-    else
-      @user.errors[:base] << "The password you entered is incorrect" unless @user.valid_password?(params[:user][:current_password])
     end
+   # [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
+    # if params[:user][:current_password].blank?
+    #   [:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
+    # end  
+    # if params[:user][:password].blank?
+    #   [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
+    # # else
+    # #   @user.errors[:base] << "The password you entered is incorrect" unless @user.valid_password?(params[:user][:current_password])
+    #   password = params[:user][:password]
+    #   @password = ::BCrypt::Password.create("#{password}#{pepper}", :cost => cost).to_s
+    # end
  
     respond_to do |format|
-      if @user.errors[:base].empty? and @user.update_without_password(params[:user])
-        flash[:notice] = "The account has been updated"
-        format.json { render :json => @user.to_json, :status => 200 }
-        format.xml  { head :ok }
-        format.html { redirect_to :action => :index }
+      # if @user.errors[:base].empty? and @user.update_with_password(params[:user])
+      #   flash[:notice] = "The account has been updated"
+      #   format.json { render :json => @user.to_json, :status => 200 }
+      #   format.xml  { head :ok }
+      #   format.html { redirect_to :action => :index }
+      @update_user = params[:id]
+      # debugger
+      if @user.errors[:base].empty? and @user.update_attributes(params[:user])
+          sign_in(current_user, :bypass => true)
+          flash[:notice] = "The account has been updated"
+          
+          # format.json { render :json => @user.to_json, :status => 200 }
+          # format.xml  { head :ok }
+          format.html { redirect_to user_path(@update_user) }
+
+
+
       else
         format.json { render :text => "Could not update user", :status => :unprocessable_entity } #placeholder
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
