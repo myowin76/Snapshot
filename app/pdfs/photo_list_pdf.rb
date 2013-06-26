@@ -1,3 +1,4 @@
+
 class	PhotoListPdf < Prawn::Document
 	def initialize(photos)
 		
@@ -55,10 +56,15 @@ class	PhotoListPdf < Prawn::Document
 
   def photo_image photo
     
-    dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original).to_s.sub!(/\?.+\Z/, '')}")
+     # dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original).to_s.sub!(/\?.+\Z/, '')}")
+
+    bounding_box([0, cursor], :width => 518, :height => 480) do
+      image open("#{photo.photo.url(:original)}"), :fit => [518, 480] 
+      # stroke_bounds
+    end
     
     # if(dimensions.width > dimensions.height)
-      image open("#{photo.photo.url(:original)}"), :width => 518  
+        # image open("#{photo.photo.url(:original)}"), :width => 518  
     # else
       
       # image open("#{photo.photo.url(:original)}"), :height => 480  
