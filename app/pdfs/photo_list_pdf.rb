@@ -39,7 +39,9 @@ class	PhotoListPdf < Prawn::Document
         pad_bottom(18) { text "#{photo.audit.store.name.upcase}", :size => 16, :style => :bold }
         stroke_horizontal_rule
         move_down 10
-          photo_image photo
+          bounding_box([0, cursor], :width => 518, :height => 480) do
+            photo_image photo
+          end
         end
 
       grid([0,5],[7,4]).bounding_box do
@@ -57,19 +59,8 @@ class	PhotoListPdf < Prawn::Document
 
   def photo_image photo
     
-     # dimensions = Paperclip::Geometry.from_file("#{photo.photo.url(:original).to_s.sub!(/\?.+\Z/, '')}")
-
-    bounding_box([0, cursor], :width => 518, :height => 480) do
       image open("#{photo.photo.url(:original)}"), :fit => [518, 480], :position => :center
-      # stroke_bounds
-    end
     
-    # if(dimensions.width > dimensions.height)
-        # image open("#{photo.photo.url(:original)}"), :width => 518  
-    # else
-      
-      # image open("#{photo.photo.url(:original)}"), :height => 480  
-    # end  
 	end
   
   
