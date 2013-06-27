@@ -119,6 +119,7 @@ class	PhotoListPdf < Prawn::Document
       
       data = [[ "", ""]]
       data += [[ "IMAGE DATA", ""]]
+      data +=[["Audit Date", "#{photo.audit.audit_date}"]]
       if photo.brands.present?
           data += [[ "Brands", "#{photo.brands.map(&:name).join(", ")}"]]
           if photo.brands.first.brand_owner_id.present?
