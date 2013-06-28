@@ -454,8 +454,34 @@
         </div>
       </div>
     </div>
-    
 
+<% if current_user.role?(:super_admin) %>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#themes">
+          Themes <i class="icon-plus pull-right"></i>
+        </a>
+      </div>
+      <div id="themes" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <% for theme in @themes %>
+            <% if params[:search] && params[:search][:themes] && params[:search][:themes].include?(theme.id.to_s) %>
+              <%= label_tag "search[themes][#{theme.id}]", :class => "checkbox" do %>
+                <%= check_box_tag "search[themes][]", theme.id, true, :id => "search_themes_#{theme.id}", :"data-desc" => "#{theme.name}" %>
+                <%= theme.name %>
+              <% end %>
+            <% else %>  
+              <%= label_tag "search[themes][#{theme.id}]", :class => "checkbox" do %>
+                <%= check_box_tag "search[themes][]", theme.id, false, :id => "search_themes_#{theme.id}", :"data-desc" => "#{theme.name}" %>
+                <%= theme.name %>
+              <% end %>  
+            <% end %>  
+          <% end %>  
+        </div>
+      </div>
+    </div>
+    
+<% end %>
     <div class="single-group date">
       <fieldset class="input-prepend">
         
