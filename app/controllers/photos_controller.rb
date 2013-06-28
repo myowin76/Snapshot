@@ -130,7 +130,7 @@ class PhotosController < ApplicationController
         @promo_calendars = PromotionCalendar.order(:name)
         @brand_owners = BrandOwner.order(:name)
         @brands = Brand.order(:name)
-        # @themes = Theme.order(:name)
+        @themes = Theme.order(:name)
         @promo_types = PromotionType.order(:name)
         @media_types = MediaType.order(:name)
         @media_vehicles = MediaVehicle.order(:name)
@@ -179,7 +179,7 @@ class PhotosController < ApplicationController
           @photos = @photos.joins(:media_locations).where('media_locations.id IN (?)', search_media_locations) if search_media_locations.present?
           
           @photos = @photos.joins(:brands).where('brands.id IN (?)', search_brands) if search_brands.present?
-          # @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes) if search_themes.present?
+          @photos = @photos.joins(:themes).where('themes.id IN (?)', search_themes) if search_themes.present?
           @photos = @photos.joins(:categories).where('categories.id IN (?)', search_categories) if search_categories.present?
         
           if search_brand_owners.present?
