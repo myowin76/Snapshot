@@ -2,7 +2,12 @@
   <h1>User List</h1>
 </div>
 
-
+<div class="action">
+  <%= link_to new_user_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus pull-right' do %>
+  <i></i>
+  <span>New User</span>
+  <% end %>
+</div>
 <table class="table table-striped" id="tbl-users">
   <thead>
     <tr>

@@ -46,6 +46,7 @@ group :assets do
   gem 'bootstrap-sass-rails'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'jquery-ui-rails'
+  gem 'jquery-multiselect-rails', :git => 'git://github.com/arojoal/jquery-multiselect-rails.git'
  
   # gem 'therubyracer', :platforms => :ruby
 

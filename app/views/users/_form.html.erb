@@ -3,8 +3,7 @@
 <div class="login-edit">
   <div>
     
-
-    <%= simple_form_for(@user, :html => { :method => :put }) do |f| %>
+    <%= simple_form_for(@user) do |f| %>
     <%#= simple_form_for(@user, :url => registration_path(@user), :html => { :method => :put }) do |f| %>
       <%= f.error_notification %>
 
@@ -12,10 +11,7 @@
         <%= f.input :username, :required => true, :autofocus => true %>
         <%= f.input :email %>
         <%= f.input :password, :hint => "Leave it blank if you don't want to change it", :required => false %>
-        <%#= f.input :password, :autocomplete => "off", :hint => "Leave it blank if you don't want to change it", :required => false %>
-        <%#= f.input :password_confirmation, :required => false %>
-        <%#= f.input :current_password, :hint => "We need your current password to confirm your changes", :required => false %>
-        <%#= link_to "Change your password", edit_user_registration_path %>
+        
       </div>
 
       <div class="form-inputs">
@@ -24,7 +20,8 @@
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, "Update", :class=>"btn btn-primary" %>
+        <%#= f.button :submit, "Update", :class=>"btn btn-primary" %>
+        <%= f.button :submit, :class => 'btn-primary' %>
         <%= link_to "Back", :back, :class=> "btn" %>
       </div>
     <% end %>

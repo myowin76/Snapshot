@@ -9,6 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require reset
+ 
+ *= require jquery.ui.core
+ *= require jquery.ui.theme
+
  *= require jquery.ui.datepicker
  *= require chosen
  *= require dataTables/jquery.dataTables
@@ -17,6 +21,10 @@
  *= require glyphicons
  * require gmaps4rails
  *= require jquery.fileupload-ui 
+
+ 
+ *= require jquery.multiselect
+ *= require jquery.multiselect.filter
 
  * require_tree .
  * require_tree ./partials

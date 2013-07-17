@@ -27,12 +27,14 @@
   <% end %>
     
   <% if can? :read, @users %>
-    <li class="glyphicons group">
-      <%= link_to users_path do %>
-        <i></i>
-        <span>Users</span>
-      <% end  %>
-    </li>
+    <% if current_user.role?(:super_admin) %>
+      <li class="glyphicons group">
+        <%= link_to users_path do %>
+          <i></i>
+          <span>Users</span>
+        <% end  %>
+      </li>
+    <% end %>  
   <% end %>
 
   <% if can? :read, :page %>

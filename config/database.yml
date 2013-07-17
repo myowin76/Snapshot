@@ -15,7 +15,7 @@ development:
   database: Snapshot_development
   pool: 5
   username: root
-  password: 
+  password: password
   #socket: /tmp/mysql.sock
 
   # LIVE DATABASE DON'T TOUCH

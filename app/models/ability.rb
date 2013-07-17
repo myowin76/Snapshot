@@ -12,7 +12,9 @@ class Ability
       
       # Admin Role
       elsif user.role? :admin
-        can :read, [Photo, Store]
+        # can :read, [Photo, Store]
+        # cannot :manage, :users
+        can :manage, :all
         
       
       # Uploader

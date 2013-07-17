@@ -24,18 +24,26 @@
 //= require_tree ./libs
 //= require_tree ./mylibs
 //= require_tree ./admin
+
 // require underscore
 // require backbone
-//= require jquery.validate.min
 // require backbone/snapshot
 // require_tree .
 // require jquery-fileupload/vendor/tmpl
 // require jquery.tokeninput
+
+
+//= require jquery.validate.min
+//= require jquery.multiselect
+//= require jquery.multiselect.filter
+
+
 //= require pages
 //= require audits
 //= require retailers
 //= require photos
 //= require stores
+//= require users
 //= require save_searches
 //= require_self
 
@@ -261,8 +269,8 @@ var snapshot = {
 
   $("#store_format_help")
     .popover({
-            offset: 10
-        })
+      offset: 10
+    })
     .click(function(e) { 
         e.preventDefault(); 
     });
@@ -274,9 +282,6 @@ var snapshot = {
   $('.search-form-actions .search').click(function(){
     $('#search_form').submit();
   });
-
-  
-
 
   $('#length').live('change',function(){
     var info = {}

@@ -16,6 +16,8 @@ class UsersController < ApplicationController
       format.xml  { render :xml => @users }
       format.html
     end
+
+    # debugger
   end
 
 
@@ -55,20 +57,24 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy!
+    # debugger
+    @user = User.find(params[:id])
+    @user.destroy
+
+    redirect_to users_url, :notice => "User removed."
  
-    respond_to do |format|
-      format.json { respond_to_destroy(:ajax) }
-      format.xml  { head :ok }
-      format.html { respond_to_destroy(:html) }      
-    end
+    # respond_to do |format|
+    #   format.json { respond_to_destroy(:ajax) }
+    #   format.xml  { head :ok }
+    #   format.html { respond_to_destroy(:html) }      
+    # end
  
   rescue ActiveRecord::RecordNotFound
     respond_to_not_found(:json, :xml, :html)
   end
  
   def create
-    debugger
+    # debugger
     @user = User.new(params[:user])
     
  

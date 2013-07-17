@@ -1,0 +1,70 @@
+<div class="page-header">
+	<h1>New User</h1>
+</div>	
+
+<%#= render 'form' %>
+
+
+
+<div class="login-edit">
+  <div>
+    
+    <%= simple_form_for(@user) do |f| %>
+    <%#= simple_form_for(@user, :url => registration_path(@user), :html => { :method => :put }) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :username, :required => true, :autofocus => true %>
+        <%= f.input :email %>
+        <%= f.input :password, :hint => "Leave it blank if you don't want to change it", :required => false %>
+        
+      </div>
+
+      <div class="form-inputs">
+        <h2>Roles</h2>
+        <%= f.association :roles, as: :check_boxes, :label => false %>
+      </div>
+
+    <!--   <div class="form-inputs">
+        <h2>Subscriptions</h2>
+        <%#= select_tag "usr-country-select", options_from_collection_for_select(Country.order(:name), "id", "name") %>
+      </div> -->
+
+<!--       <div class="form-inputs">
+        <h2>Sectors</h2>
+        <% #Sector.all.each do |sector| %>
+          <%#= check_box_tag sector.id, as: :check_boxes, :label => false %>
+          <%#= sector.name %>
+        <% #end %>
+        <%#= select_tag "usr-sector-select", options_from_collection_for_select(Sector.order(:name), "id", "name") %>
+      </div> -->
+
+<!--       <div class="form-inputs">
+        <h2>Categories</h2>
+        <%#= select_tag "usr-cat-select", options_from_collection_for_select(Category.order(:name), "id", "name") %>
+      </div>
+
+      <div class="form-inputs">
+        <h2>Retailers</h2>
+        <% #Retailer.all.each do |retailer| %>
+          <%#= check_box_tag retailer.id, as: :check_boxes, :label => false %>
+          <%#= retailer.name %>
+        <%# end %>
+        <%#= select_tag "usr-retailer-select", options_from_collection_for_select(Retailer.order(:name), "id", "name") %>
+      </div> -->
+
+      <div class="form-actions">
+        <%#= f.button :submit, "Update", :class=>"btn btn-primary" %>
+        <%= f.button :submit, :class => 'btn-primary' %>
+        <%= link_to "Back", :back, :class=> "btn" %>
+      </div>
+    <% end %>
+
+    <!-- <h3>Cancel my account</h3>
+
+    <p>Unhappy? <%#= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+ -->
+    
+  </div>  
+</div>
+

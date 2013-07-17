@@ -8,8 +8,15 @@
   <%= @sector.name %>
 </p>
 <p>
-  <strong>Desc:</strong>
+  <strong>Descriptions:</strong>
   <%= @sector.desc %>
+</p>
+<p>
+  <strong>Retailers:</strong>
+  <%#= @sector.retailers.map(&:name).join(", ") %>
+  <% #@sector.retailers.each do |retailer| %>
+    <%#= link_to retailer.name, retailer_path(retailer.id) %>,
+  <%# end %>
 </p>
 
 <div class="form-actions">

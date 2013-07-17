@@ -13,9 +13,12 @@ Snapshot::Application.routes.draw do
   devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions"}
   # devise_for :users, :controllers => { :registrations => "users" }
   
-  resources :users do
-    resources :subscriptions
-  end
+  # scope "/admin" do
+    resources :users do
+      resources :subscriptions
+
+    end
+  # end  
 
 
   resources :save_searches, :user_types
@@ -95,7 +98,7 @@ Snapshot::Application.routes.draw do
   match '/admin/dashboard', :controller => 'admin', :action => 'dashboard', :as => 'dashboard'
   match '/admin/unpublished', :controller => 'admin', :action => 'raw_photos', :as => 'unpublished'
   # match '/admin/audits', :controller => 'audits', :action => 'index', :as => 'audits'
-  match '/admin/users', :controller => 'users', :action => 'index', :as => 'users'
+  match '/admin/users', :controller => 'users', :action => 'index'#, :as => 'users'
   match '/admin/loginpage_message', :controller => 'admin', :action => 'loginpage_message'
 
   # The priority is based upon order of creation:
