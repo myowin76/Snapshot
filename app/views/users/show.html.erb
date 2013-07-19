@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b>Username:</b>
   <%= @user.username %>
 </p>
 
@@ -16,8 +16,30 @@
 	</p>
 <% end %>	
 
+<p>
+  <b>Current Signin At:</b>
+  <%= @user.current_sign_in_at.strftime('%d/%m/%Y %l:%M%p %Z') %>
+</p>
+<p>
+  <b>Last Signin At:</b>
+  <%= @user.last_sign_in_at.strftime('%d/%m/%Y %l:%M%p') %>
+</p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<p>
+  <b>Current Signin IP Address:</b>
+  <%= @user.current_sign_in_ip %>
+</p>
+<p>
+  <b>Last Signin IP Address:</b>
+  <%= @user.last_sign_in_ip %>
+</p>
+
+<p>
+  <b>Signin Count:</b>
+  <%= @user.sign_in_count %>
+</p>
+
+<%#= link_to 'Edit', edit_user_path(@user) %>
 <%= link_to 'Back', users_path %>
 
 

@@ -32,6 +32,35 @@ class Store < ActiveRecord::Base
 
   # scope :in_countries, lambda{ |c_ids| where('country_id IN (?)', c_ids) }
 
+  scope :in_country, lambda {|country| where("country_id = ? ", country)}
+
+  # def self.in_country(country)
+  #   where("country_id = ? ", country)  # where("country_id = ? ", "#{country}")
+  # end
+  def self.in_countries_and_null(country_ids)
+    where('country_id IN (?) OR country_id IS NULL', country_ids)
+  end
+
+  def self.with_environment_type(env_type_ids)
+    where('environment_type_id IN (?)', env_type_ids)
+  end
+
+  def self.with_channel(channel_ids)
+    where('channel_id IN (?)', channel_ids)
+  end
+
+  def self.with_format(store_format_ids)
+    where('store_format_id IN (?)', store_format_ids)
+  end
+
+  def self.of_retailers(retailer_ids)
+    where('retailer_id IN (?)', retailer_ids)
+  end
+
+  def self.within_25_miles_of(geo_loc)
+    near(geo_loc, 25, :order => :distance)
+  end
+
   def country_name(id)
     Country.find_by_id(id).name unless id.nil?
   end

@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
 
   
   def index
-        # debugger
+
     # if user_is_country_and_category_subscriber?
 
       if params[:saved_search_id] 
@@ -21,107 +21,109 @@ class PhotosController < ApplicationController
         end  
       end
 
-      # skip on ajax calls
-      # unless params[:per_page].present? || params[:page].present?
-        
-        if user_is_category_subscriber?
-          @categories = Category.order(:name).find_all_by_id(current_user.subscription.sub_cats.split(","))
-          # @categories = @categories.order(:name)
-          # debugger
-        else  
-          @categories = Category.order(:name)
-        end  
-        # @stores = Store.where('country_id IN (?)', @countries.map(&:id))
-        
-        if user_is_sector_subscriber?
-          @sectors = Sector.order(:name).find_all_by_id(current_user.subscription.sectors.split(","))
-          
-        else  
-          @sectors = Sector.order(:name)
-        end
+      # AUTHORIZED THE SUBSCRIPTIONS
+      if user_is_category_subscriber?
+        @categories = Category.order(:name).find_all_by_id(current_user.subscription.sub_cats.split(","))
+      else  
+        @categories = Category.order(:name)
+      end  
 
-        @store_formats = StoreFormat.order(:name)
-        # newly added to store
-        @env_types = EnvironmentType.order(:name)
-        @channels = Channel.order(:name)
-      # end
+      if user_is_sector_subscriber?
+        @sectors = Sector.order(:name).find_all_by_id(current_user.subscription.sectors.split(","))
+      else  
+        @sectors = Sector.order(:name)
+      end
 
       if user_is_country_subscriber?
         @countries = Country.find_all_by_id(current_user.subscription.sub_country.split(","))
       else  
         @countries = Country.order(:name)  
-      end  
+      end
+      
+
+      unless params[:per_page].present? || params[:page].present?
+        @store_formats = StoreFormat.order(:name)
+        @env_types = EnvironmentType.order(:name)
+        @channels = Channel.order(:name)
+      end
+
+      
+
+      # initiate stores.  
       @stores = Store.order(:id)#.includes({:retailer => :sector})
-      # debugger
+      
       unless params_search.nil?
         # 
         # Country Search
         if search_country_id.present?
           # for selected country
-          @stores = @stores.where('country_id = ? ', search_country_id)
+          @stores = @stores.in_country(search_country_id)
         else
-          @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
+          @stores = @stores.in_countries_and_null(@countries.map(&:id))
         end
 
-        @stores = @stores.where('environment_type_id IN (?)', search_environment_types) if search_environment_types.present?
-        @stores = @stores.where('channel_id IN (?)', search_channels) if search_channels.present?
-        @stores = @stores.where('store_format_id IN (?)', search_store_formats) if search_store_formats.present?
-
+        @stores = @stores.with_environment_type(search_environment_types) if search_environment_types.present?
+        @stores = @stores.with_channel(search_channels) if search_channels.present?
+        @stores = @stores.with_format(search_store_formats) if search_store_formats.present?
         # Location Search          
-        @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
-        # debugger
+        @stores = @stores.within_25_miles_of(search_location) if search_location.present?
+
         if search_sectors.present?
-          @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
-          # debugger
-          unless search_retailers.present?
-            @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
-          else
-            @stores = @stores.where('retailer_id IN (?)', search_retailers)
-          end
-          # debugger
+          
+            @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
+            # debugger
+            unless search_retailers.present?
+              @stores = @stores.of_retailers(@retailers.map(&:id))
+            else
+              @stores = @stores.of_retailers(search_retailers)
+            end
+
         else
-          @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
-          # @retailers = Retailer.all
+          if user_is_sector_subscriber?
+            @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
+          else
+            @retailers = Retailer.order(:name)
+          end  
+          
           if user_is_retailer_subscriber?
             @sub_retailers = Retailer.order(:name).find_all_by_id(current_user.subscription.retailers.split(","))
             @retailers = @retailers + @sub_retailers
-            
-            # debugger
-          else
+          end
 
-          end
-          unless search_retailers.present?
-            @stores = @stores.where('retailer_id IN (?)', @retailers.map(&:id))
+          if search_retailers.present?
+            @stores = @stores.of_retailers(search_retailers)
           else
-            @stores = @stores.where('retailer_id IN (?)', search_retailers)
+            @stores = @stores.of_retailers(@retailers.map(&:id))
           end
-          # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries) 
         end
-        # if search_retailers.present?
-        #   @stores = @stores.where('retailer_id IN (?)', search_retailers)
-        # else
-        #   @stores = @stores.where('retailer_id IN (?)', @retailers)
-        # end  
           
       else
         # page load
+        if user_is_sector_subscriber?
+          @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
+          
+          if user_is_retailer_subscriber?
+            @sub_retailers = Retailer.order(:name).find_all_by_id(current_user.subscription.retailers.split(","))
+            @retailers = @retailers + @sub_retailers
+            @retailers = @retailers.sort_by! {|n| n.name}
+          end
 
-        # @sectors = Sector.order(:name)
-        # @retailers = Retailer.order(:name)
-        # @retailers = Retailer.joins(:stores).select("distinct(retailers.id), retailers.*").where("stores.country_id IN (?)", @countries)
+        else  
 
-        @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
-        if user_is_retailer_subscriber?
-          @sub_retailers = Retailer.order(:name).find_all_by_id(current_user.subscription.retailers.split(","))
-          @retailers = @retailers + @sub_retailers
-          # @retailers = @retailers.order(:name)
-          # debugger
-        else
+          if user_is_retailer_subscriber?
+            @sub_retailers = Retailer.order(:name).find_all_by_id(current_user.subscription.retailers.split(","))
+            @retailers = @sub_retailers
+            @retailers = @retailers.sort_by! {|n| n.name}
+          else
+            @retailers = Retailer.order(:name)
+          end
 
         end
-        @stores = @stores.includes(:retailer)
-          .where('country_id IN (?) AND country_id IS NOT NULL', @countries.map(&:id))
-          .where('retailer_id IN (?)', @retailers.map(&:id))
+
+          @stores = @stores.includes(:retailer)
+            .in_countries_and_null(@countries.map(&:id))
+            .of_retailers(@retailers.map(&:id))
+        
       end
 
       # skips those on ajax calls
@@ -145,7 +147,7 @@ class PhotosController < ApplicationController
       else
         @per_page = 30
       end
-      # debugger
+      
       # initiate Photo object
       @photos = Photo.published
       @audits = Audit.find_all_by_store_id(@stores.map(&:id))
@@ -454,21 +456,13 @@ class PhotosController < ApplicationController
     
   end
 
-  def refresh_filters
-    
-  end
-
   def refresh_retailers
     if params[:search].nil?
       @retailers = Retailer.order(:name)
     else
       @retailers = Retailer.order(:name).find_all_by_sector_id(params[:search][:sectors])
-      # @stores = Store.find_all_by_retailer_id(@retailers.map(&:id))
-      # @audits = Audit.find_all_by_store_id(@stores.map(&:id))
-      # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
-      
-      # debugger
     end
+
     respond_to do |format|
       format.js {
         render :partial => 'refresh_retailers', :locals => { :retailers => @retailers }
