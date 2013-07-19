@@ -187,6 +187,17 @@ class Photo < ActiveRecord::Base
       includes(:audit).where('audits.store_id IN (?)',
          stores) }
 
+
+    scope :of_promotion_calendar, lambda {|promo_cal| where("promotion_calendar_id IN (?) ", promo_cal)}
+    scope :of_promotion_types, lambda {|promo_type| joins(:promotion_types).where('promotion_types.id IN (?)', promo_type)}
+    scope :of_media_types, lambda {|media_type| joins(:media_types).where('media_types.id IN (?)', media_type)}
+    scope :of_media_vehicles, lambda {|media_vehicle| joins(:media_vehicles).where('media_vehicles.id IN (?)', media_vehicle)}
+    scope :of_media_locations, lambda {|media_location| joins(:media_locations).where('media_locations.id IN (?)', media_location)}
+    scope :of_categories, lambda {|cat| joins(:categories).where('categories.id IN (?)', cat)}
+    scope :of_brands, lambda {|brand| joins(:brands).where('brands.id IN (?)', brand)}
+    scope :of_themes, lambda {|theme| joins(:themes).where('themes.id IN (?)', theme)}
+
+
     def api_request
       return
     end
