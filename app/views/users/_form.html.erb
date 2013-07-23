@@ -18,7 +18,25 @@
         <h2>Roles</h2>
         <%= f.association :roles, as: :check_boxes, :label => false %>
       </div>
+      
+      <!-- <div class="form-inputs">
+        <h2>Countries</h2>
+        <% @subscribed_countries = Country.find_all_by_id(@user.subscription.sub_country.split(",")) %>
+        <% #Country.all.each do |c| %>
+          <%#= check_box_tag "country_id_#{c.id}", c.id, @subscribed_countries.map{|f| f.id}.include?(c.id) %>
+          <%#= c.name %>
+        <%# end %>
+      </div-->
+      <div class="form-inputs">
+     
+        <%# @subscribed_categories = Category.find_all_by_id(@user.subscription.sub_cats.split(",")) %>
+        <%# Category.all.each do |cat| %>
+          <%#= check_box_tag "category_id_#{cat.id}", cat.id, @subscribed_categories.map{|f| f.id}.include?(cat.id) %>
+          <%#= cat.name %>
 
+        <%# end %>
+      </div>
+      
       <div class="form-actions">
         <%#= f.button :submit, "Update", :class=>"btn btn-primary" %>
         <%= f.button :submit, :class => 'btn-primary' %>

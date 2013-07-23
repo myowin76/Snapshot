@@ -47,8 +47,6 @@ class PhotosController < ApplicationController
         @channels = Channel.order(:name)
       end
 
-      
-
       # initiate stores.  
       @stores = Store.order(:id)#.includes({:retailer => :sector})
       
@@ -149,13 +147,14 @@ class PhotosController < ApplicationController
       end
 
       # initiate Photo object
-      @photos = Photo.published
+      # @photos = Photo.published
       
       @audits = Audit.find_all_by_store_id(@stores.map(&:id))
       # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
         if params_search.nil?
-          #.select('photos.id, photos.photo_file_name, photos.audit_id, photo.photo_updated_at')
-          @photos = @photos
+          
+          # @photos = @photos
+          @photos = Photo
             .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
             .where('audit_id IN (?)', @audits.map(&:id))
             .order('audits.audit_date DESC, photos.created_at DESC')
@@ -169,7 +168,8 @@ class PhotosController < ApplicationController
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           
-          @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+          # @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+          @photos = Photo.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
               .where('audit_id IN (?)', @audits.map(&:id))
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
@@ -211,9 +211,7 @@ class PhotosController < ApplicationController
         marker.title   store.name
       end
     else 
-      @json = '[
-             {"lng": "-122.1419", "lat": "37.4419" }
-            ]'
+      @json = []
     end      
 
     

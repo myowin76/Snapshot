@@ -33,7 +33,7 @@
         
         <li><%= link_to "Export Zip", download_url, :id => 'export-zip'%></li>
         
-        <li><%= link_to "Export PDF", "/photos/generate_pdf.pdf", :id => 'export-pdf', :target => '_blank' %></li>
+        <li><%= link_to "Export PDF", generate_pdf_photos_path, :id => 'export-pdf', :target => '_blank' %></li>
 
         <li class="reviews">
           <%= link_to "Filter selected", "#", :id => 'reviews', :'data-filtered' => 'show' %>

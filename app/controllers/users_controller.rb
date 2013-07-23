@@ -10,18 +10,15 @@ class UsersController < ApplicationController
   def index
     # @users = User.accessible_by(current_ability, :index).limit(20)
     @users = User.accessible_by(current_ability, :index)
-    # debugger
+
     respond_to do |format|
       format.json { render :json => @users }
       format.xml  { render :xml => @users }
       format.html
     end
 
-    # debugger
   end
 
-
- 
   def show
     respond_to do |format|
       format.json { render :json => @user }

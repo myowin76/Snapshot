@@ -29,7 +29,7 @@ Snapshot::Application.routes.draw do
     # resources :audits
   # end
   
-  match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
+  # match '/photos/generate_pdf' => 'photos#generate_pdf', :as => :as_pdf
   match '/photos/generate_zip' => 'photos#generate_zip', :as => :download
   match '/photos/download/:id' => 'photos#zip_all_from_store', :as => :all_store_photos
   # match '/photos/edit_multiple' => 'photos#edit_multiple', :as => :edit_multiple
@@ -55,9 +55,10 @@ Snapshot::Application.routes.draw do
   resources :photos do
     collection do
       # put :publish_multiple
+      get :generate_pdf
       post :publish_multiple
       post :delete_multiple
-      put :publish_individual
+      put  :publish_individual
       post :refresh_brands
       post :refresh_retailers
       post :refresh_brands_dropdown
