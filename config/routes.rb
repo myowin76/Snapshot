@@ -10,15 +10,16 @@ Snapshot::Application.routes.draw do
 
 
   # devise_for :users
-  devise_for :users,  :controllers => { :registrations => "users/registrations", :sessions => "users/sessions"}
+  devise_for :users,  :controllers => { :sessions => "users/sessions"}
+  devise_for :users, :controllers => {:registrations => "registrations"}
   # devise_for :users, :controllers => { :registrations => "users" }
   
-  # scope "/admin" do
+  scope "/admin" do
     resources :users do
       resources :subscriptions
 
     end
-  # end  
+  end  
 
 
   resources :save_searches, :user_types

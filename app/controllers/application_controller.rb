@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
     @accessible_roles = Role.accessible_by(current_ability,:read)
   end
  
+
   # Make the current user object available to views
   #----------------------------------------
   def get_user
@@ -58,6 +59,16 @@ class ApplicationController < ActionController::Base
   
 
   protected
+
+  def after_sign_up_path_for(resource)
+    edit_user_path(current_user)
+  end
+
+  def after_sign_in_path_for(resource)
+    if admin_user?
+      dashboard_path
+    end
+  end
 
   def layout_by_resource
     if devise_controller?
@@ -142,5 +153,7 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
+
+  
 
 end

@@ -147,14 +147,13 @@ class PhotosController < ApplicationController
       end
 
       # initiate Photo object
-      # @photos = Photo.published
+      @photos = Photo.published
       
       @audits = Audit.find_all_by_store_id(@stores.map(&:id))
       # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
         if params_search.nil?
           
-          # @photos = @photos
-          @photos = Photo
+          @photos = @photos          
             .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
             .where('audit_id IN (?)', @audits.map(&:id))
             .order('audits.audit_date DESC, photos.created_at DESC')
