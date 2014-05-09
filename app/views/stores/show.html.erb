@@ -61,7 +61,15 @@
           :class => 'btn btn-primary' do %>
           <i class="icon-upload icon-white"></i>
           <span>New Audit</span>
-      <% end %>    
+      <% end %>
+
+      <%= link_to new_store_audit_path(@store),
+          :class => 'btn btn-primary' do %>
+          <i class="icon-upload icon-white"></i>
+          <span>New Audit</span>
+      <% end %>
+
+
       <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
           <i class="icon-edit icon-white"></i>
           <span>Edit</span>

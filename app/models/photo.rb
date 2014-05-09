@@ -198,6 +198,13 @@ class Photo < ActiveRecord::Base
     scope :of_themes, lambda {|theme| joins(:themes).where('themes.id IN (?)', theme)}
 
 
+    # Scopes and Joins
+    # scope :tardy, -> {
+    #   joins(:timesheets)
+    #   .where("timesheets.submitted_at <= ?", 7.days.ago)
+    #   .group("users.id")
+    # }
+
     def api_request
       return
     end

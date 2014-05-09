@@ -157,9 +157,11 @@ class PhotosController < ApplicationController
           @photos = Photo
             .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
             .where('audit_id IN (?)', @audits.map(&:id))
+            .published
             .order('audits.audit_date DESC, photos.created_at DESC')
             .includes([:audit, :brands])
             .paginate(:page => params[:page], :per_page => @per_page)
+
           
         else 
       
@@ -170,7 +172,7 @@ class PhotosController < ApplicationController
           
           # @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
           @photos = Photo.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
-              .where('audit_id IN (?)', @audits.map(&:id))
+              .where('audit_id IN (?)', @audits.map(&:id)).published
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
 
@@ -185,6 +187,7 @@ class PhotosController < ApplicationController
           # @photos = @photos.all_brand_compliant if search_brand_compliant?
 
           if search_brand_owners.present?
+            debugger
             @brands_by_owners = @brands.find_all_by_brand_owner_id(search_brand_owners)
             @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
           end
