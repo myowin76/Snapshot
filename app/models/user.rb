@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   has_many :audits
   has_one :subscription
+  after_create :create_subscription
+
   has_many :save_searches
   belongs_to :user_type
   has_and_belongs_to_many :roles

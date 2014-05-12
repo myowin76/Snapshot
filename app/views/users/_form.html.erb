@@ -1,5 +1,3 @@
-
-
 <div class="login-edit">
   <div>
     
@@ -11,7 +9,6 @@
         <%= f.input :username, :required => true, :autofocus => true %>
         <%= f.input :email %>
         <%= f.input :password, :hint => "Leave it blank if you don't want to change it", :required => false %>
-        
       </div>
 
       <div class="form-inputs">
@@ -19,30 +16,93 @@
         <%= f.association :roles, as: :check_boxes, :label => false %>
       </div>
       
-      <!-- <div class="form-inputs">
-        <h2>Countries</h2>
-        <% @subscribed_countries = Country.find_all_by_id(@user.subscription.sub_country.split(",")) %>
-        <% #Country.all.each do |c| %>
-          <%#= check_box_tag "country_id_#{c.id}", c.id, @subscribed_countries.map{|f| f.id}.include?(c.id) %>
-          <%#= c.name %>
-        <%# end %>
-      </div-->
-      <div class="form-inputs">
-     
-        <%# @subscribed_categories = Category.find_all_by_id(@user.subscription.sub_cats.split(",")) %>
-        <%# Category.all.each do |cat| %>
-          <%#= check_box_tag "category_id_#{cat.id}", cat.id, @subscribed_categories.map{|f| f.id}.include?(cat.id) %>
-          <%#= cat.name %>
 
-        <%# end %>
+    <% if !@user.subscription.nil? || @user.user_type.name == 'Subscriber' %>  
+      <div class="form-inputs">
+        <h2>Countries</h2>
+        <% unless @user.subscription.sub_country.blank? %>
+          <% @subscribed_countries = Country.find_all_by_id(@user.subscription.sub_country.split(",")) %>
+          <% Country.order(:name).each do |c| %>
+            <%= check_box_tag "subscription[country_ids][]", c.id, @subscribed_countries.map{|f| f.id}.include?(c.id) %>
+            <%= c.name %><br>
+          <% end %>
+        <% else %>
+          <% Country.order(:name).each do |c| %>
+            <%= check_box_tag "subscription[country_ids][]", c.id %>
+            <%= c.name %><br>
+          <% end %>
+        <% end %>
       </div>
+
       
-      <div class="form-actions">
-        <%#= f.button :submit, "Update", :class=>"btn btn-primary" %>
-        <%= f.button :submit, :class => 'btn-primary' %>
-        <%= link_to "Back", :back, :class=> "btn" %>
+      <div class="form-inputs">
+        <h2>Categories</h2>
+          <% unless @user.subscription.sub_cats.blank? %>
+            <% @subscribed_categories = Category.find_all_by_id(@user.subscription.sub_cats.split(",")) unless @user.subscription.sub_cats.blank? %>
+
+            <% Category.order(:name).each do |cat| %>
+              <%#= check_box_tag "category_id_#{cat.id}", cat.id, @subscribed_categories.map{|f| f.id}.include?(cat.id) %>
+              <%= check_box_tag "subscription[category_ids][]", cat.id, @subscribed_categories.map{|f| f.id}.include?(cat.id) %>
+              <%= cat.name %><br />
+
+            <% end %>
+          <% else %>
+            <% Category.order(:name).each do |cat| %>
+              <%= check_box_tag "subscription[category_ids][]", cat.id%>
+              <%= cat.name %><br />
+
+            <% end %>
+          <% end %>
+
       </div>
-    <% end %>
+
+      <div class="form-inputs">
+        <h2>Sectors</h2>
+        
+          <% unless @user.subscription.sectors.blank? %>
+            <% @subscribed_sectors = Sector.find_all_by_id(@user.subscription.sectors.split(",")) %>
+            
+            <% Sector.order(:name).each do |sec| %>
+              <%= check_box_tag "subscription[sector_ids][]", sec.id, @subscribed_sectors.map{|f| f.id}.include?(sec.id) %>
+              <%= sec.name %><br />
+            <% end %>
+
+          <% else %>
+            <% Sector.order(:name).each do |sec| %>
+              <%= check_box_tag "subscription[sector_ids][]", sec.id %>
+              <%= sec.name %><br />
+            <% end %>
+          <% end %>
+        
+      </div>
+
+      <div class="form-inputs">
+        <h2>Retailers</h2>
+        
+          <% unless @user.subscription.retailers.blank? %>
+            <% @subscribed_retailers = Retailer.find_all_by_id(@user.subscription.retailers.split(",")) %>
+            
+            <% Retailer.order(:name).each do |retailer| %>
+              <%#= check_box_tag "category_id_#{cat.id}", cat.id, @subscribed_categories.map{|f| f.id}.include?(cat.id) %>
+              <%= check_box_tag "subscription[retailer_ids][]", retailer.id, @subscribed_retailers.map{|f| f.id}.include?(retailer.id) %>
+              <%= retailer.name %><br />
+            <% end %>
+          <% else %>    
+            <% Retailer.order(:name).each do |retailer| %>
+              <%#= check_box_tag "category_id_#{cat.id}", cat.id, @subscribed_categories.map{|f| f.id}.include?(cat.id) %>
+              <%= check_box_tag "subscription[retailer_ids][]", retailer.id %>
+              <%= retailer.name %><br />
+            <% end %>
+          <% end %>  
+        
+      </div>
+    <% end %>  
+    <div class="form-actions">
+      <%#= f.button :submit, "Update", :class=>"btn btn-primary" %>
+      <%= f.button :submit, :class => 'btn-primary' %>
+      <%= link_to "Back", :back, :class=> "btn" %>
+    </div>
+  <% end %>
 
     <!-- <h3>Cancel my account</h3>
 

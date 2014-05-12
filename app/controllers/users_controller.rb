@@ -90,10 +90,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def create_user
-    debugger
-  end
-
+  
    # Get roles accessible by the current user
   #----------------------------------------------------
   # def accessible_roles
@@ -107,9 +104,10 @@ class UsersController < ApplicationController
   # end
 
    def update
-   # debugger
+   
     if params[:user][:password].blank?
       [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
+
     end
    # [:password,:password_confirmation,:current_password].collect{|p| params[:user].delete(p) }
     # if params[:user][:current_password].blank?
@@ -129,16 +127,36 @@ class UsersController < ApplicationController
       #   format.json { render :json => @user.to_json, :status => 200 }
       #   format.xml  { head :ok }
       #   format.html { redirect_to :action => :index }
-      @update_user = params[:id]
-      # debugger
+      @update_user = User.find_by_id(params[:id])
+      
       if @user.errors[:base].empty? and @user.update_attributes(params[:user])
-          sign_in(current_user, :bypass => true)
-          flash[:notice] = "The account has been updated"
-          
-          # format.json { render :json => @user.to_json, :status => 200 }
-          # format.xml  { head :ok }
-          format.html { redirect_to user_path(@update_user) }
+        
+          @subscription = @update_user.subscription
+          debugger
+          unless @subscription.nil?
+            if !params[:subscription].nil? && params[:subscription][:category_ids].present?
+              # @subscription.sub_cats = params[:subscription][:category_ids]
+              @subscription.update_attribute(:sub_cats, params[:subscription][:category_ids].join(","))
+            end
 
+            if !params[:subscription].nil? && params[:subscription][:country_ids].present?
+              @subscription.update_attribute(:sub_country, params[:subscription][:country_ids].join(","))
+            end
+
+            if !params[:subscription].nil? && params[:subscription][:sector_ids].present?
+              @subscription.update_attribute(:sectors, params[:subscription][:sector_ids].join(","))
+            end
+
+            if !params[:subscription].nil? && params[:subscription][:retailer_ids].present?
+              @subscription.update_attribute(:retailers, params[:subscription][:retailer_ids].join(","))
+            end
+          end  
+
+          # Subscription.update_subscription(@update_user, params[:subscriptions])
+          # debugger
+          flash[:notice] = "The account has been updated"
+          format.html { redirect_to @update_user }
+        
 
 
       else

@@ -3,6 +3,8 @@ class Subscription < ActiveRecord::Base
   
   belongs_to :user
 
+  # serialize :sub_cats
+
 
   def self.countries_by(current_user)
     # return User.subscription.countries array
@@ -16,4 +18,5 @@ class Subscription < ActiveRecord::Base
     Category.find(current_user.sub_cats.split(","))
     
   end
+
 end

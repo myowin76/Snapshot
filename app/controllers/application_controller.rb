@@ -26,17 +26,19 @@ class ApplicationController < ActionController::Base
     @accessible_roles = Role.accessible_by(current_ability,:read)
   end
  
+
   # Make the current user object available to views
   #----------------------------------------
   def get_user
     @current_user = current_user
   end
 
-  def after_sign_in_path_for(resource)
+  # def after_sign_in_path_for(resource)
 
-      root_path
-      # resource.reset_authentication_token
-  end                                                                                                                                                     
+  #     root_path
+  #     # resource.reset_authentication_token
+  # end           
+
   
   def check_return_url
       store_location
@@ -59,6 +61,22 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def after_sign_up_path_for(resource)
+    edit_user_path(current_user)
+  end
+
+  def after_sign_in_path_for(resource)
+    if admin_user?
+      dashboard_path
+    else
+      root_path
+    end
+  end
+
+  # def after_update_path_for(resource)
+  #   user_path(current_user)
+  # end
+
   def layout_by_resource
     if devise_controller?
       "sign_in"
@@ -78,9 +96,9 @@ class ApplicationController < ActionController::Base
   end
 
   def subscriber?
-  	# return false if current_user.nil? || current_user.user_type.name != 'Subscriber'
+  	return false if current_user.nil? || current_user.user_type.name != 'Subscriber'
     # find_by_countries_or_categories
-
+    true
   end
 
   def admin_or_uploader?
@@ -100,6 +118,8 @@ class ApplicationController < ActionController::Base
       true
     end
   end
+
+
   def user_is_category_subscriber?
     # return false if current_user.nil?
     # debugger
@@ -142,5 +162,6 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
+  
 
 end

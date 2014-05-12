@@ -23,8 +23,10 @@ development:
   encoding: unicode
   database: Snapshot-development
   port: 5432
+
   username: aung
   password: 
+
 
   # LIVE DATABASE DON'T TOUCH
   # adapter: postgresql

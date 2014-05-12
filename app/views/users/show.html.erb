@@ -18,25 +18,25 @@
 
 <p>
   <b>Current Signin At:</b>
-  <%= @user.current_sign_in_at.strftime('%d/%m/%Y %l:%M%p %Z') %>
+  <%= @user.current_sign_in_at.strftime('%d/%m/%Y %l:%M%p %Z') unless @user.current_sign_in_at.nil? %>
 </p>
 <p>
   <b>Last Signin At:</b>
-  <%= @user.last_sign_in_at.strftime('%d/%m/%Y %l:%M%p') %>
+  <%= @user.last_sign_in_at.strftime('%d/%m/%Y %l:%M%p')  unless @user.last_sign_in_at.nil? %>
 </p>
 
 <p>
   <b>Current Signin IP Address:</b>
-  <%= @user.current_sign_in_ip %>
+  <%= @user.current_sign_in_ip  unless @user.current_sign_in_ip.nil? %>
 </p>
 <p>
   <b>Last Signin IP Address:</b>
-  <%= @user.last_sign_in_ip %>
+  <%= @user.last_sign_in_ip  unless @user.last_sign_in_ip.nil? %>
 </p>
 
 <p>
   <b>Signin Count:</b>
-  <%= @user.sign_in_count %>
+  <%= @user.sign_in_count  unless @user.sign_in_count.nil? %>
 </p>
 
 <%#= link_to 'Edit', edit_user_path(@user) %>
