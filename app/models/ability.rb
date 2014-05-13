@@ -22,7 +22,7 @@ class Ability
         can :manage, Store do |store|
 
         end
-        can :manage, [Photo, Audit, Store]
+        can :manage, [Photo, Audit, Store, Company]
 
 
       elsif user.role? :deny_download

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509093043) do
+ActiveRecord::Schema.define(:version => 20140513141933) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -78,6 +78,17 @@ ActiveRecord::Schema.define(:version => 20130509093043) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.boolean  "co_brand"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "countries", :force => true do |t|
@@ -348,6 +359,7 @@ ActiveRecord::Schema.define(:version => 20130509093043) do
     t.datetime "updated_at",                            :null => false
     t.integer  "user_type_id",           :default => 1
     t.string   "username"
+    t.integer  "company_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

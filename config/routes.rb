@@ -1,6 +1,9 @@
 Snapshot::Application.routes.draw do
 
 
+  
+
+
   resources :settings
 
 
@@ -23,10 +26,13 @@ Snapshot::Application.routes.draw do
 
 
   resources :save_searches, :user_types
-  # scope "admin" do
+  scope "admin" do
+    resources :companies
+  end
     resources :media_types, :media_vehicles, :media_locations, :themes
     resources :channels, :store_formats, :brands, :brand_owners, :categories, :environment_types
     resources :sectors, :retailers, :countries, :promotion_calendars, :promotion_types
+
     # resources :audits
   # end
   
