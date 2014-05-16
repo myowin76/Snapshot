@@ -17,6 +17,7 @@
       </div>
       
 
+    <%# if !@user.subscription.nil? || @user.user_type.name == 'Subscriber' %>  
     <% if !@user.subscription.nil? || @user.user_type.name == 'Subscriber' %>  
       <div class="form-inputs">
         <h2>Countries</h2>
