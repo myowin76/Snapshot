@@ -133,6 +133,18 @@ class ApplicationController < ActionController::Base
     
 
   end
+
+  def user_is_project_subscriber?
+    if current_user.subscription.nil?
+      return false
+      
+    else  
+      return false if current_user.nil? || current_user.subscription.projects.blank?  || current_user.subscription.projects.nil?
+      # return false if current_user.nil? || current_user.subscriptions.sub_cats.blank?  || current_user.subscriptions.sub_cats.nil?
+      true
+    end
+  end
+  
   def user_is_sector_subscriber?
     if current_user.subscription.nil?
       return false

@@ -132,7 +132,7 @@ class UsersController < ApplicationController
       if @user.errors[:base].empty? and @user.update_attributes(params[:user])
         
           @subscription = @update_user.subscription
-          debugger
+          # debugger
           unless @subscription.nil?
             if !params[:subscription].nil? && params[:subscription][:category_ids].present?
               # @subscription.sub_cats = params[:subscription][:category_ids]
@@ -149,6 +149,9 @@ class UsersController < ApplicationController
 
             if !params[:subscription].nil? && params[:subscription][:retailer_ids].present?
               @subscription.update_attribute(:retailers, params[:subscription][:retailer_ids].join(","))
+            end
+            if !params[:subscription].nil? && params[:subscription][:project_ids].present?
+              @subscription.update_attribute(:projects, params[:subscription][:project_ids].join(","))
             end
           end  
 

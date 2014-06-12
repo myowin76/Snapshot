@@ -106,6 +106,35 @@
       
 
   <div class="accordion" id="accordion2">
+    
+    <% if @projects.present? && (@projects.count > 1) %>
+      <div class="accordion-group" id="project-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#project-accord">
+            Projects <i class="icon-plus pull-right"></i>
+          </a>
+        </div>
+        <div id="project-accord" class="accordion-body collapse">
+          <div class="accordion-inner">
+
+            <% for project in @projects %>
+              <% if search_projects && search_projects.include?(project.id.to_s) %>
+                <%= label_tag "search[projects][#{project.id}]", :class => "checkbox"  do %>
+                  <%= check_box_tag "search[projects][]", project.id, true, :id => "search_projects_#{project.id}", :"data-desc" => "#{project.name}" %>
+                    <%= project.name %>
+                <% end %>  
+              <% else %>  
+                <%= label_tag "search[projects][#{project.id}]", :class => "checkbox" do %>
+                  <%= check_box_tag "search[projects][]", project.id, false, :id => "search_projects_#{project.id}" , :"data-desc" => "#{project.name}"%>
+                  <%= project.name %>
+                <% end %>  
+              <% end %>  
+            <% end %>  
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <div class="accordion-group" id="sector-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#sector-accord">

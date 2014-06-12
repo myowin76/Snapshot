@@ -14,6 +14,8 @@ class Photo < ActiveRecord::Base
   has_many :promotion_types, :through => :promotiontypes
   has_many :mediatypes
   has_many :media_types, :through => :mediatypes
+  has_many :project_photos
+  has_many :projects, :through => :project_photos
   has_many :themings
   has_many :themes, :through => :themings
   belongs_to :promotion_calendar
@@ -23,7 +25,7 @@ class Photo < ActiveRecord::Base
   attr_accessible :description, :created_at, :audit_id, 
       :theme_ids, :brand_compliant, :display_for_project, :insight, :role_of_comm, :perspective,
       :additional_brands, :photo_file_name, :data_complete,
-  		:promotion_calendar_id, :published, :headline, :photo, 
+  		:promotion_calendar_id, :published, :headline, :photo, :project_ids,
       :category_ids, :brand_ids, :media_location_ids, :media_vehicle_ids, :media_type_ids, :promotion_type_ids #, :brands_tokens
 
   has_attached_file :photo,

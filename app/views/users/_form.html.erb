@@ -19,6 +19,23 @@
 
     <%# if !@user.subscription.nil? || @user.user_type.name == 'Subscriber' %>  
     <% if !@user.subscription.nil? || @user.user_type.name == 'Subscriber' %>  
+      
+      <div class="form-inputs">
+        <h2>Projects</h2>
+        <% unless @user.subscription.projects.blank? %>
+          <% @subscribed_projects = Project.find_all_by_id(@user.subscription.projects.split(",")) %>
+          <% Project.order(:name).each do |p| %>
+            <%= check_box_tag "subscription[project_ids][]", p.id, @subscribed_projects.map{|f| f.id}.include?(p.id) %>
+            <%= p.name %><br>
+          <% end %>
+        <% else %>
+          <% Project.order(:name).each do |p| %>
+            <%= check_box_tag "subscription[project_ids][]", p.id %>
+            <%= p.name %><br>
+          <% end %>
+        <% end %>
+      </div>
+
       <div class="form-inputs">
         <h2>Countries</h2>
         <% unless @user.subscription.sub_country.blank? %>

@@ -88,6 +88,8 @@
           <%= f.association :promotion_types, collection: PromotionType.all(order: 'name'), :input_html => { :class=> 'chosen-promo-type' } %>
           <%= f.association :promotion_calendar, collection: PromotionCalendar.all(order: 'name'), 
               :input_html => { :class=> 'chosen-promo-cal' } %>
+          <label>Add to Projects</label>
+          <%= f.association :projects, collection: Project.all(order: 'name'), label: false, :input_html => { :class=> 'chosen-media-type' } %>
           <%= f.input :display_for_project, inline_label: 'Display for project', label: false %>
           <%#= f.input :brand_compliant, inline_label: 'Brand Compliant', label: false %>
           <%= f.input :published, inline_label: 'Publish', label: false %>

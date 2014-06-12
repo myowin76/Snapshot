@@ -7,6 +7,15 @@ module PhotosHelper
 	def params_search
     params[:search] || params[:saved_search_id] 
   end	
+
+  def search_projects
+    if params[:search]
+      params[:search][:projects]
+    else
+      @saved_params && @saved_params['search[projects][]']
+    end
+  end
+
 	def search_country_id
     if params[:search]
       params[:search][:country_id] 
@@ -50,6 +59,15 @@ module PhotosHelper
       @saved_params && @saved_params['search[promo_types][]']
     end
   end
+  
+  def search_projects
+    if params[:search]
+      params[:search][:projects]
+    else
+      @saved_params && @saved_params['search[projects][]']
+    end
+  end
+
   def search_promotion_calendars
     if params[:search]
       params[:search][:promo_cal]

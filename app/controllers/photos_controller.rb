@@ -28,14 +28,16 @@ class PhotosController < ApplicationController
         @categories = Category.order(:name)
       end  
 
+      if user_is_project_subscriber?
+        @projects = Project.order(:name).find_all_by_id(current_user.subscription.projects.split(","))
+      # else  
+      #   @projects = Project.order(:name)
+      end      
+
       if user_is_sector_subscriber?
         @sectors = Sector.order(:name).find_all_by_id(current_user.subscription.sectors.split(","))
       else  
-
-
         @sectors = Sector.order(:name)
-
-
       end
 
       if user_is_country_subscriber?
@@ -58,7 +60,7 @@ class PhotosController < ApplicationController
       @stores = Store.order(:id)#.includes({:retailer => :sector})
       
       unless params_search.nil?
-        # 
+        
         # Country Search
         if search_country_id.present?
           # for selected country
@@ -104,6 +106,9 @@ class PhotosController < ApplicationController
           
       else
         # page load
+
+
+
         if user_is_sector_subscriber?
           @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
           
@@ -154,7 +159,15 @@ class PhotosController < ApplicationController
       end
 
       # initiate Photo object
-      @photos = Photo.published
+      if user_is_project_subscriber?
+        
+        @projects = Project.find(current_user.subscription.projects.split(','))
+        @photos = Photo.joins(:projects)
+        
+      else
+        @photos = Photo.published  
+      end
+      
       
       @audits = Audit.find_all_by_store_id(@stores.map(&:id))
       # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
@@ -177,7 +190,15 @@ class PhotosController < ApplicationController
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           
           # @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
-          @photos = Photo.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+          if user_is_project_subscriber?
+        
+            @projects = Project.find(current_user.subscription.projects.split(','))
+            @photos = Photo.joins(:projects).where('project_id IN (?)', search_projects)
+            debugger
+          else
+            @photos = Photo.published  
+          end
+          @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
               .where('audit_id IN (?)', @audits.map(&:id)).published
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)

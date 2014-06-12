@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140513141933) do
+ActiveRecord::Schema.define(:version => 20140612102447) do
 
   create_table "audits", :force => true do |t|
     t.integer  "store_id"
@@ -78,17 +78,6 @@ ActiveRecord::Schema.define(:version => 20140513141933) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-  end
-
-  create_table "companies", :force => true do |t|
-    t.string   "name"
-    t.boolean  "co_brand"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
   end
 
   create_table "countries", :force => true do |t|
@@ -190,6 +179,23 @@ ActiveRecord::Schema.define(:version => 20140513141933) do
 
   add_index "photos", ["audit_id"], :name => "index_photos_on_audit_id"
   add_index "photos", ["promotion_calendar_id"], :name => "index_photos_on_promotion_calendar_id"
+
+  create_table "project_photos", :force => true do |t|
+    t.integer  "photo_id"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "project_photos", ["photo_id"], :name => "index_project_photos_on_photo_id"
+  add_index "project_photos", ["project_id"], :name => "index_project_photos_on_project_id"
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "promotion_calendars", :force => true do |t|
     t.string   "name"
@@ -301,13 +307,14 @@ ActiveRecord::Schema.define(:version => 20140513141933) do
   add_index "stores", ["store_format_id"], :name => "index_stores_on_store_format_id"
 
   create_table "subscriptions", :force => true do |t|
-    t.string   "sub_cats"
-    t.string   "sub_country"
+    t.text     "sub_cats"
+    t.text     "sub_country"
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.string   "sectors"
-    t.string   "retailers"
+    t.text     "sectors"
+    t.text     "retailers"
+    t.text     "projects"
   end
 
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
@@ -359,7 +366,6 @@ ActiveRecord::Schema.define(:version => 20140513141933) do
     t.datetime "updated_at",                            :null => false
     t.integer  "user_type_id",           :default => 1
     t.string   "username"
-    t.integer  "company_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
