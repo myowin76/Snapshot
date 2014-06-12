@@ -12,7 +12,6 @@ class PhotosController < ApplicationController
   
   def index
 
-    # if user_is_country_and_category_subscriber?
 
       if params[:saved_search_id] 
         saved = SaveSearch.find_by_id(params[:saved_search_id])
@@ -41,11 +40,8 @@ class PhotosController < ApplicationController
       end
 
       if user_is_country_subscriber?
-
         @countries = Country.find_all_by_id(current_user.subscription.sub_country.split(","))
-
-      else  
-        
+      else          
         @countries = Country.order(:name)  
       end
       
@@ -162,7 +158,8 @@ class PhotosController < ApplicationController
       if user_is_project_subscriber?
         
         @projects = Project.find(current_user.subscription.projects.split(','))
-        @photos = Photo.joins(:projects)
+        @photos = Photo.joins(:projects).where('projects.id IN (?)', @projects.map(&:id))
+        
         
       else
         @photos = Photo.published  
@@ -193,11 +190,16 @@ class PhotosController < ApplicationController
           if user_is_project_subscriber?
         
             @projects = Project.find(current_user.subscription.projects.split(','))
-            @photos = Photo.joins(:projects).where('project_id IN (?)', search_projects)
+            if search_projects.present?
+              @photos = Photo.joins(:projects).where('project_id IN (?)', search_projects)
+            else
+              @photos = Photo.joins(:projects)
+            end
             debugger
           else
             @photos = Photo.published  
           end
+
           @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
               .where('audit_id IN (?)', @audits.map(&:id)).published
           @photos = @photos.by_audits_in_stores(@stores)
@@ -213,8 +215,9 @@ class PhotosController < ApplicationController
           @photos = @photos.of_categories(search_categories) if search_categories.present?
           # @photos = @photos.all_brand_compliant if search_brand_compliant?
 
+          
           if search_brand_owners.present?
-            debugger
+            
             @brands_by_owners = @brands.find_all_by_brand_owner_id(search_brand_owners)
             @photos = @photos.joins(:brands).where('brands.id IN (?)', @brands_by_owners)
           end
