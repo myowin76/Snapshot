@@ -210,7 +210,8 @@ class PhotosController < ApplicationController
           end
 
           @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
-              .where('audit_id IN (?)', @audits.map(&:id)).published
+              .order('audits.audit_date DESC, photos.created_at DESC')
+              # .where('audit_id IN (?)', @audits.map(&:id)).published
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
 
