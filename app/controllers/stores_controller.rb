@@ -201,28 +201,30 @@ class StoresController < ApplicationController
 
     if params[:store_id]  
       @store = Store.find_by_id(params[:store_id])
-      
+      @user_projects = Project.find(current_user.subscription.projects.split(','))
+      @photos = Photo.joins(:projects).where('projects.id IN (?)', @user_projects.map(&:id))
+
       if @store.audits.present?
         @audits = @store.audits.order('created_at DESC')
         @audit = @audits.first
 
         if params[:categories]
           @selected_categories = Category.find_all_by_id(params[:categories].split(","))
-          @photo_categories = Category.joins(:photos).includes(:categorizations)
-            .where('photos.audit_id IN (?)', @audit.id)
-            .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
-            .group("categories.id");
+          # @photo_categories = Category.joins(:photos).includes(:categorizations)
+          #   .where('photos.audit_id IN (?)', @audit.id)
+          #   .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
+          #   .group("categories.id");
         else
           @selected_categories = Category.joins(:photos).
             where('photos.audit_id IN (?)', @audit.id)
-          @photo_categories = Category.joins(:photos).includes(:categorizations)            
-            .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
-            .group("categories.id");
+          # @photo_categories = Category.joins(:photos).includes(:categorizations)            
+          #   .where("category_id in (?) AND photos.published = ?", @selected_categories.map(&:id), true)
+          #   .group("categories.id");
             
         end
         # .having("count(photo_id)");
       end
-
+      
       respond_to do |format|
         # format.json { render json: @store }
         format.js{

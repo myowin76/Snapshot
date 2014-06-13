@@ -146,9 +146,20 @@ class Photo < ActiveRecord::Base
       end
     end
 
-    def self.zip_all_from_store store
+    def self.zip_all_from_store (current_user, store)
+      @user_projects = Project.find(current_user.subscription.projects.split(','))
+      # @photos = Photo.joins(:projects).where('projects.id IN (?)', @user_projects.map(&:id))
+      # @photos = @photos.join(:audit)
       
-      assets = store.photos.published
+      # store.photos.published.each do |photo|
+      #   if @photo.include?(photo)
+      #     assets  store.photos.published
+      #   end
+      # end
+      
+      @photos = store.photos.published.joins(:projects).where('projects.id IN (?)', @user_projects.map(&:id))
+      debugger
+      assets = @photos.uniq
       csv = generate_csv(assets.map(&:id))
 
       zip_file = Tempfile.new("#{Rails.root}/public/" << store.name.to_s << ".zip")

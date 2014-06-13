@@ -101,9 +101,8 @@ class PhotosController < ApplicationController
         end
           
       else
-        # page load
 
-
+        # ON PAGE LOAD
 
         if user_is_sector_subscriber?
           @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
@@ -126,10 +125,13 @@ class PhotosController < ApplicationController
 
         end
 
+        if user_is_project_subscriber?
+
+        end
           @stores = @stores.includes(:retailer)
             .in_countries_and_null(@countries.map(&:id))
             .of_retailers(@retailers.map(&:id))
-        
+          
       end
 
       # skips those on ajax calls
@@ -160,29 +162,36 @@ class PhotosController < ApplicationController
         @projects = Project.find(current_user.subscription.projects.split(','))
         @photos = Photo.joins(:projects).where('projects.id IN (?)', @projects.map(&:id))
         
-        
       else
         @photos = Photo.published  
       end
       
-      
-      @audits = Audit.find_all_by_store_id(@stores.map(&:id))
+      # @audits = Audit.find_all_by_store_id(@stores.map(&:id))
       # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
+      
         if params_search.nil?
           
-          @photos = @photos          
-            .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
-            .where('audit_id IN (?)', @audits.map(&:id))
+          @photos = @photos
             .published
+            .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
             .order('audits.audit_date DESC, photos.created_at DESC')
             .includes([:audit, :brands])
             .paginate(:page => params[:page], :per_page => @per_page)
+
+# .where('audit_id IN (?)', @audits.map(&:id))
+            @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
+
+            @audits = Audit.find_all_by_id(@photo_audits)
+          
+            @store_ids = @audits.map(&:store_id)
+
+            @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
 
           
         else 
       
         
-        # search action
+        # SEARCH / FILTER
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           
@@ -195,7 +204,7 @@ class PhotosController < ApplicationController
             else
               @photos = Photo.joins(:projects)
             end
-            debugger
+            
           else
             @photos = Photo.published  
           end
@@ -225,6 +234,7 @@ class PhotosController < ApplicationController
           @photos = @photos.find_between(from_date, to_date)
 
           @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
+
           @audits = Audit.find_all_by_id(@photo_audits)
         
           @store_ids = @audits.map(&:store_id)
@@ -238,6 +248,7 @@ class PhotosController < ApplicationController
         end
       # debugger
     # MAP
+    
     unless @stores.blank?
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
@@ -373,7 +384,9 @@ class PhotosController < ApplicationController
 
   def zip_all_from_store
     store = Store.find(params[:id])
-    zip_file = Photo.zip_all_from_store store
+
+    # debugger
+    zip_file = Photo.zip_all_from_store(current_user, store)
     
     if zip_file
       send_file zip_file, :type => 'application/zip', :disposition => 'attachment', :filename => "#{store.name}.zip"
