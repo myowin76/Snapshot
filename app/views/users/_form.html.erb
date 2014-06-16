@@ -1,7 +1,7 @@
-<div class="login-edit">
+<div class="login-edit admin">
   <div>
     
-    <%= simple_form_for(@user) do |f| %>
+    <%= simple_form_for @user, html: { autocomplete: 'off' } do |f| %>
     <%#= simple_form_for(@user, :url => registration_path(@user), :html => { :method => :put }) do |f| %>
       <%= f.error_notification %>
 
@@ -11,9 +11,11 @@
         <%= f.input :password, :hint => "Leave it blank if you don't want to change it", :required => false %>
       </div>
 
-      <div class="form-inputs">
+      <div class="form-inputs" style="margin-top: 25px;">
         <h2>Roles</h2>
-        <%= f.association :roles, as: :check_boxes, :label => false %>
+        <div class="group" style="display: none;">
+          <%= f.association :roles, as: :check_boxes, :label => false %>
+        </div>
       </div>
       
 
@@ -22,39 +24,44 @@
       
       <div class="form-inputs">
         <h2>Projects</h2>
-        <% unless @user.subscription.projects.blank? %>
-          <% @subscribed_projects = Project.find_all_by_id(@user.subscription.projects.split(",")) %>
-          <% Project.order(:name).each do |p| %>
-            <%= check_box_tag "subscription[project_ids][]", p.id, @subscribed_projects.map{|f| f.id}.include?(p.id) %>
-            <%= p.name %><br>
+        <div class="group" style="display: none;">
+          <% unless @user.subscription.projects.blank? %>
+            <% @subscribed_projects = Project.find_all_by_id(@user.subscription.projects.split(",")) %>
+            <% Project.order(:name).each do |p| %>
+              <%= check_box_tag "subscription[project_ids][]", p.id, @subscribed_projects.map{|f| f.id}.include?(p.id) %>
+              <%= p.name %><br>
+            <% end %>
+          <% else %>
+            <% Project.order(:name).each do |p| %>
+              <%= check_box_tag "subscription[project_ids][]", p.id %>
+              <%= p.name %><br>
+            <% end %>
           <% end %>
-        <% else %>
-          <% Project.order(:name).each do |p| %>
-            <%= check_box_tag "subscription[project_ids][]", p.id %>
-            <%= p.name %><br>
-          <% end %>
-        <% end %>
+        </div>
       </div>
 
       <div class="form-inputs">
         <h2>Countries</h2>
-        <% unless @user.subscription.sub_country.blank? %>
-          <% @subscribed_countries = Country.find_all_by_id(@user.subscription.sub_country.split(",")) %>
-          <% Country.order(:name).each do |c| %>
-            <%= check_box_tag "subscription[country_ids][]", c.id, @subscribed_countries.map{|f| f.id}.include?(c.id) %>
-            <%= c.name %><br>
+        <div class="group" style="display: none;">
+          <% unless @user.subscription.sub_country.blank? %>
+            <% @subscribed_countries = Country.find_all_by_id(@user.subscription.sub_country.split(",")) %>
+            <% Country.order(:name).each do |c| %>
+              <%= check_box_tag "subscription[country_ids][]", c.id, @subscribed_countries.map{|f| f.id}.include?(c.id) %>
+              <%= c.name %><br>
+            <% end %>
+          <% else %>
+            <% Country.order(:name).each do |c| %>
+              <%= check_box_tag "subscription[country_ids][]", c.id %>
+              <%= c.name %><br>
+            <% end %>
           <% end %>
-        <% else %>
-          <% Country.order(:name).each do |c| %>
-            <%= check_box_tag "subscription[country_ids][]", c.id %>
-            <%= c.name %><br>
-          <% end %>
-        <% end %>
+        </div>
       </div>
 
       
       <div class="form-inputs">
         <h2>Categories</h2>
+        <div class="group" style="display: none;">
           <% unless @user.subscription.sub_cats.blank? %>
             <% @subscribed_categories = Category.find_all_by_id(@user.subscription.sub_cats.split(",")) unless @user.subscription.sub_cats.blank? %>
 
@@ -71,12 +78,12 @@
 
             <% end %>
           <% end %>
-
+        </div>
       </div>
 
       <div class="form-inputs">
         <h2>Sectors</h2>
-        
+        <div class="group" style="display: none;">
           <% unless @user.subscription.sectors.blank? %>
             <% @subscribed_sectors = Sector.find_all_by_id(@user.subscription.sectors.split(",")) %>
             
@@ -91,12 +98,12 @@
               <%= sec.name %><br />
             <% end %>
           <% end %>
-        
+        </div>
       </div>
 
       <div class="form-inputs">
         <h2>Retailers</h2>
-        
+        <div class="group" style="display: none;">
           <% unless @user.subscription.retailers.blank? %>
             <% @subscribed_retailers = Retailer.find_all_by_id(@user.subscription.retailers.split(",")) %>
             
@@ -112,7 +119,7 @@
               <%= retailer.name %><br />
             <% end %>
           <% end %>  
-        
+        </div>
       </div>
     <% end %>  
     <div class="form-actions">

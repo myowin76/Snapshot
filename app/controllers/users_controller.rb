@@ -132,26 +132,37 @@ class UsersController < ApplicationController
       if @user.errors[:base].empty? and @user.update_attributes(params[:user])
         
           @subscription = @update_user.subscription
-          # debugger
+          
           unless @subscription.nil?
             if !params[:subscription].nil? && params[:subscription][:category_ids].present?
               # @subscription.sub_cats = params[:subscription][:category_ids]
               @subscription.update_attribute(:sub_cats, params[:subscription][:category_ids].join(","))
+            else
+              @subscription.update_attribute(:sub_cats, nil)
             end
 
             if !params[:subscription].nil? && params[:subscription][:country_ids].present?
               @subscription.update_attribute(:sub_country, params[:subscription][:country_ids].join(","))
+            else
+              @subscription.update_attribute(:sub_country, nil)
             end
 
             if !params[:subscription].nil? && params[:subscription][:sector_ids].present?
               @subscription.update_attribute(:sectors, params[:subscription][:sector_ids].join(","))
+            else
+              @subscription.update_attribute(:sectors, nil)
             end
 
             if !params[:subscription].nil? && params[:subscription][:retailer_ids].present?
               @subscription.update_attribute(:retailers, params[:subscription][:retailer_ids].join(","))
+            else
+              @subscription.update_attribute(:retailers, nil)
             end
+
             if !params[:subscription].nil? && params[:subscription][:project_ids].present?
               @subscription.update_attribute(:projects, params[:subscription][:project_ids].join(","))
+            else
+              @subscription.update_attribute(:projects, nil)
             end
           end  
 

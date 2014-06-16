@@ -88,48 +88,11 @@ var snapshot = {
 
   $(document).ready(function() {
 
-  // new Snapshot.Router;
-  // Backbone.history.start();
-  // Snapshot.photos = new Snapshot.Collections.Photos;
-  // Snapshot.photos.fetch().then(function(){
-  //   new Snapshot.Views.Snapshot({ collection: Snapshot.photos })
-  // });
-
-  // window.Sector = Backbone.Model.extend({});
-  // window.SectorView = Backbone.View.extend({
-  //   initialize: function(){
-  //     this.template = _.template($('.page-header').html());
-  //   }, 
-  //   render: function(){
-  //     var renderedContent = this.template(this.model.attributes);
-  //     $(this.el).html(renderedContent);
-  //     return this;
-  //   }
-
-  // });
-// $.getJSON('/sectors.json', function(data) {
-//   var items = [];
   
-//   $.each(data, function(key, val) {
-//     console.log (val.id + ':'+ val.name);
-//     items.push('<li id="' + val.id + '">' + val.name + '</li>');
-//   });
- 
-//   $('<div />', {
-//     'class': 'accordion-inner',
-//     html: items.join('')
-//   }).appendTo('#sector-accord');
-// });
-// $.ajax({
-//   url: "http://localhost:3000/lists/3",
-//   dataType: "json",
-//   type: "GET",
-//   processData: false,
-//   contentType: "application/json"
-// });
+    $('.login-edit.admin').find('.form-inputs h2').on('click', function(){
+      $(this).next('.group').slideToggle();
+    });
 
-
-  // $('#search_form').submit();
 
   $('#search_fromDate').datepicker({ 
     dateFormat: 'dd/mm/yy',

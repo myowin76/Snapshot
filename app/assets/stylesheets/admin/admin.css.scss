@@ -3503,3 +3503,19 @@ body.choose #choose-preview > span span {
 .paging_full_numbers a.paginate_button.first{
 	border-left: 1px solid #F1CBCB;
 }
+
+.login-edit{
+  &.admin{
+    margin-top: 20px;
+    .form-inputs{
+      h2{
+        border-bottom: 1px solid #ddd;
+        padding: 5px 10px;
+
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

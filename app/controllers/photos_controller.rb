@@ -63,6 +63,7 @@ class PhotosController < ApplicationController
           @stores = @stores.in_country(search_country_id)
         else
           @stores = @stores.in_countries_and_null(@countries.map(&:id))
+
         end
 
         @stores = @stores.with_environment_type(search_environment_types) if search_environment_types.present?
@@ -162,7 +163,7 @@ class PhotosController < ApplicationController
       else
         @photos = Photo.published  
       end
-      
+
       @audits = Audit.find_all_by_store_id(@stores.map(&:id))
         
         # on page load check
@@ -181,7 +182,6 @@ class PhotosController < ApplicationController
           
             @store_ids = @audits.map(&:store_id)
             @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
-
           
         else 
       
