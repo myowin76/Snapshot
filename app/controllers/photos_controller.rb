@@ -125,9 +125,6 @@ class PhotosController < ApplicationController
 
         end
 
-        if user_is_project_subscriber?
-
-        end
           @stores = @stores.includes(:retailer)
             .in_countries_and_null(@countries.map(&:id))
             .of_retailers(@retailers.map(&:id))
@@ -160,31 +157,29 @@ class PhotosController < ApplicationController
       if user_is_project_subscriber?
         
         @projects = Project.find(current_user.subscription.projects.split(','))
-        @photos = Photo.joins(:projects).where('projects.id IN (?)', @projects.map(&:id))
-        
+        @photos = Photo.joins(:projects).where('projects.id IN (?)', @projects.map(&:id)).published
+
       else
         @photos = Photo.published  
       end
       
-      # @audits = Audit.find_all_by_store_id(@stores.map(&:id))
-      # @photos = Photo.find_all_by_audit_id(@audits.map(&:id))
-      
+      @audits = Audit.find_all_by_store_id(@stores.map(&:id))
+        
+        # on page load check
         if params_search.nil?
-          
-          @photos = @photos
-            .published
-            .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
-            .order('audits.audit_date DESC, photos.created_at DESC')
-            .includes([:audit, :brands])
-            .paginate(:page => params[:page], :per_page => @per_page)
 
-# .where('audit_id IN (?)', @audits.map(&:id))
+            @photos = @photos
+              .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at distinct photos.id')
+              .where('audit_id IN (?)', @audits.map(&:id))
+              .order('audits.audit_date DESC, photos.created_at DESC')
+              .includes([:audit, :brands])
+              .paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'})
+
+            
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
-
             @audits = Audit.find_all_by_id(@photo_audits)
           
             @store_ids = @audits.map(&:store_id)
-
             @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
 
           
@@ -200,18 +195,21 @@ class PhotosController < ApplicationController
         
             @projects = Project.find(current_user.subscription.projects.split(','))
             if search_projects.present?
-              @photos = Photo.joins(:projects).where('project_id IN (?)', search_projects)
+              @photos = Photo.joins(:projects).where('project_id IN (?)', search_projects).published
             else
-              @photos = Photo.joins(:projects)
+              @photos = @project_photos = Photo.joins(:projects).published
+
             end
             
           else
             @photos = Photo.published  
           end
 
-          @photos = @photos.select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+          @photos = @photos
+              .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
               .order('audits.audit_date DESC, photos.created_at DESC')
-              # .where('audit_id IN (?)', @audits.map(&:id)).published
+              .where('audit_id IN (?)', @audits.map(&:id))
+          
           @photos = @photos.by_audits_in_stores(@stores)
               .includes(:brands)
 
@@ -224,7 +222,6 @@ class PhotosController < ApplicationController
           @photos = @photos.of_themes(search_themes) if search_themes.present?
           @photos = @photos.of_categories(search_categories) if search_categories.present?
           # @photos = @photos.all_brand_compliant if search_brand_compliant?
-
           
           if search_brand_owners.present?
             

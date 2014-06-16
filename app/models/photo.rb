@@ -158,7 +158,6 @@ class Photo < ActiveRecord::Base
       # end
       
       @photos = store.photos.published.joins(:projects).where('projects.id IN (?)', @user_projects.map(&:id))
-      debugger
       assets = @photos.uniq
       csv = generate_csv(assets.map(&:id))
 

@@ -7,7 +7,7 @@ en:
       single_page:
         zero:  "No %{model} found"
         one:   "Display 1 %{model}"
-        other: "Display all %{count} %{model}"
+        other: "Display all %{count} %{model.group_by(&:id)}"
       single_page_html:
         zero:  "No %{model} found"
         one:   "Display <b>1</b> %{model}"

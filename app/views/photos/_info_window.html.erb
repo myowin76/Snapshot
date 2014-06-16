@@ -25,12 +25,17 @@
 		<%#= store.retailer.sector.name unless store.retailer.nil? && store.retailer.sector_id.nil? %>
 	</p> -->
 	<p>
-		
-		<%= number_of_photos = @photos.published.group_by(&:id).count %> photos.
+		<% count = 0 %>
+		<% store.photos.published.each do |sp| %>	
+			<% if @photos.include?(sp) %>
+				<% count += 1 %>
+			<% end %>	
+		<% end %>
+		<%= count %> photos
 
 		<% if !current_user.role?(:deny_download) %>
 			<% #if store.photos.published.count > 0 %>
-			<% if number_of_photos > 0 %>
+			<% if count > 0 %>
 				<%= link_to "Download Photos", all_store_photos_path(store.id),
 					:id => 'map-store-download',
 					:class => 'pull-right' %><br />
