@@ -63,11 +63,6 @@
           <span>New Audit</span>
       <% end %>
     </div>  
-      <%#= link_to new_store_audit_path(@store),
-          :class => 'btn btn-primary' do %>
-         <!--  <i class="icon-upload icon-white"></i>
-          <span>New Audit</span> -->
-      <%# end %>
 
     <div class="action">  
       <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
@@ -76,31 +71,9 @@
       <% end %>    
     </div>
 
-  <!-- <div class="btn-group btn-group-vertical block">
-    <a href="" class="btn btn-icon btn-default btn-block group">
-      <i></i>
-      <span><%= @store.audits.count %></span>
-      Total Audits
-    </a>
-    <a href="" class="btn btn-icon btn-default btn-block group">
-      <i></i>
-      <span><%= @store.photos.count %></span>
-      Total Photos
-    </a>
-  </div> -->
   </div>
 
-  
-  <!-- 
 
-    <p>
-      <%#= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
-    </p>
-    
-    <section class="store_audit_categories">
-      <%#= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
-    </section> 
- -->
 </div>
     <h2>Audits</h2>
     <div class="row-fluid">
@@ -126,22 +99,3 @@
         <% end %> 
       <% end %>   
     </div>
-
-
-
-
-<!--   <div class="btn-group btn-group-vertical block">
-    <a href="" class="btn btn-icon btn-default btn-block group">
-      <i></i>
-      <span><%#= @store.audits.count %></span>
-      Total Audits
-    </a>
-    <a href="" class="btn btn-icon btn-default btn-block group">
-      <i></i>
-      <span><%#= @store.photos.count %></span>
-      Total Photos
-    </a>
-  </div> -->
-
-
-

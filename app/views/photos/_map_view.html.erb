@@ -1,44 +1,38 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag "gmaps4rails" %>
-<% end  %>
+<%= gmaps(
+  :markers => {:data => @json, :options => { "custom_infowindow_class" => "snapshot-window", :do_clustering => true, :clusterer_gridSize => 100, :clusterer_maxZoom => 20}},
+  :map_options => { 
+        :raw => '{ scrollwheel: false }', 
+        #:container_class => "foo", :id => "bar" 
+  }
 
-
-<% unless @json.blank? %>
-  <%= gmaps(
-  	:markers => {:data => @json, :options => { "custom_infowindow_class" => "snapshot-window", :do_clustering => true, :clusterer_gridSize => 100, :clusterer_maxZoom => 20}},
-  	:map_options => { 
-  				:raw => '{ scrollwheel: false }', 
-  				#:container_class => "foo", :id => "bar" 
-  	}
   ) %>
 
-  <%#= gmaps4rails(@json, true, false) %>
+<%#= gmaps4rails(@json, true, false) %>
 
-  <% content_for :scripts do %>
-    <script>
-          Gmaps.map.infobox = function(boxText) {
-        return {
-          content: boxText,
-          disableAutoPan: false,
-          maxWidth: 0,
-          pixelOffset: new google.maps.Size(-138,-180),
-          // pixelOffset: new google.maps.Size(-140, 0),
-          zIndex: null,
-          boxStyle: { 
-            // background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/examples/tipbox.gif') no-repeat",
-            // opacity: 0.75,
-            width: "250px"
-             },
-          closeBoxMargin: "12px",
-          closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-          infoBoxClearance: new google.maps.Size(1, 1),
-          isHidden: false,
-          pane: "floatPane",
-          enableEventPropagation: true
-       }};
-         
+<% content_for :scripts do %>
+  <script>
+        Gmaps.map.infobox = function(boxText) {
+      return {
+        content: boxText,
+        disableAutoPan: false,
+        maxWidth: 0,
+        pixelOffset: new google.maps.Size(-138,-180),
+        // pixelOffset: new google.maps.Size(-140, 0),
+        zIndex: null,
+        boxStyle: { 
+          // background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.5/examples/tipbox.gif') no-repeat",
+          // opacity: 0.75,
+          width: "250px"
+           },
+        closeBoxMargin: "12px",
+        closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+        infoBoxClearance: new google.maps.Size(1, 1),
+        isHidden: false,
+        pane: "floatPane",
+        enableEventPropagation: true
+     }};
+       
 
-    </script>  
+  </script>  
 
-  <% end  %>
 <% end  %>

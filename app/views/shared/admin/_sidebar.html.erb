@@ -26,14 +26,7 @@
     </li>
   <% end %>
 
-  <% if can? :read, Company %>
-    <li class="glyphicons show_thumbnails_with_lines">
-      <%= link_to companies_path do %>
-        <i></i>
-        <span>Companies</span>
-      <% end  %>
-    </li>
-  <% end %>
+  
     
   <% if can? :read, @users %>
     <% if current_user.role?(:super_admin) %>
