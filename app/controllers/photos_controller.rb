@@ -174,13 +174,19 @@ class PhotosController < ApplicationController
         # on page load check
         if params_search.nil?
 
+
+          if user_is_category_subscriber?
+            @photos = @photos.of_categories(@categories)
+          end
+
+
             @photos = @photos
               .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at distinct photos.id')
               .where('audit_id IN (?)', @audits.map(&:id))
               .order('audits.audit_date DESC, photos.created_at DESC')
               .includes([:audit, :brands])
               .paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'})
-              
+
             # debugger
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
