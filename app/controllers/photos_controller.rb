@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
   
   def index
 
-
+      
       if params[:saved_search_id] 
         saved = SaveSearch.find_by_id(params[:saved_search_id])
         if saved
@@ -66,16 +66,19 @@ class PhotosController < ApplicationController
 
         end
 
+        
+
         @stores = @stores.with_environment_type(search_environment_types) if search_environment_types.present?
         @stores = @stores.with_channel(search_channels) if search_channels.present?
         @stores = @stores.with_format(search_store_formats) if search_store_formats.present?
+        
         # Location Search          
         @stores = @stores.within_25_miles_of(search_location) if search_location.present?
 
         if search_sectors.present?
           
             @retailers = Retailer.order(:name).find_all_by_sector_id(search_sectors)
-            # debugger
+            
             unless search_retailers.present?
               @stores = @stores.of_retailers(@retailers.map(&:id))
             else
@@ -126,9 +129,9 @@ class PhotosController < ApplicationController
 
         end
 
-          @stores = @stores.includes(:retailer)
-            .in_countries_and_null(@countries.map(&:id))
-            .of_retailers(@retailers.map(&:id))
+        @stores = @stores.includes(:retailer)
+          .in_countries_and_null(@countries.map(&:id))
+          .of_retailers(@retailers.map(&:id))
           
       end
 
@@ -176,7 +179,7 @@ class PhotosController < ApplicationController
               .includes([:audit, :brands])
               .paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'})
 
-            
+            # debugger
             @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
             @audits = Audit.find_all_by_id(@photo_audits)
           

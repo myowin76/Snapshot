@@ -56,20 +56,20 @@
   </div>
   <div class="span3">
 
-    <div class="action pull-right">
+    <div class="action">
       <%= link_to new_audit_path(:retailer => @store.retailer.name, :store => @store.name),
           :class => 'btn btn-primary' do %>
           <i class="icon-upload icon-white"></i>
           <span>New Audit</span>
       <% end %>
-
-      <%= link_to new_store_audit_path(@store),
+    </div>  
+      <%#= link_to new_store_audit_path(@store),
           :class => 'btn btn-primary' do %>
-          <i class="icon-upload icon-white"></i>
-          <span>New Audit</span>
-      <% end %>
+         <!--  <i class="icon-upload icon-white"></i>
+          <span>New Audit</span> -->
+      <%# end %>
 
-
+    <div class="action">  
       <%= link_to edit_store_path(@store), :class => 'btn btn-primary' do %>
           <i class="icon-edit icon-white"></i>
           <span>Edit</span>

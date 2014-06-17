@@ -1,15 +1,44 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @project.description %>
-</p>
+<div class="page-header">
+	<h1><%= @project.name %></h1>
+	<p class="lead"><%= @project.description %></p>
+	<%= link_to 'Edit', edit_project_path(@project) %> |
+	<%= link_to 'Back', projects_path %>
+</div>
 
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<% unless @project.photos.empty? %>
+
+  <table class="table table-striped photo-list">
+    <thead>
+      <tr>
+        <!-- <th></th>     -->
+        <th>Image</th>
+        <th>File Name</th>
+        
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @project.photos.each do |project| %>
+        <tr>
+          <!-- <td><%#= check_box_tag "audit_photo_ids[]", photo.id %></td> -->
+          <td><%= image_tag(project.photo.url(:small))%></td>
+          <td>
+            <%= project.photo_file_name %><br />
+            <% if project.published %>
+              <span class="label label-success">Published</span>
+            <% else %>
+              <span class="label label-important">Not published</span>
+            <% end %>
+          </td>
+          
+        </tr>
+      <% end %>    
+    </tbody>
+  </table>
+  
+<% end %>
+
+
+

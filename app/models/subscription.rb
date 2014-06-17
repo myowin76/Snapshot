@@ -2,7 +2,7 @@ class Subscription < ActiveRecord::Base
   attr_accessible :sub_cats, :sub_country, :user_id, :sectors, :retailers, :projects
   
   belongs_to :user
-
+  validates :user_id, uniqueness: true
   # serialize :sub_cats
 
 

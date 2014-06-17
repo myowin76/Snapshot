@@ -23,6 +23,7 @@
     <tr>
       <td><%= project.name %></td>
       <td><%= project.description %></td>
+      <%#= link_to 'Details', project_path(project) %>
       <td><%= link_to 'Edit', edit_project_path(project), :class => 'btn btn-mini' %></td>
       <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger'  %></td>
     </tr>
