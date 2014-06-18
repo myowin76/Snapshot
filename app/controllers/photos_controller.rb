@@ -12,7 +12,6 @@ class PhotosController < ApplicationController
   
   def index
 
-
       if params[:saved_search_id] 
         saved = SaveSearch.find_by_id(params[:saved_search_id])
         if saved
@@ -56,12 +55,13 @@ class PhotosController < ApplicationController
       @stores = Store.order(:id)#.includes({:retailer => :sector})
       
       unless params_search.nil?
-        
+        # if page load
         # Country Search
         if search_country_id.present?
           # for selected country
           @stores = @stores.where('country_id = ? ', search_country_id)
         else
+          # filter by subscribed countries if exist
           @stores = @stores.where('country_id IN (?) OR country_id IS NULL', @countries.map(&:id))
 
         end
@@ -73,8 +73,8 @@ class PhotosController < ApplicationController
         @stores = @stores.with_format(search_store_formats) if search_store_formats.present?
         
         # Location Search          
-        # @stores = @stores.within_25_miles_of(search_location) if search_location.present?
-        @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
+        @stores = @stores.within_25_miles_of(search_location) if search_location.present?
+        # @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
 
         if search_sectors.present?
           
@@ -87,6 +87,7 @@ class PhotosController < ApplicationController
             end
 
         else
+          
           if user_is_sector_subscriber?
             @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
           else
