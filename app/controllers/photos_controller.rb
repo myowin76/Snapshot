@@ -66,8 +66,6 @@ class PhotosController < ApplicationController
 
         end
 
-        
-
         @stores = @stores.with_environment_type(search_environment_types) if search_environment_types.present?
         @stores = @stores.with_channel(search_channels) if search_channels.present?
         @stores = @stores.with_format(search_store_formats) if search_store_formats.present?
@@ -87,7 +85,7 @@ class PhotosController < ApplicationController
             end
 
         else
-          
+
           if user_is_sector_subscriber?
             @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
           else
@@ -134,7 +132,6 @@ class PhotosController < ApplicationController
         @stores = @stores.includes(:retailer)
           .in_countries_and_null(@countries.map(&:id))
           .of_retailers(@retailers.map(&:id))
-          
           
       end
 
