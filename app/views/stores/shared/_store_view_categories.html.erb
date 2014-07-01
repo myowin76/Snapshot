@@ -1,31 +1,36 @@
+<% unless current_user.subscription.projects.nil? %>
+		<% @store.photos.published.each do |photo| %>
 
-<% @store.photos.published.each do |photo| %>
-
-	
-	<%# @photo_categories.each do |cat| %>
-			<%# unless cat.photos.nil? %>
-
-			<%#= cat.name %> <%#= link_to "Category View", category_view_path(@store.id, cat.id), :class => "cat-link", remote: true %>
-			
-			<!-- <a href="store/category_view" class="cat-link">View Category</a> -->
-			<!-- <h3><%#= cat.name %></h3> -->
 			<ul class="gallery_basic" id="basicGallery">
-				<%# @store.photos.published.each do |photo| %>
-					<%# @user_projects.each do |project| %>
-						<% if @photos.include?(photo) %>
-							
-							<% if photo.audit.present? %>
-								<% if photo.audit.store_id == @store.id %>
-									<li>
-										<%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
-									</li>
-								<% end %>
+				
+				<% if @photos.include?(photo) %>				
+					<% if photo.audit.present? %>
+						<% if photo.audit.store_id == @store.id %>
+							<li>
+								<%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %>
+							</li>
+						<% end %>
+					<% end %>
+				<% end %>
+				
+			</ul>
+		<% end %>
+
+<% else %>
+
+		<% @photo_categories.each do |cat| %>
+				<% unless cat.photos.nil? %>
+				<h4><%= cat.name %> <%= link_to "Category View", category_view_path(@store.id, cat.id), :class => "cat-link", remote: true %></h4>
+
+				<ul class="gallery_basic" id="basicGallery">
+					<% cat.photos.published.each do |photo| %>
+						<% if photo.audit.present? %>
+							<% if photo.audit.store_id == @store.id %>
+								<li><%= link_to image_tag(photo.photo.url(:medium)), photo, remote: true %></li>
 							<% end %>
 						<% end %>
-					<%# end %>
-				
-				<%# debugger %>
-			</ul>
-		<%# end %> 	
-	<%# end %> 
+					<% end %>
+				</ul>
+			<% end %> 	
+		<% end %> 
 <% end %>

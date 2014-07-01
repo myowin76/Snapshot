@@ -52,8 +52,32 @@
         <%= @store.channel.name unless @store.channel_id.nil? %><br />
       </p>
       
+
+
+<% unless current_user.subscription.projects.nil? %>
+
+
+      
+      <section class="store_audit_categories">
+        <%= render 'stores/shared/store_view_categories' %>
+      </section> 
+
+<% else %>
+  <% unless @audits.nil? %>
+    <% unless @audit.nil?  %>
+
+      <p>
+        <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
+      </p>
+      <section class="store_audit_categories">
+        <%= render 'stores/shared/store_view_categories', :locals => {:audits => @audits}%>
+      </section> 
+    <% end %>
+  <% end %>
+<% end %>
       <% unless @audits.nil? %>
         <% unless @audit.nil?  %>
+
           <p>
             <%= select_tag "audit_id", options_from_collection_for_select(@audits, "id", "created_at"), :id => 'store-audit-select' %>
           </p>
