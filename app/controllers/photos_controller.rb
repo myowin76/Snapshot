@@ -190,12 +190,13 @@ class PhotosController < ApplicationController
               .paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'})
 
             # debugger
-            @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
-            @audits = Audit.find_all_by_id(@photo_audits)
-          
-            @store_ids = @audits.map(&:store_id)
+            
             # @stores = @stores.where('stores.id IN (?)', @store_ids)
-            if user_is_project_subscriber?
+            if user_is_project_subscriber? || user_is_category_subscriber? || 
+                  user_is_retailer_subscriber? || user_is_sector_subscriber? || user_is_country_subscriber?
+              @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
+              @audits = Audit.find_all_by_id(@photo_audits)
+              @store_ids = @audits.map(&:store_id)
               @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
             end  
 
@@ -264,7 +265,7 @@ class PhotosController < ApplicationController
         end
       
     # MAP
-    
+    debugger
     unless @stores.blank?
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
