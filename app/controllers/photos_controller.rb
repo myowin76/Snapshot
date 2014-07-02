@@ -187,7 +187,6 @@ class PhotosController < ApplicationController
               .where('audit_id IN (?)', @audits.map(&:id))
               .order('audits.audit_date DESC, photos.created_at DESC')
               .includes([:audit, :brands])
-              .paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'})
 
             # debugger
             
@@ -198,7 +197,10 @@ class PhotosController < ApplicationController
               @audits = Audit.find_all_by_id(@photo_audits)
               @store_ids = @audits.map(&:store_id)
               @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
-            end  
+              
+            end 
+
+            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'}) 
 
             
             
@@ -265,7 +267,7 @@ class PhotosController < ApplicationController
         end
       
     # MAP
-    debugger
+    
     unless @stores.blank?
       @json = @stores.to_gmaps4rails do |store, marker|
         marker.infowindow render_to_string(:partial => "/photos/info_window", :locals => { :store => store })
