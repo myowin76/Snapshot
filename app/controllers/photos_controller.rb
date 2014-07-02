@@ -71,8 +71,8 @@ class PhotosController < ApplicationController
         @stores = @stores.with_format(search_store_formats) if search_store_formats.present?
         
         # Location Search          
-        @stores = @stores.within_25_miles_of(search_location) if search_location.present?
-        # @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
+        # @stores = @stores.within_25_miles_of(search_location) if search_location.present?
+        @stores = @stores.near(search_location, 25, :order => :distance) if search_location.present?
 
         if search_sectors.present?
           
@@ -107,7 +107,7 @@ class PhotosController < ApplicationController
       else
 
         # ON PAGE LOAD
-
+        
         if user_is_sector_subscriber?
           @retailers = Retailer.order(:name).find_all_by_sector_id(@sectors.map(&:id))
           
@@ -129,9 +129,12 @@ class PhotosController < ApplicationController
 
         end
 
+        # @stores = @stores.includes(:retailer)
+        #   .in_countries_and_null(@countries.map(&:id))
+        #   .of_retailers(@retailers.map(&:id))
         @stores = @stores.includes(:retailer)
-          .in_countries_and_null(@countries.map(&:id))
-          .of_retailers(@retailers.map(&:id))
+          .where('country_id IN (?) AND country_id IS NOT NULL', @countries.map(&:id))
+          .where('retailer_id IN (?)', @retailers.map(&:id))
           
       end
 
@@ -159,8 +162,9 @@ class PhotosController < ApplicationController
 
       # initiate Photo object
       if user_is_project_subscriber?
-        
-        @projects = Project.find(current_user.subscription.projects.split(','))
+        if Project.exists?(current_user.subscription.projects.split(','))
+          @projects = Project.find(current_user.subscription.projects.split(',')) 
+        end
         @photos = Photo.joins(:projects).where('projects.id IN (?)', @projects.map(&:id)).published
 
       else
@@ -190,9 +194,13 @@ class PhotosController < ApplicationController
             @audits = Audit.find_all_by_id(@photo_audits)
           
             @store_ids = @audits.map(&:store_id)
-            @stores = @stores.where('stores.id IN (?)', @store_ids)
-          
+            # @stores = @stores.where('stores.id IN (?)', @store_ids)
+            if user_is_project_subscriber?
+              @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
+            end  
 
+            
+            
         else 
       
         
@@ -254,7 +262,7 @@ class PhotosController < ApplicationController
 
             
         end
-      # debugger
+      
     # MAP
     
     unless @stores.blank?
