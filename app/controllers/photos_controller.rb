@@ -135,7 +135,7 @@ class PhotosController < ApplicationController
         @stores = @stores.includes(:retailer)
           .where('country_id IN (?) AND country_id IS NOT NULL', @countries.map(&:id))
           .where('retailer_id IN (?)', @retailers.map(&:id))
-          
+          # debugger
       end
 
       # skips those on ajax calls
@@ -160,18 +160,24 @@ class PhotosController < ApplicationController
         @per_page = 30
       end
 
+      @audits = Audit.find_all_by_store_id(@stores.map(&:id))
       # initiate Photo object
+      
       if user_is_project_subscriber?
-        if Project.exists?(current_user.subscription.projects.split(','))
+        # debugger
+        if Project.exists?(current_user.subscription.projects)
           @projects = Project.find(current_user.subscription.projects.split(',')) 
         end
         @photos = Photo.joins(:projects).where('projects.id IN (?)', @projects.map(&:id)).published
+        
+        @photos = @photos.where('audit_id IN (?)', @audits.map(&:id))
 
+        
       else
         @photos = Photo.published  
       end
 
-      @audits = Audit.find_all_by_store_id(@stores.map(&:id))
+      
         
         # on page load check
         if params_search.nil?
@@ -181,33 +187,41 @@ class PhotosController < ApplicationController
             @photos = @photos.of_categories(@categories)
           end
 
-
+          unless user_is_project_subscriber?
             @photos = @photos
               .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at distinct photos.id')
               .where('audit_id IN (?)', @audits.map(&:id))
               .order('audits.audit_date DESC, photos.created_at DESC')
               .includes([:audit, :brands])
-
-            # debugger
+          else
+            @photos = @photos
+              .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at distinct photos.id')
+              .order('audits.audit_date DESC, photos.created_at DESC')
+              .includes([:audit, :brands])
+          end    
+          
+            
             
             # @stores = @stores.where('stores.id IN (?)', @store_ids)
             if user_is_project_subscriber? || user_is_category_subscriber? || 
                   user_is_retailer_subscriber? || user_is_sector_subscriber? || user_is_country_subscriber?
-              @photo_audits = @photos.select('DISTINCT audit_id').map(&:audit_id)
+              
+              @photo_audits = @photos.select(:audit_id).map(&:audit_id).uniq
               @audits = Audit.find_all_by_id(@photo_audits)
               @store_ids = @audits.map(&:store_id)
-              @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
+              
+              @stores = Store.find_all_by_id(@store_ids)
+              # @stores = @stores.where('stores.id IN (?)', @store_ids)
               
             end 
-
-            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'}) 
-
             
+            @photos = @photos.paginate(:page => params[:page], :per_page => @per_page, :count => { :select => 'distinct photos.id'}) 
             
         else 
       
         
         # SEARCH / FILTER
+        
           from_date = search_from_date.present? ? DateTime.parse(search_from_date) : DateTime.parse('01/01/1970')
           to_date = search_to_date.present? ? DateTime.parse(search_to_date) : DateTime.now
           
@@ -215,10 +229,15 @@ class PhotosController < ApplicationController
           if user_is_project_subscriber?
         
             @projects = Project.find(current_user.subscription.projects.split(','))
+            
             if search_projects.present?
               @photos = Photo.joins(:projects).where('project_id IN (?)', search_projects).published
+              @photos = @photos.where('audit_id IN (?)', @audits.map(&:id))
+              
             else
               @photos = @project_photos = Photo.joins(:projects).published
+              @photos = @photos.where('audit_id IN (?)', @audits.map(&:id))
+              # @photos = @project_photos = Photo.joins(:projects).where('projects.id IN (?)', @projects.map(&:id))
 
             end
             
@@ -226,14 +245,20 @@ class PhotosController < ApplicationController
             @photos = Photo.published  
           end
 
-          @photos = @photos
-              .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
-              .order('audits.audit_date DESC, photos.created_at DESC')
-              .where('audit_id IN (?)', @audits.map(&:id))
-          
-          @photos = @photos.by_audits_in_stores(@stores)
-              .includes(:brands)
-
+          unless user_is_project_subscriber?
+            @photos = @photos
+                .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+                .order('audits.audit_date DESC, photos.created_at DESC')
+                .where('audit_id IN (?)', @audits.map(&:id))
+            
+            @photos = @photos.by_audits_in_stores(@stores)
+                .includes(:brands)
+          else
+            @photos = @photos
+                .select('photos.id, photos.photo_file_name, photos.audit_id, photos.photo_updated_at')
+                .order('audits.audit_date DESC, photos.created_at DESC')
+          end
+              
           @photos = @photos.of_promotion_calendar(search_promotion_calendars) if search_promotion_calendars.present?
           @photos = @photos.of_promotion_types(search_promotion_types) if search_promotion_types.present?
           @photos = @photos.of_media_types(search_media_types) if search_media_types.present?
@@ -258,7 +283,10 @@ class PhotosController < ApplicationController
         
           @store_ids = @audits.map(&:store_id)
 
-          @stores = @stores.where('stores.id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
+          @stores = @stores.where('id IN (?)', @store_ids).where('stores.country_id IS NOT NULL')
+          # @stores = Store.find_all_by_id(@store_ids)
+          if user_is_country_subscriber?
+          end
           
           @photos = @photos.paginate(:per_page => @per_page, :page => params[:page])
               .order('audits.audit_date DESC, photos.created_at DESC')
