@@ -1,9 +1,0 @@
-development:
-  access_key_id: AKIAIYAKGEGWZQYJMTNQ
-  secret_access_key: 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
-test:
-  access_key_id: abc...
-  secret_access_key: abc...
-production:
-  access_key_id: AKIAIYAKGEGWZQYJMTNQ
-  secret_access_key: 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
